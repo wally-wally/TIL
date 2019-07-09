@@ -14,3 +14,5 @@ searches = soup.select('#PM_ID_ct > div.header > div.section_navbar > div.area_h
 # 4. 출력한다.
 for search in searches:
     print(search.text)
+
+# 두번째 커밋을 위한 주석!
