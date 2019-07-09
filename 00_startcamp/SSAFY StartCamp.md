@@ -1,11 +1,11 @@
-# SSAFY StartCamp
+# SSAFY StartCamp(written by Gyuhyeon)
 
 ----
 
 ※참고사항※
 
-- 'SSAFY StartCamp'는 학습하면서 헷갈리거나 중요하다고 생각한 내용을 정리한 것입니다.
-- 최대한 수업 시간의 모든 내용을 담으려했으나 없는 내용이 있을 수도 있습니다.
+- 'SSAFY StartCamp'는 학습하면서 헷갈리거나 중요하다고 생각한 내용을 정리한 것임.
+- 최대한 수업 시간의 모든 내용을 담으려했으나 없는 내용이 있을 수도 있음.
 
 ----
 
@@ -26,7 +26,7 @@
 
 ### 1.2 if문과 for문 작성하기
 
-(1) 간단한 if문 예제
+**(1) 간단한 if문 예제**
 
 ```python
 x = 30
@@ -38,7 +38,7 @@ else:
     print('C') # 그 외의 경우는 C를 출력
 ```
 
-(2) 간단한 for문 예제
+**(2) 간단한 for문 예제**
 
 ```python
 for i in range(5):
@@ -49,7 +49,7 @@ for i in range(5):
 
 ### 1.3 리스트
 
-(1) 음식 메뉴 리스트를 만들어 무작위 메뉴 추출하기(random 모듈 이용)
+**(1) 음식 메뉴 리스트를 만들어 무작위 메뉴 추출하기(random 모듈 이용)**
 
 ```python
 import random # random 모듈 선언
@@ -93,7 +93,7 @@ print(dust['영등포구'])
 
 ### 1.6 webbrowser 열기
 
-(1) 리스트에 웹 주소 입력하여 홈페이지 전부 열기
+**(1) 리스트에 웹 주소 입력하여 홈페이지 전부 열기**
 
 ```python
 import webbrowser
@@ -103,7 +103,7 @@ for site in sites:
     webbrowser.open_new(sites)
 ```
 
-(2) 홈페이지 주소의 검색값을 리스트로 입력하여 홈페이지 열기
+**(2) 홈페이지 주소의 검색값을 리스트로 입력하여 홈페이지 열기**
 
 ```python
 import webbrowser
@@ -119,7 +119,7 @@ for idol in idols
 
 ### 1.7 [웹 크롤링]KOSPI 지수와 원/달러 환율 출력하기
 
-(1) requests 모듈을 이용하여 홈페이지의 상태 코드 출력하기
+**(1) requests 모듈을 이용하여 홈페이지의 상태 코드 출력하기**
 
 ```python
 import requests
@@ -128,7 +128,7 @@ response = requests.get('https://www.naver.com').status_code
 print(response)
 ```
 
-(2) 네이버 금융에서 KOSPI 지수 출력하기
+**(2) 네이버 금융에서 KOSPI 지수 출력하기**
 
 ```PYTHON
 import requests
@@ -144,7 +144,7 @@ kospi = soup.select_one('#KOSPI_now').text
 print(kospi)
 ```
 
-(3) 네이버 금융에서 원/달러 환율 출력하기
+**(3) 네이버 금융에서 원/달러 환율 출력하기**
 
 ```PYTHON
 import requests
@@ -236,36 +236,119 @@ for search in searches:
 
 - 자격 설정 과정
   - windows 자격 증명 관리자에서 git 관련 정보를 삭제하면 git이 초기화 된다.(Windows 자격 증명)
-    - git bash 킨다
-    - git config --global user.name "wally-wally"
-    - git config --global user.email wallys0213@gmail.com
+    - git bash를 연다.
+    - `git config --global user.name "wally-wally"`
+    - `git config --global user.email wallys0213@gmail.com`
 - add 과정
   - git init : git 한테 저장소 권한 부여(새로운 폴더 만들면 꼭 해야 함)
     - 단, TIL 폴더로 이동 후 git init을 실행해야 함. 즉, 관리할 최상위 폴더(TIL 폴더)에서 push 해야 함(master 표시가 있는 것을 확인하자)
-  - [제일 중요!!!]**git status**는 항상 찍어서 확인하자(빨간 글씨X, 초록 글씨O)
-  - git add 00_startcamp 찍은 후 git status를 입력하면 add 됨.
+  - [제일 중요!!!]`git status`는 항상 찍어서 확인하자(빨간 글씨X, 초록 글씨O)
+  - `git add 00_startcamp` 찍은 후 `git status`를 입력하면 add 됨.
 - commit 과정
-  - **git add .** : 수정사항이 있을 때 add할 경우 전체를 다 add 함.(가능한 이거 사용)
-  - git commit -m "first commit" -> git status로 확인 -> git log로 확인
-  - git log : commit한 과정들 확인할 때
+  - `git add .` : 수정사항이 있을 때 add할 경우 전체를 다 add 함.(가능한 이거 사용)
+  - `git commit -m "first commit"` -> `git status`로 확인 -> `git log`로 확인
+  - `git log` : commit한 과정들 확인할 때
 - push 과정
-  - git remote add origin https://github.com/wally-wally/TIL.git (맨 처음 한 번만 하면 됨, 새로운 폴더 만들면 remote 과정 수행해야 함, 뒤에 주소는 매번 달라짐)
-  - git remote -v로 확인 후 git push -u origin master (맨 처음 한 번만 하면 됨, 새로운 폴더 만들면 이 과정 수행해야 함)
-  - 두 번째 push 부터는 git push만 치면 됨
-  - 무조건 항상 add-commit-push 하는게 아니고 commit으로 여러 개 쌓고 마지막에 push 하면 한 번에 업데이트 됨.
+  - `git remote add origin https://github.com/wally-wally/TIL.git` (맨 처음 한 번만 하면 됨, 새로운 폴더 만들면 remote 과정 수행해야 함, 뒤에 주소는 매번 달라짐)
+  - `git remote -v`로 확인 후 `git push -u origin master` (맨 처음 한 번만 하면 됨, 새로운 폴더 만들면 이 과정 수행해야 함)
+  - 두 번째 push 부터는 `git push`만 치면 됨
+  - 무조건 항상 add->commit->push 하는게 아니고 commit으로 여러 개 쌓고 마지막에 push 하면 한 번에 업데이트 됨.
 
 
 
-### 2.4 git clone, pull
+### 2.4 git clone, pull, gitignore
 
-- 집에서 github을 사용할 때(git clone) == git -> 집 컴
-  - 바탕화면 경로 지정 후 git bash에서 git clone https://github.com/wally-wally/TIL.git
+- 집에서 github을 사용할 때(`git clone`) == git -> 집 컴
+  - 바탕화면 경로 지정 후 git bash에서 `git clone https://github.com/wally-wally/TIL.git`
   - clone하면 remote할 필요가 없음
-- 집에서 사용 후 github으로 올릴 때(git pull) == 집 컴 -> git
-  - second commit git에 올린다(git commit -m "second commit")
+- 집에서 사용 후 github으로 올릴 때(`git pull`) == 집 컴 -> git
+  - second commit git에 올린다(`git commit -m "second commit"`)
   - pull로 git에서 ssafy 컴퓨터로 가져온다.(즉, 버전을 맞추는 과정이므로 집에서 코드 수정사항이 있으면 ssafy 출근하자마자 pull 한다.)
   - ssafy에서 작업 후 코드가 바뀌면 또 다시 집에서도 pull을 해야 한다.
+  - github 사이트 맨 위에 settings > Collaborators
+- 첫 push 전에 gitignore 설정을 반드시 하자!(github에 개인 정보나 개인 token을 절대로 올리지X)
+  - 최상위 폴더에 `code .gitignore`
+  - https://github.com/github/gitignore/blob/master/Python.gitignore에 있는 내용 복사하여 붙여넣기
+  - gitignore.io에서 나만의 .gitignore 파일 만들 수 있음
+    - cf) ls -al : 숨김 파일 보이기(숨김 파일들은 앞에 .(온점)이 숨어있다.(확장자명 없음))
 
-### 2.5
 
-### 2.6
+
+### 2.5 문자열(string) 삽입
+
+```python
+# 과거 -> 이 방법은 잊자
+'%s %s' % ('one', 'two')
+
+# pyformat(~ver3.5) -> 이 방법은 잊자
+'{} {}'.format('one', 'two')
+
+# f-string(new in ver3.6) -> 이 방법을 사용하자!
+a = 'one'
+b = 'two'
+print(f'{a}, {b}')
+```
+
+**(1) 문자열 예제①**
+
+```python
+import random
+
+# 1.f-string을 이용한 간단한 문장 출력하기
+name = '심규현'
+print(f'안녕하세요, {name} 입니다.')
+
+# 2. 점심 메뉴 추천
+menu = ['냉국수', '치즈돈가스', '냉모밀']
+lunch = random.choice(menu)
+
+print(f'오늘의 점심은 {lunch}입니다.')
+
+# 3. 로또 추천
+numbers = range(1,46) #1~45까지의 수 중에서 뽑는 것이므로 45가 아닌 46임을 주의!
+lotto = random.sample(numbers, 6)
+
+print(f'오늘의 로또 당첨 번호는 {sorted(lotto)}입니다.')
+
+# 4. 필요하면 이렇게도 해보자(문자열끼리 합치기)
+name = '홍길동'
+print('안녕하세요, ' + name + '입니다.')
+```
+
+- f-string을 사용하여 재사용 가능한 구문으로 작성해준다.
+
+**(2) (사무 자동화를 위한) 파일명 바꾸기(import os)**
+
+- `os.chdir(r'폴더주소')`
+  - 윈도우에서는 폴더주소 앞에 r을 꼭 쳐줘야 한다.  \ 문자를 이스케이프 문자로 인식안해주고 하나의 문자열로 인식해주기 위해 r을 입력해줘야 한다.
+  - \의 원래 기능 : "심규현"입니다. 에서 " " 표시를 나타나게 해줌.
+- `os.listdir('폴더주소')`
+- `os.rename(이전 파일명, 바꿀 파일명)`
+- `'happy'.replace('h', 'B')` : Bappy로 바뀜
+- os 모듈을 이용한 파일명 바꾸기 예제
+
+```python
+import os
+
+# 1. 해당 파일들이 있는 위치로 이동
+os.chdir(r'C:\Users\student\Desktop\TIL\00_startcamp\02_day\change_filenames')
+
+# 2. 현재 폴더 안에 모든 파일 이름은 수집
+filenames = os.listdir('.') # 현재 위치를 나타내는 것은 .(온점) 하나만 찍으면 됨.(이미 os.chdir로 위치를 이동했기 때문)
+
+# 3. 각각의 파일명을 돌면서 수정
+for filename in filenames:
+    os.rename(filename, f'SAMSUNG_{filename}')
+```
+
+```PYTHON
+import os
+
+os.chdir(r'C:\Users\student\Desktop\TIL\00_startcamp\02_day\change_filenames')
+filenames = os.listdir('.')
+
+# 4. SAMSUNG을 SSAFY로 변환
+for filename in filenames:
+    os.rename(filename, filename.replace('SAMSUNG_', 'SSAFY_'))
+```
+
