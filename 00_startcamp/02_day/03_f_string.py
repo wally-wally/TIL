@@ -5,7 +5,7 @@ print(f'안녕하세요, {name} 입니다.')
 # 2. 점심 메뉴 추천
 import random
 
-menu = ['냉국수', '치즈돈가스', '냉모밀']
+menu = ['냉국수', '치즈돈가스', '냉모밀', '카레라이스']
 lunch = random.choice(menu)
 
 print(f'오늘의 점심은 {lunch}입니다.')
