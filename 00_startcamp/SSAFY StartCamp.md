@@ -1,0 +1,271 @@
+# SSAFY StartCamp
+
+----
+
+※참고사항※
+
+- 'SSAFY StartCamp'는 학습하면서 헷갈리거나 중요하다고 생각한 내용을 정리한 것입니다.
+- 최대한 수업 시간의 모든 내용을 담으려했으나 없는 내용이 있을 수도 있습니다.
+
+----
+
+[TOC]
+
+## 1. 7월08일(1일차)
+
+
+
+### 1.1 파이썬 기본 Convention
+
+- 파이썬의 구문 3요소 : 저장, 조건, 반복
+- 파이썬의 글자(문자)는 큰 따옴표 대신에 작은 따옴표로 사용한다.
+- 'x는 30 이하'는 x<=30로, 'x는 30 이상'은 x>=30으로 작성한다.
+- 'x=30'은 30을 변수 x에 삽입한다는 의미이다.
+
+
+
+### 1.2 if문과 for문 작성하기
+
+(1) 간단한 if문 예제
+
+```python
+x = 30
+if x>20:
+    print('A') # x가 20보다 큰 경우 A를 출력
+elif x>10 and x<=20:
+    print('B') # 10보다 크고 20보다 작거나 같은 경우 B를 출력
+else:
+    print('C') # 그 외의 경우는 C를 출력
+```
+
+(2) 간단한 for문 예제
+
+```python
+for i in range(5):
+    print('안녕하세요') # 안녕하세요를 5번 출력하는 구문
+```
+
+
+
+### 1.3 리스트
+
+(1) 음식 메뉴 리스트를 만들어 무작위 메뉴 추출하기(random 모듈 이용)
+
+```python
+import random # random 모듈 선언
+
+menu = ['냉국수', '치즈돈가스', '냉모밀', '삼겹살', '제육덮밥'] # 리스트 생성
+choice = random.choice(menu) # 리스트 항목 중 랜덤으로 하나의 항목을 골라 choice 변수에 삽입
+print(choice) # 선택된 항목 출력하기
+```
+
+ cf) random 모듈을 이용한 로또번호 출력하기
+
+```python
+import random
+
+numbers = range(1,46)
+select = random.sample(numbers, 6)
+print(select)
+```
+
+
+
+### 1.4 딕셔너리
+
+```python
+dust={'영등포구': 58, '강남구': 40} # 영등포구, 강남구는 '키', 58, 40을 'value'라고 함.
+print(dust['영등포구'])
+```
+
+
+
+### 1.5 bash 명령어
+
+- ls : 현재 디렉트리 내용 나열
+- cd : 현재 작업하는 디렉토리 변경
+- mkdir : 새로운 디렉토리(폴더) 생성
+- echo : 문자열 출력
+- rm : 파일 지우기
+- exit : 터미널 종료
+
+
+
+### 1.6 webbrowser 열기
+
+(1) 리스트에 웹 주소 입력하여 홈페이지 전부 열기
+
+```python
+import webbrowser
+
+sites = ['www.google.com', 'www.naver.com', 'www.daum.net']
+for site in sites:
+    webbrowser.open_new(sites)
+```
+
+(2) 홈페이지 주소의 검색값을 리스트로 입력하여 홈페이지 열기
+
+```python
+import webbrowser
+
+idols = ['BTS', 'nrg', 'hot', 'babyvox']
+url = 'https://search.naver.com/search.naver?query='
+
+for idol in idols
+    webbrowser.open_new(url + idol)
+```
+
+
+
+### 1.7 [웹 크롤링]KOSPI 지수와 원/달러 환율 출력하기
+
+(1) requests 모듈을 이용하여 홈페이지의 상태 코드 출력하기
+
+```python
+import requests
+
+response = requests.get('https://www.naver.com').status_code
+print(response)
+```
+
+(2) 네이버 금융에서 KOSPI 지수 출력하기
+
+```PYTHON
+import requests
+from bs4 import BeautifulSoup
+
+# 1. 원하는 주소로 요청을 보내 응답을 저장한다.
+html = requests.get('https://finance.naver.com/sise/').text
+# 2. 정보를 조작하기 편하게 바꾸고
+soup = BeautifulSoup(html, 'html.parser')
+# 3. 바꾼 정보 중 원하는 것만 뽑아서
+kospi = soup.select_one('#KOSPI_now').text
+# 4. 출력한다.
+print(kospi)
+```
+
+(3) 네이버 금융에서 원/달러 환율 출력하기
+
+```PYTHON
+import requests
+from bs4 import BeautifulSoup
+
+# 1. 원하는 주소로 요청을 보내 응답을 저장한다.
+html = requests.get('https://finance.naver.com/marketindex/').text
+# 2. 정보를 조작하기 편하게 바꾸고
+soup = BeautifulSoup(html, 'html.parser')
+# 3. 바꾼 정보 중 원하는 것만 뽑아서
+exchange = soup.select_one('#exchangeList > li.on > a.head.usd > div > span.value').text  #여러 정보 찍을 때는 select_one 대신 select로 한다.
+# 4. 출력한다.
+print(exchange)
+```
+
+ cf) 홈페이지(ex.네이버 금융)에서 selector 가져오기
+
+![순서01](C:\Users\심슨\Desktop\TIL\00_startcamp\01.JPG)
+
+① 네이버 금융 > 국내증시에 접속하여 빈 화면에서 오른쪽 버튼을 눌러 '검사'를 선택한다.
+
+② 오른쪽에 새로 생기는 창에서 빨간 네모로 표시된 아이콘을 선택한다.
+
+![순서02](C:\Users\심슨\Desktop\TIL\00_startcamp\02.jpg)
+
+③ 코스피 숫자 부분에 파란색으로 음영처리 되면 클릭을 한다.
+
+④ 오른쪽 창에 빨간 네모로 표시된 부분을 오른쪽 버튼을 클릭하여 Copy > Copy selector를 선택한다.
+
+⑤ 복사된 selector를 VSCODE에 복사하여 코드를 작성하여 사용한다.
+
+
+
+----
+
+
+
+## 2. 7월 09일(2일차)
+
+
+
+### 2.1 네이버 실시간 검색어 크롤링
+
+```python
+import requests
+from bs4 import BeautifulSoup
+
+# 1. 원하는 주소로 요청을 보내 응답을 저장한다.
+url='https://www.naver.com'
+html = requests.get(url).text
+
+# 2. 정보를 조작하기 편하게 바꾸고
+soup = BeautifulSoup(html, 'html.parser')
+
+# 3. 바꾼 정보 중 원하는 것만 뽑아서
+searches = soup.select('#PM_ID_ct > div.header > div.section_navbar > div.area_hotkeyword.PM_CL_realtimeKeyword_base > div.ah_roll.PM_CL_realtimeKeyword_rolling_base > div > ul > li > a > span.ah_k')
+  # 추출한 셀렉터 중 li:nth-child(13)에서 ':nth-child(13)'은 필요없는 부분이므로 삭제
+  # nth-child(13)은 특정 등수의 정보만 뽑아내기 때문에 우리가 필요한 건 리스트이다!
+  # 여러 개를 뽑아 리스트에 저장해야 하므로 select_one이 아닌 select를 사용한다.
+    
+# 4. 출력한다.
+for search in searches:
+    print(search.text)
+  # for문으로 리스트의 내용들을 전부 출력하는데 텍스트 부분만 필요하므로 .text를 붙인다.
+```
+
+- 홈페이지에서 selector를 복사해 올 때 네이버 메인 페이지의 실시간 검색어가 어떤 등수이든지 상관 없으므로 아무거나 선택하여 복사해온다.
+
+
+
+### 2.2 git의 특징 및 작업 흐름
+
+- git의 특징
+  - (분산) 버전 관리 시스템(DVCS), 코드의 History를 관리하는 도구
+  - 개발된 과정과 역사를 볼 수 있음
+  - 코드 병합, 수정, 백업, 이전 버전과 비교가 가능
+- git의 작업 흐름(add-commit-push)
+  - [Working directory] --add--> [INDEX] --commit--> [HEAD] --push--> [GitHub]
+    - add : 커밋할 목록에 추가
+    - commit : 커밋(create a snapshot)  만들기
+    - push : 현재까지의 역사(commits)가 기록되어 있는 곳에 새로 생성한 커밋들 반영하기
+    - [INDEX]부터 git이 인식할 수 있는 공간이다.
+  - 반드시 단계별로 진행되어야 한다.
+  - git은 INDEX에 있는 내용으로 commit을 해준다.(INDEX 과정 꼭 놓치지 말자!)
+
+
+
+### 2.3 git 세팅 과정
+
+- 자격 설정 과정
+  - windows 자격 증명 관리자에서 git 관련 정보를 삭제하면 git이 초기화 된다.(Windows 자격 증명)
+    - git bash 킨다
+    - git config --global user.name "wally-wally"
+    - git config --global user.email wallys0213@gmail.com
+- add 과정
+  - git init : git 한테 저장소 권한 부여(새로운 폴더 만들면 꼭 해야 함)
+    - 단, TIL 폴더로 이동 후 git init을 실행해야 함. 즉, 관리할 최상위 폴더(TIL 폴더)에서 push 해야 함(master 표시가 있는 것을 확인하자)
+  - [제일 중요!!!]**git status**는 항상 찍어서 확인하자(빨간 글씨X, 초록 글씨O)
+  - git add 00_startcamp 찍은 후 git status를 입력하면 add 됨.
+- commit 과정
+  - **git add .** : 수정사항이 있을 때 add할 경우 전체를 다 add 함.(가능한 이거 사용)
+  - git commit -m "first commit" -> git status로 확인 -> git log로 확인
+  - git log : commit한 과정들 확인할 때
+- push 과정
+  - git remote add origin https://github.com/wally-wally/TIL.git (맨 처음 한 번만 하면 됨, 새로운 폴더 만들면 remote 과정 수행해야 함, 뒤에 주소는 매번 달라짐)
+  - git remote -v로 확인 후 git push -u origin master (맨 처음 한 번만 하면 됨, 새로운 폴더 만들면 이 과정 수행해야 함)
+  - 두 번째 push 부터는 git push만 치면 됨
+  - 무조건 항상 add-commit-push 하는게 아니고 commit으로 여러 개 쌓고 마지막에 push 하면 한 번에 업데이트 됨.
+
+
+
+### 2.4 git clone, pull
+
+- 집에서 github을 사용할 때(git clone) == git -> 집 컴
+  - 바탕화면 경로 지정 후 git bash에서 git clone https://github.com/wally-wally/TIL.git
+  - clone하면 remote할 필요가 없음
+- 집에서 사용 후 github으로 올릴 때(git pull) == 집 컴 -> git
+  - second commit git에 올린다(git commit -m "second commit")
+  - pull로 git에서 ssafy 컴퓨터로 가져온다.(즉, 버전을 맞추는 과정이므로 집에서 코드 수정사항이 있으면 ssafy 출근하자마자 pull 한다.)
+  - ssafy에서 작업 후 코드가 바뀌면 또 다시 집에서도 pull을 해야 한다.
+
+### 2.5
+
+### 2.6
