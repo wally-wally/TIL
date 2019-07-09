@@ -352,3 +352,6 @@ for filename in filenames:
     os.rename(filename, filename.replace('SAMSUNG_', 'SSAFY_'))
 ```
 
+
+
+### 3. 7월 10일(03일차)
