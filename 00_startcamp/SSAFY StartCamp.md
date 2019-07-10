@@ -20,10 +20,10 @@
 ### 1.1 파이썬 기본 Convention
 
 - 파이썬의 구문 3요소 : 저장, 조건, 반복
-- 파이썬의 글자(문자)는 큰 따옴표 대신에 작은 따옴표로 사용한다.
+- 파이썬의 **글자(문자)**는 큰 따옴표 대신에 **<u>작은 따옴표</u>**로 사용한다.
 - 'x는 30 이하'는 x<=30로, 'x는 30 이상'은 x>=30으로 작성한다.
 - 'x=30'은 30을 변수 x에 삽입한다는 의미이다.
-- python은 영어 대소문자를 구분하므로 주의한다.
+- python은 **영어 대소문자를 구분**하므로 주의한다.
 
 
 
@@ -89,6 +89,7 @@ print(dust['영등포구'])
 
 - ls : 현재 디렉트리 내용 나열
 - cd : 현재 작업하는 디렉토리 변경
+  - cd .. : 상위 디렉토리로 이동
 - mkdir : 새로운 디렉토리(폴더) 생성
 - echo : 문자열 출력
 - rm : 파일 지우기
@@ -173,13 +174,13 @@ print(exchange)
 
  cf) 홈페이지(ex.네이버 금융)에서 selector 가져오기
 
-![순서01](C:\Users\심슨\Desktop\TIL\00_startcamp\01.JPG)
+![순서01](https://user-images.githubusercontent.com/52685250/60976004-dd397500-a367-11e9-87c6-92973bfaa61d.jpg)
 
 > ① 네이버 금융 > 국내증시에 접속하여 빈 화면에서 오른쪽 버튼을 눌러 '검사'를 선택한다.
 >
 > ② 오른쪽에 새로 생기는 창에서 빨간 네모로 표시된 아이콘을 선택한다.
 
-![순서02](C:\Users\심슨\Desktop\TIL\00_startcamp\02.jpg)
+![순서02](https://user-images.githubusercontent.com/52685250/60976034-ea566400-a367-11e9-9c35-f6bab327e852.jpg)
 
 > ③ 코스피 숫자 부분에 파란색으로 음영처리 되면 클릭을 한다.
 >
@@ -233,7 +234,7 @@ for search in searches:
   - 개발된 과정과 역사를 볼 수 있음
   - 코드 병합, 수정, 백업, 이전 버전과 비교가 가능
 - git의 작업 흐름(add-commit-push)
-  - [Working directory] --add--> [INDEX] --commit--> [HEAD] --push--> [GitHub]
+  - [Working directory] --***add***--> [INDEX] --***commit***--> [HEAD] --***push***--> [GitHub]
     - add : 커밋할 목록에 추가
     - commit : 커밋(create a snapshot)  만들기
     - push : 현재까지의 역사(commits)가 기록되어 있는 곳에 새로 생성한 커밋들 반영하기
@@ -245,25 +246,25 @@ for search in searches:
 
 ### 2.3 git 세팅 과정
 
-- 자격 설정 과정
+- 자격 설정 과정(컴퓨터에 처음으로 시작할 때만 수행)
   - windows 자격 증명 관리자에서 git 관련 정보를 삭제하면 git이 초기화 된다.(Windows 자격 증명)
     - git bash를 연다.
     - `git config --global user.name "wally-wally"`
     - `git config --global user.email wallys0213@gmail.com`
 - add 과정
-  - git init : git 한테 저장소 권한 부여(새로운 폴더 만들면 꼭 해야 함)
-    - 단, TIL 폴더로 이동 후 git init을 실행해야 함. 즉, 관리할 최상위 폴더(TIL 폴더)에서 push 해야 함(master 표시가 있는 것을 확인하자)
-  - [제일 중요!!!]`git status`는 항상 찍어서 확인하자(빨간 글씨X, 초록 글씨O)
+  - git init : git 한테 저장소 권한 부여(새로운 폴더를 만들면 꼭 해야 함)
+    - 단, TIL 폴더로 이동 후 git init을 실행해야 함. 즉, 관리할 최상위 폴더(TIL 폴더)에서 push 해야 함(**master 표시가 있는 것을 확인하자**)
+  - **`git status`는 수시로 항상 찍어서 확인하자!!!**(빨간 글씨X, 초록 글씨O)
   - `git add 00_startcamp` 찍은 후 `git status`를 입력하면 add 됨.
 - commit 과정
-  - `git add .` : 수정사항이 있을 때 add할 경우 전체를 다 add 함.(가능한 이거 사용)
+  - **`git add .`** : **수정사항이 있을 때 add할 경우 전체를 다 add 함.(가능한 이거 사용)**
   - `git commit -m "first commit"` -> `git status`로 확인 -> `git log`로 확인
   - `git log` : commit한 과정들 확인할 때
 - push 과정
   - `git remote add origin https://github.com/wally-wally/TIL.git` (맨 처음 한 번만 하면 됨, 새로운 폴더 만들면 remote 과정 수행해야 함, 뒤에 주소는 매번 달라짐)
   - `git remote -v`로 확인 후 `git push -u origin master` (맨 처음 한 번만 하면 됨, 새로운 폴더 만들면 이 과정 수행해야 함)
   - 두 번째 push 부터는 `git push`만 치면 됨
-  - 무조건 항상 add->commit->push 하는게 아니고 commit으로 여러 개 쌓고 마지막에 push 하면 한 번에 업데이트 됨.
+  - 무조건 항상 add->commit->push 순서로만 하는게 아니고 commit으로 여러 개 쌓고 마지막에 push 하면 한 번에 업데이트 됨.
 
 
 
@@ -277,11 +278,22 @@ for search in searches:
   - pull로 git에서 ssafy 컴퓨터로 가져온다.(즉, 버전을 맞추는 과정이므로 집에서 코드 수정사항이 있으면 ssafy 출근하자마자 pull 한다.)
   - ssafy에서 작업 후 코드가 바뀌면 또 다시 집에서도 pull을 해야 한다.
   - 다른 사람과 협업할 때는 github 사이트 맨 위에 settings > Collaborators에서 추가적인 설정을 해야 한다.
+
 - 첫 push 전에 gitignore 설정을 반드시 하자!(github에 개인 정보나 개인 token을 절대로 올리지X)
   - 최상위 폴더에 `code .gitignore`
   - https://github.com/github/gitignore/blob/master/Python.gitignore 에 있는 내용 복사하여 붙여넣기
   - gitignore.io에서 나만의 .gitignore 파일 만들 수 있음
     - cf) ls -al : 숨김 파일 보이기(숨김 파일들은 앞에 .(온점)이 숨어있다.(확장자명 없음))
+
+***
+
+**[요약!]** **<git의 작업 흐름 과정 정리>**
+
+- 작업 후 올릴 때 : git add. => git status => git commit -m "commit이름" => git status => git log => git push
+- 집에서 할 때 : git pull => '작업 후 올릴 때' 과정 반복
+- 과정 하나하나 지나갈 때 마다 git status로 상태를 확인하자!
+
+***
 
 
 
@@ -306,6 +318,8 @@ print(f'{a}, {b}')
 
 **(2) 문자열 예제①**
 
+> f-string을 사용하여 <u>재사용 가능한 구문</u>으로 작성해준다.
+
 ```python
 import random
 
@@ -329,8 +343,6 @@ print(f'오늘의 로또 당첨 번호는 {sorted(lotto)}입니다.')
 name = '홍길동'
 print('안녕하세요, ' + name + '입니다.')
 ```
-
-- f-string을 사용하여 재사용 가능한 구문으로 작성해준다.
 
 
 
@@ -420,7 +432,7 @@ with open('ssafy.txt', 'w') as f:
 >
 >   > ex)print(dir(line)) : 위 구문에서 line이 문자열이므로 문자열에서 사용할 수 있는 함수를 모두 보여준다.
 >
-> - DOCstring : 더블쿼트 세 개를 이용하여 주석과 같은 기능을 한다.((2)파일 읽기의 2번 예제와 같이 표시함)
+> - DOCstring : 더블쿼트 세 개를 이용하여 <u>주석과 같은 기능</u>을 한다.((2)파일 읽기의 2번 예제와 같이 표시함)
 
 ```python
 # 1. read() 함수 이용하여 파일 읽기
