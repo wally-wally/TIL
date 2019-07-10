@@ -757,7 +757,7 @@ def ssafy(): # 위와 다른 이름의 함수를 만들어야 함
 > Ctrl+C로 서버를 끄고 다시 켜야 수정된 사항이 서버에 반영된다.
 
 - flask run만 입력하여 반영하기 & Debug mode를 on으로 바꾸기
-  - ~/.bash_profile(이 파일은 항상 home directory(~/)안에 있어야 함) : git bash에 환경 변수 설정하기 위해 필요한 숨김 파일
+  - ~/.bash_profile(이 파일은 항상 home directory(물결 표시)안에 있어야 함) : git bash에 환경 변수 설정하기 위해 필요한 숨김 파일
   - git bash를 켜서 ~/ 디렉토리 위치에서 code ~/.bash_profile 입력
   - 열린 VSCODE에서 `export FLASK_APP=hello.py`입력 후 저장
   - TERMINAL창에 source ~/.bash_profile 입력(위치 무관)
