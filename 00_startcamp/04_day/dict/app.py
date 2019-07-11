@@ -24,7 +24,7 @@ def lotto_result():
         winner.append(lotto[f'drwtNo{i}'])
 
     # (5) 내 번호 리스트 만들기
-    nubmers = []
+    numbers = []
     for num in request.args.get('numbers').split():
         numbers.append(int(num))
 

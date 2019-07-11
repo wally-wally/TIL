@@ -1,4 +1,4 @@
-# SSAFY StartCamp(written by wally-wally)
+# **SSAFY StartCamp(written by wally-wally)**
 
 ----
 
@@ -11,9 +11,11 @@
 
 
 
-{:TOC}
+[TOC]
 
-## 1. 7월08일(1일차)
+
+
+## **1. 7월08일(1일차)**
 
 
 
@@ -29,7 +31,7 @@
 
 ### 1.2 if문과 for문 작성하기
 
-**(1) 간단한 if문 예제**
+##### (1) 간단한 if문 예제
 
 ```python
 x = 30
@@ -41,9 +43,7 @@ else:
     print('C') # 그 외의 경우는 C를 출력
 ```
 
-
-
-**(2) 간단한 for문 예제**
+##### (2) 간단한 for문 예제
 
 ```python
 for i in range(5):
@@ -54,7 +54,7 @@ for i in range(5):
 
 ### 1.3 리스트
 
-**(1) 음식 메뉴 리스트를 만들어 무작위 메뉴 추출하기(random 모듈 이용)**
+> 음식 메뉴 리스트를 만들어 무작위 메뉴 추출하기(random 모듈 이용)
 
 ```python
 import random # random 모듈 선언
@@ -99,7 +99,7 @@ print(dust['영등포구'])
 
 ### 1.6 webbrowser 열기
 
-**(1) 리스트에 웹 주소 입력하여 홈페이지 전부 열기**
+##### (1) 리스트에 웹 주소 입력하여 홈페이지 전부 열기
 
 ```python
 import webbrowser
@@ -111,7 +111,7 @@ for site in sites:
 
 
 
-**(2) 홈페이지 주소의 검색값을 리스트로 입력하여 홈페이지 열기**
+##### (2) 홈페이지 주소의 검색값을 리스트로 입력하여 홈페이지 열기
 
 ```python
 import webbrowser
@@ -127,7 +127,7 @@ for idol in idols
 
 ### 1.7 [웹 크롤링]KOSPI 지수와 원/달러 환율 출력하기
 
-**(1) requests 모듈을 이용하여 홈페이지의 상태 코드 출력하기**
+##### (1) requests 모듈을 이용하여 홈페이지의 상태 코드 출력하기
 
 ```python
 import requests
@@ -138,7 +138,7 @@ print(response)
 
 
 
-**(2) 네이버 금융에서 KOSPI 지수 출력하기**
+##### (2) 네이버 금융에서 KOSPI 지수 출력하기
 
 ```PYTHON
 import requests
@@ -156,7 +156,7 @@ print(kospi)
 
 
 
-**(3) 네이버 금융에서 원/달러 환율 출력하기**
+##### (3) 네이버 금융에서 원/달러 환율 출력하기
 
 ```PYTHON
 import requests
@@ -194,7 +194,7 @@ print(exchange)
 
 
 
-## 2. 7월 09일(2일차)
+## **2. 7월 09일(2일차)**
 
 
 
@@ -229,42 +229,52 @@ for search in searches:
 
 ### 2.2 git의 특징 및 작업 흐름
 
-- git의 특징
-  - (분산) 버전 관리 시스템(DVCS), 코드의 History를 관리하는 도구
-  - 개발된 과정과 역사를 볼 수 있음
-  - 코드 병합, 수정, 백업, 이전 버전과 비교가 가능
-- git의 작업 흐름(add-commit-push)
-  - [Working directory] --***add***--> [INDEX] --***commit***--> [HEAD] --***push***--> [GitHub]
-    - add : 커밋할 목록에 추가
-    - commit : 커밋(create a snapshot)  만들기
-    - push : 현재까지의 역사(commits)가 기록되어 있는 곳에 새로 생성한 커밋들 반영하기
-    - [INDEX]부터 git이 인식할 수 있는 공간이다.
-  - 반드시 단계별로 진행되어야 한다.
-  - git은 INDEX에 있는 내용으로 commit을 해준다.(INDEX 과정 꼭 놓치지 말자!)
+##### (1) git의 특징
+
+- (분산) 버전 관리 시스템(DVCS), 코드의 History를 관리하는 도구
+- 개발된 과정과 역사를 볼 수 있음
+- 코드 병합, 수정, 백업, 이전 버전과 비교가 가능
+
+##### (2) git의 작업 흐름(add-commit-push)
+
+- [Working directory] --***add***--> [INDEX] --***commit***--> [HEAD] --***push***--> [GitHub]
+  - add : 커밋할 목록에 추가
+  - commit : 커밋(create a snapshot)  만들기
+  - push : 현재까지의 역사(commits)가 기록되어 있는 곳에 새로 생성한 커밋들 반영하기
+  - [INDEX]부터 git이 인식할 수 있는 공간이다.
+- 반드시 단계별로 진행되어야 한다.
+- git은 INDEX에 있는 내용으로 commit을 해준다.(INDEX 과정 꼭 놓치지 말자!)
 
 
 
 ### 2.3 git 세팅 과정
 
-- 자격 설정 과정(컴퓨터에 처음으로 시작할 때만 수행)
-  - windows 자격 증명 관리자에서 git 관련 정보를 삭제하면 git이 초기화 된다.(Windows 자격 증명)
-    - git bash를 연다.
-    - `git config --global user.name "wally-wally"`
-    - `git config --global user.email wallys0213@gmail.com`
-- add 과정
-  - git init : git 한테 저장소 권한 부여(새로운 폴더를 만들면 꼭 해야 함)
-    - 단, TIL 폴더로 이동 후 git init을 실행해야 함. 즉, 관리할 최상위 폴더(TIL 폴더)에서 push 해야 함(**master 표시가 있는 것을 확인하자**)
-  - **`git status`는 수시로 항상 찍어서 확인하자!!!**(빨간 글씨X, 초록 글씨O)
-  - `git add 00_startcamp` 찍은 후 `git status`를 입력하면 add 됨.
-- commit 과정
-  - **`git add .`** : **수정사항이 있을 때 add할 경우 전체를 다 add 함.(가능한 이거 사용)**
-  - `git commit -m "first commit"` -> `git status`로 확인 -> `git log`로 확인
-  - `git log` : commit한 과정들 확인할 때
-- push 과정
-  - `git remote add origin https://github.com/wally-wally/TIL.git` (맨 처음 한 번만 하면 됨, 새로운 폴더 만들면 remote 과정 수행해야 함, 뒤에 주소는 매번 달라짐)
-  - `git remote -v`로 확인 후 `git push -u origin master` (맨 처음 한 번만 하면 됨, 새로운 폴더 만들면 이 과정 수행해야 함)
-  - 두 번째 push 부터는 `git push`만 치면 됨
-  - 무조건 항상 add->commit->push 순서로만 하는게 아니고 commit으로 여러 개 쌓고 마지막에 push 하면 한 번에 업데이트 됨.
+##### (1) 자격 설정 과정(컴퓨터에 처음으로 시작할 때만 수행)
+
+- windows 자격 증명 관리자에서 git 관련 정보를 삭제하면 git이 초기화 된다.(Windows 자격 증명)
+  - git bash를 연다.
+  - `git config --global user.name "wally-wally"`
+  - `git config --global user.email wallys0213@gmail.com`
+
+##### (2) add 과정
+
+- git init : git 한테 저장소 권한 부여(새로운 폴더를 만들면 꼭 해야 함)
+  - 단, TIL 폴더로 이동 후 git init을 실행해야 함. 즉, 관리할 최상위 폴더(TIL 폴더)에서 push 해야 함(**master 표시가 있는 것을 확인하자**)
+- **`git status`는 수시로 항상 찍어서 확인하자!!!**(빨간 글씨X, 초록 글씨O)
+- `git add 00_startcamp` 찍은 후 `git status`를 입력하면 add 됨.
+
+##### (3) commit 과정
+
+- **`git add .`** : **수정사항이 있을 때 add할 경우 전체를 다 add 함.(가능한 이거 사용)**
+- `git commit -m "first commit"` -> `git status`로 확인 -> `git log`로 확인
+- `git log` : commit한 과정들 확인할 때
+
+##### (4) push 과정
+
+- `git remote add origin https://github.com/wally-wally/TIL.git` (맨 처음 한 번만 하면 됨, 새로운 폴더 만들면 remote 과정 수행해야 함, 뒤에 주소는 매번 달라짐)
+- `git remote -v`로 확인 후 `git push -u origin master` (맨 처음 한 번만 하면 됨, 새로운 폴더 만들면 이 과정 수행해야 함)
+- 두 번째 push 부터는 `git push`만 치면 됨
+- 무조건 항상 add->commit->push 순서로만 하는게 아니고 commit으로 여러 개 쌓고 마지막에 push 하면 한 번에 업데이트 됨.
 
 
 
@@ -289,9 +299,9 @@ for search in searches:
 
 **[요약!]** **<git의 작업 흐름 과정 정리>**
 
-- 작업 후 올릴 때 : git add. => git status => git commit -m "commit이름" => git status => git log => git push
-- 집에서 할 때 : git pull => '작업 후 올릴 때' 과정 반복
-- 과정 하나하나 지나갈 때 마다 git status로 상태를 확인하자!
+- 작업 후 올릴 때 : **<u>git add. => git commit -m "commit이름" =>  git push</u>**
+- 집에서 할 때 : **<u>git pull</u>** => '작업 후 올릴 때' 과정 반복
+- 과정 하나하나 지나갈 때 마다 **<u>git status로 상태를 수시로 확인</u>**하자!
 
 ***
 
@@ -299,7 +309,7 @@ for search in searches:
 
 ### 2.5 문자열(string) 삽입
 
-**(1) 문자열 삽입 방법**
+##### (1) 문자열 삽입 방법
 
 ```python
 # 과거 -> 이 방법은 잊자
@@ -316,7 +326,7 @@ print(f'{a}, {b}')
 
 
 
-**(2) 문자열 예제①**
+##### (2) 문자열 예제
 
 > f-string을 사용하여 <u>재사용 가능한 구문</u>으로 작성해준다.
 
@@ -346,7 +356,7 @@ print('안녕하세요, ' + name + '입니다.')
 
 
 
-**(3) (사무 자동화를 위한) 파일명 바꾸기(import os)**
+##### (3) (사무 자동화를 위한) 파일명 바꾸기(import os)
 
 - `os.chdir(r'폴더주소')`
   - 윈도우에서는 폴더주소 앞에 r을 꼭 쳐줘야 한다.  \ 문자를 이스케이프 문자로 인식 안하고 하나의 문자열로 인식해주기 위해 r을 입력해줘야 한다.
@@ -387,7 +397,7 @@ for filename in filenames:
 
 
 
-## 3. 7월 10일(3일차)
+## **3. 7월 10일(3일차)**
 
 
 
@@ -402,7 +412,7 @@ for filename in filenames:
 
 ### 3.2 파일 쓰고, 읽기
 
-**(1) 파일 쓰기(txt_write.py)**
+##### (1) 파일 쓰기(txt_write.py)
 
 ```python
 # 1. 변수에 만들고 싶은 파일을 open() 해야 한다.
@@ -426,7 +436,7 @@ with open('ssafy.txt', 'w') as f:
 
 
 
-**(2) 파일 읽기(txt_read.py)**
+##### (2) 파일 읽기(txt_read.py)
 
 > - dir()함수 :  ()안에 입력한 변수에 맞는 사용할 수 있는 함수를 모두 보여준다.
 >
@@ -456,7 +466,7 @@ with open('with_ssafy.txt', 'r') as f:
 
 
 
-**(3) 역순으로 출력하기**
+##### (3) 역순으로 출력하기
 
 [Question]quest.txt 파일의 내용을 역순으로 하여 reverse_quest.txt 라는 파일로 저장하시오.
 
@@ -556,7 +566,7 @@ with open('naver_search.txt', 'w', encoding='utf-8') as f:
 
 ### 3.4 Python 기본 예제
 
-**(1)문자열 입력받아 첫 글자와 마지막 글자 출력(문자열 순서의 이해)**
+##### (1) 문자열 입력받아 첫 글자와 마지막 글자 출력(문자열 순서의 이해)
 
 > 내가 푼 방법
 
@@ -577,7 +587,7 @@ print(f'첫 글자는 {str[0]}, 마지막 글자 {str[-1]}')
 
 
 
-**(2)1부터 입력받은 숫자 N까지 한 줄에 하나씩 출력(for문의 이해)**
+##### (2) 1부터 입력받은 숫자 N까지 한 줄에 하나씩 출력(for문의 이해)
 
 > 내가 푼 방법
 
@@ -599,7 +609,7 @@ for i range(numbers):
 
 
 
-**(3)숫자를 입력 받아 짝수/홀수를 구분(나머지 연산자 %, if문의 이해)**
+##### (3) 숫자를 입력 받아 짝수/홀수를 구분(나머지 연산자 %, if문의 이해)
 
 > 내가 푼 방법(1부터 입력한 숫자까지 짝수, 홀수 구분하는 줄 알고 잘못 푼 코드)
 
@@ -631,7 +641,7 @@ else:
 
 
 
-**(4)모든 조건 만족시 True, 하나라도 만족 못 하면 False 출력(and 연산자의 이해)**
+##### (4) 모든 조건 만족시 True, 하나라도 만족 못 하면 False 출력(and 연산자의 이해)
 
 > 내가 푼 방법 == 강사가 푼 방법
 
@@ -649,7 +659,7 @@ else:
 
 
 
-**(5)세미콜론으로 구분된 물품 가격 여러 개를 문자열 한 줄로 입력 후 높은 가격순으로 출력(문자열 => 리스트로 형변환)**
+##### (5) 세미콜론으로 구분된 물품 가격 여러 개를 문자열 한 줄로 입력 후 높은 가격순으로 출력(문자열 => 리스트로 형변환)
 
 > 내가 푼 방법
 
@@ -683,7 +693,7 @@ for box in boxes:
 
 ### 3.5 HTML & CSS의 쌩기초
 
-**(1) HTML**
+##### (1) HTML
 
 ```html
 <!DOCTYPE html>
@@ -717,7 +727,7 @@ for box in boxes:
 
 
 
-**(2) CSS**
+##### (2) CSS
 
 ```css
 h1 {
@@ -741,7 +751,7 @@ li {
 
 ### 3.6 Web Server - Flask
 
-**(1) Python Web Framework의 종류**
+##### (1) Python Web Framework의 종류
 
 - Flask : 마이크로 프레임워크
 
@@ -749,7 +759,7 @@ li {
 
 
 
-**(2) Flask 예제**
+##### (2) Flask 예제
 
 ```python
 from flask import Flask
@@ -789,13 +799,13 @@ def ssafy(): # 위와 다른 이름의 함수를 만들어야 함
 
 
 
-## 4. 7월 11일(4일차)
+## **4. 7월 11일(4일차)**
 
 
 
 ### 4.1 Flask 이어서...
 
-**(1) Flask 초기 파일(hello.py => <u>app.py</u>) 설정**
+##### (1) Flask 초기 파일(hello.py => <u>app.py</u>) 설정
 
 - 실제 Flask 초기 값은 hello.py가 아니고 app.py이다.
 
@@ -804,7 +814,7 @@ def ssafy(): # 위와 다른 이름의 함수를 만들어야 함
 
 > <VSCODE에서 Debug mode 오류 안 뜨게 하기>(1,2,4 : VSCODE 터미널에, 3:생성된 .bashrc에 입력)
 >
-> > .bash_profile을 삭제하고 .bashrc생성하는 과정
+> => **.bash_profile을 삭제하고 .bashrc생성하는 과정**
 >
 > - rm -rf ~/.bash_profile
 > - code ~/.bashrc
@@ -813,7 +823,7 @@ def ssafy(): # 위와 다른 이름의 함수를 만들어야 함
 
 
 
-**(2) Flask 추가 예제 - day 계산, HTML TAG 출력**
+##### (2) Flask 추가 예제 - day 계산, HTML TAG 출력
 
 ```python
 from flask import Flask
@@ -852,9 +862,11 @@ def html_line():
 
 ### 4.2 Flask 응용
 
-**(1) variable routing(변수 라우팅)**
+##### (1) variable routing(변수 라우팅)
 
 ![](https://user-images.githubusercontent.com/52685250/61014028-582e7a00-a3c0-11e9-9882-6bb1cbbcc8ec.JPG)
+
+​    ( Converter types 내용 출처 : http://flask.pocoo.org/docs/1.0/quickstart/ )
 
 > string을 받아 출력하기
 
@@ -889,7 +901,7 @@ def lunch(people):
 
 
 
-**(2) render template**
+##### (2) render template
 
 - flask 서버에서 처리하는 것이 아니라 templates 별도의 폴더에서 저장된 요청한 페이지를 응답하여 출력해주는 것을 말한다.
 
@@ -954,7 +966,7 @@ def cube(number):
 
 
 
-**(3) jinja2 활용**
+##### (3) jinja2 활용
 
 - {%  %} 는 사용자에게 보여져서는 안 될 코드를 쓸 때 사용한다.
 - 함수를 하나 열면 반드시 {%  %}로 닫아줘야 한다. ex.{% endif %}, {% endfor %}
@@ -1021,7 +1033,11 @@ def movie():
 
 - url로 넘기는 것이 아닌 템플릿 내에서 작성해서 이 내용을 Flask로 넘겨주기(ex. 회원가입)
 
-**(1) ping-pong page**
+![Flask Request & Response](https://user-images.githubusercontent.com/52685250/61059012-4639ef00-a433-11e9-9e0f-11bad075edbd.jpg)
+
+
+
+##### (1) ping-pong page
 
 > app.py
 
@@ -1080,7 +1096,7 @@ def pong():
 
 
 
-**(2) fake naver, fake google**
+##### (2) fake naver, fake google  만들기
 
 > app.py
 
@@ -1146,7 +1162,7 @@ def google():
 
 
 
-**(3) vonvon 만들기**
+##### (3) vonvon 만들기
 
 - 이름 받을 페이지, 결과가 나올 페이지 => 페이지 총 2개 필요
 - 함수도 동일하게 2개 필요
@@ -1213,9 +1229,9 @@ def vonvon_view():
 
 
 
-### 4.4 Dictationary(딕셔너리)(아주 중요!)
+### 4.4 Dictionary(딕셔너리)(아주 중요!)
 
-**(1) 딕서녀리의 기본**
+##### (1) 딕셔너리의 기본
 
 ```python
 # 1. 딕셔너리 만들기(1)
@@ -1248,7 +1264,7 @@ idol.get('bts').get('RM') # 두 번째 방법(서버입장에서는 .get()을 �
 
 
 
-**(2) 딕서녀리의 활용**
+##### (2) 딕셔너리의 활용
 
 ```python
 lunch = {
@@ -1277,7 +1293,7 @@ for key in lunch.keys():
 
 
 
-**(3) 딕셔너리 예제**
+##### (3) 딕셔너리 예제
 
 > 04_day 디렉터리에 있는 03_dict_practice.py와 04_data_practice_01.py가 있으니 참고.
 >
@@ -1291,7 +1307,7 @@ for key in lunch.keys():
 
 
 
-## 5. 7월 12일(5일차)
+## **5. 7월 12일(5일차)**
 
 
 
