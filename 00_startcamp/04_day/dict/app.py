@@ -31,23 +31,27 @@ def lotto_result():
     # (6) 등수 가리기(몇개 맞았는지 교집합이 필요)
     matched = 0
     # (7) 내 번호 요소를 뽑아서 당첨번호 리스트에 있는지 확인.
+    # 내 번호 리스트를 돌면서 / 뽑은 번호 하나가 각각 winner 리스트에 있는지 확인
     for num in numbers:
         if num in winner:
             matched += 1
-    if matched == 6:
-        result = '1등입니다'
-    elif matched == 5:
-        if lotto['bnusNo'] in numbers:
-            result = '2등입니다'
+    # 입력한 숫자가 6개일 때만 등수 판단
+    if len(numbers) == 6:
+        if matched == 6:
+            result = '1등입니다'
+        elif matched == 5:
+            # 보너스 번호가 내 로또 번호 리스트에 존재하면,
+            if lotto['bnusNo'] in numbers:
+                result = '2등입니다'
+            else:
+                result = '3등입니다'
+        elif matched == 4:
+            result = '4등입니다'
+        elif matched == 3:
+            result = '5등입니다'
         else:
-            result = '3등입니다'
-    elif matched == 4:
-        result = '4등입니다'
-    elif matched == 3:
-        result = '5등입니다'
+            result = '꽝입니다'
     else:
-        result = '꽝입니다'
+        result = '번호의 수가 6개가 아닙니다.'
     
     return render_template('lotto_result.html', winner=winner, numbers=numbers, result=result)
-
-    
