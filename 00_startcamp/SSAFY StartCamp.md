@@ -15,6 +15,8 @@
 
 
 
+
+
 ## **1. 7월08일(1일차)**
 
 
@@ -191,6 +193,8 @@ print(exchange)
 
 
 ----
+
+
 
 
 
@@ -394,6 +398,8 @@ for filename in filenames:
 
 
 ----
+
+
 
 
 
@@ -796,6 +802,8 @@ def ssafy(): # 위와 다른 이름의 함수를 만들어야 함
 
 
 ----
+
+
 
 
 
@@ -1307,6 +1315,8 @@ for key in lunch.keys():
 
 
 
+
+
 ## **5. 7월 12일(5일차)**
 
 
@@ -1351,10 +1361,20 @@ matched = (set(winner) & set(numbers))
 
 
 
-**(3) 배포(deploy) - pythonanywhere**
+##### (3) 배포(deploy) - pythonanywhere
 
 - 무료 배포 사이트인 pythonanywhere을 이용하여 VSCODE에서 flask run을 안 해도 항상 챗봇을 이용할 수 있다.
 - 단, webhook 이용시 회원가입을 안 하고 이용하는 경우 8시간만 사용 가능하다.
+
+
+
+----
+
+**<Telegram 챗봇의 전반적인 과정>**
+
+![](https://user-images.githubusercontent.com/52685250/61181258-b11b3e00-a65e-11e9-8680-7c3e1a362629.jpg)
+
+----
 
 
 
