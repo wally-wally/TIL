@@ -8,7 +8,7 @@
 
 ## 1. 7월15일(1일차)
 
-### 1.1 단축키 설정방법
+### 1.1 단축키 설정방법(단축키로 jupyter noebook 실행)
 
 - `code ~/.bashrc`
 - .bashrc파일에서 <u>alias 단축키명="원래이름"</u> 추가 작성  ex) alias jp="jupyter notebook"
@@ -49,7 +49,7 @@
 
 
 
-### 1.3 Programming Font
+### 1.3 Programming Font의 조건
 
 ##### (1) 고정폭 글꼴
 
