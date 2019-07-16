@@ -1,6 +1,8 @@
-[TOC]
-
 # [SSAFY]Python(written by wally-wally)
+
+
+
+[TOC]
 
 
 
@@ -65,9 +67,9 @@
 
 
 
-### 2.1 Python 예제
+### 2.1 Python 예제(1일차 복습)
 
-##### (1) 상승장, 하락장
+##### (1) 딕셔너리, if문을 이용하여 상승장, 하락장 출력하기
 
 ```python
 import requests
@@ -98,7 +100,7 @@ else:
     print('하락장')
 ```
 
-##### (2) 모음 제거하기
+##### (2) 문장에서 모음만 제거하기
 
 > 내가 푼 방법
 
@@ -167,6 +169,50 @@ print(my_str)
 ```
 
 
+
+### 2.2 dictionary 구축하기
+
+> 첫 번째 방법
+
+```python
+book_title =  ['great', 'expectations','the', 'adventures', 'of', 'sherlock','holmes','the','great','gasby','hamlet','adventures','of','huckleberry','fin']
+
+# 1. for, if 사용
+
+book_dict = {}
+for title in book_title:
+    if title in book_dict:
+        book_dict[title] += 1 # 기존 키 값이 있으면 1을 더함
+    else:
+        book_dict[title] = 1 # 기존 키 값이 없으면 1 값을 할당
+print(book_dict)
+```
+
+> 두 번째 방법
+
+```python
+# 2. .count()
+book_dict = {}
+for title in book_title:
+    # 리스트의 특정 요소가 몇 개 있는지 count해서 그 값을 딕셔너리의 value로 설정
+    book_dict[title] = book_title.count(title)
+print(book_dict)
+```
+
+> 세 번째 방법
+
+```python
+# 3. .get() (4장에서 다시 배웁니다.)
+book_dict = {}
+for title in book_title:
+    book_dict[title] = book_dict.get(title, 0) + 1
+print(book_dict)
+```
+
+- `get(key[, default])`
+    - key가 딕셔너리에 있는 경우 key에 대응하는 value를 돌려주고, 그렇지 않으면 default를 돌려준다.
+    - default를 따로 작성하지 않으면 기본값 'None'이 사용된다. 그래서 이 메서드는 절대로 `Keyerror`를 일으키지 않는다.
+    - 결국 key가 없을 때, None이 아닌 다른 값을 받길 원하다면, `.get(key, 3)` 처럼 사용할 수 있다.
 
 
 
