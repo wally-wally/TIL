@@ -220,7 +220,75 @@ print(book_dict)
 
 ### 3.1 Pyformat - Padding and aligning strings
 
+> Align right
 
+
+
+> Align left
+
+
+
+> Plus
+
+
+
+### 3.2 가변 인자 리스트(*args)
+
+> 임의의 숫자의 인자를 받기 위해 가변인자를 활용함
+>
+> 가변인자는 tuple' 형태로 처리가 되며, '*'로 표현됨
+
+```python
+def func(a, b, *args):
+
+#*args : 임의의 개수의 위치인자를 받음을 의미
+
+#보통, 이 가변인자 리스트는 형식 인자 목록의 마지막에 옵니다.
+```
+
+
+
+### 3.3 정의되지 않은 키워드 인자들 처리하기(**kwargs)
+
+> 정의되지 않은 키워드 인자들은 `dict` 형태로 처리가 되며, `**`로 표현합니다.
+>
+> 주로 `kwagrs`라는 이름을 사용하며, `**kwargs`를 통해 인자를 받아 처리할 수 있습니다.
+
+```python
+def my_dict(**kwargs):
+    result = []
+    for key, value in kwargs.items():
+        result.append(f'{key}: {value}')
+    return ', '.join(result) # 리스트 -> 문자열로 ', '기준으로 합치기
+
+result = my_dict(한국어='안녕', 영어='hello', 독일어='Guten Tag')
+print(result)
+```
+
+```python
+# 사실은 dict()는 출력이 아니라 딕셔너리를 return 합니다. 
+# 딕셔너리를 return 하는 my_fake_dict() 를 만들어주세요.
+def my_fake_dict(**kwargs):
+    return kwargs
+
+result = my_fake_dict(한국어='안녕', 영어='hello', 독일어='Guten Tag')
+print(result)
+```
+
+
+
+### 3.4 이름공간(namespace)
+
+> 파이썬에서 사용되는 이름들은 이름공간(namespce)에 저장되어 있습니다.
+>
+> 그리고, `LEGB Rule` 을 가지고 있습니다. 
+>
+> 변수에서 값을 찾을 때 아래와 같은 순서대로 이름을 찾아나갑니다.
+
+* `L`ocal scope: 정의된 함수
+* `E`nclosed scope: 상위 함수 
+* `G`lobal scope: 함수 밖의 변수 혹은 import된 모듈
+* `B`uilt-in scope: 파이썬안에 내장되어 있는 함수 또는 속성
 
 
 
