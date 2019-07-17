@@ -8,7 +8,7 @@
 
 ## 1. 7월15일(1일차)
 
-### 1.1 단축키 설정방법(단축키로 jupyter noebook 실행)
+### 1.1 단축키 설정방법(단축키로 jupyter notebook 실행)
 
 - `code ~/.bashrc`
 - .bashrc파일에서 <u>alias 단축키명="원래이름"</u> 추가 작성  ex) alias jp="jupyter notebook"
@@ -217,6 +217,10 @@ print(book_dict)
 
 
 ## 3. 7월17일(3일차)
+
+### 3.1 Pyformat - Padding and aligning strings
+
+
 
 
 
