@@ -386,13 +386,31 @@ if my_bool: # Recommend(위에 명확한 조건이 있으면 굳이 '==True'를 
 
 
 
+### 4.3 Parameter != Argument
+
+```python
+# x = parameter(매개변수)
+
+def func(x):
+    return x + 2
+
+# 2 = argument(인자 또는 전달인자)
+
+func(2)
+```
+
+- 매개변수는 함수의 정의 부분에서 볼 수 있다.
+- 인자는 함수를 호출하는 부분에서 볼 수 있다.
+
+
+
 ----
 
 
 
 ## 5. 7월22일(5일차)
 
-### 5.**1**
+### 5.1
 
 ### 5.2
 

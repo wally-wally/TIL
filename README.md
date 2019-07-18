@@ -4,9 +4,11 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 
 
-## 1. 00_startcamp
+## :one: 00_startcamp
 
 :round_pushpin: 2019.07.08(Mon.) ~ 2019.07.12(Fri.) 동안 진행한 <u>**SSAFY Startcamp**</u>에서 학습한 내용을 정리함.
+
+
 
 #### Day_01(July 8th)
 
@@ -63,7 +65,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 
 
-## 2. 01_python
+## :two: 01_python
 
 :round_pushpin: 2019.07.15(Mon.) ~ 2019.07.25(Thu.) 동안 진행한 정규과정의 <u>**'Python'과정**</u>의 내용을 정리함.
 
@@ -114,6 +116,9 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 - Python Style Guide Recommend
 - Recursive Function
+- string method
+- list method
+- shallow copy, deep copy
 
 
 
@@ -123,7 +128,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 
 
-## # python_study
+## :three: python_study
 
 :round_pushpin: 개인적으로 공부하는 python 내용을 정리함.
 
