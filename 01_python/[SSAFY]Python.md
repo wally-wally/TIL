@@ -63,9 +63,11 @@
 
 
 
+----
+
+
+
 ## 2. 7월16일(2일차)
-
-
 
 ### 2.1 Python 예제(1일차 복습)
 
@@ -216,27 +218,35 @@ print(book_dict)
 
 
 
+----
+
+
+
 ## 3. 7월17일(3일차)
 
 ### 3.1 Pyformat - Padding and aligning strings
 
 > Align right
 
-
+![01_day03_01](https://user-images.githubusercontent.com/52685250/61423304-46158400-a94a-11e9-8ae3-79cb66ded40a.JPG)
 
 > Align left
 
-
+![01_day03_02](https://user-images.githubusercontent.com/52685250/61423313-4b72ce80-a94a-11e9-9226-4824e0dbcdf5.JPG)
 
 > Plus
+
+![01_day03_03](https://user-images.githubusercontent.com/52685250/61423324-5299dc80-a94a-11e9-9f3a-63b9d7a4eb6f.JPG)
+
+ ( Pyformat 이미지 출처 : https://pyformat.info/ )
 
 
 
 ### 3.2 가변 인자 리스트(*args)
 
-> 임의의 숫자의 인자를 받기 위해 가변인자를 활용함
->
-> 가변인자는 tuple' 형태로 처리가 되며, '*'로 표현됨
+- 임의의 숫자의 인자를 받기 위해 가변인자를 활용함
+
+- 가변인자는**`tuple` 형태**로 처리가 되며, '*'로 표현됨
 
 ```python
 def func(a, b, *args):
@@ -250,9 +260,9 @@ def func(a, b, *args):
 
 ### 3.3 정의되지 않은 키워드 인자들 처리하기(**kwargs)
 
-> 정의되지 않은 키워드 인자들은 `dict` 형태로 처리가 되며, `**`로 표현합니다.
->
-> 주로 `kwagrs`라는 이름을 사용하며, `**kwargs`를 통해 인자를 받아 처리할 수 있습니다.
+- 정의되지 않은 키워드 인자들은 **`dict` 형태**로 처리가 되며, `**`로 표현합니다.
+
+- 주로 `kwagrs`라는 이름을 사용하며, `**kwargs`를 통해 인자를 받아 처리할 수 있습니다.
 
 ```python
 def my_dict(**kwargs):
@@ -277,19 +287,155 @@ print(result)
 
 
 
-### 3.4 이름공간(namespace)
+### 3.4 인자 리스트 언패킹(unpacking arguments list)
 
-> 파이썬에서 사용되는 이름들은 이름공간(namespce)에 저장되어 있습니다.
->
-> 그리고, `LEGB Rule` 을 가지고 있습니다. 
->
-> 변수에서 값을 찾을 때 아래와 같은 순서대로 이름을 찾아나갑니다.
+> 패킹(packing)
 
-* `L`ocal scope: 정의된 함수
-* `E`nclosed scope: 상위 함수 
-* `G`lobal scope: 함수 밖의 변수 혹은 import된 모듈
-* `B`uilt-in scope: 파이썬안에 내장되어 있는 함수 또는 속성
+- 여러 개의 값을 하나의 컬렉션으로 묶어 변수에 대입하는 것
+- collection = 1, 2, 3
+
+> 언패킹(unpacking)
+
+- 컬렉션 속의 요소들을 여러 개의 변수에 나누어 대입하는 것
+- a, b, c = collection
+
+
+
+### 3.5 이름공간(namespace)
+
+- 파이썬에서 사용되는 이름들은 이름공간(namespce)에 저장되어 있습니다.
+
+- 그리고, `LEGB Rule` 을 가지고 있습니다. 
+  - `L`ocal scope: 정의된 함수
+  - `E`nclosed scope: 상위 함수 
+  - `G`lobal scope: 함수 밖의 변수 혹은 import된 모듈
+  - `B`uilt-in scope: 파이썬안에 내장되어 있는 함수 또는 속성
+
+- 변수에서 값을 찾을 때 아래와 같은 순서대로 이름을 찾아나갑니다.
+
+
+
+----
 
 
 
 ## 4. 7월18일(4일차)
+
+### 4.1 Python Style Guide Recommend
+
+```python
+def func(parameter=5): # Recommend
+    pass
+def func(parameter = 5): # Not Recommend
+    pass
+
+func(5) # Must
+func (5) # Never
+```
+
+```python
+y = x**2 + 5
+z = (x+y) * (x-y) # Recommend
+
+y = x ** 2 + 5
+z = (x + y) * (x - y) # Not Recommend
+```
+
+```python
+if x > 10 and x % 2 == 0: # Not Recommend
+    pass
+
+if x>10 and x%2 == 0: # Recommend
+    pass
+
+if x >10 and x% 2 == 0: # Definitely do not do this!
+    pass
+```
+
+```python
+list = [1,2,3] # Not Recommend
+list = [1, 2, 3] # Recommend
+list = [ 1, 2, 3 ] # Not Recommend
+print(x, y) # Only Recommend
+```
+
+```python
+my_bool = 6 > 5
+if my_bool == True: # Not Recommend
+    return 'Hello'
+
+my_bool = 6 > 5
+if my_bool: # Recommend(위에 명확한 조건이 있으면 굳이 '==True'를 쓸 필요가 없다.)
+    return 'Hello'
+```
+
+- 연산자 우선순위가 높은 것 끼리 붙여 쓰는 것이 좋다.
+
+
+
+### 4.2 재귀 함수(recursive function)
+
+- 재귀함수는 기본적으로 같은 문제이지만 점점 범위가 줄어드는 문제를 풀게 된다.
+- 재귀함수를 작성시에는 반드시, `base case`가 존재 하여야 한다.
+- `base case`는 점점 범위가 줄어들어 반복되지 않는 최종적으로 도달하는 곳이다.
+- 자기 자신을 호출하는 **재귀함수는 알고리즘 구현시 많이 사용**된다.
+- 코드가 더 직관적이고 이해하기 쉬운 경우가 있음. (하지만, 만들기는 어려움)
+- [Python Tutor](https://goo.gl/k1hQYz)에 보면, 함수가 호출될 때마다 메모리 공간에 쌓이는 것을 볼 수 있다.
+- 이 경우, 메모리 스택이 넘치거나(Stack overflow) 프로그램 실행 속도가 늘어지는 단점이 생긴다.
+- 파이썬에서는 이를 방지하기 위해 **1,000번**이 넘어가게 되면 더이상 함수를 호출하지 않고, 종료된다. (**최대 재귀 깊이**)
+
+
+
+----
+
+
+
+## 5. 7월22일(5일차)
+
+### 5.**1**
+
+### 5.2
+
+### 5.3
+
+
+
+------
+
+
+
+## 6. 7월23일(6일차)
+
+### 6.1
+
+### 6.2
+
+### 6.3
+
+
+
+------
+
+
+
+## 7. 7월24일(7일차)
+
+### 7.1
+
+### 7.2
+
+### 7.3
+
+
+
+------
+
+
+
+## 8. 7월24일(8일차)
+
+### 8.1
+
+### 8.2
+
+### 8.3
