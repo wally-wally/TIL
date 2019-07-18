@@ -135,9 +135,11 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 > python_coding_dojang
 
 - 『파이썬 코딩 도장』(남재윤 저, 길벗출판사)의 실습 파일을 unit별로 정리해놓음.
+- Using Tool : Python 3.7 IDLE
 
 
 
 > data_analysis
 
 - 『모두의 데이터 분석 with 파이썬』(송석리, 이현아 저, 길벗출판사)의 실습 파일을 정리해놓음.
+- Using Tool : Jupyter Notebook

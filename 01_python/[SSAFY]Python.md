@@ -1,5 +1,14 @@
 # [SSAFY]Python(written by wally-wally)
 
+----
+
+**※참고사항※**
+
+- '[SSAFY] Python'은 정규과정 'Python'을 진행하면서 강의파일에 없는 추가적인 내용이나 중요하게 다루었던 내용을 상세하게 작성했음.
+- 최대한 수업 시간의 모든 내용을 담으려했으나 없는 내용이 있을 수도 있음.
+
+------
+
 
 
 [TOC]
@@ -18,31 +27,33 @@
 
 ### 1.2 jupyter notebook - keyboard shortcuts
 
-> 현재 상태 확인하기 : edit mode(초록색), command mode(파란색)
->
-> command mode -> edit mode : enter 또는 마우스 더블클릭
->
-> edit mode -> command mode : [Shift] + [Enter]하면 적용 후 다음 셀로 이동
+> edit mode, command mode
 
+- 현재 상태 확인하기 : edit mode(초록색), command mode(파란색)
 
+- command mode -> edit mode : enter 또는 마우스 더블클릭
 
-> command mode에서 [D]를 빠르게 두 번 누르면 선택된 셀이 지워짐
->
-> command mode에서 [Z]를 누르면 실행 취소의 개념으로 지워진 셀이 다시 복구됨
->
-> command mode에서 [A]를 누르면 그 셀 위로 새로운 셀이 생성됨
->
-> command mode에서 [B]를 누르면 그 셀 아래로 새로운 셀이 생성됨
+- edit mode -> command mode : [Shift] + [Enter]하면 적용 후 다음 셀로 이동
 
+> command mode에서...
 
+- command mode에서 [D]를 빠르게 두 번 누르면 선택된 셀이 지워짐
 
-> <edit mode일 때 Enter 단축키 종류>
->
-> [Ctrl] + [Enter] : 현재 셀 실행
->
-> **[Shift] + [Enter] : 실행 + 다음 셀 선택(다음 셀 없으면 새로운 셀 생성) => 주로 이거로 사용!**
->
-> [Alt] + [Enter] : 실행 + 다음 셀 생성
+- command mode에서 [Z]를 누르면 실행 취소의 개념으로 지워진 셀이 다시 복구됨
+
+- command mode에서 [A]를 누르면 그 셀 위로 새로운 셀이 생성됨
+
+- command mode에서 [B]를 누르면 그 셀 아래로 새로운 셀이 생성됨
+
+> edit mode일 때 Enter 단축키 종류
+
+- [Ctrl] + [Enter] : 현재 셀 실행
+
+- **[Shift] + [Enter] : 실행 + 다음 셀 선택(다음 셀 없으면 새로운 셀 생성) => 주로 이거로 사용!**
+
+- [Alt] + [Enter] : 실행 + 다음 셀 생성
+
+> 추가내용
 
 - 궁금한 단축키가 있으면 [H]를 누르면 단축키 내용이 나옴
 - 메뉴의 [Kernel] > [Restart & Clear Output] : 무한루프 빠졌을 때 강제 재실행
@@ -51,15 +62,13 @@
 
 ### 1.3 Programming Font의 조건
 
-##### (1) 고정폭 글꼴
+- **고정폭 글꼴**
+  - 고정폭이어야 프로그래밍시 위치를 잘 잡을 수 있음
 
-- 고정폭이어야 프로그래밍시 위치를 잘 잡을 수 있음
+- **Sans-serif**
 
-##### (2) Sans-serif
-
-##### (3) 가독성과 명확한 구분
-
-- 숫자 1, 소문자 L, 대문자 L, Pipe와 같은 것들이 구분될 수 있어야 함
+- **가독성과 명확한 구분**
+  - 숫자 1, 소문자 L, 대문자 L, Pipe와 같은 것들이 구분될 수 있어야 함
 
 
 
@@ -386,7 +395,49 @@ if my_bool: # Recommend(위에 명확한 조건이 있으면 굳이 '==True'를 
 
 
 
-### 4.3 Parameter != Argument
+### 4.3 얕은 복사(Shallow copy) VS 깊은 복사(Deep copy)
+
+> 얕은 복사(Shallow copy)
+
+```python
+a = [1, 2, [1, 2]]
+b = a[:]
+
+b[2][0] = 100
+print(a)
+```
+
+```python
+# '얕은 복사' 출력
+[1, 2, [100, 2]]
+```
+
+![01_day04_01](https://user-images.githubusercontent.com/52685250/61459503-cf0ed880-a9a7-11e9-997a-8c2bdf784855.jpg)
+
+
+
+> 깊은 복사(Deep copy)
+
+```python
+import copy
+
+a = [1, 2, [1, 2]]
+b = copy.deepcopy(a)
+
+b[2][0] = 100
+print(a)
+```
+
+```python
+# '깊은 복사' 출력
+[1, 2, [1, 2]]
+```
+
+![01_day04_02](https://user-images.githubusercontent.com/52685250/61459559-f9609600-a9a7-11e9-9fd4-e6b8ea3fd786.jpg)
+
+
+
+### 4.4 Parameter != Argument
 
 ```python
 # x = parameter(매개변수)
