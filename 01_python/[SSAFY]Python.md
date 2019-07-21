@@ -9,13 +9,13 @@
 
 ------
 
+<br>
 
-
-[TOC]
-
-
+<br>
 
 ## 1. 7월15일(1일차)
+
+<br>
 
 ### 1.1 단축키 설정방법(단축키로 jupyter notebook 실행)
 
@@ -23,7 +23,7 @@
 - .bashrc파일에서 <u>alias 단축키명="원래이름"</u> 추가 작성  ex) alias jp="jupyter notebook"
 - 저장 후 `source ~/.bashrc`하면 적용됨
 
-
+<br>
 
 ### 1.2 jupyter notebook - keyboard shortcuts
 
@@ -58,7 +58,7 @@
 - 궁금한 단축키가 있으면 [H]를 누르면 단축키 내용이 나옴
 - 메뉴의 [Kernel] > [Restart & Clear Output] : 무한루프 빠졌을 때 강제 재실행
 
-
+<br>
 
 ### 1.3 Programming Font의 조건
 
@@ -70,13 +70,19 @@
 - **가독성과 명확한 구분**
   - 숫자 1, 소문자 L, 대문자 L, Pipe와 같은 것들이 구분될 수 있어야 함
 
+<br>
 
+<br>
 
 ----
 
+<br>
 
+<br>
 
 ## 2. 7월16일(2일차)
+
+<br>
 
 ### 2.1 Python 예제(1일차 복습)
 
@@ -110,6 +116,8 @@ if opening_price + volatility > max_price:
 else:
     print('하락장')
 ```
+
+<br>
 
 ##### (2) 문장에서 모음만 제거하기
 
@@ -179,7 +187,7 @@ for vowel in vowels:
 print(my_str)
 ```
 
-
+<br>
 
 ### 2.2 dictionary 구축하기
 
@@ -225,13 +233,19 @@ print(book_dict)
     - default를 따로 작성하지 않으면 기본값 'None'이 사용된다. 그래서 이 메서드는 절대로 `Keyerror`를 일으키지 않는다.
     - 결국 key가 없을 때, None이 아닌 다른 값을 받길 원하다면, `.get(key, 3)` 처럼 사용할 수 있다.
 
+<br>
 
+<br>
 
 ----
 
+<br>
 
+<br>
 
 ## 3. 7월17일(3일차)
+
+<br>
 
 ### 3.1 Pyformat - Padding and aligning strings
 
@@ -249,7 +263,7 @@ print(book_dict)
 
  ( Pyformat 이미지 출처 : https://pyformat.info/ )
 
-
+<br>
 
 ### 3.2 가변 인자 리스트(*args)
 
@@ -265,7 +279,7 @@ def func(a, b, *args):
 #보통, 이 가변인자 리스트는 형식 인자 목록의 마지막에 옵니다.
 ```
 
-
+<br>
 
 ### 3.3 정의되지 않은 키워드 인자들 처리하기(**kwargs)
 
@@ -294,7 +308,7 @@ result = my_fake_dict(한국어='안녕', 영어='hello', 독일어='Guten Tag')
 print(result)
 ```
 
-
+<br>
 
 ### 3.4 인자 리스트 언패킹(unpacking arguments list)
 
@@ -308,7 +322,7 @@ print(result)
 - 컬렉션 속의 요소들을 여러 개의 변수에 나누어 대입하는 것
 - a, b, c = collection
 
-
+<br>
 
 ### 3.5 이름공간(namespace)
 
@@ -322,13 +336,19 @@ print(result)
 
 - 변수에서 값을 찾을 때 아래와 같은 순서대로 이름을 찾아나갑니다.
 
+<br>
 
+<br>
 
 ----
 
+<br>
 
+<br>
 
 ## 4. 7월18일(4일차)
+
+<br>
 
 ### 4.1 Python Style Guide Recommend
 
@@ -380,7 +400,7 @@ if my_bool: # Recommend(위에 명확한 조건이 있으면 굳이 '==True'를 
 
 - 연산자 우선순위가 높은 것 끼리 붙여 쓰는 것이 좋다.
 
-
+<br>
 
 ### 4.2 재귀 함수(recursive function)
 
@@ -393,7 +413,7 @@ if my_bool: # Recommend(위에 명확한 조건이 있으면 굳이 '==True'를 
 - 이 경우, 메모리 스택이 넘치거나(Stack overflow) 프로그램 실행 속도가 늘어지는 단점이 생긴다.
 - 파이썬에서는 이를 방지하기 위해 **1,000번**이 넘어가게 되면 더이상 함수를 호출하지 않고, 종료된다. (**최대 재귀 깊이**)
 
-
+<br>
 
 ### 4.3 얕은 복사(Shallow copy) VS 깊은 복사(Deep copy)
 
@@ -435,7 +455,7 @@ print(a)
 
 ![01_day04_02](https://user-images.githubusercontent.com/52685250/61459559-f9609600-a9a7-11e9-9fd4-e6b8ea3fd786.jpg)
 
-
+<br>
 
 ### 4.4 Parameter != Argument
 
@@ -453,58 +473,99 @@ func(2)
 - 매개변수는 함수의 정의 부분에서 볼 수 있다.
 - 인자는 함수를 호출하는 부분에서 볼 수 있다.
 
+<br>
 
+<br>
 
 ----
 
+<br>
 
+<br>
 
 ## 5. 7월22일(5일차)
 
+<br>
+
 ### 5.1
+
+<br>
 
 ### 5.2
 
+<br>
+
 ### 5.3
 
+<br>
 
+<br>
 
 ------
 
+<br>
 
+<br>
 
 ## 6. 7월23일(6일차)
 
+<br>
+
 ### 6.1
+
+<br>
 
 ### 6.2
 
+<br>
+
 ### 6.3
 
+<br>
 
+<br>
 
 ------
 
+<br>
 
+<br>
 
 ## 7. 7월24일(7일차)
 
+<br>
+
 ### 7.1
+
+<br>
 
 ### 7.2
 
+<br>
+
 ### 7.3
 
+<br>
 
+<br>
 
 ------
 
+<br>
 
+<br>
 
 ## 8. 7월24일(8일차)
 
+<br>
+
 ### 8.1
+
+<br>
 
 ### 8.2
 
+<br>
+
 ### 8.3
+

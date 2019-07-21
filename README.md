@@ -2,13 +2,13 @@
 
 SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니다.
 
-
+<br>
 
 ## :one: 00_startcamp
 
 :round_pushpin: 2019.07.08(Mon.) ~ 2019.07.12(Fri.) 동안 진행한 <u>**SSAFY Startcamp**</u>에서 학습한 내용을 정리함.
 
-
+<br>
 
 #### Day_01(July 8th)
 
@@ -19,7 +19,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 - Use of webbrowser module
 - Web crawling with BeautifulSoup module
 
-
+<br>
 
 #### Day_02(July 9th)
 
@@ -27,7 +27,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 - git
 - Insert string, os module
 
-
+<br>
 
 #### Day_03(July 10th)
 
@@ -36,7 +36,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 - HTML & CSS
 - Basic of Flask
 
-
+<br>
 
 #### Day_04(July 11th)
 
@@ -47,7 +47,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
   - Request & Response
 - Dictionary
 
-
+<br>
 
 #### Day_05(July 12th)
 
@@ -55,15 +55,15 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 - Making Telegram Chatbot
 - Slicing
 
+<br>
 
-
-
+<br>
 
 ----
 
+<br>
 
-
-
+<br>
 
 ## :two: 01_python
 
@@ -71,7 +71,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 :computer: Main Tool : Jupyter Notebook
 
-
+<br>
 
 #### Day_01(July 15th)
 
@@ -82,7 +82,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 - Sequence data type : list, tuple, range()
 - set, dictionary
 
-
+<br>
 
 #### Day_02(July 16th)
 
@@ -95,7 +95,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
   - range() function
   - break, continue, else, pass
 
-
+<br>
 
 #### Day_03(July 17th)
 
@@ -110,7 +110,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
   - Unpacking Arguments list
   - Namespace
 
-
+<br>
 
 #### Day_04(July 18th)
 
@@ -120,24 +120,26 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 - list method
 - shallow copy, deep copy
 
-
+<br><br>
 
 ----
 
+<br>
 
-
-
+<br>
 
 ## :three: python_study
 
 :round_pushpin: 개인적으로 공부하는 python 내용을 정리함.
+
+<br>
 
 > python_coding_dojang
 
 - 『파이썬 코딩 도장』(남재윤 저, 길벗출판사)의 실습 파일을 unit별로 정리해놓음.
 - Using Tool : Python 3.7 IDLE
 
-
+<br>
 
 > data_analysis
 
