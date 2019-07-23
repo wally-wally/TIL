@@ -120,6 +120,26 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 - list method
 - shallow copy, deep copy
 
+<br>
+
+#### Day_05(July 22th)
+
+- List Comprehension
+- Dictionary Method
+- Set Method
+- map(), zip(), filter()
+
+<br>
+
+#### Day_06(July 23th)
+
+- Module
+- Function related math, random
+- Module related date(datetime, timedelta)
+- Errors and Exceptions
+- try, except, else, finally
+- raise, assert
+
 <br><br>
 
 ----
