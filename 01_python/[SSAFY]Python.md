@@ -560,7 +560,9 @@ print(result)
 
 <br>
 
-### 6.1
+### 6.1 isdecimal(), isdigit(), isnumeric()
+
+<img width="655" alt="01_day05_01" src="https://user-images.githubusercontent.com/52685250/61682821-1c939880-ad4e-11e9-9f52-3c2840e29544.png">
 
 <br>
 
