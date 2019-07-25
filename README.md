@@ -140,6 +140,26 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 - try, except, else, finally
 - raise, assert
 
+<br>
+
+#### Day_07(July 24th)
+
+- OOP(Object-Oriented Programming) Basic
+  - Class, instance, attribute, Method
+  - Class variable, instance variable
+  - `self`
+  - namespace between class and instance
+  - constructor, destructor
+
+<br>
+
+#### Day_08(July 25th)
+
+- OOP Advanced
+  - Instance Method / Class Method / Static Method
+  - Operator overloading
+  - Basic of Inheritance - super(), method overriding
+
 <br><br>
 
 ----
