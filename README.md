@@ -69,7 +69,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 :round_pushpin: 2019.07.15(Mon.) ~ 2019.07.25(Thu.) 동안 진행한 정규과정의 <u>**'Python'과정**</u>의 내용을 정리함.
 
-:computer: Main Tool : Jupyter Notebook
+:computer: Main Tool : `Jupyter Notebook`
 
 <br>
 
@@ -168,7 +168,37 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 <br>
 
-## :three: python_study
+## :three: 02_algorithm
+
+:round_pushpin: 2019.07.29(Mon.) 부터 진행한 정규과정의 <u>**' Algorithm'과정**</u>의 내용을 정리함.
+
+:computer: Main Tool : `Pycharm`
+
+<br>
+
+#### Day_01(July 29th)
+
+- Basic of algorithm
+- Time Complexity
+- Big-Oh Notation
+- Sort
+  - Bubble Sort
+  - Preview of Selection Sort
+  - Counting Sort
+- Exaustive Search
+- Permutation
+
+<br>
+
+<br>
+
+---
+
+<br>
+
+<br>
+
+## :four: python_study
 
 :round_pushpin: 개인적으로 공부하는 python 내용을 정리함.
 
