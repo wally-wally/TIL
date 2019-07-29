@@ -211,8 +211,21 @@ print(arr)
     
     # 강의 교안 정렬 과정을 보고 코드를 작성해보자.
     
+    data = [0, 4, 1, 3, 1, 2, 4, 1]
+    counts = [0] * 5
+    temp = [0] * len(data)
+    
+    for val in data:
+        counts[val] += 1
+    
     for i in range(1, len(counts)):
         counts[i] = counts[i-1] + counts[i] # 누적 빈도수 계산하여 counts의 원소를 조정
+    
+    for j in range(len(data)-1, -1, -1):
+        counts[data[j]] -= 1
+        temp[counts[data[j]]] = data[j]
+    
+    print(temp)
     ```
 
 <br>
