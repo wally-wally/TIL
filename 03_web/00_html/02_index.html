@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <!-- Heading -->
+  <!-- h1 태그는 한 페이지에 하나만 쓰는게 원칙이다. -->
+  <!-- h2 태그부터는 여러 개 써도 무방하다. -->
+  <h1>Hi, h1!</h1>
+  <h2>Hi, h2!</h2>
+  <h3>Hi, h3!</h3>
+  <h4>Hi, h4!</h4>
+  <h5>Hi, h5!</h5>
+  <h6>Hi, h6!</h6>
+
+  <!-- bold -->
+  <!-- strong 태그는 semantic 적인 태그이다.(의미가 부여됨) -->
+  <div>
+    <b>This is bold.</b>
+    <strong>This is strong.(semantic)</strong>
+  </div>
+
+  <!-- italic -->
+  <!-- em 태그도 참조(강조)한다는 의미로 semantic 적인 태그이다.(의미 부여됨) -->
+  <div>
+    <i>This is italic.</i>
+    <em>This is em.(semantic)</em>
+  </div>
+
+  <!-- highlight -->
+  <h2>This is <mark>Mark.</mark></h2>
+
+  <!-- del / ins -->
+  <!-- del 태그는 취소선, ins 태그는 밑줄 표시 -->
+  <h2>This is <del>del</del></h2>
+  <h2>This is <ins>ins</ins></h2>
+
+  <!-- sub / sup -->
+  <h2>This is <sub>sub</sub></h2>
+  <h2>This is <sup>sup</sup></h2>
+
+  <!-- p / br -->
+  <!-- p : paragraph 태그, br enter 태그 -->
+  <p>
+    This is p tag.<br>
+    This is p tag.<br>
+    This is p tag.<br>
+    This is p tag.<br>
+    This is p tag.<br>
+    This is p tag.<br>
+    this is p tag.
+  </p>
+
+  <!-- pre -->
+  <!-- pre 태그 : 글씨 자체를 그대로 출력하고 싶을 때 -->
+  <pre>
+    from flask import flask
+    app = Flask(__name__)
+
+    @app.route('/')
+    def hello('/'):
+      return 'Hello
+  </pre>
+
+  <!-- headline -->
+  <hr>
+
+  <!-- q / blockquote -->
+  <!-- q 태그 : 더블 쿼터 -->
+  <!-- blockquote 태그 : 인용문 같은거 쓸 때 즉, 들여쓰기 사용할 때 -->
+  <p>
+    Juno, said <q>Hi there!</q>
+  </p>
+  <blockquote>
+    Hi, there!
+  </blockquote>
+
+  <!-- ol / ul / li -->
+  <!-- ol 태그 : 순서가 있는 리스트 만듬 -->
+  <!-- ul 태그 : 순서가 없는 리스트 만듬 -->
+  <!-- li 태그는 반드시 ol 또는 ul 태그 안에서 사용한다. -->
+  <ol>
+    <li>first</li>
+    <li>second</li>
+    <li>third</li>
+  </ol>
+  <ul>
+    <li>first</li>
+    <li>second</li>
+    <li>third</li>
+  </ul>
+</body>
+</html>

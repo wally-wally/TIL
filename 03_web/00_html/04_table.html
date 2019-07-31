@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <!-- 스크린 리더가 caption말고 summery의 내용을 읽어준다.(웹 접근성) -->
+  <table border="1px solid black" summery="2019년 7월 마지막 주 월화수 점심메뉴 표입니다.">
+    <caption>유성연수원 20주차 점심 메뉴표</caption> <!-- caption 태그는 table 태그 바로 아래에 작성 -->
+    <thead>
+      <tr>
+        <!-- table row : 행 -->
+        <th></th> <!-- table header : 자동으로 bold 체로 출력 -->
+        <th>월</th>
+        <th>화</th>
+        <th>수</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>A 코스</td> <!-- table data : 열 -->
+        <td rowspan="2">짬뽕</td>
+        <td colspan="2">초밥</td>
+      </tr>
+      <tr>
+        <td>B 코스</td>
+        <td>김치찌개</td>
+        <td>삼계탕</td>
+      </tr>
+    </tbody>
+    <tfoot> <!-- 표에서 딱 한번밖에 못 씀 / 어느 위치에서 tfoot을 작성하건 맨 아래로 이동함-->
+      <tr>
+        <td>식수</td>
+        <td colspan="3">총 150명 식사</td>
+      </tr>
+    </tfoot>
+  </table>
+</body>
+
+</html>

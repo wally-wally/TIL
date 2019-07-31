@@ -1,0 +1,68 @@
+<!-- 추가조건 -->
+<!-- 1. 새로고침 했을 때 첫 번째 radio 버튼이 자동 클릭(샌드위치 선택) -->
+<!-- 2. 사이즈 선택시 15와 30만 입력 가능 -->
+<!-- 3. 빵 선택시 플렛브래드는 선택할 수 없음. -->
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <table border="1px solid black" width="270px">
+    <tr>
+      <td>
+        <form action="#">
+          <header>
+            <h1 align="center">FORM</h1>
+            <p><li>주문서를 작성하여 주십시오.</li></p>
+            이름: <input type="text" , id="text" placeholder="이름을 입력해주세요"><br>
+            날짜: <input type="date"><br>
+          </header>
+
+          <article>
+            <h2>1. 샌드위치 선택</h2>
+            <input type="radio" name="sandwich" value="1" checked>에그 마요<br> <!-- 추가조건 1 -->
+            <input type="radio" name="sandwich" value="2">이탈리안 비엠티<br>
+            <input type="radio" name="sandwich" value="3">터키 베이컨 아보카도<br>
+          </article>
+          <hr>
+
+          <article>
+            <h2>2. 사이즈 선택</h2>
+            <input type="number" min="15" max="30" step="15"><br> <!-- 추가조건 2 -->
+          </article>
+          <hr>
+
+          <article>
+            <h2>3. 빵</h2>
+            <select name="bread" id="">
+              <option value="1">허니오트</option>
+              <option value="2" disabled>플렛브레드</option> <!-- 추가조건 3 -->
+              <option value="3">하티 이탈리안</option>
+            </select><br>
+          </article>
+          <hr>
+
+          <article>
+            <h2>4. 야채/소스</h2>
+            <input type="checkbox" , name="vegetables/sauce" value="1">토마토<br>
+            <input type="checkbox" , name="vegetables/sauce" value="2">오이<br>
+            <input type="checkbox" , name="vegetables/sauce" value="3">할라피뇨<br>
+            <input type="checkbox" , name="vegetables/sauce" value="4">핫 칠리<br>
+            <input type="checkbox" , name="vegetables/sauce" value="5">바베큐<br>
+            <br>
+          </article>
+          <input type="submit" , value="submit">
+        </form>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!-- 01_semantic.html -->
+<!DOCTYPE html>
+<html lang="ko">
+​
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Semantic Layout</title>
+  <style type="text/css">
+    * {
+      font-family: 'Source Code Pro', sans-serif;
+    }
+
+    nav,
+    header,
+    section,
+    article,
+    aside,
+    footer {
+      margin: 16px;
+      padding: 16px;
+      border-radius: 4px;
+      background-color: purple;
+      text-align: center;
+    }
+
+    nav,
+    header,
+    footer {
+      width: 400px;
+    }
+
+    header {
+      margin-bottom: 0;
+    }
+
+    footer {
+      margin-top: 0;
+    }
+
+    section {
+      display: inline-block;
+      width: 216px;
+      height: 100px;
+      margin-right: 8px;
+    }
+
+    aside {
+      display: inline-block;
+      width: 136px;
+      height: 100px;
+      margin-left: 0px;
+      vertical-align: top;
+    }
+
+    article {
+      background-color: grey;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- &lt;는 <이고, &gt;는 >이다. -->
+  <!-- div 태그는 의미적이지 않을 때 쓰인다.(아마 div 많이 쓰일 껴) -->
+  <!-- 시맨틱 태그는 여러 번 써도 상관없다. -->
+  <header>&lt;header&gt;</header>
+  <nav>&lt;nav&gt;</nav>
+  <section>
+    &lt;section&gt;
+    <article>&lt;article&gt;</article>
+  </section>
+  <aside>&lt;article&gt;</aside>
+  <footer>&lt;footer&gt;</footer>
+</body>
+
+</html>

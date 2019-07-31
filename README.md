@@ -176,7 +176,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 <br>
 
-#### Day_01(July 29th)
+#### Day_01~02(July 29th~30th)
 
 - Basic of algorithm
 - Time Complexity
@@ -187,6 +187,8 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
   - Counting Sort
 - Exaustive Search
 - Permutation
+- optimization problem
+- greedy algorithm
 
 <br>
 
