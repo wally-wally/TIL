@@ -191,9 +191,28 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 - Semantic Tag
 - Writing HTML document using a variety of Tag
 
-### Day_02(August 1st)
+### Day_02(August 1st) => `01_css`
 
-- 
+- CSS(Cascading Style Sheet)
+- Rule of writing CSS
+- CSS Style Guide
+- CSS unit : value
+- selector
+- Box model
+  - box-sizing
+  - shorthand
+  - margin collapsing
+- `display` attribute
+  - block
+  - inline
+  - inline-block
+  - None
+- `visibility` attribute
+  - visible
+  - hidden
+- `background` attribute
+  - background-size
+  - background-repeat, position, attachment
 
 <br>
 
