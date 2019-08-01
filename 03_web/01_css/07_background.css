@@ -1,0 +1,47 @@
+*,
+*:after,
+*:before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+/* 위는 기본 세팅(무시) */
+
+.bg-box {
+  height: 100%;
+
+  /* background-image */
+  background-image: url("images/camping.jpg");
+  
+  background-size: 700px 500px;
+  background-size: contain;
+  /* contain
+      배경 이미지의 크기 비율을 유지한 상태에서
+      부모 요소의 영역에 배경이미지가 보이지 않는 부분까지
+      전체가 들어갈 수 있도록 이미지 크기를 조절한다. */
+  background-size: cover;
+  /* cover
+      배경 이미지의 크기 비율을 유지한 상태에서
+      부모 요소의 width, height 중 큰 값에 배경 이미지를 맞춘다.
+      따라서 이미지의 일부가 보이지 않을 수 있다. */
+  
+  /* background-repeat */
+  background-repeat: no-repeat;
+
+  /* background-position */
+  background-position: 0, 0; /* 이미지의 중심이 0, 0임 */
+  background-position: center;
+
+  /* background-attachment */
+  /* 스크롤 되더라도 배경 이미지는 스크롤 되지않고 고정시킨다. */
+  background-attachment: fixed;
+}
+
+/* cover 주고 center 맞추는게 제일 무난하다! */

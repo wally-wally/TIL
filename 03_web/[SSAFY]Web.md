@@ -180,16 +180,171 @@
 
 ## 2. 8월01일(02일차)
 
-### 2.1
+### 2.1 CSS(Cascading Style Sheet)
+
+- HTML은 <u>정보와 구조화</u>한다면 CSS는 <u>styling</u>를 정의하는 언어이다.
+- 둘이 한 세트이지만 각자 문법이 다른 별개의 언어이고 HTML 없이 CSS 단독으로 사용할 수 없다.
+- Cascading 이므로 맨 아래에 작성된 css가 적용된다.
+- `h1{color: blue; font-size: 15px;}`
+  - `h1` : 셀렉터
+  - `color:blue;`, `font-size:15px;` : 선언
+  - `color`, `font-size` : 프로퍼티(property)
+  - `blue`, `15px` : 값(value)
+- CSS는 외워서 쓰는게 아니다. 찾으면서 하자!
 
 <br>
 
-### 2.2
+### 2.2 CSS 작성하는 방법
+
+- `inline(인라인)` : HTML 태그안에 CSS 요소 작성하기
+
+- `Embedding(내부참조)` : HTML 내부에 CSS를 포함시키기
+
+- `link file(외부참조)` : 외부에 있는 CSS 파일을 로드하기
+  - `컴포넌트화` : 일반적으로 외부 파일로서 활용한다.
+  - 중복된 property는 컴포넌트화하여 작성하는게 좋다.
+
+**:heavy_check_mark: 스타일 적용 우선순위 : `inline` > `embedding` > `link file`**
+
+:heavy_check_mark:**​ 주로 `link file`을 가장 많이 쓰이고 `inline`은 아주 가끔 사용한다.**
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="00_intro.css"> <!-- link:css 치고 enter-->
+  <!-- 내부참조 -->
+  <style>
+    h2 {
+      color: burlywood
+    }
+  </style>
+</head>
+<body>
+  <h1 style="color: royalblue;">inline css 적용</h1> <!-- inline -->
+  <h2>내부참조, embedding</h2>
+  <h3>외부참조, link file</h3>
+</body>
+</html>
+```
 
 <br>
 
-### 2.3
+### 2.3 CSS Style Guide
+
+```css
+h3 {
+  color: crimson;
+}
+```
+
+- 들여쓰기는 **2문자**이다.
+- 클래스, 아이디명은 **케밥 케이스(kebob-case**) : 전부 소문자 인데 중간에 하이픈(-)을 쓴다.
+- property는 `:`와 붙이고 한 칸 띄우고 value를 작성한다.
+- 모든 스타일 뒤에는 세미콜론을 붙인다.
+- 다중 선택 시 한 줄에 선택자를 하나씩 작성
+
+```css
+.bold,
+.yellow {
+    font-weight: bold;
+}
+```
+
+- :warning: **[가장 중요!] 스타일 지정 시 아이디, 태그 대신에 *<u>클래스</u>*를 사용한다.(되도록!, 대부분!)**
+- 아이디는 `html` 문서에서 한 번만 사용하자
+- 숫자 0 이후에는 불필요한 단위를 작성하지 않는다.
+
+```css
+/* 가운데 정렬 */
+.mx-auto {
+  /* 상하 : 0, 좌우 : auto */
+  margin: 0 auto;
+}
+```
+
+- `'Google Font' > Korean`사용할 때 `@import` 대신 `<link>` 방법을 사용한다.
+- 가능한 한 단축어(축약형)를 사용한다.
+  - 단, 불필요하게 과용하는 것은 피한다.
 
 <br>
 
-### 2.4
+### 2.4 CSS 단위 : 값(value) => 키워드, 크기단위, 색깔
+
+- **`키워드`** : 개발자 도구로 확인 가능
+- **`크기단위`** : 우리가 알고 있는 크기단위
+  - `px` : **디바이스별로 픽셀의 크기는 제각각**임(해상도가 각각 다르기 때문), `px`단위가 100% 절대 단위는 아니다!(**크롬에서 Default font는 `16px`이다!**)
+  - `%` : 백분율 단위의 **상대 단위** / 요소에 지정된 사이즈(상속된 사이즈나 디폴트 사이즈)에 **상대적인 사이즈**를 결정
+  - `em` : 배수 단위로 **상대 단위** / 요소에 지정된 사이즈(상속된 사이즈나 디폴트 사이즈)에 **상대적인 사이즈**를 결정
+  - `rem` : **<u>최상위 요소(html)의 사이즈를 기준</u>**으로 삼는다. / `em`의 기준은 상속의 영향으로 바뀔 수 있지만 `rem`은 어딜가도 같다.
+  - `Viewport` 단위 : 디바이스마다 다른 크기의 화면을 가지고 있으므로 상대적인 단위인 `viewport`를 기준으로 만든 단위 (단, IE는 지원X)
+- `색상 표현 단위` : `https://htmlcolorcodes.com/` 와 같은 사이트에 들어가서 원하는 색상 사용하자.
+
+<br>
+
+### 2.5 선택자(selector)
+
+- **선택자 우선순위 : `!important`(0순위) > `인라인 스타일` > `아이디 선택자` > `클래스 선택자` > `태그 선택자` > `전체 선택자`**
+
+<br>
+
+### 2.6 Box model
+
+#### (1) box-sizing
+
+#### (2) shorthand
+
+#### (3) <a href="https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing">마진상쇄</a>
+
+- 상하 일 때 자식 또는 자손 관계 같은게 서로 있을 경우 큰 값으로 덮어씌어진다.
+
+<br>
+
+### 2.7 display 속성
+
+#### (1) block
+
+- 항상 새로운 라인에서 시작
+- 화면 크기 전체의 가로폭을 차지한다. (width : 100%)
+
+#### (2) inline
+
+- 새로운 라인에서 시작하지 않으며 문장의 중간에 들어갈 수 있다.
+- content의 너비만큼 가로폭을 차지함
+- **width, height, margin-top, margin-bottom 프로퍼티를 지정할 수 없다.**
+- **대신 상, 하 여백은 line-height로 지정한다.**
+
+#### (3) inline-block
+
+- block과 inline 레벨 요소의 특징을 모두 갖는다.
+- **width, height, margin-top, margin-bottom 프로퍼티를 지정할 수 있다.**
+
+#### (4) None
+
+- 해댱 요소를 화면에 표시하지 않는다. (**<u>공간조차 사라진다.</u>**)
+
+<br>
+
+### 2.8 visibility 속성
+
+#### (1) visible
+
+#### (2) hidden
+
+- 해당 요소를 안 보이게 한다. 하지만 공간이 사라지는 것은 아니다.
+- 그러므로 다른 요소에 영향을 주지 않는다.
+
+<br>
+
+### 2.9 background 속성
+
+#### (1) background-size
+
+- `contain`
+- `cover`
+
+#### (2) background-repeat, position, attachment

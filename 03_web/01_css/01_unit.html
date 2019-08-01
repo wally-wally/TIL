@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="01_unit.css">
+</head>
+<body>
+  <h1>단위를 알아봅시다.</h1>
+  <p>Default font</p>
+
+  <!-- 24px : 20 * 1.2-->
+  <ol>
+    <li>1.2rem</li> <!-- 20(html 기준) -->
+  </ol>
+
+  <!-- 28.8px : 20(기본 default값) * 1.2(상속한 ul / 부모) * 1.2(ul li / 내꺼) -->
+  <ul>
+    <li>1.2em</li>
+  </ul>
+
+  <!-- vw, vh -->
+  <!-- css 파일에서 클래스로 지정하려면 class 이름 앞에 .을 붙인다.-->
+  <span class="vw">10vw</span> <!-- 브라우저의 너비에 따라 반응하여 크기가 달라짐. -->
+  <span class="vh">10vh</span> <!-- 브라우저의 높이에 따라 반응하여 크기가 달라짐. -->
+  <!-- cf)박스 만들 때 div로 시작한다.-->
+  <div class='div-vw'></div>
+  <div class='div-vh'></div>
+
+  <!-- vmin -->
+  <div class="div-vmin">10vmin</div>
+</body>
+</html>

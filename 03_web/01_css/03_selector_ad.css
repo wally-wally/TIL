@@ -1,0 +1,42 @@
+/* 그룹 선택자 */
+p,
+h3 {
+  color: grey;
+}
+
+/* div 세팅 */
+div {
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+}
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+/* 인접 선택자, 바로 붙어있는 */
+/* +의 개념(~의 옆에 붙어있는) : red 옆에 blue 옆에 div */
+.red + .blue + div {
+  background-color: purple;
+}
+
+/* 자식 선택자 */
+/* 자기 바로 아래 있는 거(=인덴트가 한 칸 차이)만 판단 가능(>) */
+ol > li {
+  color: darkgreen;
+}
+
+ol#chocolate > li {
+  color: chocolate;
+}
+
+/* 자손(후손) 선택자 */
+/* ul 아래에 있는 모든 li에 적용됨. */
+ul li {
+  color: lime;
+}

@@ -1,0 +1,36 @@
+/* 전체 선택자 */
+* {
+  color: red;
+}
+
+/* 태그 선택자 */
+h1 {
+  color: blue;
+}
+
+/* 클래스 선택자(얘는 .으로 시작) */
+.pink {
+  color: pink;
+}
+
+/* 아이디 선택자(얘는 #으로 시작) */
+#green {
+  color: green;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.yellow {
+  color: yellow;
+}
+
+#orange {
+  color: brown !important;
+  color: orange
+}
+
+#purple {
+  color: purple;
+}

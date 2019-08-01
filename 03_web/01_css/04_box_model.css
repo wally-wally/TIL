@@ -1,0 +1,84 @@
+div {
+  color: white;
+  width: 100px;
+  height: 100px;
+  background-color: grey;
+}
+
+.margin {
+  margin-top: 30px;
+  /* 아래로 움직임 */
+  margin-bottom: 30px;
+  /* 위치 불변 */
+  margin-left: 10px;
+  /* 오른쪽으로 10px만큼 움직임 */
+  margin-right: 10px;
+  /* 움직이지 않음 */
+}
+
+.padding {
+  padding-top: 30px;
+  /* 아래로 움직이고 박스 크기도 커짐 */
+  padding-bottom: 30px;
+    /* 위로 박스 크기 거짐 */
+}
+
+.border {
+  border-width: 5px;
+  border-style: dotted;
+  border-color: red;
+  border-top-color: blue;
+  border-radius: 10px;
+  /* border: 5px dotted red; */
+}
+
+.margin-shorthand-1 {
+  /* 상하좌우 */
+  margin: 10px;
+}
+
+.margin-shorthand-2 {
+  /* 상하/좌우 */
+  margin: 10px 20px;
+}
+
+.margin-shorthand-3 {
+  /* 상/좌우/하 10px */
+  margin: 10px 20px 30px;
+}
+
+.margin-shorthand-4 {
+  /* 상/좌/하/우 (시계방향) */
+  margin: 10px 20px 30px 40px;
+}
+
+/* 가운데 정렬 */
+.align-center {
+  /* 오른쪽, 왼쪽에 반반 나눠준다. */
+  /* 0px인 경우 px 단위를 안 써주는 것이 좋다. */
+  margin: 0 auto;
+}
+
+/* 오른쪽 정렬 */
+.align-right {
+  /* 오른쪽의 남은 너비를 왼쪽으로 보낸다.(붙인다.) */
+  /* 왼쪽에 남은 너비를 붙인다. */
+  margin-left: auto;
+}
+
+/* box-sizing */
+.box-sizing {
+  margin: 20px; /* 상하좌우 모두 적용 */
+  padding: 20px; /* 상하좌우 모두 적용 */
+  border: 10px solid crimson;
+  width: 300px;
+}
+
+.content-box {
+  box-sizing: content-box;
+}
+
+/* 항상 이거만 쓴다! */
+.border-box {
+  box-sizing: border-box;
+}

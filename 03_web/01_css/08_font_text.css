@@ -1,0 +1,53 @@
+.font-1 {
+  font-size: 30px;
+  font-family: 'Courier New', Courier, monospace;
+  font-style: italic;
+}
+
+.font-2 {
+  font-size: 2rem;
+  font-family: 'Cute Font', cursive;
+  font-weight: lighter;
+}
+
+.font-3 {
+  font-size: 130%;
+  font-family: 'Black Han Sans', sans-serif;
+  font-weight: bold;
+}
+
+.font-4 {
+  font-size: small;
+  font-weight: 700;
+}
+
+.font-5 {
+  /* fontshorthand(font 단축어) */
+  /* font: font-style font-weight line-height font-size(필수) font-family(필수) */
+  /* 나머지 네 개는 옵션이지만 font-size와 font-family는 필수로 포함하고 순서는 무관하다. */
+  font: italic 2rem "Hack";
+  font-family: 'Gugi', cursive;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: crimson;
+  color: white;
+}
+
+/* 텍스트가 한 줄일 때 다음과 같이 정중앙 정렬 */
+.box > p {
+  text-align: center;
+  /*
+    line-height를 부모의 height 만큼 주면
+    텍스트를 수직 중앙정렬 하기에 용이하다.
+    (단, 텍스트가 한 줄인 경우에)
+  */
+  line-height: 100px;
+}
+
+/* 외장 폰트 사용(step2) */
+.web-font {
+  font-family: 'Jua', sans-serif;
+}

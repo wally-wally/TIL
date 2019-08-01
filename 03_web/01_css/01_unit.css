@@ -1,0 +1,39 @@
+html {
+  font-size: 20px;
+}
+
+ol,
+ol li {
+  font-size: 1.2rem;
+}
+
+ul,
+ul li {
+  font-size: 1.2em;
+}
+
+.vw {
+  font-size: 10vw;
+}
+
+.vh {
+  font-size: 10vh;
+}
+
+.div-vw {
+  width: 10vw;
+  height: 10vw;
+  background-color: #DF5639;
+}
+
+.div-vh {
+  width: 10vh;
+  height: 10vh;
+  background-color: rgba(40, 99, 122, 0.514);
+}
+
+.div-vmin {
+  width: 10vmin;
+  height: 10vmin;
+  background-color: green;
+}
