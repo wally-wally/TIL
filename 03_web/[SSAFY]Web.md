@@ -296,6 +296,8 @@ h3 {
 
 #### (1) box-sizing
 
+<img width="601" alt="03_day02_01" src="https://user-images.githubusercontent.com/52685250/62307918-74a16c00-b4bf-11e9-89c7-286790e65d02.png">
+
 #### (2) shorthand
 
 #### (3) <a href="https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing">마진상쇄</a>
