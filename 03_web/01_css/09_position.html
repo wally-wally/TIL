@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="09_position.css">
+</head>
+<body>
+  <h2>1. static</h2>
+  <div>static</div>
+  <div>static</div>
+
+  <!-- 
+    1. absolute
+      absolute 는 부모 혹은 조상 요소를 기준으로 위치하는데
+      static이 아닌 부모 혹은 조상요소를 기준으로 찾아 올라간다.
+      absolute-1 박스는 부모가 static 이어서 최종적으로
+      body를 기준으로 위치하게 된다.
+   -->
+  <h2>2. absolute-1 (모든 부모가 static => body를 기준으로 함)</h2>
+  <div class="parent">
+    static
+    <div class="absolute">absolute-1</div>
+  </div>
+
+  <h2>3. absolute-2(조상 중에 static 이 아닌 가장 가까운 부모가 있을 때)</h2>
+  <div class="parent relative">
+    relative
+    <div class="absolute">absolute-2</div>
+  </div>
+
+  <h2>4. absolute-3(해당 부모나 조상이 움직이면 따라 간다)</h2>
+  <div class="parent relative-move">
+    relative-move
+    <div class="absolute">absolute-3</div>
+  </div>
+
+  <!-- 
+    2. relative
+      자기가 원래 있어야 할 위치(static) 을 기준으로 이동.
+      * 주의사항
+        - relative로 이동하면 과거 static 이었던 공간도 차지한 상태로 이동한다.
+   -->
+  <h2>5. relative - 자기가 있어야 할 위치를 기준으로 바뀐다.</h2>
+  <div class="relative-move">relative</div>
+
+  <!-- 3. fixed  -->
+  <div class="fixed">
+    <h2>6. fixed - 브라우저 위치에 따라 고정</h2>
+  </div>
+
+  <!-- 4. z-index -->
+  <h2>7. z-index - 큰 숫자값을 지정할수록 화면 전면에 출력된다.</h2>
+  <div class="relative">
+    <div class="z-index-1">1</div>
+    <div class="z-index-2">2</div>
+    <div class="z-index-3">3</div>
+  </div>
+</body>
+</html>

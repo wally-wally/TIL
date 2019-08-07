@@ -350,3 +350,93 @@ h3 {
 - `cover`
 
 #### (2) background-repeat, position, attachment
+
+<br>
+
+------
+
+<br>
+
+## 3. 8월07일(03일차)
+
+### 3.1 Position
+
+#### (1) static(기본 위치)
+
+- 기본적인 요소의 배치 순서에 따라 위에서 아래로, 왼쪽에서 오른쪽으로 따라 배치됨
+
+- 부모 요소의 위치를 기준으로 배치됨
+
+#### (2) relative(상대 위치)
+
+- **기본 위치(static으로 지정 되었을 때의 위치)를 기준**으로 좌표 프로퍼티(top, bottom, left, right)를 사용하여 위치를 이동(음수도 가능)
+
+#### (3) absoltue(절대 위치) ==> `집 나간 자식`
+
+- 부모 요소 또는 가장 가까이에 있는 요소(static 제외)를 기준으로 좌표 프로퍼티(top, bottom, left, right)만큼 이동함
+- relative, absolute, fixed 프로퍼티가 선언되어 있는 부모 또는 조상 요소를 기준으로 위치가 결정됨.
+- 다른 위치 보다 자유롭게 이동함
+
+#### (4) fixed(고정 위치)
+
+- 부모 요소와 관계없이 브라우저의 viewpoint를 기준으로 좌표 프로퍼티(top, bottom, left, right)을 사용하여 위치 이동함.
+- **스크롤이 되더라도 화면에서 사라지지 않고 항상 같은 곳에 위치**
+
+<br>
+
+### 3.2 Bootstrap - Utilities
+
+**:heavy_check_mark: <u>Bootstrap은 공식 문서(Documentation)를 옆에 켜놓고 작업한다!</u>**
+
+:heavy_check_mark: Bootstrap은 클래스로 스타일을 적용한다. **<u>클래스</u>** 이름을 유심히 보자!
+
+#### (1) CDN(Content Delivery(Distribution) Network)
+
+- 컨텐츠(CSS, JS, Image, Text 등)를 효율적으로 전달하기 위해 여러 노드에 가진 네트워크에 데이터를 제공하는 시스템.
+- 개별 end-user의 가까운 서버를 통해 빠르게 전달 가능(지리적 이점)
+- 외부 서버를 활용함으로써 본인 서버의 부하가 적어짐.
+- 적절한 수준의 캐시 설정으로 빠르게 로딩할 수 있음.
+
+#### (2) spacing
+
+- `.mt-1` : 0.25rem * 16px = 4px / `.mt-2` : 0.5rem *16px = 8px / `.mt-3` : 1rem * 16px = 16px
+- `mx-auto` : 가운데 정렬
+
+#### (3) color
+
+- 배경색 변경 : `background-color: primary`를 `.bg-primary` 와 같이 줄여서 작성함
+- 글자색 변경 : `color : success`를 `.text-success`와 같이 줄여서 작성함.
+- 경고창 색 : `.alert-warning`
+- 버튼색 변경 : `.btn-secondary`
+- nav바를 dark로 하고 배경색을 primary로 하자 : `.navbar-dark .bg-primary`
+
+#### (4) border
+
+- `border-color: success` => `.border .border-success`
+- `rounded-circle`, `rounded-ill`
+
+#### (5) display
+
+- `.d-block`, `.d-sm-none`
+
+#### (6) text
+
+- `fonr-weight: bold` => `font-weight-bold`
+
+<br>
+
+### 3.3 CSS Layout History
+
+① **레이아웃이 없던 시절**
+
+② **테이블 레이아웃**
+
+③ **프레임 레이아웃**
+
+④ **CSS (float / position)** => 이 때부터 구조를 짜기 시작함
+
+⑤ **flex box** : x축 또는 y축을 기반으로 정렬함 -> 1차원 배열의 시작 / 동시에 두 축을 기반으로는 할 수 없음
+
+⑥ **grid system**: 2차원 배열(x축과 y축을 동시에 작업할 수 있음) 격자무늬로 자유자재로 박스들을 조절할 수 있음
+
+:heavy_check_mark: **grid는 flex box보다 늦게 나왔지만 완전히 대체하는 것은 아니다! (현재는 둘 다 쓰고 있다!)**
