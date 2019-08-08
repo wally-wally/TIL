@@ -249,6 +249,8 @@
 </body>
 ```
 
+<br>
+
 > 02_index.html
 
 - **heading** : `h1` 태그는 한 페이지에 하나만 쓰는게 원칙이고, `h2` 태그부터는 여러 개 써도 무방함
@@ -266,6 +268,8 @@
   - `ul` 태그 : **순서가 없는 리스트** => 항목 앞에 기호가 붙음
   - `li` 태그는 반드시 `ol` 또는 `ul` 태그 안에서 사용한다.
 
+<br>
+
 > 03_markup.html
 
 ```html
@@ -275,7 +279,7 @@
 <a href="index.html">참고사이트</a>
 ```
 
-- alt 값이 웹 접근성이여서 안 보이는 사람한테 읽어준다.
+- alt 값이 웹 접근성이여서 안 보이는 사람한테 읽어준다.(이미지가 없을 때 나오는 글자 지정)
   - alt에 빈 값을 넣을 때는 `#`만 써놓고 나중에 채워넣어도 된다. 공백으로만 두지 말자!
 - `a href=#python`으로 작성하면 밑에 코드에서 `id`가 `python`으로 지정된 곳으로 이동하게 된다.
   - `img src`로 이미지를 삽입하여 hyper link 역할을 할 수 있다.
@@ -303,6 +307,8 @@
 ```
 
 - `mailto:본인 이메일 주소` 로 href의 값을 작성하면 본인 이메일 주소로 메일을 보낼 수 있다.
+
+<br>
 
 > 04_table.html (`rowspan`과 `colspan`을 정확히 이해하자!)
 
@@ -344,6 +350,8 @@
 ```
 
 ![표](https://user-images.githubusercontent.com/52685250/62687371-a6578d00-ba01-11e9-865a-c23343a4c12e.JPG)
+
+<br>
 
 > 06_form.html
 
@@ -399,7 +407,7 @@
 - 둘이 한 세트이지만 각자 문법이 다른 별개의 언어이고 HTML 없이 CSS 단독으로 사용할 수 없다.
 - Cascading 이므로 맨 아래에 작성된 css가 적용된다.
 - `h1{color: blue; font-size: 15px;}`
-  - `h1` : 셀렉터
+  - `h1` : 셀렉터(Selector)
   - `color:blue;`, `font-size:15px;` : 선언
   - `color`, `font-size` : 프로퍼티(property)
   - `blue`, `15px` : 값(value)
@@ -445,6 +453,13 @@
 </html>
 ```
 
+```css
+/* 외부 참조시 사용되는 파일 : 00_intro.css */
+h3 {
+  color: crimson;
+}
+```
+
 <br>
 
 ### 2.3 CSS Style Guide
@@ -458,7 +473,7 @@ h3 {
 - 들여쓰기는 **2문자**이다.
 - 클래스, 아이디명은 **케밥 케이스(kebob-case**) : 전부 소문자 인데 중간에 하이픈(-)을 쓴다.
 - property는 `:`와 붙이고 한 칸 띄우고 value를 작성한다.
-- 모든 스타일 뒤에는 세미콜론을 붙인다.
+- 모든 스타일 뒤에는 **세미콜론**을 붙인다.
 - 다중 선택 시 한 줄에 선택자를 하나씩 작성
 
 ```css
@@ -491,11 +506,91 @@ h3 {
 - **`키워드`** : 개발자 도구로 확인 가능
 - **`크기단위`** : 우리가 알고 있는 크기단위
   - `px` : **디바이스별로 픽셀의 크기는 제각각**임(해상도가 각각 다르기 때문), `px`단위가 100% 절대 단위는 아니다!(**크롬에서 Default font는 `16px`이다!**)
-  - `%` : 백분율 단위의 **상대 단위** / 요소에 지정된 사이즈(상속된 사이즈나 디폴트 사이즈)에 **상대적인 사이즈**를 결정
-  - `em` : 배수 단위로 **상대 단위** / 요소에 지정된 사이즈(상속된 사이즈나 디폴트 사이즈)에 **상대적인 사이즈**를 결정
-  - `rem` : **<u>최상위 요소(html)의 사이즈를 기준</u>**으로 삼는다. / `em`의 기준은 상속의 영향으로 바뀔 수 있지만 `rem`은 어딜가도 같다.
+  - `%` : **<u>백분율</u>** 단위의 **상대 단위** / 요소에 지정된 사이즈(상속된 사이즈나 디폴트 사이즈)에 **상대적인 사이즈**를 결정
+  - `em` : **<u>배수</u>** 단위로 **상대 단위** / 요소에 지정된 사이즈(상속된 사이즈나 디폴트 사이즈)에 **상대적인 사이즈**를 결정
+  - `rem` : **<u>최상위 요소(html)의 사이즈를 기준</u>**으로 삼는다.
+    - `em`의 기준은 상속의 영향으로 바뀔 수 있지만 `rem`은 어딜가도 같다.
+    - rem의 r은 root를 의미한다.
   - `Viewport` 단위 : 디바이스마다 다른 크기의 화면을 가지고 있으므로 상대적인 단위인 `viewport`를 기준으로 만든 단위 (단, IE는 지원X)
+    - `vw` : 너비의 1/100
+    - `vh` : 높이의 1/100
+    - `vmin` : 너비 또는 높이 중 작은 쪽의 1/100
+    - `vmax` : 너비 또는 높이 중 큰 쪽의 1/100
 - `색상 표현 단위` : `https://htmlcolorcodes.com/` 와 같은 사이트에 들어가서 원하는 색상 사용하자.
+  - HEX : `#ffffff`
+  - RGB : `rgb(0, 0, 0)`
+  - RGBA : `rgba(0, 0, 0, 0.5)` / 여기서 `A`는 투명도를 의미한다.(0.0(완전 투명)~1.0(완전 불투명))
+
+```html
+<body>
+  <h1>단위를 알아봅시다.</h1>
+  <p>Default font</p>
+
+  <!-- 24px : 20 * 1.2-->
+  <ol>
+    <li>1.2rem</li> <!-- 20(html 기준) -->
+  </ol>
+
+  <!-- 28.8px : 20(기본 default값) * 1.2(상속한 ul / 부모) * 1.2(ul li / 내꺼) -->
+  <ul>
+    <li>1.2em</li>
+  </ul>
+
+  <!-- vw, vh -->
+  <!-- css 파일에서 클래스로 지정하려면 class 이름 앞에 .을 붙인다.-->
+  <span class="vw">10vw</span> <!-- 브라우저의 너비에 따라 반응하여 크기가 달라짐. -->
+  <span class="vh">10vh</span> <!-- 브라우저의 높이에 따라 반응하여 크기가 달라짐. -->
+  <!-- cf)박스 만들 때 div로 시작한다.-->
+  <div class='div-vw'></div>
+  <div class='div-vh'></div>
+
+  <!-- vmin -->
+  <!-- 창을 키우다가 어느 정도 되면 더 이상 안 커짐 -->
+  <div class="div-vmin">10vmin</div>
+</body>
+```
+
+```css
+html {
+  font-size: 20px;
+}
+
+ol,
+ol li {
+  font-size: 1.2rem;
+}
+
+ul,
+ul li {
+  font-size: 1.2em;
+}
+
+.vw {
+  font-size: 10vw;
+}
+
+.vh {
+  font-size: 10vh;
+}
+
+.div-vw {
+  width: 10vw;
+  height: 10vw;
+  background-color: #DF5639;
+}
+
+.div-vh {
+  width: 10vh;
+  height: 10vh;
+  background-color: rgba(40, 99, 122, 0.514);
+}
+
+.div-vmin {
+  width: 10vmin;
+  height: 10vmin;
+  background-color: green;
+}
+```
 
 <br>
 
@@ -503,15 +598,322 @@ h3 {
 
 - **선택자 우선순위 : `!important`(0순위) > `인라인 스타일` > `아이디 선택자` > `클래스 선택자` > `태그 선택자` > `전체 선택자`**
 
+> 02_selector.html / 02_selector.css
+
+```html
+<body>
+  <p>빨간색</p>
+  <h1>태그 선택자</h1>
+  <h2 class="pink">클래스 선택자</h2>
+  <h3 id="green">아이디 선택자</h3>
+  <h3 id="green" class="pink">아이디 > 클래스</h3>
+  <h1 class="pink">클래스 > 태그</h2>
+
+  <!--
+    - span 태그와 div 태그는 모두 의미는 없지만 '마크업'을 해야
+      css 를 적용시킬 수 있기 때문에 활용된다. 
+    - 특정한 곳을 지정해야하고 따라서 선택자가 필요하게 되고 선택자를 잡기 위해서는
+      마크업이 필요한 것이다.
+  -->
+  <p><span class="pink">핑크핑크</span>, <span class="yellow">노랑노랑</span></p> <!-- ,부분은 전체 선택자임 -->
+
+  <!--
+    [Cascading의 개념을 잊지 말자!]
+    아래처럼 pink가 마지막에 써졌지만,
+    중요한건 css 코드상으로 yellow가 마지막에 선언되었기 때문에 노란색으로 적용된다.
+  -->
+  <p class="bold yellow pink">나는 무슨색일까?</p> <!-- 클래스는 ""안에 공백을 기준으로 나눈다. 즉, 세 개의 클래스가 있는 것임-->
+
+  <p class="bold yellow pink", id="orange" style="color: purple">가장 강한 우선순위</p>
+</body>
+```
+
+```css
+/* 전체 선택자 */
+* {
+  color: red;
+}
+
+/* 태그 선택자 */
+h1 {
+  color: blue;
+}
+
+/* 클래스 선택자(얘는 .으로 시작) */
+.pink {
+  color: pink;
+}
+
+/* 아이디 선택자(얘는 #으로 시작) */
+#green {
+  color: green;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.yellow {
+  color: yellow;
+}
+
+#orange {
+  color: brown !important;
+  color: orange
+}
+
+#purple {
+  color: purple;
+}
+```
+
 <br>
+
+> 03_selector_ad.html / 03_selector_ad.css
+
+```html
+<body>
+  <!-- 그룹 선택자 -->
+  <p>그룹 선택자</p>
+  <h3>그룹 선택자</h3>
+  <p>그룹</p>
+  <p>그룹</p>
+
+  <!-- 인접 선택자 -->
+  <div class="red"></div>
+  <div class="blue"></div>
+  <div></div>
+
+  <!-- 자식 선택자 -->
+  <ol>
+    <li>ol의 자식 li</li>
+  </ol>
+  <ol id="chocolate">
+    <li>허쉬</li>
+    <li>드림카카오</li>
+    <li>쿠앤크</li>
+  </ol>
+
+  <!-- 자손(후손) 선택자 -->
+  <ul>
+    <div>
+      <li>자손</li>
+      <li>자손</li>
+      <li>자손</li>
+    </div>
+  </ul>
+</body>
+```
+
+```css
+/* 그룹 선택자 */
+p,
+h3 {
+  color: grey;
+}
+
+/* div 세팅 */
+div {
+  width: 100px;
+  height: 100px;
+  border: 1px solid black;
+}
+
+.red {
+  background-color: red;
+}
+
+.blue {
+  background-color: blue;
+}
+
+/* 인접 선택자, 바로 붙어있는 */
+/* +의 개념(~의 옆에 붙어있는) : red 옆에 blue 옆에 div */
+.red + .blue + div {
+  background-color: purple;
+}
+
+/* 자식 선택자 */
+/* 자기 바로 아래 있는 거(=인덴트가 한 칸 차이)만 판단 가능(>) */
+ol > li {
+  color: darkgreen;
+}
+
+ol#chocolate > li {
+  color: chocolate;
+}
+
+/* 자손(후손) 선택자 */
+/* ul 아래에 있는 모든 li에 적용됨. */
+ul li {
+  color: lime;
+}
+```
+
+
 
 ### 2.6 Box model
 
+---
+
+:checkered_flag: **Box model의 구성**
+
+![box-model](https://user-images.githubusercontent.com/52685250/62709607-a622b600-ba30-11e9-8638-f7c81636ba3f.JPG)
+
+- `Content` : 실제 내용이 위치
+- `Padding` : 테두리 안쪽의 내부 여백
+  - 요소에 적용된 배경의 컬러, 이미지는 패딩까지 적용
+- `Border` : 테두리 영역
+- `Margin` : 테두리 바깥의 외부 여백
+  - 배경색을 지정할 수 없다.
+
+---
+
 #### (1) box-sizing
+
+> 04_box_model.html / 04_box_model.css
+
+```html
+<body>
+  <div>div</div>
+  <div class="margin">margin</div>
+  <div class="padding">padding</div>
+  <div class="border"></div>
+  <div class="margin-shorthand-1"></div>
+  <div class="margin-shorthand-2"></div>
+  <div class="margin-shorthand-3"></div>
+  <div class="margin-shorthand-4"></div>
+
+  <div class="align-center"></div>
+  <div class="align-right"></div>
+
+  <div class="box-sizing content-box">
+    <p>content-box</p>
+  </div>
+  <div class="box-sizing border-box">
+    <p>border-box</p>
+  </div>
+</body>
+```
+
+```css
+div {
+  color: white;
+  width: 100px;
+  height: 100px;
+  background-color: grey;
+}
+
+.margin {
+  margin-top: 30px;
+  /* 아래로 움직임 */
+  margin-bottom: 30px;
+  /* 위치 불변 */
+  margin-left: 10px;
+  /* 오른쪽으로 10px만큼 움직임 */
+  margin-right: 10px;
+  /* 움직이지 않음 */
+}
+
+.padding {
+  padding-top: 30px;
+  /* 아래로 움직이고 박스 크기도 커짐 */
+  padding-bottom: 30px;
+    /* 위로 박스 크기 거짐 */
+}
+
+.border {
+  border-width: 5px;
+  border-style: dotted;
+  border-color: red;
+  border-top-color: blue;
+  border-radius: 10px;
+  /* border: 5px dotted red; */
+}
+
+.margin-shorthand-1 {
+  /* 상하좌우 */
+  margin: 10px;
+}
+
+.margin-shorthand-2 {
+  /* 상하/좌우 */
+  margin: 10px 20px;
+}
+
+.margin-shorthand-3 {
+  /* 상/좌우/하 */
+  margin: 10px 20px 30px;
+}
+
+.margin-shorthand-4 {
+  /* 상/좌/하/우 (시계방향) */
+  margin: 10px 20px 30px 40px;
+}
+
+/* 가운데 정렬 */
+.align-center {
+  /* 오른쪽, 왼쪽에 반반 나눠준다. */
+  /* 0px인 경우 px 단위를 안 써주는 것이 좋다. */
+  margin: 0 auto;
+}
+
+/* 오른쪽 정렬 */
+.align-right {
+  /* 오른쪽의 남은 너비를 왼쪽으로 보낸다.(붙인다.) */
+  /* 왼쪽에 남은 너비를 붙인다. */
+  margin-left: auto;
+}
+
+/* box-sizing */
+.box-sizing {
+  margin: 20px; /* 상하좌우 모두 적용 */
+  padding: 20px; /* 상하좌우 모두 적용 */
+  border: 10px solid crimson;
+  width: 300px;
+}
+
+.content-box {
+  box-sizing: content-box;
+}
+
+/* 항상 이거만 쓴다! */
+.border-box {
+  box-sizing: border-box;
+}
+```
 
 <img width="601" alt="03_day02_01" src="https://user-images.githubusercontent.com/52685250/62307918-74a16c00-b4bf-11e9-89c7-286790e65d02.png">
 
+- `box-sizing: content-box;` : 박스 크기가 커지고 달라진다.
+  - 박스 너비 = width 속성 + 2 × (margin 속성 + border 속성 + padding 속성)
+  - 박스 높이 = height 속성 + 2 × (margin 속성 + border 속성 + padding 속성)
+- `box-sizing: border-box;` : 박스 크기가 불변이다. 즉, content-box일 때 보다 박스 크기가 작다.
+  - 박스 너비 = width 속성 + 2 × margin 속성
+  - 박스 높이 = height 속성 + 2 × margin 속성
+
+<br>
+
 #### (2) shorthand
+
+- margin 단축어
+
+![shorthand](https://user-images.githubusercontent.com/52685250/62710862-074b8900-ba33-11e9-9e78-0cdeab4527fc.JPG)
+
+- border 단축어
+
+```css
+.border {
+  border-width: 5px;
+  border-style: dotted;
+  border-color: red;
+}
+
+/*
+  위 구문을 border: 5px dotted red; 로 단축 가능
+  5px dotted red의 순서는 중요하지 않지만 보통 이 순서로 쓴다.
+*/
+```
 
 #### (3) <a href="https://developer.mozilla.org/ko/docs/Web/CSS/CSS_Box_Model/Mastering_margin_collapsing">마진상쇄</a>
 
@@ -525,6 +927,15 @@ h3 {
 
 - 항상 새로운 라인에서 시작
 - 화면 크기 전체의 가로폭을 차지한다. (width : 100%)
+  - **기본적으로 너비의 100%!**
+  - **너비가 정해지면 나머지를 margin으로!**
+- block 레벨 요소 내에 inline 레벨 요소를 포함할 수 있다.
+
+- **block 가로 정렬**
+
+![block 가로정렬](https://user-images.githubusercontent.com/52685250/62715766-1551d780-ba3c-11e9-8cec-5c378d8276dd.JPG)
+
+- block 레벨 요소 예 : `div`, `h1` ~ `h6`, `p`, `ol`, `li`, `ul`, `hr`, `table`, `form`
 
 #### (2) inline
 
@@ -532,11 +943,44 @@ h3 {
 - content의 너비만큼 가로폭을 차지함
 - **width, height, margin-top, margin-bottom 프로퍼티를 지정할 수 없다.**
 - **대신 상, 하 여백은 line-height로 지정한다.**
+- inline 예시
+
+![inline](https://user-images.githubusercontent.com/52685250/62716040-8beed500-ba3c-11e9-97e8-99d664045e0d.JPG)
+
+- inline 레벨 요소 예 : `span`, `a`, `strong`, `img`, `br`, `input`, `select`, `textarea`, `button`
 
 #### (3) inline-block
 
 - block과 inline 레벨 요소의 특징을 모두 갖는다.
-- **width, height, margin-top, margin-bottom 프로퍼티를 지정할 수 있다.**
+- inline 레벨 요소처럼 한 줄에 표시되면서
+- **block에서의 width, height, margin-top, margin-bottom 프로퍼티를 지정할 수 있다.**
+
+> 06_display_ad.html
+
+```html
+<body>
+  <!-- block -->
+  <div>block</div>
+  <div>block</div>
+
+  <!--
+    inline
+    내용없이 존재할 수 없음.(width, height 적용x)
+  -->
+  <div class="inline">안녕하세요?</div>
+  <div class="inline">저는 내용영역이 필요해요!</div>
+
+  <!--
+    inline-block
+    block 속성(width, height) 사용 가능
+    + inline 속성(우측 margin 이 사라짐)
+  -->
+  <div class="inline-block">i-b</div>
+  <div class="inline-block">i-b</div>
+</body>
+```
+
+![속성](https://user-images.githubusercontent.com/52685250/62716664-7cbc5700-ba3d-11e9-82eb-b375d31b7ba2.png)
 
 #### (4) None
 
@@ -548,10 +992,19 @@ h3 {
 
 #### (1) visible
 
+- 해당 요소를 보이게 한다.(기본값)
+
 #### (2) hidden
 
 - 해당 요소를 안 보이게 한다. 하지만 공간이 사라지는 것은 아니다.
 - 그러므로 다른 요소에 영향을 주지 않는다.
+- `display: none;`은 아예 공간까지 사라지게 하는 것
+- `visibility: hidden;` 은 안 보이게만 할 뿐 공간은 유지됨
+
+#### (3) opacity
+
+- 요소의 투명도를 정한다.
+- 0부터 1 사이의 숫자를 입력할 수 있으며 0은 투명한 상태, 1은 불투명한 상태이다.
 
 <br>
 
