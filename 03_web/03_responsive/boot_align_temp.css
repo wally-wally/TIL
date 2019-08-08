@@ -1,0 +1,38 @@
+body {
+  margin: 5rem auto;
+  background-color: darkslategray;
+  color: white;
+}
+
+.container {
+  margin: 10px auto;
+  padding: 20px auto;
+  border: 10px solid yellow;
+}
+
+.container h1 {
+  text-transform: uppercase;
+}
+
+.row {
+  border: 10px solid lightblue;
+}
+
+.container>.row>div {
+  padding: 20px 10px;
+  border: 10px solid white;
+  font-size: 50px;
+  text-align: center;
+}
+
+.container>.row>div:nth-child(odd) {
+  background: orange;
+}
+
+.container>.row>div:nth-child(even) {
+  background: green;
+}
+
+.row-vh {
+  height: 500px;
+}

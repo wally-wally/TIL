@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="flex_temp.css">
+	<style>
+		.container {
+			height: 100vh;
+      border: 10px solid royalblue;
+      display: flex;
+    }
+    
+    .item {
+      width: 300px;
+      height: 200px;
+    }
+
+    .item2 {
+      /* flex grow 를 지정해주지 않으면 기본은 0 */
+      /* 2번째가 남는 여백을 다 가져감 */
+      flex-grow: 2;
+
+      /* items3에 grow를 안주고 item2에만 grow=1을 준다고해서 item1:item2 = 1:2가 아님(하나에만 숫자를 주는거는 그 값에 큰 의미가 없음, 단지 여백 없이 꽉차게 하기 위함) */
+    }
+
+    .item3 {
+      flex-grow: 3;
+      /* 남는 여백이 기준! */
+      /* 현재 상황은 남는 여백을 5등분하여 item2에게 2, item3에게 3을 배분 */
+      /* item1 : item2 : item3 = 1:2:3이 무조건은 아님 */
+    }
+
+    /*
+      [제일 중요!!!]3개 박스 비율이 정확히 1:2:3이 되지 않는다.
+      남는 여백 부분에서 비율을 정해서 각 박스에 폭을 추가하기 때문.
+      grow를 주면 전체적으로 부모에 맞춰 꽉차게 만들어주긴 하는데, 각 박스의 비율은 원래
+      남는 비율을 지정된 grow 만큼 계산해서 추가해주기 때문.
+    */
+	</style>
+</head>
+
+<body>
+	<div class="container p-0">
+		<div class="item item1">1</div>
+		<div class="item item2">2</div>
+		<div class="item item3">3</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  color: white;
+}
+
+.item {
+  text-align: center;
+  font-size: 100px;
+}
+
+.item1 {
+  background-color: pink;
+}
+
+.item2 {
+  background-color: red;
+}
+
+.item3 {
+  background-color: darkorange;
+}
+
+.item4 {
+  background-color: yellow;
+}
+
+.item5 {
+  background-color: darkgreen;
+}
+
+.item6 {
+  background-color: skyblue;
+}
+
+.item7 {
+  background-color: blue;
+}
+
+.item8 {
+  background-color: navy;
+}
+
+.item9 {
+  background-color: purple;
+}
+
+.item10 {
+  background-color: brown;
+}
+
+.item11 {
+  background-color: darkgrey;
+}
+
+.item12 {
+  background-color: black;
+}

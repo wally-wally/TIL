@@ -1,0 +1,56 @@
+.container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+}
+
+nav {
+  display: flex; /* 내부에서도 flex 가능 */
+  height: 100px;
+  background-color: wheat;
+  justify-content: space-between; /* 양쪽으로 찢어놓기 */
+  align-items: center;
+}
+
+.items {
+  display: flex;
+}
+
+.items > li {
+  list-style-type: none;
+  margin: 0 20px;
+}
+
+.main {
+  display: flex;
+  height: 100%;  
+}
+
+aside {
+  width: 300px;
+  height: 100%;
+  background-color: rosybrown;
+}
+
+section {
+  display: flex;
+  background-color: pink;
+  height: 100%;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.article {
+  background-color: violet;
+  border: 1px solid black;
+  padding: 30px 10px;
+  flex-grow: 1;
+}
+
+footer {
+  background-color: wheat;
+  width: 100%; /* 좌우 너비 꽉차게*/
+  height: 100px;
+  /* block 에서는 margin-top: auto; 불가능하지만 지금은 flex이므로 가능 */
+  margin-top: auto; /* 맨 아래로 보내는 구문 */
+}

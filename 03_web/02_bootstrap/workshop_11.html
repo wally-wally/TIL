@@ -11,13 +11,23 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-    <a class="navbar-brand text-white h1" href="#">Navbar</a>
-    <a class="navbar-brand text-white h3" href="#">Home</a>
-    <a class="navbar-brand text-secondary h3" href="#">Git</a>
-    <a class="navbar-brand text-muted h3" href="#">Python</a>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand text" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active text" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="#">Features</a>
+        <a class="nav-item nav-link" href="#">Pricing</a>
+        <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </div>
+    </div>
   </nav>
+
   <br>
+  
   <div class="container">
     <form>
       <div class="form-group">
@@ -26,39 +36,48 @@
           placeholder="Enter email">
         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
       </div>
+
       <div class="form-group">
         <label for="exampleInputPassword1">Password</label>
         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
       </div>
+
       <div class="form-group">
         <label for="exampleInputPassword1">Password Confirmation</label>
         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password Confirmation">
       </div>
+
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <br>
-    <div class="card-group">
-      <div class="card">
-        <img src="images/sea.JPG" class="card-img-top rounded mx-auto d-block" style="width: 90%" alt="#">
+
+    <div class="row">
+      <div class="card col-4" style="width: 18rem;">
+        <img src="http://lorempixel.com/400/200/city" class="card-img-top" alt="#">
         <div class="card-body">
-          <h5 class="card-title">바다</h5>
-          <p class="card-text">바다는 파란색이다.</p>
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
           <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
       </div>
-      <div class="card">
-        <img src="images/sea.JPG" class="card-img-top rounded mx-auto d-block" style="width: 90%" alt="#">
+
+      <div class="card col-4" style="width: 18rem;">
+        <img src="http://lorempixel.com/400/200/city" class="card-img-top" alt="#">
         <div class="card-body">
-          <h5 class="card-title">바다</h5>
-          <p class="card-text">바다는 파란색이다.</p>
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
           <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
       </div>
-      <div class="card">
-        <img src="images/sea.JPG" class="card-img-top rounded mx-auto d-block" style="width: 90%" alt="#">
+
+      <div class="card col-4" style="width: 18rem;">
+        <img src="http://lorempixel.com/400/200/city" class="card-img-top" alt="#">
         <div class="card-body">
-          <h5 class="card-title">바다</h5>
-          <p class="card-text">바다는 파란색이다.</p>
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
           <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
       </div>

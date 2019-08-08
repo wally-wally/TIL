@@ -1,0 +1,115 @@
+/* @media not|only mediatype and (조건문) {
+  실행문
+} */
+
+/* 우리는 이렇게만 사용할 것이다. */
+
+/* @media (조건문) {
+  실행문
+} */
+
+@media only all and (max-vidth: 1200px) {
+  * {
+    margin: 0;
+  }
+}
+
+/* 
+  1. only | not : 특정 미디어 타입에서만, 또는 특정 미디어 타입을 제외하고 스타일 적용
+    (only screen / only print / not print)
+  2. all : 모든 미디어 타입 (기본 값)
+    (all 말고 screen / print / tty / tv ..)
+  3. 논리 연산자를 사용하여 조건을 설정할 수 있다.
+    (not / and / ,(or) )
+*/
+
+/* 뷰포트 너비가 600px 이상 (최소 너비 600px) */
+@media (min-width: 600px) {
+  h1 {
+    color: crimson;
+  }
+}
+
+/* 뷰포트 너비가 500px 이하 (최대 너비 500px) */
+@media (max-width: 500px) {
+  h2 {
+    color: darkgreen;
+  }
+}
+
+/* 뷰포트 너비가 딱 500px 일 때 */
+@media (width: 500px) {
+  h1 {
+    color: royalblue;
+  }
+}
+
+/* 가로 모드 */
+@media (orientation: landscape) {
+  .orientation::after {
+    content: '가로입니다.';
+  }
+}
+
+@media (orientation: portrait) {
+  .orientation::after {
+    content: '세로입니다.';
+  }
+}
+
+/* 무지개 만들기 */
+@media (min-width: 500px) {
+  .rainbow {
+    color: red;
+  }
+}
+
+@media (min-width: 550px) {
+  .rainbow {
+    color: orange;
+  }
+}
+
+@media (min-width: 600px) {
+  .rainbow {
+    color: yellow;
+  }
+}
+
+@media (min-width: 650px) {
+  .rainbow {
+    color: green;
+  }
+}
+
+@media (min-width: 700px) {
+  .rainbow {
+    color: blue;
+  }
+}
+
+@media (min-width: 750px) {
+  .rainbow {
+    color: navy;
+  }
+}
+
+@media (min-width: 800px) {
+  .rainbow {
+    color: purple;
+  }
+}
+
+/* 뷰포트 너비가 500px 이하 그리고 높이가 500px 이하 이면 실행 */
+@media (max-height: 500px) and (max-width: 500px) {
+  h3 {
+    color: brown;
+  }
+}
+
+/* print */
+@media only print {
+  .print {
+    color: crimson;
+  }
+}
