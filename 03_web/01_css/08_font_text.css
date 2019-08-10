@@ -24,7 +24,7 @@
 .font-5 {
   /* fontshorthand(font 단축어) */
   /* font: font-style font-weight line-height font-size(필수) font-family(필수) */
-  /* 나머지 네 개는 옵션이지만 font-size와 font-family는 필수로 포함하고 순서는 무관하다. */
+  /* 나머지 세 개는 옵션이지만 font-size와 font-family는 필수로 포함하고 순서는 무관하다. */
   font: italic 2rem "Hack";
   font-family: 'Gugi', cursive;
 }
