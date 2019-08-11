@@ -164,7 +164,13 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 ### Day_03, Day_04(August 5th~6th)
 
-- 
+- Sliding window
+- Two-dimension array
+- Subset
+- Sequential Search
+- Binary Search
+- Index
+- Selection Sort, Selection Algorithm
 
 <br>
 
@@ -213,6 +219,36 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 - `background` attribute
   - background-size
   - background-repeat, position, attachment
+
+### Day_03(August 7th) => `01_css`, `02_bootstrap`
+
+- Position
+- float
+- Bootstrap - Utilities
+  - CDN
+  - spacing
+  - color
+  - border
+  - display
+  - text
+- Bootstrap - Components
+- Grid System
+
+### Day_04(August 8th) => `03_responsive`
+
+- font awesome
+- flex box
+  - flex-direction
+  - flex-wrap
+  - flex-grow
+  - flex - 정렬
+    - justify-content
+    - align-items
+    - align-self
+  - order
+- flex-layout
+- flex-layout_bootstrap
+- media query
 
 <br>
 

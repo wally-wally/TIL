@@ -2025,14 +2025,14 @@ footer {
   실행문
 }
 
-@media only all and (max-vidth: 1200px) {
+@media only all and (max-width: 1200px) {
   * {
     margin: 0;
   }
 }
 ```
 
-- `only | not` : 특정 미디어 타입세어만, 또는 특정 미디어 타입을 제외하고 스타일 적용
+- `only | not` : 특정 미디어 타입에서만, 또는 특정 미디어 타입을 제외하고 스타일 적용
   - `only screen`, `only print`, `not print`
 - `all` : 모든 미디어 타입 (기본값)
   - `all` 말고 `screen`, `print`, `tty`, `tv` 등이 있음
@@ -2050,7 +2050,7 @@ footer {
 </body>
 ```
 
-> (1) 뷰포트 너비가 600px 이상 (최소 너비 500px)
+> (1) 뷰포트 너비가 600px 이상 (최소 너비 600px)
 >
 > (2) 뷰포트 너비가 500px 이하 (최대 너비 500px)
 >
