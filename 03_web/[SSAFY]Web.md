@@ -1261,7 +1261,7 @@ div {
 - 텍스트 변형
   - `class="text-lowercase"`, `class="text-uppercase"`, `class="text-capitalize"`
 - 폰트 굵기 및 이텔릭체
-  - `class="font-weight-bold(er)"`, `class="font-weight-normal"`, `class="font-weight-light(er)"`, `class="font-weight-italic"`
+  - `class="font-weight-bold(er)"`, `class="font-weight-normal"`, `class="font-weight-light(er)"`, `class="font-italic"`
 - monospace(코드 같은거 출력시 사용)
   - `class="text-monospace"`
 
