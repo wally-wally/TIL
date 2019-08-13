@@ -23,5 +23,5 @@ for i in range(T):
             price = nmg
         if divisor == 10:
             break
-
-    print('#{} {}'.format(i + 1, ' '.join(list(map(str, count_list)))))
+    print('#{}'.format(i + 1))
+    print('{}'.format(' '.join(list(map(str, count_list)))))
