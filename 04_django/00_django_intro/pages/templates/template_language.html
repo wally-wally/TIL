@@ -1,0 +1,111 @@
+<h3>1. 반복문</h3>
+{% for menu in menus %}
+<p>{{ menu }}</p>
+{% endfor %}
+<hr>
+
+<!-- for loop 는 DTL for 문 안에서 자동으로 생기는 객체-->
+{% for menu in menus%}
+<p>{{ forloop.counter }}{{ menu }}</p>
+{% endfor %}
+<hr>
+
+{% for user in empty_list %}
+<p>{{ user }}</p>
+{% empty %}
+<p>현재 가입된 유저가 없습니다.</p>
+{% endfor %}
+<hr>
+<hr>
+
+
+<h3>2. 조건문</h3>
+{% if '짜장면' in menus %}
+<p>짜장면에는 고춧가루지!</p>
+{% endif %}
+<hr>
+
+{% for menu in menus %}
+{{ forloop.counter }} 번째 도는중
+  {% if loop.first %}
+  <p>짜장면 + 고춧가루</p>
+  {% else %}
+  <p>{{ menu }}</p>
+  {% endif %}
+{% endfor %}
+<hr>
+<hr>
+
+
+<!-- <=, >=, ==, != >, <, in not in is 모두 사용 가능-->
+<h3>3. length filter</h3>
+{% for message in messages %}
+ {% if message|length > 5 %}
+ <p>{{ mesage }}, 글자가 너무 길어요.</p>
+ {% else %}
+ <p>{{ message }}, {{ message|length }}</p>
+ {% endif %}
+{% endfor %}
+<hr>
+<hr>
+
+
+<!-- 이미 정의되어 있는 변수 호출은 % 태그로 감싸서 사용한다. -->
+<h3>4. lorem ipsum</h3>
+{% lorem %}
+<hr>
+{% lorem 3 w %}
+<hr>
+{% lorem 4 w random %}
+<hr>
+{% lorem 2 p %}
+<hr>
+<hr>
+
+
+<h3>5. 글자수 제한</h3>
+<p>{{ my_sentence|truncatewords:3 }}</p>
+<p>{{ my_sentence|truncatechars:3 }}</p>
+<hr>
+<hr>
+
+<h3>6. 글자 관련 필터</h3>
+<p>{{ 'abc'|length }}</p>
+<p>{{ 'ABC'|lower }}</p>
+<p>{{ my_sentence|title }}</p>
+<p>{{ 'abc def'|capfirst }}</p>
+<p>{{ menus|random }}</p>
+<hr>
+<hr>
+
+<h3>7. 연산</h3>
+<!-- 연산은 이거 하나만 기억-->
+<!-- 더 많은 연산 관련 기능은 django-mathfilters 라이브러리가 필요-->
+<!-- 하지만 연산은 views에서 처리하고 넘기자 -->
+<p>{{ 4|add:6 }}</p>
+<hr>
+<hr>
+
+<h3>8. 날짜표현</h3>
+<p>{{ datetimenow }}</p>
+<!-- 아래 구문이 외장 라이브러리 없이 사용한 구문-->
+<p>{% now "DATETIME_FORMAT" %}</p>
+<p>{% now "SHORT_DATETIME_FORMAT" %}</p>
+<p>{% now "DATE_FORMAT" %}</p>
+<p>{% now "SHORT_DATE_FORMAT" %}</p>
+<hr>
+<!-- 날짜 표현 커스터마이징(공식문서를 보고 만들자) -->
+{% now "Y년 m월 d일 (D) h:i" %}
+<hr>
+{% now "Y" as current_year %}
+<!-- 이 아래 부터는 Y 대신에 current_year로 쓴다.-->
+Copyright {{ current_year }}
+<hr>
+<!-- 굳이 필터를 걸어서 표현한다면 다음과 같이 쓴다. -->
+{{ datetimenow|date:"SHORT_DATE_FORMAT" }}
+<hr>
+<hr>
+
+
+<h3>9. 기타</h3>
+<p>{{ 'google.com'|urlize }}</p>
