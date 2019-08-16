@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+# 00_django_intro 폴더 자체가 BASE_DIR임
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -35,6 +36,7 @@ INSTALLED_APPS = [
     # 1. local apps
     # 2. Thrid party apps
     # 3. 기본적으로 깔려있는 Django apps(django.contrib으로 시작하는 것들)
+    'utilities.apps.UtilitiesConfig',
     'pages.apps.PagesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -45,6 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # 'django.middleware.csrf.CsrfViewMiddleware', 이 보안 절차 때문에 403 Error가 발생하는 것임
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,7 +62,7 @@ ROOT_URLCONF = 'django_intro.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'django_intro', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

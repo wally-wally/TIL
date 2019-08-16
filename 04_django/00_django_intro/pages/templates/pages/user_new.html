@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<form action="/pages/user_create/" method="POST"> <!-- POST 방식은 마지막 / 작성 필수! -->
+  {% csrf_token %}
+  <label for="name">아이디</label>
+  <input type="text" id="name" name="name"><br>
+  <label for="pwd">패스워드</label>
+  <input type="password" id="pwd" name="pwd">
+  <input type="submit" value="가입">
+</form>
+{% endblock %}

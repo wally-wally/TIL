@@ -2,6 +2,8 @@
 
 SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니다.
 
+[TOC]
+
 <br>
 
 ## :one: 00_startcamp
@@ -180,7 +182,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 ## :four: 03_web
 
-:round_pushpin: 2019.07.31(Wed.) 부터 진행한 정규과정의 <u>**`Web`과정**</u>의 내용을 정리함.
+:round_pushpin: 2019.07.31(Wed.) ~ 2019.08.07(Thu.) 동안 정규과정의 <u>**`Web`과정**</u>의 내용을 정리함.
 
 :computer: Main Tool : `vscode`
 
@@ -256,7 +258,40 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 <br>
 
-## :five: python_study
+## :five: 04_django
+
+:round_pushpin: 2019.08.14(Wed.) 부터 진행한 정규과정의 <u>**`Django`과정**</u>의 내용을 정리함.
+
+:computer: Main Tool : `vscode`
+
+<br>
+
+### Day_01(August 14th)
+
+- About Django
+- Virtual Environment
+- Start Django project, APP
+- MTV Model
+- Basic request & response(only T-V)
+- Variable Routing
+- Django Template Language(DTL)
+
+### Day_02(August 16th)
+
+- form(GET / POST
+- POST - csrf_token
+- static (load, `{% static '' %}`)
+- URL 로직 분리(프로젝트 & 앱)
+- Namespace(template, static)
+- 상속(block)
+
+<br>
+
+------
+
+<br>
+
+## :six: python_study
 
 :round_pushpin: 개인적으로 공부하는 python 내용을 정리함.
 

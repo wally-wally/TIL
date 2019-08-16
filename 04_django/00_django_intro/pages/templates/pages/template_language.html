@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block content %}
 <h3>1. 반복문</h3>
 {% for menu in menus %}
 <p>{{ menu }}</p>
@@ -109,3 +111,5 @@ Copyright {{ current_year }}
 
 <h3>9. 기타</h3>
 <p>{{ 'google.com'|urlize }}</p>
+
+{% endblock %}

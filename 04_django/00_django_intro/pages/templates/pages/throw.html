@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+{% comment %} form 태그는 다른 페이지로 전달할 때 사용됨 {% endcomment %}
+{% comment %} GET 방식은 action 주소 입력시 끝에 / 안붙여도 상관X(앞에 /는 필수) {% endcomment %}
+{% comment %} POST 방식은 끝에 / 붙이는 것이 필수이므로 앞으로 그냥 끝에 다 붙이자 {% endcomment %}
+<form action="/pages/catch/" method="GET">
+  {% comment %} 사용자로부터 데이터를 입력받기 위해 input 태그 사용 / key가 되는 name이 중요 {% endcomment %}
+  {% comment %} id는 javascript에 연결할 때 사용됨 {% endcomment %}
+  <label for="message">THROW</label>
+  <input type="text" id="message" name="message">
+  <input type="submit">
+</form>
+{% endblock %}
