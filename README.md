@@ -1,9 +1,6 @@
 # :pencil: TIL : TODAY I LEARNED
 
 SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니다.
-
-[TOC]
-
 <br>
 
 ## :one: 00_startcamp

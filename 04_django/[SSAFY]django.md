@@ -85,7 +85,7 @@
 
 - `__init__.py` : Python의 파일들을 모듈화 시키는 파일(앞으로 수정, 열 일이 없음)
 - `settings.py` : 웹 어플리케이션 위치, DB 세부설정 등과 같은 Django 프로젝트의 모든 환경이 저장된 곳(대부분 이 곳에서 작업할 예정)
-- `urls.py` : 사이트의 url와 view 연결
+- `urls.py` : 사이트의 url와 view 연결, 주소(URL) 관리
 - `wsgi.py` : 나중에 AWS할 때 만질 예정(웹 서버 규칙이 정의된 곳)
 
 <br>
@@ -120,9 +120,11 @@
 
 - `admin.py` : 관리자형 페이지를 기본적으로 만들어 줌
 - `apps.py` : APP과 관련된 기본 정보들
-- `models.py` : model과 관련된 정보들(추후 DB와 연관됨)
+- `models.py` : model과 관련된 정보들, 데이터베이스 관리(추후 DB와 연관됨)
 - `tests.py` : test code를 작성하는 곳
-- `views.py` : MTV 중 V(중간 관리자) 역할을 하는 곳(여기서 기능별 함수들 같은 거 작성함)
+- `views.py` : MTV 중 V(중간 관리자) 역할을 하는 곳, 페이지 고나리(페이지 하나 당, 하나의 함수)(여기서 기능별 함수들 같은 거 작성함)
+
+<img width="753" alt="img_01-6dcda166-f486-488a-a11e-724dca5cbf5b" src="https://user-images.githubusercontent.com/52446416/63153229-c82bc200-c048-11e9-92b0-18352f088c56.png">
 
 <br>
 
