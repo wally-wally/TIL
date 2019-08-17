@@ -1,7 +1,7 @@
 import sys
 sys.stdin = open('input.txt', 'r')
 
-arr = [[0] * 20 for a in range(20)]
+arr = [[0] * 101 for a in range(101)]
 
 papers = int(input())
 
@@ -12,15 +12,15 @@ for paper in range(papers):
             arr[start_r+a][start_c+b] = paper+1
 
 # 색종이 배치 확인용
-for p in range(20): 
-    for q in range(20):
-        print('{:>2}'.format(arr[p][q]), end=' ')
-    print()
+# for p in range(20): 
+#     for q in range(20):
+#         print('{:>2}'.format(arr[p][q]), end=' ')
+#     print()
 
 for num in range(papers):
     count = 0
-    for i in range(20):
-        for j in range(20):
+    for i in range(101):
+        for j in range(101):
             if arr[i][j] == num + 1:
                 count += 1
     print(count)
