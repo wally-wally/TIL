@@ -3,7 +3,7 @@
 SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니다.
 <br>
 
-## :one: 00_startcamp
+## :one: <a href="00_startcamp/[SSAFY]StartCamp">00_startcamp</a>
 
 :round_pushpin: 2019.07.08(Mon.) ~ 2019.07.12(Fri.) 동안 진행한 <u>**SSAFY Startcamp**</u>에서 학습한 내용을 정리함.
 

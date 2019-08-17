@@ -36,6 +36,7 @@ while True:
                 for c in range(5):
                     if complete_variable: break
                     for d in range(5):
+                        if complete_variable: break
                         if announcer_num_list[a][b] == my_bingo_board[c][d]:
                             my_bingo_board[c][d] = 0
                             bingo_able = bingo_sum(my_bingo_board)
