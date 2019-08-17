@@ -3,7 +3,7 @@
 SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니다.
 <br>
 
-## :one: <a href="00_startcamp/[SSAFY]StartCamp">00_startcamp</a>
+## :one: <a href="[https://github.com/wally-wally/TIL/blob/master/00_startcamp/%5BSSAFY%5D%20StartCamp.md](https://github.com/wally-wally/TIL/blob/master/00_startcamp/[SSAFY] StartCamp.md)">00_startcamp</a>
 
 :round_pushpin: 2019.07.08(Mon.) ~ 2019.07.12(Fri.) 동안 진행한 <u>**SSAFY Startcamp**</u>에서 학습한 내용을 정리함.
 
@@ -52,7 +52,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 <br>
 
-## :two: 01_python
+## :two: <a href="[https://github.com/wally-wally/TIL/blob/master/01_python/%5BSSAFY%5DPython.md](https://github.com/wally-wally/TIL/blob/master/01_python/[SSAFY]Python.md)">01_python</a>
 
 :round_pushpin: 2019.07.15(Mon.) ~ 2019.07.25(Thu.) 동안 진행한 정규과정의 <u>**`Python`과정**</u>의 내용을 정리함.
 
@@ -139,7 +139,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 <br>
 
-## :three: 02_algorithm
+## :three: <a href="[https://github.com/wally-wally/TIL/blob/master/02_algorithm/%5BSSAFY%5DAlgorithm.md](https://github.com/wally-wally/TIL/blob/master/02_algorithm/[SSAFY]Algorithm.md)">02_algorithm</a>
 
 :round_pushpin: 2019.07.29(Mon.) 부터 진행한 정규과정의 <u>**'`Algorithm`과정**</u>의 내용을 정리함.
 
@@ -177,7 +177,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 <br>
 
-## :four: 03_web
+## :four: <a href="[https://github.com/wally-wally/TIL/blob/master/03_web/%5BSSAFY%5DWeb.md](https://github.com/wally-wally/TIL/blob/master/03_web/[SSAFY]Web.md)">03_web</a>
 
 :round_pushpin: 2019.07.31(Wed.) ~ 2019.08.07(Thu.) 동안 정규과정의 <u>**`Web`과정**</u>의 내용을 정리함.
 
@@ -255,7 +255,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 <br>
 
-## :five: 04_django
+## :five: <a href="[https://github.com/wally-wally/TIL/blob/master/04_django/%5BSSAFY%5Ddjango.md](https://github.com/wally-wally/TIL/blob/master/04_django/[SSAFY]django.md)">04_django</a>
 
 :round_pushpin: 2019.08.14(Wed.) 부터 진행한 정규과정의 <u>**`Django`과정**</u>의 내용을 정리함.
 
