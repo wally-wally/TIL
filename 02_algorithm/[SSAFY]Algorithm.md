@@ -1048,6 +1048,125 @@ print(cnt) # 8이 출력됨
 
 <br>
 
+## 6. 8월13일(06일차)
+
+### 6.1 [예제] <a href="https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14QpAaAAwCFAYi&categoryId=AV14QpAaAAwCFAYi&categoryType=CODE">회문1</a>
+
+```python
+for tc in range(1, 11):
+    N = int(input())
+    arr = [input() for _ in range(8)]
+    ans = 0
+
+    # 모든 행에 대해서
+    for idx in range(8):
+        # 한 행에 대해서
+        # 길이가 N인 문자열의 모든 시작 위치 : 0 ~ 8 - N
+        for s in range(8 - N + 1):
+            e = s + N - 1
+            for i in range(N//2):
+                if arr[idx][s + i] != arr[idx][e - i]:
+                    break
+            else:
+                ans += 1
+            # 열에 대하여
+            for i in range(N//2):
+                if arr[s + i][idx] != arr[e - i][idx]:
+                    break
+            else:
+                ans += 1
+    print('#{} {}'.format(tc, ans))
+```
+
+<br>
+
+### 6.2 [예제] <a href="https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14Rq5aABUCFAYi">회문2</a>
+
+> 방법1
+
+```python
+for tc in range(1, 11):
+    N = int(input())
+    arr = [input() for _ in range(100)]
+    ans = 1
+
+    for idx in range(100):
+        for s in range(100):
+            for e in range(99, s, -1):
+                L = e - s + 1
+                if ans >= L:
+                    break
+                for i in range(L//2):
+                    if arr[idx][s + i] != arr[idx][e - i]:
+                        break
+                else:
+                    ans = L
+                if ans >= L:
+                    break
+                for i in range(L//2):
+                    if arr[s + i][idx] != arr[e - i][idx]:
+                        break
+                else:
+                    ans = L
+    print('#{} {}'.format(tc, ans))
+```
+
+> 방법2
+
+```python
+for tc in range(1, 11):
+    N = int(input())
+    arr = [input() for _ in range(100)]
+    ans = 0
+
+    for idx in range(100):
+        for x in range(100): # x : 기준 위치
+            # 길이가 짝수인 경우에는 x -> l(왼쪽)
+            # 행
+            l, r, cnt = x, x + 1, 0
+            while l >= 0 and r < 100:
+                if arr[idx][l] != arr[idx][r]:
+                    break
+                cnt += 2
+                l, r = l - 1, r + 1
+            ans = max(ans, cnt)
+
+            # 열
+            l, r, cnt = x, x + 1, 0
+            while l >= 0 and r < 100:
+                if arr[l][idx] != arr[r][idx]:
+                    break
+                cnt += 2
+                l, r = l - 1, r + 1
+            ans = max(ans, cnt)
+
+            # 홀수인 경우
+            # 행
+            l, r, cnt = x - 1, x + 1, 1
+            while l >= 0 and r < 100:
+                if arr[idx][l] != arr[idx][r]:
+                    break
+                cnt += 2
+                l, r = l - 1, r + 1
+            ans = max(ans, cnt)
+
+            # 열
+            l, r, cnt = x - 1, x + 1, 1
+            while l >= 0 and r < 100:
+                if arr[l][idx] != arr[r][idx]:
+                    break
+                cnt += 2
+                l, r = l - 1, r + 1
+            ans = max(ans, cnt)
+    print('#{} {}'.format(tc, ans))
+```
+
+<br>
+
+---
+
+<br>
+
 ## 7. 8월19일(07일차)
 
 ### 7.1 스택(Stack)
