@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1 class="text-center">DETAIL</h1>
+  <h2>{{ article.pk }} 번째 글</h2>
+  <hr>
+  <p>제목: {{ article.title }}</p>
+  <p>내용: {{ article.content }}</p>
+  <p>작성 시각: {{ article.created_at }}</p>
+  <p>수정 시각: {{ article.updated_at }}</p>
+  <hr>
+  <a href="/articles/{{ article.pk }}/edit/">[EDIT]</a>
+  <a href="/articles/{{ article.pk }}/delete/">[DELETE]</a>
+  <!-- 지금은 GET 방식이므로 인터넷 주소창에 DELETE관련 주소를 직접 입력하면 지울 수 있다.-->
+  <a href="/articles/">[back]</a> <!-- 뒤로 가기 버튼-->
+{% endblock  %}
