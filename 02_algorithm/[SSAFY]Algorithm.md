@@ -1552,3 +1552,114 @@ for _ in range(E):
 DFS(1)
 ```
 
+<br>
+
+------
+
+<br>
+
+## 8. 8월20일(08일차)
+
+### 8.1 [예제] <a href="https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV14ABYKADACFAYh&categoryId=AV14ABYKADACFAYh&categoryType=CODE">ladder1</a>
+
+```python
+for tc in range(1, 11):
+    N = input()
+    arr = [list(map(int, input().split())) for _ in range(100)]
+
+    x, y = 99, 0
+    for i in range(100):
+        if arr[99][i] == 2:
+            y = i
+            break
+    # 첫 번째 방법
+    dir = 0   # 0: 위, 1:왼쪽, 2: 오른쪽
+    while x: # x == 0 이 되면 종료
+        if dir != 2 and y - 1 >= 0 and arr[x][y - 1]: #인덱스 유요한 범위인지 체크
+            y, dir = y - 1, 1
+        elif dir != 1 and y + 1 < 100 and arr[x][y + 1]:
+            y, dir = y + 1, 2
+        else:
+            x, dir = x - 1, 0
+    print(y)
+```
+
+```python
+    # 두 번째 방법
+    while x:
+        if y - 1 >= 0 and arr[x][y - 1]:
+            while y - 1 >= 0 and arr[x][y - 1]:
+                y -= 1
+            x -= 1
+        elif y + 1 < 100 and arr[x][y - 1]:
+            while y + 1 < 100 and arr[x][y - 1]:
+                y += 1
+            x -= 1
+        else:
+            x -= 1
+    print(y)
+```
+
+```python
+# 세 번째 방법(재귀호출)
+def DES(x, y):
+    if x == 0: return y
+
+    arr[x][y] = 0
+    if y - 1 >= 0 and arr[x][y - 1]:
+        return DFS(x, y - 1)
+    elif y + 1 < 100 and arr[x][y + 1]:
+        return DFS(x, y + 1)
+    else:
+        return DFS(x - 1, y)
+
+for tc in range(1, 11):
+    N = input()
+    arr = [list(map(int, input().split())) for _ in range(100)]
+
+    x, y = 99, 0
+    for i in range(100):
+        if arr[99][i] == 2:
+            y = i
+            break
+
+    print(DFS(x, y))
+```
+
+```python
+# 네 번째 방법(전역변수 활용)
+ans = -1
+def DES(x, y):
+    global ans
+    if x == 0:
+        ans = y
+        return
+
+    arr[x][y] = 0
+    if y - 1 >= 0 and arr[x][y - 1]:
+        DFS(x, y - 1)
+    elif y + 1 < 100 and arr[x][y + 1]:
+        DFS(x, y + 1)
+    else:
+        DFS(x - 1, y)
+
+for tc in range(1, 11):
+    N = input()
+    arr = [list(map(int, input().split())) for _ in range(100)]
+
+    x, y = 99, 0
+    for i in range(100):
+        if arr[99][i] == 2:
+            y = i
+            break
+
+    print(DFS(x, y))
+```
+
+<br>
+
+### 8.2 위상 정렬
+
+- 어떤 일을 하는 순서를 찾는 알고리즘이다.
+- 위상 정렬은 사이클을 포함하지 않는 유향 그래프(DAG 그래프)를 대상으로 한다.
+- 진입 차수가 0인 정점을 먼저 선택하고 시작하면 편하다.
