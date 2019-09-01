@@ -1,63 +1,45 @@
 import sys
 sys.stdin = open('input.txt', 'r')
 
+def point(num, Sum):
+    Sum += 1
+    if num == 1:
+        return [1, 1]
+    else:
+        Sum += 1
+        start = 2
+        while True:
+            for i in range(1, Sum):
+                if start == num:
+                    return [i, Sum - i]
+                start += 1
+            Sum += 1
+
+def calc(x, y):
+    num = 1
+    x_value, y_value = 1, 1
+    if x == 1 and y == 1:
+        return num
+    else:
+        y_value += 1
+        while True:
+            while y_value > 0:
+                num += 1
+                if x_value == x and y_value == y:
+                    return num
+                x_value += 1
+                y_value -= 1
+            x_value, y_value = y_value, x_value
+            x_value += 1
+
 T = int(input())
 
-# arr = []
-# for i in range(100):
-#     elem = []
-#     for j in range(100):
-#         elem.append(0)
-#     arr.append(elem)
-# print(arr) # 100 X 100 모든 원소가 0인 배열 생성
-
-# 총 몇 줄 배열 만들어야 하는지 알기 위해 계산
-'''
-line = 0
-result = 0
-while result <= 10000:
-    result += line
-    line += 1
-'''
-
-# 2차원 배열에 모두 0을 먼저 대입
-arr = []
-for x in range(142):
-    elem = []
-    for y in range(142):
-        elem.append(0)
-    arr.append(elem)
-
-# 문제 규칙에 따라 1부터 차례대로 입력
-num = 1
-for a in range(142):
-    for b in range(a+1):
-        arr[b][a-b] += num
-        num += 1
-        if num == 10001:
-            break
-    if num == 10001:
-        break
-
-
-for i in range(T):
-    input_num = list(map(int, input().split()))
-
-    total_data = []
-    for number in input_num:
-        point = []
-        row_num = -1
-        for element in arr:
-            row_num += 1
-            col_num = -1
-            for check_num in element:
-                col_num += 1
-                if check_num == number:
-                    point.append(row_num)
-                    point.append(col_num)
-                    break
-            if len(point) == 2:
-                break
-        total_data.append(point)
-    row, col = total_data[0][0]+total_data[1][0]+1, total_data[0][1]+total_data[1][1]+1
-    print('#{} {}'.format(i + 1, arr[row][col]))
+for a in range(T):
+    p, q = map(int, input().split())
+    x, y = 0, 0
+    for i in range(2):
+        if not i:
+            x += (point(p, 1)[i] + point(q, 1)[i])
+        else:
+            y += (point(p, 1)[i] + point(q, 1)[i])
+    print('#{} {}'.format(a + 1, calc(x, y)))
