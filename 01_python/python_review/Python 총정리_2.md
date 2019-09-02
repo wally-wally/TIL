@@ -1,4 +1,4 @@
-# :notebook_with_decorative_cover: Python 총정리(2. control_of_flow)
+# :notebook_with_decorative_cover: 01_python - (2) control_of_flow
 
 <br>
 
@@ -311,29 +311,29 @@ else:
 
 - pass문은 아무것도 하지 않는다. 문법적으로 문장이 필요하지만, 프로그램이 특별히 할 일이 없을 때 자리를 채우는 용도로 사용할 수 있다.
 
-- ```python
-  # pass
-  for i in range(5):
-      if i == 3:
-          pass
-      print(i)
-      
-  # 0
-  # 1
-  # 2
-  # 3
-  # 4
-  ```
+```python
+# pass
+for i in range(5):
+    if i == 3:
+        pass
+    print(i)
+    
+# 0
+# 1
+# 2
+# 3
+# 4
+```
 
-- ```python
-  # continue
-  for i in range(5):
-      if i == 3:
-          continue
-      print(i)
-      
-  # 0
-  # 1
-  # 2
-  # 4
-  ```
+```python
+# continue
+for i in range(5):
+    if i == 3:
+        continue
+    print(i)
+    
+# 0
+# 1
+# 2
+# 4
+```

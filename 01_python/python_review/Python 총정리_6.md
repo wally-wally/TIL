@@ -1,4 +1,4 @@
-# :notebook_with_decorative_cover: Python 총정리(6. OOP_advanced)
+# :notebook_with_decorative_cover: 01_python - (6) OOP_advanced
 
 <br>
 

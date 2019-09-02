@@ -1,4 +1,4 @@
-# :notebook_with_decorative_cover: Python 총정리(4. data_structure)
+# :notebook_with_decorative_cover: 01_python - (4) data_structure
 
 <br>
 

@@ -171,6 +171,49 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 - Index
 - Selection Sort, Selection Algorithm
 
+### Day_05, Day_06(August 12th~13th)
+
+- String Expression - ASCII Code, Unicode
+- String manipulation
+  - String conversion
+  - String comparison
+  - Type conversion (String => Integer)
+- Pattern Matching
+- Recursive call
+- Palindrome
+
+### Day_07, Day_08(August 19th~20th)
+
+- Basic of Stack
+- Recursive Function
+- DP(Dynamic Programming)
+- Preview of Graph
+- DFS
+
+### Day_09, Day_10(August 26th~27th)
+
+- Infix, Postfix
+- Backtracking
+- Divide and Conquer
+- itertools module
+
+### Day_11, Day_12(August 28th~29th)
+
+- Characteristic, Operation of Queue
+- Linear Queue, Circular Queue, Priority Queue
+- BFS
+
+### Day_13, Day_14(September 1st~2nd)
+
+- Array List
+- Insertion, Deleion operation of Linked List
+  - Singly Linked List
+  - Doubly Linked List
+- Insertion Sort
+- Merge Sort
+- Stack used list
+- Priority Queue used array, linked list
+
 <br>
 
 ------
@@ -281,6 +324,21 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 - URL 로직 분리(프로젝트 & 앱)
 - Namespace(template, static)
 - 상속(block)
+
+### Day_03(August 21th)
+
+- Keyword of SQL
+- Advantages, Disadvantages of ORM
+- Model
+  - Model field reference
+  - Migrations
+- CRUD
+- ADMIN
+- Django Extensions - Shell plus
+
+### Day_04(August 22th)
+
+- Practice of writing CRUD
 
 <br>
 

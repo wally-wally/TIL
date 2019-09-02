@@ -1,4 +1,4 @@
-# :notebook_with_decorative_cover: Python 총정리(3. function)
+# :notebook_with_decorative_cover: 01_python - (3) function
 
 <br>
 
