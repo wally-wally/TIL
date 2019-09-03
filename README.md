@@ -3,6 +3,12 @@
 SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니다.
 <br>
 
+:heavy_check_mark: **아래 이미지를 클릭하면 TIL 목차를 정리해 놓은 홈페이지(편집 ing...)로 이동합니다.**
+
+<a href="https://wally-wally.tistory.com/3"><img src="https://user-images.githubusercontent.com/52685250/64180670-286f9000-cea0-11e9-9a36-dd425596ecf2.JPG"></a>
+
+<br>
+
 ## :one: <a href="https://github.com/wally-wally/TIL/blob/master/00_startcamp/%5BSSAFY%5D%20StartCamp.md">00_startcamp</a>
 
 :round_pushpin: 2019.07.08(Mon.) ~ 2019.07.12(Fri.) 동안 진행한 <u>**SSAFY Startcamp**</u>에서 학습한 내용을 정리함.
@@ -318,7 +324,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 ### Day_02(August 16th)
 
-- form(GET / POST
+- form(GET / POST)
 - POST - csrf_token
 - static (load, `{% static '' %}`)
 - URL 로직 분리(프로젝트 & 앱)
