@@ -5,7 +5,7 @@ SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니�
 
 :heavy_check_mark: **아래 이미지를 클릭하면 TIL 목차를 정리해 놓은 홈페이지(편집 ing...)로 이동합니다.**
 
-<a href="https://wally-wally.tistory.com/3" target="_blank"><img src="https://user-images.githubusercontent.com/52685250/64180670-286f9000-cea0-11e9-9a36-dd425596ecf2.JPG"></a>
+<a href="https://wally-wally.tistory.com/" target="_blank"><img src="https://user-images.githubusercontent.com/52685250/64183108-4c34d500-cea4-11e9-9b7e-187632baa80b.JPG"></a>
 
 <br>
 
