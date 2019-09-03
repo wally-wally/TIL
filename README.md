@@ -1,208 +1,364 @@
-<!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>TIL_INDEX</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Do+Hyeon|Jua|Sunflower:300&display=swap" rel="stylesheet">
-    <style>
-    h1 {
-      color: crimson;
-      font-family: 'Jua', sans-serif;
-    }
+# :pencil: TIL : TODAY I LEARNED
 
-    .container>.accordion {
-      font-family: 'Sunflower', sans-serif;
-    }
+SSAFY 및 개인적으로 소프트웨어 공부한 것을 올리는 곳입니다.
+<br>
 
-    a:hover {
-      color: brown;
-    }
-  </style>
-  </head>
-    
-  <body>
-    <h1 class="text-center">TIL: Today I Learned</h1><hr>
-   	<div class="container">
-     <ul>
-      <li><a href="https://github.com/wally-wally/TIL" target="_blank">'wally-wally' Github</a>의 TIL 목차를 정리한 것입니다.</li>
-    </ul>
-    <div class="accordion" id="accordionExample">
-      <div class="card">
-        <div class="card-header" id="headingOne">
-          <h2 class="mb-0">
-            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne"
-              aria-expanded="true" aria-controls="collapseOne">
-              00_startcamp
-            </button>
-          </h2>
-        </div>
-          <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-          <div class="card-body">
-            📍 2019.07.08(Mon.) ~ 2019.07.12(Fri.) 동안 진행한 <u>Startcamp</u> 과정 에서 학습한 내용을 정리함.
-            &nbsp; <a href="https://github.com/wally-wally/TIL/tree/master/00_startcamp" target="_blank">(Go to
-              code)</a><br><br>
-            <p>
-              <a class="btn btn-success" data-toggle="collapse" href="#multiCollapseExample1" role="button"
-                aria-expanded="false" aria-controls="multiCollapseExample1">Day_01(July 8th)</a>
-              <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#multiCollapseExample2"
-                aria-expanded="false" aria-controls="multiCollapseExample2">Day_02(July 9th)</button>
-              <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#multiCollapseExample3"
-                aria-expanded="false" aria-controls="multiCollapseExample3">Day_03(July 10th)</button>
-              <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#multiCollapseExample4"
-                aria-expanded="false" aria-controls="multiCollapseExample4">Day_04(July 11th)</button>
-              <button class="btn btn-success" type="button" data-toggle="collapse" data-target="#multiCollapseExample5"
-                aria-expanded="false" aria-controls="multiCollapseExample5">Day_05(July 12th)</button>
-            </p>
-            <div class="row">
-              <div class="collapse multi-collapse" id="multiCollapseExample1">
-                <div class="card card-body">
-                  <ul>
-                    <li>Python Basic Convention</li>
-                    <li>Rules of if statement, for statement</li>
-                    <li>Preview of List, Dictionary</li>
-                    <li>CLI</li>
-                    <li>Use of webbrowser module</li>
-                    <li>Web crawling with BeautifulSoup module</li>
-                  </ul>
-                  <hr>
-                  <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="https://github.com/wally-wally/TIL/blob/master/00_startcamp/README_divide/00_startcamp_day01.md"
-                      target="_blank"><button type="button" class="btn btn-info">Go to README</button></a> &nbsp;
-                    <a href="https://github.com/wally-wally/TIL/tree/master/00_startcamp/01_day" target="_blank"><button
-                        type="button" class="btn btn-secondary">Go to CODE</button></a>
-                  </div>
-                </div>
-              </div>
-              <div class="collapse multi-collapse" id="multiCollapseExample2">
-                <div class="card card-body">
-                  <ul>
-                    <li>NAVER realtime search keyword crawling</li>
-                    <li>git</li>
-                    <li>Insert string, os module</li>
-                  </ul>
-                  <hr>
-                  <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="https://github.com/wally-wally/TIL/blob/master/00_startcamp/README_divide/00_startcamp_day02.md"
-                      target="_blank"><button type="button" class="btn btn-info">Go to README</button></a> &nbsp;
-                    <a href="https://github.com/wally-wally/TIL/tree/master/00_startcamp/02_day" target="_blank"><button
-                        type="button" class="btn btn-secondary">Go to CODE</button></a>
-                  </div>
-                </div>
-              </div>
-              <div class="collapse multi-collapse" id="multiCollapseExample3">
-                <div class="card card-body">
-                  <ul>
-                    <li>Escape Sequence</li>
-                    <li>File write, read</li>
-                    <li>HTML & CSS</li>
-                    <li>Basic of Flask</li>
-                  </ul>
-                  <hr>
-                  <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="https://github.com/wally-wally/TIL/blob/master/00_startcamp/README_divide/00_startcamp_day03.md"
-                      target="_blank"><button type="button" class="btn btn-info">Go to README</button></a> &nbsp;
-                    <a href="https://github.com/wally-wally/TIL/tree/master/00_startcamp/03_day" target="_blank"><button
-                        type="button" class="btn btn-secondary">Go to CODE</button></a>
-                  </div>
-                </div>
-              </div>
-              <div class="collapse multi-collapse" id="multiCollapseExample4">
-                <div class="card card-body">
-                  <ul>
-                    <li>Flask</li>
-                    <ul>
-                      <li>variable routing</li>
-                      <li>render template</li>
-                      <li>jinja2</li>
-                      <li>Request & Response</li>
-                    </ul>
-                    <li>Dictionary</li>
-                  </ul>
-                  <hr>
-                  <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="https://github.com/wally-wally/TIL/blob/master/00_startcamp/README_divide/00_startcamp_day04.md"
-                      target="_blank"><button type="button" class="btn btn-info">Go to README</button></a> &nbsp;
-                    <a href="https://github.com/wally-wally/TIL/tree/master/00_startcamp/04_day" target="_blank"><button
-                        type="button" class="btn btn-secondary">Go to CODE</button></a>
-                  </div>
-                </div>
-              </div>
-              <div class="collapse multi-collapse" id="multiCollapseExample5">
-                <div class="card card-body">
-                  <ul>
-                    <li>Operator</li>
-                    <li>Making Telegram Chatbot</li>
-                    <li>Slicing</li>
-                  </ul>
-                  <hr>
-                  <div class="btn-group" role="group" aria-label="Basic example">
-                    <a href="https://github.com/wally-wally/TIL/blob/master/00_startcamp/README_divide/00_startcamp_day05.md"
-                      target="_blank"><button type="button" class="btn btn-info">Go to README</button></a> &nbsp;
-                    <a href="https://github.com/wally-wally/TIL/tree/master/00_startcamp/05_day" target="_blank"><button
-                        type="button" class="btn btn-secondary">Go to CODE</button></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingTwo">
-          <h2 class="mb-0">
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo"
-              aria-expanded="false" aria-controls="collapseTwo">
-              01_python
-            </button>
-          </h2>
-        </div>
-          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-          <div class="card-body">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-            officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
-            wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-            Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan
-            excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
-            you probably haven't heard of them accusamus labore sustainable VHS.
-          </div>
-        </div>
-      </div>
-      <div class="card">
-        <div class="card-header" id="headingThree">
-          <h2 class="mb-0">
-            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree"
-              aria-expanded="false" aria-controls="collapseThree">
-              02_algorithm
-            </button>
-          </h2>
-        </div>
-        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-          <div class="card-body">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon
-            officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
-            wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et.
-            Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan
-            excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt
-            you probably haven't heard of them accusamus labore sustainable VHS.
-          </div>
-        </div>
-      </div>
-    </div>
-   	</div>
-      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-  </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-  </script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-  </script>
-  </body>  
-</html>
-</!doctype>
+## :one: <a href="https://github.com/wally-wally/TIL/blob/master/00_startcamp/%5BSSAFY%5D%20StartCamp.md">00_startcamp</a>
+
+:round_pushpin: 2019.07.08(Mon.) ~ 2019.07.12(Fri.) 동안 진행한 <u>**SSAFY Startcamp**</u>에서 학습한 내용을 정리함.
+
+<br>
+
+### Day_01(July 8th)
+
+- Python Basic Convention
+- Rules of if statement, for statement
+- Preview of List, Dictionary
+- CLI
+- Use of webbrowser module
+- Web crawling with BeautifulSoup module
+
+### Day_02(July 9th)
+
+- NAVER realtime search keyword crawling
+- git
+- Insert string, os module
+
+### Day_03(July 10th)
+
+- Escape Sequence
+- File write, read
+- HTML & CSS
+- Basic of Flask
+
+### Day_04(July 11th)
+
+- Flask
+  - variable routing
+  - render template
+  - jinja2
+  - Request & Response
+- Dictionary
+
+### Day_05(July 12th)
+
+- Operator
+- Making Telegram Chatbot
+- Slicing
+
+<br>
+
+------
+
+<br>
+
+## :two: <a href="https://github.com/wally-wally/TIL/blob/master/01_python/%5BSSAFY%5DPython.md">01_python</a>
+
+:round_pushpin: 2019.07.15(Mon.) ~ 2019.07.25(Thu.) 동안 진행한 정규과정의 <u>**`Python`과정**</u>의 내용을 정리함.
+
+:computer: Main Tool : `Jupyter Notebook`
+
+<br>
+
+### Day_01(July 15th)
+
+- Identifier
+- Variable, Data Type
+- Operator
+- Type conversion, Typecasting
+- Sequence data type : list, tuple, range()
+- set, dictionary
+
+### Day_02(July 16th)
+
+- Control of flow
+  - Conditional Statement(if statement)
+  - Conditional Expression
+- Repetitive Statement
+  - while statement
+  - for statement
+  - range() function
+  - break, continue, else, pass
+
+### Day_03(July 17th)
+
+- Function
+- Return
+- Arguments
+  - Positional Arguments
+  - Default Argument Values
+  - Keyword Arguments
+  - Arbitrary Argument lists
+  - Undefined Keyword Arguments
+  - Unpacking Arguments list
+  - Namespace
+
+### Day_04(July 18th)
+
+- Python Style Guide Recommend
+- Recursive Function
+- string method
+- list method
+- shallow copy, deep copy
+
+### Day_05(July 22th)
+
+- List Comprehension
+- Dictionary Method
+- Set Method
+- map(), zip(), filter()
+
+### Day_06(July 23th)
+
+- Module
+- Function related math, random
+- Module related date(datetime, timedelta)
+- Errors and Exceptions
+- try, except, else, finally
+- raise, assert
+
+### Day_07(July 24th)
+
+- OOP(Object-Oriented Programming) Basic
+  - Class, instance, attribute, Method
+  - Class variable, instance variable
+  - `self`
+  - namespace between class and instance
+  - constructor, destructor
+
+### Day_08(July 25th)
+
+- OOP Advanced
+  - Instance Method / Class Method / Static Method
+  - Operator overloading
+  - Basic of Inheritance - super(), method overriding
+
+<br>
+
+------
+
+<br>
+
+## :three: <a href="https://github.com/wally-wally/TIL/blob/master/02_algorithm/%5BSSAFY%5DAlgorithm.md">02_algorithm</a>
+
+:round_pushpin: 2019.07.29(Mon.) 부터 진행한 정규과정의 <u>**'`Algorithm`과정**</u>의 내용을 정리함.
+
+:computer: Main Tool : `Pycharm`
+
+<br>
+
+### Day_01, Day_02(July 29th~30th)
+
+- Basic of algorithm
+- Time Complexity
+- Big-Oh Notation
+- Sort
+  - Bubble Sort
+  - Preview of Selection Sort
+  - Counting Sort
+- Exaustive Search
+- Permutation
+- optimization problem
+- greedy algorithm
+
+### Day_03, Day_04(August 5th~6th)
+
+- Sliding window
+- Two-dimension array
+- Subset
+- Sequential Search
+- Binary Search
+- Index
+- Selection Sort, Selection Algorithm
+
+### Day_05, Day_06(August 12th~13th)
+
+- String Expression - ASCII Code, Unicode
+- String manipulation
+  - String conversion
+  - String comparison
+  - Type conversion (String => Integer)
+- Pattern Matching
+- Recursive call
+- Palindrome
+
+### Day_07, Day_08(August 19th~20th)
+
+- Basic of Stack
+- Recursive Function
+- DP(Dynamic Programming)
+- Preview of Graph
+- DFS
+
+### Day_09, Day_10(August 26th~27th)
+
+- Infix, Postfix
+- Backtracking
+- Divide and Conquer
+- itertools module
+
+### Day_11, Day_12(August 28th~29th)
+
+- Characteristic, Operation of Queue
+- Linear Queue, Circular Queue, Priority Queue
+- BFS
+
+### Day_13, Day_14(September 1st~2nd)
+
+- Array List
+- Insertion, Deleion operation of Linked List
+  - Singly Linked List
+  - Doubly Linked List
+- Insertion Sort
+- Merge Sort
+- Stack used list
+- Priority Queue used array, linked list
+
+<br>
+
+------
+
+<br>
+
+## :four: <a href="https://github.com/wally-wally/TIL/blob/master/03_web/%5BSSAFY%5DWeb.md">03_web</a>
+
+:round_pushpin: 2019.07.31(Wed.) ~ 2019.08.07(Thu.) 동안 정규과정의 <u>**`Web`과정**</u>의 내용을 정리함.
+
+:computer: Main Tool : `vscode`
+
+<br>
+
+### Day_01(July 31th) => `00_html`
+
+- Static Web, Dynamic Web
+- IP, domain, URL, URI
+- HTML
+  - Meaning of HTML
+  - HTML Style Guide
+- Tag & DOM TREE
+- Semantic Tag
+- Writing HTML document using a variety of Tag
+
+### Day_02(August 1st) => `01_css`
+
+- CSS(Cascading Style Sheet)
+- Rule of writing CSS
+- CSS Style Guide
+- CSS unit : value
+- selector
+- Box model
+  - box-sizing
+  - shorthand
+  - margin collapsing
+- `display` attribute
+  - block
+  - inline
+  - inline-block
+  - None
+- `visibility` attribute
+  - visible
+  - hidden
+- `background` attribute
+  - background-size
+  - background-repeat, position, attachment
+
+### Day_03(August 7th) => `01_css`, `02_bootstrap`
+
+- Position
+- float
+- Bootstrap - Utilities
+  - CDN
+  - spacing
+  - color
+  - border
+  - display
+  - text
+- Bootstrap - Components
+- Grid System
+
+### Day_04(August 8th) => `03_responsive`
+
+- font awesome
+- flex box
+  - flex-direction
+  - flex-wrap
+  - flex-grow
+  - flex - 정렬
+    - justify-content
+    - align-items
+    - align-self
+  - order
+- flex-layout
+- flex-layout_bootstrap
+- media query
+
+<br>
+
+------
+
+<br>
+
+## :five: <a href="https://github.com/wally-wally/TIL/blob/master/04_django/%5BSSAFY%5Ddjango.md">04_django</a>
+
+:round_pushpin: 2019.08.14(Wed.) 부터 진행한 정규과정의 <u>**`Django`과정**</u>의 내용을 정리함.
+
+:computer: Main Tool : `vscode`
+
+<br>
+
+### Day_01(August 14th)
+
+- About Django
+- Virtual Environment
+- Start Django project, APP
+- MTV Model
+- Basic request & response(only T-V)
+- Variable Routing
+- Django Template Language(DTL)
+
+### Day_02(August 16th)
+
+- form(GET / POST
+- POST - csrf_token
+- static (load, `{% static '' %}`)
+- URL 로직 분리(프로젝트 & 앱)
+- Namespace(template, static)
+- 상속(block)
+
+### Day_03(August 21th)
+
+- Keyword of SQL
+- Advantages, Disadvantages of ORM
+- Model
+  - Model field reference
+  - Migrations
+- CRUD
+- ADMIN
+- Django Extensions - Shell plus
+
+### Day_04(August 22th)
+
+- Practice of writing CRUD
+
+<br>
+
+------
+
+<br>
+
+## :six: python_study
+
+:round_pushpin: 개인적으로 공부하는 python 내용을 정리함.
+
+<br>
+
+#### :arrow_up_small: python_coding_dojang
+
+- 『파이썬 코딩 도장』(남재윤 저, 길벗출판사)의 실습 파일을 unit별로 정리해놓음.
+- Using Tool : `Python 3.7 IDLE` or `vscode`
+
+#### :arrow_up_small: ​data_analysis
+
+- 『모두의 데이터 분석 with 파이썬』(송석리, 이현아 저, 길벗출판사)의 실습 파일을 정리해놓음.
+- Using Tool : `Jupyter Notebook`
 
