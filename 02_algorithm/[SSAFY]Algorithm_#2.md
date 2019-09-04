@@ -1528,3 +1528,121 @@ print(top.data)
 
 ---
 
+<br>
+
+------
+
+<br>
+
+## 14. 9월03일(14일차)
+
+### 14.1 [예제] 수열합치기
+
+```python
+class Node:
+    def __init__(self, data, link):
+        self.data = data
+        self.link = link
+
+def addtoFirst(data):
+    global Head
+    Head = Node(data, Head)
+
+
+def add(pre, data):
+    pre.link = Node(data, pre.link)
+
+
+def addtoLast(data):
+    global Head
+    if Head == None:
+        Head = Node(data, None)
+    else:
+        p = Head
+        while p.link != None:
+            p = p.link
+        p.link = Node(data, None)
+
+T = int(input())
+
+for a in range(T):
+    N, M = map(int, input().split())
+    arr = list(map(int, input().split()))
+    Head = None
+    for i in range(len(arr)):
+        addtoLast(arr[i])
+    add_arr = [list(map(int, input().split())) for _ in range(M - 1)]
+    length = 0
+    for add_list in add_arr:
+        node = Head
+        length += len(add_list)
+        for j in range(length):
+            if node.data > add_list[0]:
+                if j == 0:
+                    for i in range(len(add_list) - 1, -1, -1):
+                        addtoFirst(add_list[i])
+                    break
+                elif j == 1:
+                    for i in range(len(add_list) - 1, -1, -1):
+                        add(Head, add_list[i])
+                    break
+                else:
+                    for i in range(len(add_list) - 1, -1, -1):
+                        add(prev_node, add_list[i])
+                    break
+            if not j:
+                node = Head.link
+            else:
+                node = node.link
+                if j > 1:
+                    prev_node = prev_node.link
+                else:
+                    prev_node = Head.link
+        else:
+            for i in range(len(add_list) - 1, -1, -1):
+                add(prev_node, add_list[i])
+
+    result = []
+    count = 0
+    while Head.link != None:
+        count += 1
+        if (length + N) - count <= 9:
+            result.insert(0, str(Head.data))
+        Head = Head.link
+    result.insert(0, str(Head.data))
+    print('#{} {}'.format(a + 1, ' '.join(result)))
+```
+
+<br>
+
+### 14.2 [예제] 암호
+
+```python
+T = int(input())
+
+for a in range(T):
+    N, M, K = map(int, input().split())
+    arr = list(map(int, input().split()))
+    now = 0
+    for _ in range(K):
+        position = (now + M) % len(arr)
+        value = arr[position - 1] + arr[position]
+        if position == 0:
+            arr.append(value)
+            now = -1
+        else:
+            arr.insert(position, value)
+            now = position
+    if len(arr) <= 10:
+        print('#{} {}'.format(a + 1, ' '.join([str(num) for num in arr[::-1]])))
+    elif len(arr) > 10:
+        result = []
+        count = 0
+        for num in arr[::-1]:
+            count += 1
+            result.append(str(num))
+            if count == 10:
+                break
+        print('#{} {}'.format(a + 1, ' '.join(result)))
+```
+
