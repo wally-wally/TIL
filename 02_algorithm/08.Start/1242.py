@@ -1,53 +1,41 @@
 import sys
 sys.stdin = open('input_1242.txt', 'r')
 
-def find(array, posi):
-    k = M * 4 - 1
-    data = array[posi]
+def find(array, position): # 바코드 패턴 찾기
+    k = M * 4
     value = []
     while k >= 0:
         k -= 1
         code_data = []
-        if data[k] == '1':
-            if array[posi - 1][k] == 0: continue
+        if array[position][k] == '1':
+            if array[position - 1][k] == 0: continue
             pwd = []
             for _ in range(8):
                 c2 = c3 = c4 = 0
-                while data[k] == '0' :
+                while array[position][k] == '0' :
                     k = k - 1
-                while data[k] == '1' :
-                    code_data.insert(0, data[k])
+                while array[position][k] == '1' :
+                    code_data.insert(0, array[position][k])
                     c4, k = c4 + 1, k - 1
-                while data[k] == '0' :
-                    code_data.insert(0, data[k])
+                while array[position][k] == '0' :
+                    code_data.insert(0, array[position][k])
                     c3, k = c3 + 1, k - 1
-                while data[k] == '1' :
-                    code_data.insert(0, data[k])
+                while array[position][k] == '1' :
+                    code_data.insert(0, array[position][k])
                     c2, k = c2 + 1, k - 1
                 MIN = min(c2, c3, c4)
                 pwd.append(numbers_rate[str(c2//MIN) + str(c3//MIN) + str(c4//MIN)])
             if code_data not in visited:
                 visited.append(code_data)
-                b = pwd[0] + pwd[2] + pwd[4] + pwd[6]
-                a = pwd[1] + pwd[3] + pwd[5] + pwd[7]
-                if (a * 3 + b) % 10 == 0:
-                    value.append([a + b, code_data])
-                else:
-                    value.append([0, code_data])
+                a, b = pwd[1] + pwd[3] + pwd[5] + pwd[7], pwd[0] + pwd[2] + pwd[4] + pwd[6]
+                value.append(a + b if (a * 3 + b) % 10 == 0 else 0)
     return value
 
-def four_bit_bin(hex_value):
-    if len(bin(int(hex_value, 16))[2:]) == 1:
-        elem = '000' + bin(int(hex_value, 16))[2:]
-    elif len(bin(int(hex_value, 16))[2:]) == 2:
-        elem = '00' + bin(int(hex_value, 16))[2:]
-    elif len(bin(int(hex_value, 16))[2:]) == 3:
-        elem = '0' + bin(int(hex_value, 16))[2:]
-    else:
-        elem = bin(int(hex_value, 16))[2:]
-    return elem
+def four_bit_bin(hex_value): # 1bit 16진수 => 4bit 2진수로 변환
+    bin_len = len(bin(int(hex_value, 16))[2:])
+    return '0' * (4 - bin_len) + bin(int(hex_value, 16))[2:]
 
-def change_bin_arr(array):
+def change_bin_arr(array): # 0, 1로 이루어진 배열 생성
     bin_list = []
     for a in range(N):
         element = [four_bit_bin(arr[a][b]) for b in range(M)]
@@ -56,28 +44,19 @@ def change_bin_arr(array):
 
 for test_case in range(int(input())):
     numbers_rate = {
-        '211' : 0,
-        '221' : 1,
-        '122' : 2,
-        '411' : 3,
-        '132' : 4,
-        '231' : 5,
-        '114' : 6,
-        '312' : 7,
-        '213' : 8,
-        '112' : 9
+        '211' : 0, '221' : 1, '122' : 2, '411' : 3, '132' : 4,
+        '231' : 5, '114' : 6, '312' : 7, '213' : 8, '112' : 9
     }
     N, M = map(int, input().split())
     arr = [input() for _ in range(N)]
     bin_arr = change_bin_arr(arr)
 
-    result = 0
-    visited = []
+    result, visited = 0, []
     for p in range(N):
         if bin_arr[p] != '0' * (M * 4):
             info = find(bin_arr, p)
             for l in range(len(info)):
-                result += info[l][0]
+                result += info[l]
     print('#{} {}'.format(test_case + 1, result))
 
 
