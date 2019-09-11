@@ -1,10 +1,10 @@
-# [SSAFY]Django(written by wally-wally)
+# [SSAFY]Django_#1(written by wally-wally)
 
 ----
 
 **※참고사항※**
 
-- `[SSAFY]Django`은 정규과정 `Django`을 진행하면서 강의파일에 없는 추가적인 내용이나 중요하게 다루었던 내용을 상세하게 작성했음.
+- `[SSAFY]Django_#1`은 정규과정 `Django`을 진행하면서 강의파일에 없는 추가적인 내용이나 중요하게 다루었던 내용을 상세하게 작성했음.
 - 최대한 수업 시간의 모든 내용을 담으려했으나 없는 내용이 있을 수도 있음.
 
 ------
