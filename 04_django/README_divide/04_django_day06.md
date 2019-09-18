@@ -149,9 +149,21 @@
 
 #### (3) <a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Status">HTTP 응답 코드</a>
 
+- `200` : 요청이 성공적으로 됨.
+- `400` (Bad Request) : 잘못된 문법으로 인하여 서버가 요청을 이해할 수 없음을 의미
+- `401` (Unauthorized) : 비인증을 의미하며 클라이언트는 요청한 응답을 받기 위해 반드시 스스로를 인증해야 함
+- `404` (Not Found) : 서버에서 요청받은 리소스를 찾을 수 없음 의미. 브라우저에서는 알려지지 않은 URL을 의미함
+- `500` (Internal Server Error) : 서버에서 문제가 발생했는데 해결 방법을 알 수 없음.
+
+<br>
+
 #### (4) <a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Methods">HTTP Method</a>
 
-- GET / POST / PATCH(PUT) / DELETE
+- `GET` : 특정 리소스의 표시를 요청한다. `GET`을 사용하는 요청은 오직 데이터를 받기만 한다.
+- `POST` : 특정 리소스에 엔티티를 제출할 때 쓰임
+- `PATCH` : 리소스의 부분만을 수정하는 데 쓰임
+- `PUT` : 목적 리소스 모든 현재 표시를 요청 payload로 바꿈
+- `DELETE` : 특정 리소스를 삭제함
 - 실제로는 네 가지 메소드 중 공식적으로 GET, POST로만 사용된다.
 
 <br>
