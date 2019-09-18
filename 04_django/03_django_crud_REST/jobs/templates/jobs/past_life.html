@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ person.name }} 님의 전생은 {{ person.past_job }} 입니다.</h1>
+<img src="{{ image }}" alt="gif_img">
+<a href="{% url 'jobs:index' %}">다시하기</a>
+{% endblock  %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="text-center">UPDATE</h1>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <label for="title">TITLE</label>
+    <input type="text" name="title" id="title" value="{{ article.title }}"><br>
+    <label for="content">CONTENT</label>
+    <textarea name="content" id="content" cols="30" rows="5">{{ article.content }}</textarea><br>
+    <input type="submit" value="submit">
+  </form>
+  <a href="{{ article.get_absolute_url }}">[back]</a>
+{% endblock %}

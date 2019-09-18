@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="text-center">DETAIL</h1>
+  <h2>{{ article.pk }} 번째 글</h2>
+  <hr>
+  <p>제목: {{ article.title }}</p>
+  <p>내용: {{ article.content }}</p>
+  <p>작성 시각: {{ article.created_at }}</p>
+  <p>수정 시각: {{ article.updated_at }}</p>
+  <hr>
+  <a href="{% url 'articles:update' article.pk %}">[EDIT]</a>
+  {% comment %} 이렇게 쓰면 url로 삭제할 수 없게 할 수 있다. {% endcomment %}
+  <form action="{% url 'articles:delete' article.pk %}" method="POST" onclick="return confirm('진짜 지울꺼야??')">
+    {% csrf_token %}
+    <input type="submit" value="DELETE">
+  </form>
+  <a href={% url 'articles:index' %}>[back]</a>
+{% endblock %}
