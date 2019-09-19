@@ -594,13 +594,13 @@ $ git branch -d feature/article
 >
 > ```django
 > urlpatterns = [
->     path('', views.index, name='index'),
->     path('new/', views.new, name='new'),
->     path('create/', views.create, name='create'),
->     path('<int:pk>/', views.detail, name='detail'),
->     path('<int:pk>/delete/', views.delete, name='delete'),
->     path('<int:pk>/edit/', views.edit, name='edit'),
->     path('<int:pk>/update/', views.update, name='update'),
+> path('', views.index, name='index'),
+> path('new/', views.new, name='new'),
+> path('create/', views.create, name='create'),
+> path('<int:pk>/', views.detail, name='detail'),
+> path('<int:pk>/delete/', views.delete, name='delete'),
+> path('<int:pk>/edit/', views.edit, name='edit'),
+> path('<int:pk>/update/', views.update, name='update'),
 > ]
 > ```
 
@@ -610,17 +610,17 @@ $ git branch -d feature/article
 > {% extends 'base.html' %}
 > 
 > {% block content %}
->   <h1 class="text-center">DETAIL</h1>
->   <h2>{{ article.pk }} 번째 글</h2>
->   <hr>
->   <p>제목: {{ article.title }}</p>
->   <p>내용: {{ article.content }}</p>
->   <p>작성 시각: {{ article.created_at }}</p>
->   <p>수정 시각: {{ article.updated_at }}</p>
->   <hr>
->   <a href="/articles/{{ article.pk }}/edit/">[EDIT]</a>
->   <a href="/articles/{{ article.pk }}/delete/">[DELETE]</a><br>
->   <a href="{% url 'index' %}">[back]</a>
+> <h1 class="text-center">DETAIL</h1>
+> <h2>{{ article.pk }} 번째 글</h2>
+> <hr>
+> <p>제목: {{ article.title }}</p>
+> <p>내용: {{ article.content }}</p>
+> <p>작성 시각: {{ article.created_at }}</p>
+> <p>수정 시각: {{ article.updated_at }}</p>
+> <hr>
+> <a href="/articles/{{ article.pk }}/edit/">[EDIT]</a>
+> <a href="/articles/{{ article.pk }}/delete/">[DELETE]</a><br>
+> <a href="{% url 'index' %}">[back]</a>
 > {% endblock %}
 > ```
 
@@ -630,16 +630,16 @@ $ git branch -d feature/article
 > {% extends 'base.html' %}
 > 
 > {% block content %}
->   <h1 class="text-center">Articles</h1>
->   <a href="/articles/new/">[NEW]</a>
->   <hr>
->   {% for article in articles %}
->     <p>글 번호: {{ article.pk }}</p>
->     <p>글 제목: {{ article.title }}</p>
->     <p>글 내용: {{ article.content }}</p>
->     <a href="{% url 'detail' article.pk %}">[DETAIL]</a>
->     <hr>
->   {% endfor %}
+> <h1 class="text-center">Articles</h1>
+> <a href="/articles/new/">[NEW]</a>
+> <hr>
+> {% for article in articles %}
+> <p>글 번호: {{ article.pk }}</p>
+> <p>글 제목: {{ article.title }}</p>
+> <p>글 내용: {{ article.content }}</p>
+> <a href="{% url 'detail' article.pk %}">[DETAIL]</a>
+> <hr>
+> {% endfor %}
 > {% endblock %}
 > ```
 
@@ -648,23 +648,22 @@ $ git branch -d feature/article
 #### (2) URL Namespace 설정
 
 - 문제점 발생 : app이 여러 개가 되면, 단순히 url name만 가지고는 어떤 app의 url 인지 알 수 없다.
-
 - 문제점 해결 : app의 `urls.py`에 `app_name`을 선언한다.
 
->`urls.py`
+> `urls.py`
 >
->```django
->app_name = 'articles'
->urlpatterns = [
->    path('', views.index, name='index'),
->    path('new/', views.new, name='new'),
->    path('create/', views.create, name='create'),
->    path('<int:pk>/', views.detail, name='detail'),
->    path('<int:pk>/delete/', views.delete, name='delete'),
->    path('<int:pk>/edit/', views.edit, name='edit'),
->    path('<int:pk>/update/', views.update, name='update'),
->]
->```
+> ```django
+> app_name = 'articles'
+> urlpatterns = [
+> path('', views.index, name='index'),
+> path('new/', views.new, name='new'),
+> path('create/', views.create, name='create'),
+> path('<int:pk>/', views.detail, name='detail'),
+> path('<int:pk>/delete/', views.delete, name='delete'),
+> path('<int:pk>/edit/', views.edit, name='edit'),
+> path('<int:pk>/update/', views.update, name='update'),
+> ]
+> ```
 
 > `detail.html`
 >
@@ -672,17 +671,17 @@ $ git branch -d feature/article
 >
 > ```django
 > {% block content %}
->   <h1 class="text-center">DETAIL</h1>
->   <h2>{{ article.pk }} 번째 글</h2>
->   <hr>
->   <p>제목: {{ article.title }}</p>
->   <p>내용: {{ article.content }}</p>
->   <p>작성 시각: {{ article.created_at }}</p>
->   <p>수정 시각: {{ article.updated_at }}</p>
->   <hr>
->   <a href="{% url 'articles:edit' article.pk %}">[EDIT]</a>
->   <a href="{% url 'articles:delete' article.pk %}">[DELETE]</a><br>
->   <a href={% url 'articles:index' %}[back]</a>
+> <h1 class="text-center">DETAIL</h1>
+> <h2>{{ article.pk }} 번째 글</h2>
+> <hr>
+> <p>제목: {{ article.title }}</p>
+> <p>내용: {{ article.content }}</p>
+> <p>작성 시각: {{ article.created_at }}</p>
+> <p>수정 시각: {{ article.updated_at }}</p>
+> <hr>
+> <a href="{% url 'articles:edit' article.pk %}">[EDIT]</a>
+> <a href="{% url 'articles:delete' article.pk %}">[DELETE]</a><br>
+> <a href={% url 'articles:index' %}[back]</a>
 > {% endblock %}
 > ```
 
@@ -692,16 +691,16 @@ $ git branch -d feature/article
 >
 > ```python
 > def create(request):
->     try: 
->         title = request.POST.get('title')
->         content = request.POST.get('content')
->         article = Article(title=title, content=content)
->         article.full_clean() # 유효성 검증
->     except ValidationError:
->         raise ValidationError('Error')
->     else:
->         article.save()
->         return redirect('articles:detail', article.pk)
+> try: 
+>   title = request.POST.get('title')
+>   content = request.POST.get('content')
+>   article = Article(title=title, content=content)
+>   article.full_clean() # 유효성 검증
+> except ValidationError:
+>   raise ValidationError('Error')
+> else:
+>   article.save()
+>   return redirect('articles:detail', article.pk)
 > ```
 
 <br>
@@ -728,10 +727,21 @@ $ git branch -d feature/article
 
 #### (3) <a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Status">HTTP 응답 코드</a>
 
+- `200` : 요청이 성공적으로 됨.
+- `400` (Bad Request) : 잘못된 문법으로 인하여 서버가 요청을 이해할 수 없음을 의미
+- `401` (Unauthorized) : 비인증을 의미하며 클라이언트는 요청한 응답을 받기 위해 반드시 스스로를 인증해야 함
+- `404` (Not Found) : 서버에서 요청받은 리소스를 찾을 수 없음 의미. 브라우저에서는 알려지지 않은 URL을 의미함
+- `500` (Internal Server Error) : 서버에서 문제가 발생했는데 해결 방법을 알 수 없음.
+
+<br>
+
 #### (4) <a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Methods">HTTP Method</a>
 
-- GET / POST / PATCH(PUT) / DELETE
-
+- `GET` : 특정 리소스의 표시를 요청한다. `GET`을 사용하는 요청은 오직 데이터를 받기만 한다.
+- `POST` : 특정 리소스에 엔티티를 제출할 때 쓰임
+- `PATCH` : 리소스의 부분만을 수정하는 데 쓰임
+- `PUT` : 목적 리소스 모든 현재 표시를 요청 payload로 바꿈
+- `DELETE` : 특정 리소스를 삭제함
 - 실제로는 네 가지 메소드 중 공식적으로 GET, POST로만 사용된다.
 
 <br>
@@ -744,7 +754,7 @@ $ git branch -d feature/article
 | URL<br>(Uniform Resource Locator)    | <ul><li>인터넷 상에서 자원이 어디 있는지 알려주기 위한 규약</li></ul> |
 | URN<br>(Uniform Resource Name)       | <ul><li>사람이 쓰는 것이 아니고 기계 간 통신할 때 쓰는 주소이다. <a href="https://docs.aws.amazon.com/thingsgraph/latest/ug/iot-tg-models-tdm-urnscheme.html">(URN 예시)</a></li><li>우리가 직접 쓸 일은 없다.</li></ul> |
 
----
+------
 
 **:heavy_check_mark: [Example] URI, URL 구분하기**
 
@@ -759,7 +769,7 @@ $ git branch -d feature/article
 - `https://getbootstrap.com/docs/4.3/components/dropdowns/#single-button`
   - `#single-button` : fragment 부분으로 페이지에서 특정 헤딩 위치로 바로 이동시켜줄 때 사용 
 
----
+------
 
 <br>
 
@@ -782,12 +792,10 @@ $ git branch -d feature/article
 #### (2) RESTful한 URL
 
 - URL 작성 Tip : URL는 소문자를 사용, 파일 확장자는 미포함, 밑줄(_) 대신에 하이픈(-) 사용
-
 - django에서 RESTful하게 URL 주소 확인하기
   - `pip install django-extensions` 설치
   - `settings.py`의 `INSTALLED_APPS`에 `'django_extensions,'` 추가
   - `python manage.py show_urls`
-
 - RESTful하게 URL 바꾸기
   - <b>같은 주소로 들어가는데 GET이냐 POST 냐에 따라 행동을 다르게 할 것이다.(NEW+CREATE)</b>
   - GET `articles/create/` : 글을 작성하는 페이지로 이동
@@ -798,16 +806,16 @@ $ git branch -d feature/article
 >
 > ```python
 > def create(request):
->     # CREATE 동작
->     if request.method == 'POST': 
->         title = request.POST.get('title')
->         content = request.POST.get('content')
->         article = Article(title=title, content=content)
->         article.save()
->         return redirect('articles:detail', article.pk)
->     # NEW 동작
->     else:
->         return render(request, 'articles/new.html')
+> # CREATE 동작
+> if request.method == 'POST': 
+>   title = request.POST.get('title')
+>   content = request.POST.get('content')
+>   article = Article(title=title, content=content)
+>   article.save()
+>   return redirect('articles:detail', article.pk)
+> # NEW 동작
+> else:
+>   return render(request, 'articles/new.html')
 > ```
 
 > `urls.py` 에서 `new` 구문 제거
@@ -822,15 +830,15 @@ $ git branch -d feature/article
 > {% extends 'base.html' %}
 > 
 > {% block content %}
->   <h1 class="text-center">CREATE</h1>
->   <form action="{% url 'articles:create' %}" method="POST">
->     {% csrf_token %}
->     <label for="title">TITLE</label>
->     <input type="text" name="title" id="title"><br>
->     <label for="content">CONTENT</label>
->     <textarea name="content" id="content" cols="30" rows="5"></textarea><br>
->     <input type="submit" value="submit">
->   </form>
+> <h1 class="text-center">CREATE</h1>
+> <form action="{% url 'articles:create' %}" method="POST">
+> {% csrf_token %}
+> <label for="title">TITLE</label>
+> <input type="text" name="title" id="title"><br>
+> <label for="content">CONTENT</label>
+> <textarea name="content" id="content" cols="30" rows="5"></textarea><br>
+> <input type="submit" value="submit">
+> </form>
 > {% endblock %}
 > ```
 
@@ -842,12 +850,12 @@ $ git branch -d feature/article
 >
 > ```python
 > def delete(request, pk):
->     article = Article.objects.get(pk=pk)
->     if request.method == 'POST':
->         article.delete()
->         return redirect('articles:index')
->     else:
->         return redirect('articles:detail', article.pk)
+> article = Article.objects.get(pk=pk)
+> if request.method == 'POST':
+>   article.delete()
+>   return redirect('articles:index')
+> else:
+>   return redirect('articles:detail', article.pk)
 > ```
 
 > `detail.html`
@@ -856,21 +864,21 @@ $ git branch -d feature/article
 > {% extends 'base.html' %}
 > 
 > {% block content %}
->   <h1 class="text-center">DETAIL</h1>
->   <h2>{{ article.pk }} 번째 글</h2>
->   <hr>
->   <p>제목: {{ article.title }}</p>
->   <p>내용: {{ article.content }}</p>
->   <p>작성 시각: {{ article.created_at }}</p>
->   <p>수정 시각: {{ article.updated_at }}</p>
->   <hr>
->   <a href="{% url 'articles:update' article.pk %}">[EDIT]</a>
->   {% comment %} 이렇게 쓰면 url로 삭제할 수 없게 할 수 있다. {% endcomment %}
->   <form action="{% url 'articles:delete' article.pk %}" method="POST" onclick="return confirm('진짜 지울꺼야??')">
->     {% csrf_token %}
->     <input type="submit" value="DELETE">
->   </form>
->   <a href={% url 'articles:index' %}>[back]</a>
+> <h1 class="text-center">DETAIL</h1>
+> <h2>{{ article.pk }} 번째 글</h2>
+> <hr>
+> <p>제목: {{ article.title }}</p>
+> <p>내용: {{ article.content }}</p>
+> <p>작성 시각: {{ article.created_at }}</p>
+> <p>수정 시각: {{ article.updated_at }}</p>
+> <hr>
+> <a href="{% url 'articles:update' article.pk %}">[EDIT]</a>
+> {% comment %} 이렇게 쓰면 url로 삭제할 수 없게 할 수 있다. {% endcomment %}
+> <form action="{% url 'articles:delete' article.pk %}" method="POST" onclick="return confirm('진짜 지울꺼야??')">
+> {% csrf_token %}
+> <input type="submit" value="DELETE">
+> </form>
+> <a href={% url 'articles:index' %}>[back]</a>
 > {% endblock %}
 > ```
 
@@ -882,11 +890,11 @@ $ git branch -d feature/article
 
 - 특정 모델에 대해 detail view를 작성할 경우, detail url을 완성하자마자 사용하는 것을 권장한다.
 - 반복되는 코드가 줄고 보다 간결해진다.
+- admin 페이지에서 `사이트에서 보기` 버튼이 새로 생겨 바로 설정된 템플릿 페이지로 이동할 수 있다.
 
 > `models.py`
 >
 > - <b>`detail`에 한해서</b> 모든 url 주소는 아래와 같이 작성하면 된다.
->
 > - 아래 세 구문 모두 `articles/10` 과 같이 똑같이 작동한다.
 >   - `return f'/articles/{self.pk}/'`
 >   - `return reverse('articles:detail', args=[self.pk])`
@@ -898,24 +906,24 @@ $ git branch -d feature/article
 > from django.db import models
 > 
 > class Article(models.Model):
->     title = models.CharField(max_length=20)
->     content = models.TextField()
->     created_at = models.DateTimeField(auto_now_add=True)
->     updated_at = models.DateTimeField(auto_now=True)
+> title = models.CharField(max_length=20)
+> content = models.TextField()
+> created_at = models.DateTimeField(auto_now_add=True)
+> updated_at = models.DateTimeField(auto_now=True)
 > 
->     def __str__(self):
->         return self.title
+> def __str__(self):
+>   return self.title
 > 
->     def get_absolute_url(self):
->         # return f'/articles/{self.pk}/'
->         # args는 리스트로 넣는다.
->         # kwargs는 딕셔너리로 넣는다.
->         # return reverse('articles:detail', args=[self.pk])
->         return reverse('articles:detail', kwargs={'pk': self.pk})
->         # 딕셔너리의 key는 views.py의 detail 함수의 pk이다.
+> def get_absolute_url(self):
+>   # return f'/articles/{self.pk}/'
+>   # args는 리스트로 넣는다.
+>   # kwargs는 딕셔너리로 넣는다.
+>   # return reverse('articles:detail', args=[self.pk])
+>   return reverse('articles:detail', kwargs={'pk': self.pk})
+>   # 딕셔너리의 key는 views.py의 detail 함수의 pk이다.
 > ```
 
----
+------
 
 :checkered_flag: <b>URL Reverse 를 수행하는 함수들</b>
 
@@ -944,7 +952,7 @@ $ git branch -d feature/article
 
 - 내부적으로 `reverse()`를 사용
 
----
+------
 
 > `index.html`
 >
@@ -955,17 +963,17 @@ $ git branch -d feature/article
 > {% extends 'base.html' %}
 > 
 > {% block content %}
->   <h1 class="text-center">Articles</h1>
->   <a href="{% url 'articles:create' %}">[NEW]</a>
->   {% comment %} '/articles/create/'와 같은 문자열을 뱉어냄 {% endcomment %}
->   <hr>
->   {% for article in articles %}
->     <p>글 번호: {{ article.pk }}</p>
->     <p>글 제목: {{ article.title }}</p>
->     <p>글 내용: {{ article.content }}</p>
->     <a href="{{ article.get_absolute_url }}">[DETAIL]</a>
->     <hr>
->   {% endfor %}
+> <h1 class="text-center">Articles</h1>
+> <a href="{% url 'articles:create' %}">[NEW]</a>
+> {% comment %} '/articles/create/'와 같은 문자열을 뱉어냄 {% endcomment %}
+> <hr>
+> {% for article in articles %}
+> <p>글 번호: {{ article.pk }}</p>
+> <p>글 제목: {{ article.title }}</p>
+> <p>글 내용: {{ article.content }}</p>
+> <a href="{{ article.get_absolute_url }}">[DETAIL]</a>
+> <hr>
+> {% endfor %}
 > {% endblock %}
 > ```
 
@@ -975,37 +983,273 @@ $ git branch -d feature/article
 >
 > ```python
 > def create(request):
->     # CREATE 동작
->     if request.method == 'POST': 
->         title = request.POST.get('title')
->         content = request.POST.get('content')
->         article = Article(title=title, content=content)
->         article.save()
->         return redirect(article)
->     # NEW 동작
->     else:
->         return render(request, 'articles/create.html')
->     
->     
+> # CREATE 동작
+> if request.method == 'POST': 
+>   title = request.POST.get('title')
+>   content = request.POST.get('content')
+>   article = Article(title=title, content=content)
+>   article.save()
+>   return redirect(article)
+> # NEW 동작
+> else:
+>   return render(request, 'articles/create.html')
+> 
+> 
 > def delete(request, pk):
->     article = Article.objects.get(pk=pk)
->     if request.method == 'POST':
->         article.delete()
->         return redirect('articles:index')
->     else:
->         return redirect(article)
->     
->     
+> article = Article.objects.get(pk=pk)
+> if request.method == 'POST':
+>   article.delete()
+>   return redirect('articles:index')
+> else:
+>   return redirect(article)
+> 
+> 
 > def update(request, pk):
->     article = Article.objects.get(pk=pk)
->     # UPDATE 동작
->     if request.method == 'POST':
->         article.title = request.POST.get('title')
->         article.content = request.POST.get('content')
->         article.save()
->         return redirect(article)
->     # EDIT 동작
->     else:
->         context = {'article': article,}
->         return render(request, 'articles/update.html', context)
+> article = Article.objects.get(pk=pk)
+> # UPDATE 동작
+> if request.method == 'POST':
+>   article.title = request.POST.get('title')
+>   article.content = request.POST.get('content')
+>   article.save()
+>   return redirect(article)
+> # EDIT 동작
+> else:
+>   context = {'article': article,}
+>   return render(request, 'articles/update.html', context)
 > ```
+
+<br>
+
+## 7. 9월19일(07일차) - `1 : N 관계`
+
+### 7.1 기본 용어 정리
+
+#### (1)`ForeignKey` (참조 키, 외래 키) <a href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#foreignkey">(django 공식 문서)</a>
+
+- 개념
+  - 외래 키는 참조하는 테이블에서 1개의 키(속성 또는 속성의 집합), 참조하는 측의 변수는 참조되는 측의 테이블의 키를 가리킨다.
+  - 하나(또는 복수)의 다른 테이블의 기본 키 필드를 가리키는 데이터의 <u>참조 무결성을 확인</u>하기 위하여 사용된다.
+- 특징
+  - 외래 키의 값으로는 부모 테이블에 존재하는 키의 값만 넣을 수 있다.
+  - 외래 키를 사용하여 부모 테이블의 유일한 값을 참조한다.(부모 테이블의 기본 키)
+
+<br>
+
+#### (2)`on_delete` (`models.py`에서 models.ForeignKey의 필수 속성이다.)
+
+- 개념
+  - ForeignKey의 필수 인자 이며, 참조하고 있는 부모 객체가 사라졌을 때 어떻게 처리할 것인지를 정의.
+- 속성
+  - `CASCADE` : <b>부모 객체가 삭제 됐을 때 이를 참조하는 객체도 삭제</b>한다.(주로 이거 사용!)
+  - `PROTECT` : 참조가 되어 있는 경우 오류가 발생한다.
+  - `SET_NULL` : 부모 객체가 삭제 됐을 때 참조하는 모든 값을 NULL로 치환한다.(DB 상에 NOT_NULL 조건이 있다면 불가능)
+  - `SET_DEFAULT` : 모든 값이 DEFAULT로 설정한 값으로 치환(DB 상에 DEFAULT 조건 값이 있어야 함.)
+  - `SET()` : 특정 함수를 호출(직접 만든 함수나 내장 함수)
+  - `DO_NOTHING` : 아무것도 하지 않음.(단, DB 상에 필드에 대한 `ON_ DELETE` 제한 조건을 따로 설정해야 한다.)
+
+<br>
+
+#### (3) Relationship Fields
+
+- ForeignKey - 1 : N 관계에서 사용
+- ManyToManyField - M : N 관계에서 성립
+- OneToOneField - 1 : 1 관계에서 성립 (ex. 내 프로필 페이지 / 잘 사용하지 않는 관계)
+
+<br>
+
+#### (4) Metadata <a href="https://docs.djangoproject.com/en/2.2/ref/models/options/">(django 공식 문서)</a>
+
+- `class Meta`와 같이 선언하여 모델에 대한 모델-레벨의 메타데이터를 선언할 수 있다.
+- 유용한 기능들 중 하나는 쿼리할 때 반환되는 기본 레코드 순서를 제어하는 것이다.(`ordering` 속성)
+
+```python
+# 예시
+class Meta:
+    # 알파벳순(A-Z) 순으로 content 를 정렬한 후
+    # 작성일(created_at) 별로 가장 나중에 작성된 것 부터 정렬
+    ordering = ['content', '-created_at']
+```
+
+- META : 데이터에 대한 데이터
+
+<br>
+
+### 7.2 1 : N(일 대 다) 관계
+
+> `models.py`
+>
+> ```python
+> class Comment(models.Model):
+>     article = models.ForeignKey(Article, on_delete=models.CASCADE)
+>     content = models.CharField(max_length=200)
+>     created_at = models.DateTimeField(auto_now_add=True)
+>     updated_at = models.DateTimeField(auto_now=True)
+> 
+>     class Meta:
+>         ordering = ['-pk'] # 이렇게 model에서 선언하면 views.py에서 ordey_by('-pk') 안 쓰고 .all()로 가져와도 역순으로 출력할 수 있다.
+> 
+>     def __str__(self):
+>         return self.content
+> ```
+
+```sql
+CREATE TABLE "articles_comment" ("id" integer NOT NULL PRIMARY KEY AUTOINCREMENT, "content" varchar(200) NOT NULL, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL, "article_id" integer
+NOT NULL REFERENCES "articles_article" ("id") DEFERRABLE INITIALLY DEFERRED);
+CREATE INDEX "articles_comment_article_id_59ff1409" ON "articles_comment" ("article_id");
+COMMIT;
+```
+
+<img src="https://user-images.githubusercontent.com/52685250/65200791-3853ba80-dac3-11e9-8f63-585db1727f52.JPG" alt="1-N" widt="700px">
+
+- commet 등록(shell_plus로 확인)
+
+```shell
+In [1]: article = Article.objects.get(pk=1)
+
+In [2]: comment = Comment()
+
+In [3]: comment.content = 'first comment'
+
+In [4]: comment.article_id = article.pk
+
+In [5]: comment.save()
+
+In [6]: comment
+Out[6]: <Comment: <Article(1): Comment(1)-first comment>
+
+In [7]: comment = Comment()
+
+In [8]: comment.content = 'second comment'
+
+In [9]: comment.article = article
+
+In [10]: comment.save()
+
+In [11]: comment
+Out[11]: <Comment: <Article(1): Comment(2)-second comment>
+
+In [12]: comment.pk
+Out[12]: 2
+
+In [13]: comment.article_id
+Out[13]: 1
+
+In [14]: comment.article
+Out[14]: <Article: 제목1>
+
+In [15]: comment.content
+Out[15]: 'second comment'
+
+In [16]: comment.article_id
+Out[16]: 1
+
+In [17]: comment.article.pk
+Out[17]: 1
+
+In [18]: comment.article.title
+Out[18]: '제목1'
+
+In [19]: comment.article.content
+Out[19]: '내용1'
+
+In [20]: exit
+```
+
+#### (1)  1 : N 관계 활용하기
+
+- `참조` : 1 : N 에서 N 쪽에서 1을 참조하는건 어렵지 않음
+  - 댓글의 입장에서 `comment.article` 이 가능한 이유는 어떠한 댓글이든 반드시 자신이 참조하는 article이 있으므로 이와 같이 접근할 수 있다.
+
+```python
+comment.article
+comment.article_id
+...
+```
+
+- `역참조` : 1 : N 에서 <u>1 쪽에서 N을 참조</u>하는 경우 -> 이게 어려움...
+  - `article.comment` 형태로는 가져올 수 없다. 게시글에 몇 개의 댓글이 있는지 django ORM 이 보장할 수 없기 때문이다.(본질적으로 Article 모델에 Comment 와의 관계에 대해 작성된 것이 존재하지 않는다.)
+  - `article.comment_set` 로 접근할 수 있다.
+  - `Comment` 모델에서 `article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='comments')` 와 같이 `related_name` 속성을 추가하면 `article.comment_set` 대신에 `article.comments`로 바꿔서 쓸 수 있다.(이건 주로 M : N에서 사용함)
+
+```shell
+In [1]: article = Article.objects.get(pk=1)
+
+In [2]: dir(article)
+Out[2]: 
+[ ...,
+ 'check',
+ 'clean',
+ 'clean_fields',
+ 'comment_set',
+ 'content',
+ 'created_at',
+ ...
+ ]
+
+In [3]: article.comment_set
+Out[3]: <django.db.models.fields.related_descriptors.create_reverse_many_to_one_manager.<locals>.RelatedManager at 0x1e6d2527208>
+
+In [4]: article.comment_set.all()
+Out[4]: <QuerySet [<Comment: <Article(1): Comment(2)-second comment>, <Comment: <Article(1): Comment(1)-first comment>]>
+```
+
+`article.comment_set.all()`로 전부 가져온 다음에 for문을 돌려 하나씩 출력하면 된다.
+
+```shell
+In [5]: comments = article.comment_set.all()
+
+In [8]: comments.first()
+Out[8]: <Comment: <Article(1): Comment(2)-second comment>
+
+In [9]: comments.first().content
+Out[9]: 'second comment'
+
+In [10]: comments[0].content
+Out[10]: 'second comment'
+```
+
+<br>
+
+#### (2) [실습]댓글 작성 기능 추가하기(소스 코드로 바로 이동)
+
+- `models.py` <a href="https://github.com/wally-wally/TIL/blob/master/04_django/03_django_crud_REST/articles/models.py" target="_blank">(바로 이동)</a>
+- `admin.py` <a href="https://github.com/wally-wally/TIL/blob/master/04_django/03_django_crud_REST/articles/admin.py" target="_blank">(바로 이동)</a>
+- `views.py` <a href="https://github.com/wally-wally/TIL/blob/master/04_django/03_django_crud_REST/articles/views.py" targe="_blank">(바로 이동)</a>
+- `urls.py` <a href="https://github.com/wally-wally/TIL/blob/master/04_django/03_django_crud_REST/articles/urls.py" target="_blank">(바로 이동)</a>
+- `detail.html` <a href="https://github.com/wally-wally/TIL/blob/master/04_django/03_django_crud_REST/articles/templates/articles/detail.html" target="_blank">(바로 이동)</a>
+- `index.html`, `update.html`, `create.html` 은 이전과 동일
+
+<br>
+
+---
+
+:spiral_notepad: <b>comments 관련 추가 사항 - 댓글 개수 출력</b>(`detail.html`)
+
+```django
+{{ comments|length }}
+{{ article.comment_set.all|length }}
+{{ comments.count }}
+```
+
+- `{{ comments.count }}` 은 메서드가 호출되면서 `comment` 모델 쿼리를 한 번 더 DB에 보내기 때문에 매우 작은 차이지만 더 느리다.
+- `{{ article.comment_set.all|length }}` 은 context가 없는 경우(어쩔 수 없을 때만) 사용한다.
+- 가급적 첫번째 방법을 사용하자!
+
+- 댓글이 없는 경우 `0개` 대신에 대체 문장 출력
+
+```html
+<p><b>{{ comments|length }}개의 댓글</b></p>
+{% for comment in comments %}
+  <li>{{ comment.content }}
+  <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST" style="display: inline;" onclick="return confirm('진짜 지울꺼야??')">
+    {% csrf_token %}
+    <input type="submit" value="DELETE">
+  </form>
+  </li>
+  {% empty %}
+  <p><b>댓글이 없어요...</b></p>
+{% endfor %}
+```
+
+---
+

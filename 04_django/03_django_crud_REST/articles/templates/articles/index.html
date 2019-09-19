@@ -3,7 +3,7 @@
 {% block content %}
   <h1 class="text-center">Articles</h1>
   <a href="{% url 'articles:create' %}">[NEW]</a>
-  {% comment %} '/articles/create/'와 같은 문자열을 뱉어냄 {% endcomment %}
+  <!-- '/articles/create/'와 같은 문자열을 뱉어냄 -->
   <hr>
   {% for article in articles %}
     <p>글 번호: {{ article.pk }}</p>
