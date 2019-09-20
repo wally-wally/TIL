@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
+{% load static %} <!-- 반드시 extends 밑에 작성해야 한다. -->
 
 {% block content %}
+  <img src="{% static 'articles/images/sea.jpg' %}" alt="sample_img">
   <h1 class="text-center">Articles</h1>
   <a href="{% url 'articles:create' %}">[NEW]</a>
   <!-- '/articles/create/'와 같은 문자열을 뱉어냄 -->

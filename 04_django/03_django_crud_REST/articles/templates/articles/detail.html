@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
+<img src="{{ article.image_thumbnail.url }}" alt="썸네일">
 <h1 class="text-center">DETAIL</h1>
+{% if article.image %}
+  <img src="{{ article.image.url }}" alt="{{ article.image }}">
+{% else %}
+  <img src="{% static 'articles/images/no_image.png' %}" alt="no_image" width="200px">
+{% endif %}
 <h2>{{ article.pk }} 번째 글</h2>
 <hr>
 <p>제목: {{ article.title }}</p>
@@ -30,7 +37,7 @@
   <input type="submit" value="submit">
 </form>
 <hr>
-<a href="{% url 'articles:update' article.pk %}">[EDIT]</a>
+<a href="{% url 'articles:update' article.pk %}">[UPDATE]</a>
 <!-- 이렇게 쓰면 url로 삭제할 수 없게 할 수 있다. -->
 <form action="{% url 'articles:delete' article.pk %}" method="POST" onclick="return confirm('진짜 지울꺼야??')">
   {% csrf_token %}
