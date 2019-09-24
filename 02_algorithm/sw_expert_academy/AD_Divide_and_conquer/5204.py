@@ -43,3 +43,28 @@ for test_case in range(int(input())):
     result = 0
     mergeSort(0, len(arr) - 1)
     print('#{} {} {}'.format(test_case + 1, arr[N//2], result))
+
+# 강사님 코드
+# def mergeSort(lo, hi):
+#     global ans
+#     if lo + 1 == hi:
+#         return arr[lo]
+
+#     mid = (lo + hi) >> 1
+    
+#     l = mergeSort(lo, mid)
+#     r = mergeSort(mid, hi)
+
+#     if i > r:
+#         ans += 1
+#         return l
+#     else:
+#         return r
+
+# for test_case in range(int(input())):
+#     N = int(input())
+#     arr = list(map(int, input().split()))
+#     ans = 0
+#     mergeSort(0, N)
+#     arr.sort()
+#     print('#{} {} {}'.format(test_case + 1, arr[N//2], ans))

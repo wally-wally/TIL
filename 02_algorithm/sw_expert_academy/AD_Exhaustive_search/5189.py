@@ -20,7 +20,6 @@ for test_case in range(int(input())):
     N = int(input())
     arr = [list(map(int, input().split())) for _ in range(N)]
     check_cnt, ans = 0, 100 * 100
-    unumber_list = [num for num in range(N)]
     used = [False] * N
     battery, before_position = 0, 0
     electro_kart(check_cnt, battery, before_position)

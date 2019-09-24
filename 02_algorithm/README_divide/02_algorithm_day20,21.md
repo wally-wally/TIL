@@ -379,3 +379,76 @@ perm(0)
 <img src="https://user-images.githubusercontent.com/52685250/65004226-a3bc5180-d936-11e9-8592-7200692a73cd.JPG" width=700px alt="Greedy vs DP">
 
 :warning: 동적 계획법은 대부분의 최적화 문제에 적용할 수 있고, 탐욕 기법은 장점이 많으나 대부분의 최적화 문제에 적용할 수 없다.
+
+<br>
+
+### 18.4 [예제] 최소합
+
+```python
+def min_sum(position, val):
+    global ans, N
+    if val >= ans:
+        return
+    if position == [N - 1, N - 1]:
+        if val <= ans:
+            ans = val
+            return
+    move = [(0, 1), (1, 0)] # 우, 하
+    for i in range(2):
+        n_row = position[0] + move[i][0]
+        n_col = position[1] + move[i][1]
+        if 0 <= n_row < N and 0 <= n_col < N: 
+            if not used[n_row][n_col]:
+                used[n_row][n_col] = True
+                min_sum([n_row, n_col], val + arr[n_row][n_col])
+                used[n_row][n_col] = False
+
+for test_case in range(int(input())):
+    N = int(input())
+    arr = [list(map(int, input().split())) for _ in range(N)]
+    ans = 13 * 12 * 10
+    used = [[False] * N for __ in range(N)]
+    init_position = [0, 0]
+    min_sum(init_position, arr[0][0])
+    print('#{} {}'.format(test_case + 1, ans))
+```
+
+<br>
+
+### 18.5 [예제] 베이비진 게임
+
+```python
+def baby_gin(lst, chk_num):
+    counting_list = [0] * 10
+    for num in lst:
+        counting_list[num] += 1
+    for idx in range(10):
+        if counting_list[idx] == 3:
+            return 1 if not chk_num else 2
+        if idx <= 7:
+            if counting_list[idx] >= 1 and counting_list[idx + 1] >= 1 and counting_list[idx + 2] >= 1:
+                return 1 if not chk_num else 2
+
+
+for test_case in range(int(input())):
+    player_1, player_2 = [], []
+    numbers = list(map(int, input().split()))
+    for idx in range(len(numbers)):
+        if not idx % 2:
+            player_1.append(numbers[idx])
+        else:
+            player_2.append(numbers[idx])
+        if idx >= 4:
+            if not idx % 2 and len(player_1) >= 3:
+                baby_gin_value = baby_gin(sorted(player_1), idx % 2)
+                if baby_gin_value is not None:
+                    print('#{} {}'.format(test_case + 1, baby_gin_value))
+                    break
+            elif idx % 2 and len(player_2) >= 3:
+                baby_gin_value = baby_gin(sorted(player_2), idx % 2)
+                if baby_gin_value is not None:
+                    print('#{} {}'.format(test_case + 1, baby_gin_value))
+                    break
+    else:
+        print('#{} 0'.format(test_case + 1))
+```
