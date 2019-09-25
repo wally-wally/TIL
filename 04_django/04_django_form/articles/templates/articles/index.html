@@ -1,0 +1,13 @@
+{% extends 'articles/base.html' %} <!-- app에 base.html이 있으므로 앞에 `articles/` 경로를 붙여준다. -->
+
+{% block content %}
+  <h1>Articles</h1>
+  <a href="{% url 'articles:create' %}">[NEW]</a>
+  {% for article in articles %}
+    <p>번호: {{ article.pk }}</p>
+    <p>제목: {{ article.title }}</p>
+    <a href="{{ article.get_absolute_url }}">[DETAIL]</a>
+    <!-- 원래는 {# url 'articles:detail' article_pk #}이지만 get_absoulte_url에 의해 {{ article.get_absolute_url }}로 간결해진다. -->
+    <hr>
+  {% endfor %}
+{% endblock  %}

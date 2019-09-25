@@ -1,0 +1,31 @@
+{% extends 'articles/base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+  {% if request.resolver_match.url_name == 'create' %}
+    <h1>CREATE</h1>
+  {% else %}
+    <h1>UPDATE</h1>
+  {% endif %}
+  <form action="" method="POST">
+  <!-- action에 값 안 넣으면 현재 주소로 POST 방식으로 보냄(즉, 안 써도 무방 / 단, # 같은거 넣지 말 것) -->
+    {% csrf_token %}
+    {#{{ form.as_p }}#}<!-- 이 한줄로 아래 네 줄을 한 방에 정리!! / form에서 정해놓은 최대 10자 설정도 자동으로 적용된다. -->
+    <!-- as_p : 각각의 input을 p 태그로 나눠서 한 줄에 하나씩 배치되게 한다. -->
+  <!--
+    <label for="title">TITLE</label>
+    <input type="text" name="title" id="title"><br>
+    <label for="content">CONTENT</label>
+    <input type="text" name="content" id="content"><br>
+  -->
+    {#<input type="submit" value="CREATE">#}
+    {% bootstrap_form form layout="horizontal" %} {# 초록색 form은 view에서 넘어온 이름임 => form #}
+    {% buttons submit='OK' reset="Cancel" %}{% endbuttons %}
+  </form>
+  <hr>
+  {% if request.resolver_match.url_name == 'create' %}
+    <a href="{% url 'articles:index' %}">BACK</a>
+  {% else %}
+    <a href="{{ article.get_absolute_url }}">BACK</a>
+  {% endif %}
+{% endblock %}
