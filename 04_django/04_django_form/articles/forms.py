@@ -55,17 +55,7 @@ class ArticleForm(forms.ModelForm):
         # exclude = ('title',) # title를 뺀 field를 사용한다.
 
 class CommentForm(forms.ModelForm):
-    content = forms.CharField(
-        label='댓글',
-        max_length=140,
-        widget=forms.TextInput(
-            attrs={
-                'class': 'my-comment',
-                'placeholder': 'Enter the comment',
-            }
-        )
-    )
-
+    
     class Meta:
         model = Comment
-        fields = '__all__'
+        fields = ('content',)

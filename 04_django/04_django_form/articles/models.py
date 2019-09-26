@@ -29,4 +29,4 @@ class Comment(models.Model):
         ordering = ('-pk',)
 
     def __str__(self):
-        return f'<Article({self.article_id}): Comment({self.pk})-{self.content}'
+        return self.content
