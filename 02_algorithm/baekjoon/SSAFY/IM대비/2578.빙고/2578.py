@@ -1,49 +1,62 @@
 import sys
-sys.stdin = open('input.txt', 'r')
+sys.stdin = open('input_2578.txt', 'r')
 
-def bingo_sum (bingo_list_name):
-    judge_list = []
-    dsum1 = dsum2 = 0
+def find_num(num):
+    global bingo_cnt
+    escape_var = 0
+    for x in range(5):
+        for y in range(5):
+            if arr[x][y] == num:
+                arr[x][y] = 0
+                escape_var = 1
+                break
+        if escape_var: break
+
+    # 가로 판별
+    if sum(arr[x]) == 0:
+        bingo_cnt += 1
+    
+    if bingo_cnt >= 3:
+        return True
+
+    # 세로 판별
+    col_sum = 0
     for i in range(5):
-        rsum = csum = 0
-        dsum1 += bingo_list_name[i][i]
-        dsum2 += bingo_list_name[i][4-i]
+        col_sum += arr[i][y]
+    if not col_sum:
+        bingo_cnt += 1
+
+    if bingo_cnt >= 3:
+        return True
+    
+    # 대각선인 경우
+    if x == y:
+        diagonal_sum = 0
         for j in range(5):
-            rsum += bingo_list_name[i][j]
-            csum += bingo_list_name[j][i]
-        judge_list.append(rsum)
-        judge_list.append(csum)
-    judge_list.append(dsum1)
-    judge_list.append(dsum2)
-    return judge_list
+            diagonal_sum += arr[j][j]
+        if not diagonal_sum:
+            bingo_cnt += 1
+    if x + y == 4:
+        diagonal_sum = 0
+        for k in range(5):
+            diagonal_sum += arr[k][4 - k]
+        if not diagonal_sum:
+            bingo_cnt += 1
 
-while True:
-    try:
-        count = 0
-        my_bingo_board = []
-        announcer_num_list = []
-        for _ in range(5):
-            my_bingo_board.append(list(map(int, input().split())))
-        for __ in range(5):
-            announcer_num_list.append(list(map(int, input().split())))
+    if bingo_cnt >= 3:
+        return True
+    
+    return False
 
-        complete_variable = 0
-        for a in range(5):
-            if complete_variable: break
-            for b in range(5):
-                if complete_variable: break
-                count += 1
-                for c in range(5):
-                    if complete_variable: break
-                    for d in range(5):
-                        if complete_variable: break
-                        if announcer_num_list[a][b] == my_bingo_board[c][d]:
-                            my_bingo_board[c][d] = 0
-                            bingo_able = bingo_sum(my_bingo_board)
-                            
-                            if bingo_able.count(0) == 3:
-                                print(count)
-                                complete_variable += 1
-                                break
-    except EOFError:
-        break
+arr = [list(map(int, input().split())) for _ in range(5)]
+bingo_cnt = 0
+result = 0
+for a in range(5):
+    data = list(map(int, input().split()))
+    for b in range(5):
+        result += 1
+        value = False
+        value = find_num(data[b])
+        if value: break
+    if value: break
+print(result)
