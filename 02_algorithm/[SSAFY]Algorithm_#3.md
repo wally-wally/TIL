@@ -833,3 +833,103 @@ for test_case in range(int(input())):
 - 어떤 노드의 유망성을 점검한 후에 유망(promising)하지 않다고 결정되면 그 노드의 부모로 되돌아가(backtracking) 다음 자식 노드로 감.
 - 어떤 노드를 방문하였을 때 그 노드를 포함한 경로가 해답이 될 수 없으면 그 노드는 유망하지 않다고 하며, 반대로 해답의 가능성이 있으면 유망하다고 한다.
 - 가지치기(pruning) : 유망하지 않는 노드가 포함되는 경로는 더 이상 고려하지 않는다.
+
+<br>
+
+## 20. 9월24일(23일차)
+
+### 20.1 [예제]이진 탐색
+
+```python
+def binary_search(lo, hi, num, direct):
+    global result
+    mid = (lo + hi) >> 1
+    if lo > hi:
+        return
+    if num == list_A[mid]:
+        result += 1
+        return
+    else:
+        if num < list_A[mid]:
+            if direct == 0 or direct == 2:
+                direct = 1
+                binary_search(lo, mid - 1, num, direct)
+                return
+            else:
+                return
+        elif num > list_A[mid]:
+            if direct == 0 or direct == 1:
+                direct = 2
+                binary_search(mid + 1, hi, num, direct)
+                return
+            else:
+                return
+
+for test_case in range(int(input())):
+    N, M = map(int, input().split())
+    list_A = sorted(list(map(int, input().split())))  # 문제 좀 똑바로 읽자...
+    list_B = list(map(int, input().split()))
+    result = 0
+    for m_number in list_B:
+        direction = 0
+        if m_number in list_A:
+            binary_search(0, N - 1, m_number, direction)
+    print('#{} {}'.format(test_case + 1, result))
+```
+
+<br>
+
+### 20.2 [예제]전기버스2
+
+```python
+def battery_check(idx, remain_battery, charge_cnt):
+    global result
+    if result < charge_cnt or remain_battery < 0:
+        return
+    if result >= charge_cnt:
+        if idx == N - 1:
+            result = charge_cnt
+            return
+        else:
+            battery_check(idx + 1, remain_battery - 1, charge_cnt)
+            battery_check(idx + 1, charge_spot[idx] - 1, charge_cnt + 1)
+
+
+for test_case in range(int(input())):
+    data = list(map(int, input().split()))
+    N, charge_spot = data[0], data[1:]
+    result = 10000000
+    charge_cnt = 0
+    battery_check(1, charge_spot[0] - 1, charge_cnt)
+    print('#{} {}'.format(test_case + 1, result))
+```
+
+<br>
+
+### 20.3 [예제]최소 생산 비용
+
+```python
+def min_production_cost(chk_cnt, val):
+    global result
+    if val > result:
+        return
+    if chk_cnt == N:
+        if val <= result:
+            result = val
+            return
+    for i in range(N):
+        if not visited[i]:
+            visited[i] = True
+            min_production_cost(chk_cnt + 1, val + arr[chk_cnt][i])
+            visited[i] = False
+
+for test_case in range(int(input())):
+    N = int(input())
+    arr = [list(map(int, input().split())) for _ in range(N)]
+    check_cnt, result = 0, 99 * 15
+    visited = [False] * N
+    before_position, cost = 0, 0
+    min_production_cost(check_cnt, cost)
+    print('#{} {}'.format(test_case + 1, result))
+```
+
