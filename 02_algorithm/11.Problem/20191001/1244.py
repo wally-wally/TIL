@@ -23,7 +23,7 @@ for tc in range(int(input())):
     string_num = [num for num in str(N)]
     for a in range(digit ** 2):
         start, end = a // digit, a % digit
-        if start != end:
+        if start != end: # 가로, 세로 인덱스가 같은 경우 교환을 안하므로 제외시킨다.
             string_num[start], string_num[end] = string_num[end], string_num[start]
             change_num(start, end, ''.join(string_num), 1, [[start, end]])
             string_num[start], string_num[end] = string_num[end], string_num[start]
