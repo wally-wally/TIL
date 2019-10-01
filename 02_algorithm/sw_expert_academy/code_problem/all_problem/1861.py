@@ -28,9 +28,9 @@ for tc in range(int(input())):
             if 0 <= new_a < N and 0 <= new_b < N:
                 if arr[new_a][new_b] - arr[a][b] == 1:
                     one_more = True
-                if arr[a][b] - arr[new_a][new_b] == -1:
+                if arr[a][b] - arr[new_a][new_b] == 1:
                     one_less = True
-        if one_more and one_less:
+        if one_more and not one_less:
             value = find_num(a, b, 0)
             if result < value:
                 room_number, result = arr[a][b], value
