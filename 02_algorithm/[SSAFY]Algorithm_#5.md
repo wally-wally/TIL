@@ -334,3 +334,54 @@
   - 따라서, 전체 정렬은 `O(NlogN)`이다.
   - 힙 정렬은 수행 시간이 빠르다.
 - 힙 정렬은 배열에 저장된 자료를 정렬하기에 유용하다.
+
+<br>
+
+## 24. 10월11일(31일차)
+
+### 24.1 [문제] 이진 탐색
+
+```python
+def inorder(n):
+    global idx
+    if n <= N:
+        inorder(n * 2)
+        arr[n] = idx
+        idx += 1
+        inorder(n * 2 + 1)
+
+for tc in range(int(input())):
+    N = int(input())
+    idx = 1
+    arr = [0] * (N + 1)
+    inorder(1)
+    print('#{} {} {}'.format(tc + 1, arr[1], arr[N // 2]))
+```
+
+<br>
+
+### 24.2 [문제] 이진 힙
+
+```python
+def heap_check(n):
+    p, c = n // 2, n
+    while True:
+        if c <= 1 or arr[p] < arr[c]: break
+        arr[p], arr[c] = arr[c], arr[p]
+        c, p = p, c // 2
+
+for tc in range(int(input())):
+    N = int(input())
+    input_data = list(map(int, input().split()))
+    arr = [0] * (N + 1)
+    for idx in range(N):
+        arr[idx + 1] = input_data[idx]
+        heap_check(idx + 1)
+    result = 0
+    while True:
+        N = N // 2
+        if N == 0: break
+        result += arr[N]
+    print('#{} {}'.format(tc + 1, result))
+```
+
