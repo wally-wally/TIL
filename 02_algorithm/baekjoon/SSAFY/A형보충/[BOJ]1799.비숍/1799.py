@@ -21,7 +21,7 @@ def check_bishop(row, col, count, color):
 
 N = int(input())
 arr = [list(map(int, input().split())) for _ in range(N)]
-# left : 좌측 상단에서 우측 하단으로 내려가는 방향, right : 우측 상단에서 좌측 하단으로 내려가는 방향
+# left : 우측 상단에서 좌측 하단으로 내려가는 방향, right : 좌측 상단에서 우측 하단으로 내려가는 방향
 left, right = [0] * (N * 2), [0] * (N * 2)
 black_result, white_result = 0, 0
 
