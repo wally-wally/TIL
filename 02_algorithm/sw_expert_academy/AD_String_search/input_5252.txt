@@ -1,0 +1,17 @@
+2
+3 3
+book
+home
+study
+right
+home
+study
+3 5
+people
+water
+night
+water
+hand
+country
+night
+people
