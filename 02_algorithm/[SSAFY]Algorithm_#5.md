@@ -712,3 +712,102 @@ for tc in range(int(input())):
 > print(D[1 : V + 1])
 > ```
 
+<br>
+
+## 26. 10월15일(33일차)
+
+### 26.1 [문제] 상원이의 생일파티
+
+```python
+def check():
+    result, check_var = 0, 0
+    queue = [1]
+    visit[1] = True
+    while queue:
+        temp_list = []
+        if check_var == 2: return result
+        for pop_elem in queue:
+            for tmp in G[pop_elem]:
+                if not visit[tmp]:
+                    visit[tmp] = True
+                    result += 1
+                    temp_list.append(tmp)
+        if not len(temp_list):
+            return result
+        queue = [temp for temp in temp_list]
+        check_var += 1
+            
+for tc in range(int(input())):
+    N, M = map(int, input().split())
+    visit = [False] * (N + 1)
+    G = [[] for _ in range(N + 1)]
+    for _ in range(M):
+        a, b = list(map(int, input().split()))
+        G[a].append(b)
+        G[b].append(a)
+    if not len(G[1]):
+        print('#{} 0'.format(tc + 1))
+        continue
+    print('#{} {}'.format(tc + 1, check()))
+```
+
+<br>
+
+### 26.2 [문제] 연산
+
+```python
+from collections import deque
+
+def calc():
+    operation = [+1, -1, -10]
+    result = 0
+    queue = deque()
+    queue.append((N, 1))
+    chk_list[N] = 1
+    while queue:
+        result += 1
+        pop_elem, calc_cnt = queue.popleft()
+        for idx in range(4):
+            check_val = pop_elem + operation[idx] if idx != 3 else pop_elem * 2
+            if check_val == M: return calc_cnt
+            # 아래 조건식에서 반드시 해당값이 1 이상 1000000 이하인지 먼저 확인하자!!!
+            if 1 <= check_val <= 1000000 and not chk_list[check_val]:
+                chk_list[check_val] = 1
+                queue.append((check_val, calc_cnt + 1))
+
+for tc in range(int(input())):
+    N, M = map(int, input().split())
+    chk_list = [0] * 1000001
+    print('#{} {}'.format(tc + 1, calc()))
+```
+
+<br>
+
+### 26.3 [문제] 최소 비용
+
+```python
+from collections import deque
+
+def check_cost():
+    queue = deque()
+    queue.append((0, 0))
+    check_arr[0][0] = 0
+    while queue:
+        x, y = queue.popleft()
+        for direct in [(-1, 0), (0, +1), (+1, 0), (0, -1)]:
+            new_x, new_y = x + direct[0], y + direct[1]
+            if 0 <= new_x < N and 0 <= new_y < N:
+                w = arr[new_x][new_y] - arr[x][y] + 1 if arr[new_x][new_y] > arr[x][y] else 1
+                # 간선 완화 부분
+                if check_arr[new_x][new_y] > check_arr[x][y] + w:
+                    check_arr[new_x][new_y] = check_arr[x][y] + w
+                    queue.append((new_x, new_y))
+    return check_arr[N - 1][N - 1]
+
+for tc in range(int(input())):
+    N = int(input())
+    check_arr = [[0xffffff] * N for _ in range(N)]
+    arr = [list(map(int, input().split())) for _ in range(N)]
+    print('#{} {}'.format(tc + 1, check_cost()))
+```
+
