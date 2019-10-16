@@ -116,6 +116,7 @@ TIL
 
    ```python
    # orm
+   from users.models import User
    User.objects.values()
    ```
 
@@ -185,11 +186,11 @@ user.delete()
    DELETE FROM users_user WHERE id=101;
    ```
 
-
+<br>
 
 ---
 
-
+<br>
 
 ### 2. 조건에 따른 쿼리문
 
@@ -292,18 +293,18 @@ user.delete()
    ```python
    # orm
    User.objects.extra(where=["country='강원도'", "last_name='황'"]).values('first_name')
-```
+   ```
    
-      ```sql
+   ```sql
    -- sql
    SELECT first_name FROM users_user WHERE country='강원도' and last_name='황';
-      ```
+   ```
 
-
+<br>
 
 ---
 
-
+<br>
 
 ### 3. 정렬 및 LIMIT, OFFSET
 
@@ -336,7 +337,7 @@ user.delete()
       ```python
    # orm
    User.objects.order_by('balance', '-age')[:10].values()
-```
+   ```
    
    ```sql
    -- sql
@@ -348,18 +349,18 @@ user.delete()
    ```python
    # orm
    User.objects.order_by('-last_name', '-first_name')[4]
-```
-   
-      ```sql
+   ```
+
+   ```sql
    -- sql
    SELECT first_name FROM users_user ORDER BY last_name DESC, first_name DESC LIMIT 1 OFFSET 4;
-      ```
+   ```
 
-
+<br>
 
 ---
 
-
+<br>
 
 ### 4. 표현식
 
@@ -372,50 +373,61 @@ user.delete()
 
 1. 전체 평균 나이
 
-      ```python
+   ```python
    # orm
+   from django.db.models import Avg, Max, Sum
+   User.objects.aggregate(Avg('age'))
    ```
 
       ```sql
    -- sql
+   SELECT AVG(age) FROM users_user;
       ```
 
 2. 김씨의 평균 나이
 
-      ```python
+   ```python
    # orm
+   User.objects.filter(last_name='김').aggregate(Avg('age'))
    ```
 
       ```sql
    -- sql
+   SELECT AVG(age) FROM users_user WHERE last_name='김';
       ```
 
 3. 강원도에 사는 사람의 평균 계좌 잔고
 
    ```python
    # orm
+   User.objects.filter(country='강원도').aggregate(Avg('balance'))
    ```
 
    ```sql
    -- sql
+   SELECT AVG(balance) FROM users_user WHERE country='강원도';
    ```
 
 4. 계좌 잔액 중 가장 높은 값
 
    ```python
    # orm
+   User.objects.aggregate(Max('balance'))
    ```
 
       ```sql
    -- sql
+   SELECT MAX(balance) FROM users_user;
       ```
 
 5. 계좌 잔액 총액
 
    ```python
    # orm
-   ```
-
+   User.objects.aggregate(Max('balance'))
+```
+   
       ```sql
    -- sql
+   SELECT SUM(balance) FROM users_user;
       ```

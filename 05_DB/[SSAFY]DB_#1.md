@@ -58,9 +58,14 @@
 :book: <b>sqlite3 알.쓸.신.잡</b>
 
 - `.` : sqlite3 프로그램의 기능을 실행하는 것
+
 - `;` : 세미콜론 까지가 하나의 명령(Query)으로 간주
+
 - SQL 문법은 소문자로 작성해도 된다. (단, 대문자를 권장)
+
 - 하나의 DB에는 여러 개의 table이 존재한다.
+
+  <img src="https://user-images.githubusercontent.com/52685250/66923752-5ed62880-f064-11e9-99c2-b29e2ed537e0.JPG" alt="테이블과 DB의 관계" width="450px">
 
 ---
 
