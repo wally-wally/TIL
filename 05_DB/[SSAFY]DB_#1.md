@@ -29,18 +29,35 @@
 
 ### 11.1 SQL
 
+---
+
+:book: <b>sqlite3 알.쓸.신.잡</b>
+
+- `.` : sqlite3 프로그램의 기능을 실행하는 것
+- `;` : 세미콜론 까지가 하나의 명령(Query)으로 간주
+- SQL 문법은 소문자로 작성해도 된다. (단, 대문자를 권장)
+- 하나의 DB에는 여러 개의 table이 존재한다.
+
+---
+
+#### (1) SQL 언어
+
 | 언어 | 개념                            | 예시                                              |
 | ---- | ------------------------------- | ------------------------------------------------- |
 | DDL  | 데이터를 정의                   | CREATE, DROP, ALTER                               |
 | DML  | CRUD와 관련                     | <b>INSERT(C), SELECT(R), UPDATE(U), DELETE(D)</b> |
 | DCL  | 데이터베이스 사용자의 권한 제어 | GRANT, REVOKE, COMMIT, ROLLBAK                    |
 
+<br>
+
+### 11.2 Database 생성, Table 생성 및 삭제 (`hellodb.csv`)
+
 #### (1) Database 생성
 
 :checkered_flag: Ready for sqlite3
 
 ```sqlite
-sqlite3 tutorial.sqlite3 -- tutorial.sqlite3 DB 파일 생성
+sqlite3 tutorial.sqlite3 -- tutorial.sqlite3 DB 파일 생성 및 조회
 .databases -- database 생성
 .mode csv -- csv 모드로 변경
 .import hellodb.csv examples -- hellodb.csv 파일을 이용한 examples 라는 테이블 생성
@@ -108,16 +125,382 @@ name TEXT );
 
 <br>
 
----
+#### (3) Table 삭제
 
-:book: <b>sqlite3 알.쓸.신.잡</b>
+```sqlite
+DROP TABLE classmates;
+.tables
+```
 
-- `.` : sqlite3 프로그램의 기능을 실행하는 것
+```sql
+examples -- 기존에 있던 classmates 테이블 자체가 삭제되고 examples 테이블만 남아있다.
+```
 
-- `;` : 세미콜론 까지가 하나의 명령(Query)으로 간주
+<br>
 
-- SQL 문법은 소문자로 작성해도 된다. (단, 대문자를 권장)
-- 하나의 DB에는 여러 개의 table이 존재한다.
+### 11.3 SQLite로 CRUD 접근 (DML)
 
----
+> `현재 classmates 테이블 상태`
+>
+> ```sqlite
+> CREATE TABLE classmates (
+> name TEXT,
+> age INT,
+> address TEXT );
+> ```
 
+#### (1) Data 추가(INSERT)
+
+```sqlite
+INSERT INTO classmates (name, age)
+VALUES ('홍길동', 23);
+```
+
+```
+name        age         address
+----------  ----------  ----------
+홍길동         23
+```
+
+```sqlite
+INSERT INTO classmates (name, age, address)
+-- 모든 column의 데이터를 넣을 때는 ( ) 이 부분 생략 가능하여 바로 VALUES 부터 쓰면 된다.
+-- 즉, 모든 열에 데이터를 넣을 때에는 column을 명시할 필요가 없다.
+-- INSERT INTO classmates VALUES('홍길동', 30, '서울');
+VALUES ('홍길동', 30 , '서울');
+```
+
+```
+name        age         address
+----------  ----------  ----------
+홍길동         23
+홍길동         30          서울
+```
+
+> :heavy_check_mark: <b>숨겨진 id값까지 확인</b>
+>
+> ```sqlite
+> SELECT rowid, * FROM classmates;
+> ```
+>
+> - SQLite는 따로 PRIMARY KEY 속성의 컬럼을 작성하지 않으면 값이 자동으로 증가하는 PK 옵션을 가진 rowid 컬럼을 정의한다.
+>   - rowid는 64bit 정수 타입의 유일한 식별 값이다.
+>   - <b><u>id를 `INTEGER PRIMARY KEY` 타입으로 컬럼을 만들면 이는 rowid 를 대체한다.</u></b>
+>
+> ```
+> rowid       name        age         address
+> ----------  ----------  ----------  ----------
+> 1           홍길동         23
+> 2           홍길동         30          서울
+> ```
+
+<br>
+
+#### (2) NOT NULL
+
+- `DROP TABLE classmates;` 로 테이블 삭제 후 다시 시작
+
+```sqlite
+CREATE TABLE classmates (
+id INTEGER PRIMARY KEY, -- PRIMARY KEY는 INT는 안 되고 INTEGER 만 사용 가능!
+name TEXT NOT NULL,
+age INT NOT NULL,
+address TEXT NOT NULL );
+```
+
+```sqlite
+INSERT INTO classmates (name, age) VALUES ('홍길동', 23);
+```
+
+```
+Error: NOT NULL constraint failed: classmates.address
+```
+
+```sqlite
+INSERT INTO classmates (name, age, address) VALUES ('홍길동', 23, '서울'); -- 이건 가능
+```
+
+- rowid는 자동으로 작성 되었는데 직접 id 컬럼을 만든 후에는 입력할 컬럼을 명시하지 않으면 자동으로 입력되지 않는다.
+
+```sqlite
+INSERT INTO classmates VALUES ('김영희', 30, '대전'); -- 이건 안 됨(rowid 일 때 와는 다르다)
+```
+
+- 그래서 앞으로는 아래와 같이 테이블 생성하여 PK 컬럼을 rowid를 통해 자동으로 작성되도록 한다!
+
+```sqlite
+CREATE TABLE classmates (
+name TEXT NOT NULL,
+age INT NOT NULL,
+address TEXT NOT NULL );
+```
+
+```sqlite
+INSERT INTO classmates VALUES ('홍길동', 30, '서울'), ('김철수', 23, '대전'), (
+'박나래', 23, '광주'), ('이요셉', 33, '구미');
+```
+
+```sqlite
+SELECT * FROM classmates;
+```
+
+```
+name        age         address
+----------  ----------  ----------
+홍길동         30          서울
+김철수         23          대전
+박나래         23          광주
+이요셉         33          구미
+```
+
+<br>
+
+#### (3) Data 조회(SELECT)
+
+- classmates에서 id, name column 값만 가져오기
+
+  ```sqlite
+  SELECT rowid, name FROM classmates;
+  ```
+
+  ```
+  rowid       name
+  ----------  ----------
+  1           홍길동
+  2           김철수
+  3           박나래
+  4           이요셉
+  ```
+
+- `LIMIT` 속성을 이용하여 classmates에서 id, name cloumn 값을 하나만 가져오기
+
+  ```SQlite
+  SELECT rowid, name FROM classmates LIMIT 1;
+  ```
+
+  ```
+  rowid       name
+  ----------  ----------
+  1           홍길동
+  ```
+
+- `LIMIT`, `OFFSET` 속성을 이용하여 classmates에서 id, name column 값을 세번째에 있는 값 하나만 가져오기(`LIMIT`와 `OFFSET`은 한 세트!)
+
+  ```sqlite
+  SELECT rowid, name FROM classmates LIMIT 1 OFFSET 2; -- OFFSET에 적은 숫자 이후부터 시작!
+  ```
+
+  ```
+  rowid       name
+  ----------  ----------
+  3           박나래
+  ```
+
+- `WHERE` 속성을 이용하여 classmates에서 id, name column 주소가 서울인 사람만 가져오기
+
+  ```sqlite
+  SELECT rowid, name FROM classmates WHERE address='서울';
+  ```
+
+  ```
+  rowid       name
+  ----------  ----------
+  1           홍길동
+  ```
+
+- `DISTINCT` 속성을 이용하여 classmates에서 age 값 전체를 중복없이 가져오기
+
+  ```sqlite
+  SELECT DISTINCT age FROM classmates;
+  ```
+
+  ```
+  age
+  ----------
+  30
+  23
+  33
+  ```
+
+<br>
+
+#### (4) Data 삭제(DELETE)
+
+- 중복이 불가능한(UNIQUE) 값인 rowid를 기준으로 data를 삭제하자.
+
+- classmates 테이블에 id가 4인 레코드 삭제하기
+
+  ```sqlite
+  DELETE FROM classmates WHERE rowid=4;
+  SELECT rowid, * FROM classmates;
+  ```
+
+  ```
+  rowid       name        age         address
+  ----------  ----------  ----------  ----------
+  1           홍길동         30          서울
+  2           김철수         23          대전
+  3           박나래         23          광주
+  ```
+
+- 위와 같은 테이블 상황에서 새로운 데이터 추가
+
+  SQLite는 기본적으로 일부 행을 삭제하고 새 행을 삽입하면 삭제 된 행의 값을 재사용하려고 시도한다.
+
+  ```sqlite
+  INSERT INTO classmates VALUES ('최철순', 45, '서울');
+  SELECT rowid, * FROM classmates;
+  ```
+
+  ```
+  rowid       name        age         address
+  ----------  ----------  ----------  ----------
+  1           홍길동         30          서울
+  2           김철수         23          대전
+  3           박나래         23          광주
+  4           최철순         45          서울
+  ```
+
+- `AUTOINCREMENT` 속성을 사용하면 삭제 된 행의 값을 재사용하지 않고 새로운 값이 적용된다.
+
+  ```sqlite
+  CREATE TABLE tests (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL );
+  INSERT INTO tests (id, name) VALUES (1, '홍길동'), (2, '김철수');
+  SELECT * FROM tests;
+  ```
+
+  ```
+  id          name
+  ----------  ----------
+  1           홍길동
+  2           김철수
+  ```
+
+  ```sqlite
+  DELETE FROM tests WHERE id=2;
+  INSERT INTO tests (name) VALUES ('최철순');
+  SELECT * FROM tests;
+  ```
+
+  ```
+  id          name
+  ----------  ----------
+  1           홍길동
+  3           최철순
+  ```
+
+- 하지만 SQLite는 <b><u>특정한 요구사항(삭제된 행의 값을 재사용하지 못하게 한다면)이 없다면</u></b> <b><u>`AUTOINCREMENT` 속성을 사용하지 않아야 한다</u></b>고 공식문서에 명세되어 있다.
+
+  - 내부적으로 CPU, 메모리, 디스크 공간을 추가로 불필요하게 사용하므로 엄격하게 필요하지 않을 경우 사용을 피해야 한다.
+  - rowid의 최대값은 <u>64비트 8바이트 실수의 최대값</u> = `9,223,372,036,854,775,807`
+  - rowid의 최대값에 도달했을 때의 상황(INSERT INTO를 한다면)
+    - AUTOINCREMENT가 없을 때 : 중간에 없는 ID를 재사용하므로 에러가 나지 않을 것.
+    - AUTOINCREMENT가 있을 때 : 최대 레코드를 넘어서기 때문에 에러가 발생함.
+
+<br>
+
+#### (5) Data 수정(UPDATE)
+
+- classmates 테이블에서 id가 4인 레코드를 이름은 홍길동으로, 주소를 제주도로 바꾸기
+
+  ```sqlite
+  UPDATE classmates SET name='홍길동', address='제주도' WHERE rowid=4;
+  SELECT rowid, * FROM classmates;
+  ```
+
+  ```
+  rowid       name        age         address
+  ----------  ----------  ----------  ----------
+  1           홍길동         30          서울
+  2           김철수         23          대전
+  3           박나래         23          광주
+  4           홍길동         45          제주도
+  ```
+
+<br>
+
+### 11.4 WHERE Expression (`users.csv`)
+
+:checkered_flag: Ready for sqlite3
+
+```sqlite
+.mode csv -- csv 모드로 변경
+.import users.csv users -- hellodb.csv 파일을 이용한 examples 라는 테이블 생성
+.tables
+.headers on
+```
+
+- users에서 age가 30 이상인 사람만 가져오기
+
+  ```sqlite
+  SELECT * FROM users WHERE age>=30;
+  ```
+
+- users에서 age가 30 이상인 사람의 이름만 가져오기
+
+  ```SQLite
+  .schema -- 스키마로 column명을 먼저 확인하자
+  ```
+
+  ```
+  CREATE TABLE users(
+    "id" TEXT,
+    "first_name" TEXT,
+    "last_name" TEXT,
+    "age" TEXT,
+    "country" TEXT,
+    "phone" TEXT,
+    "balance" TEXT
+  );
+  ```
+
+  ```sqlite
+  SELECT first_name FROM users WHERE age>=30;
+  ```
+
+- users에서 `age가 30 이상`<b><u>이고</u></b> `성이 김`인 사람의 성과 나이만 가져오기
+
+  ```sqlite
+  SELECT last_name, age FROM users WHERE age>=30 and last_name='김';
+  ```
+
+- users 테이블의 레코드 총 개수 - `COUNT()`
+
+  레코드의 개수 반환 : `SELECT COUNT(column) FROM table;`
+
+  ```sqlite
+  SELECT COUNT(*) FROM users; -- 어떤 column인지 안 나와 있으므로 *로 작성함
+  ```
+
+  ```
+  COUNT(*)
+  1000
+  ```
+
+- 30살 이상인 사람들의 평균 나이는? - `AVG()`
+
+  `AVG()`, `SUM()`, `MIN()`, `MAX()` : 이 표현식들은 기본적으로 숫자(INTEGER)일 때만 가능함
+
+  ```SQLITE
+  SELECT AVG(age) FROM users WHERE age>=30;
+  ```
+
+  ```
+  AVG(age)
+  35.1763285024155
+  ```
+
+- users에서 계좌 잔액(balance)이 가장 높은 사람과 액수는? - `MAX()`
+
+  ```sqlite
+  SELECT first_name, MAX(balance) FROM users;
+  ```
+
+  ```
+  first_name,MAX(balance)
+  "선영",990000
+  ```
+
+  
