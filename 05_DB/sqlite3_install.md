@@ -8,7 +8,7 @@
   - `sqlite-dll-win64-x64-3300100.zip`
   - `sqlite-tools-win32-x86-3300100.zip`
 
-<a href=" https://www.sqlite.org/download.html " target="_blank">![01(아래꺼 두개 다운)](C:\Users\student\Desktop\01(아래꺼 두개 다운).JPG)</a>
+<a href=" https://www.sqlite.org/download.html " target="_blank">![001](https://user-images.githubusercontent.com/52685250/66970196-8c07f280-f0c7-11e9-94c1-8ae84dcaf764.JPG)</a>
 
 <br>
 

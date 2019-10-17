@@ -79,7 +79,7 @@ TIL
     users_user
     sqlite > .mode csv
     sqlite > .import users.csv users_user
-    sqlite > SELECT COUNT(*) FROM users_user;
+    sqlite > SELECT COUNT(*) FROM user_users;
     100
     ```
 
@@ -117,7 +117,7 @@ TIL
    ```python
    # orm
    from users.models import User
-   User.objects.values()
+   User.objects.all()
    ```
 
       ```sql
@@ -129,12 +129,12 @@ TIL
 
    ```python
    # orm
-   user = User(id=101, first_name='중구', last_name='이', age=30, country='충청남도', phone='010-1234-5678', balance=45000)
+   User.objects.create(first_name='중구', last_name='이', age=30, country='충청남도', phone='010-1234-5678', balance=45000)
    ```
 
    ```sql
    -- sql
-   INSERT INTO VALUES (101, '중구', '이', 30, '충청남도', '010-1234-5678', 45000)
+   INSERT INTO users_user VALUES (102, '중구', '이', 30, '충청남도', '010-1234-5678', 45000)
    ```
 
    * 하나의 레코드를 빼고 작성 후 `NOT NULL` constraint 오류를 orm과 sql에서 모두 확인 해보세요.
@@ -145,7 +145,7 @@ TIL
 
    ```python
    # orm
-   User.objects.filter(pk=101).values()
+   User.objects.get(pk=101)
    ```
 
    ```sql
@@ -201,6 +201,7 @@ user.delete()
    ```python
    # orm
    User.objects.all().count()
+   len(User.objects.all()) # 가급적 len()은 사용하지 말라고 공식문서에 나와있다.
    ```
 
    ```sql
@@ -216,6 +217,13 @@ user.delete()
    ```python
    # orm
    User.objects.filter(age=30).values('first_name')
+   ######################################################
+   # orm을 사용하면 다음과 같이 데이터 조작 가능
+   user = User.objects.filter(age=30).values('first_name')
+   user[0].get('first_name') # '영환'으로 출력
+   ######################################################
+   print(User.objects.filter(age=30).values('first_name').query) # .query로 확인가능
+   # SELECT "users_user"."first_name" FROM "users_user" WHERE "users_user"."age" = 30 와 같이 출력됨
    ```
 
       ```sql
@@ -225,7 +233,7 @@ user.delete()
 
 3. 나이가 30살 이상인 사람의 인원 수
 
-   -  ORM: `__gte` , `__lte` , `__gt`, `__lt` -> 대소관계 활용
+   -  ORM: `__gte` , `__lte` , `__gt`, `__lt` -> 대소관계 활용 <a href=" https://docs.djangoproject.com/en/2.2/ref/models/querysets/#gt " target="_blank">(참고 문서)</a>
 
    ```python
    # orm
@@ -253,8 +261,8 @@ user.delete()
 
    ```python
    # orm
-   User.objects.extra(where=["last_name='김'", "age=30"]).count()
-   User.objects.filter(last_name='김', age=30).count()
+   User.objects.extra(where=["last_name='김'", "age=30"]).count() # 내가 찾은 방법
+   User.objects.filter(last_name='김', age=30).count() # 이걸로 알아두자
    ```
 
       ```sql
@@ -262,11 +270,12 @@ user.delete()
    SELECT COUNT(*) FROM users_user WHERE last_name='김' and age=30;
       ```
 
-6. 나이가 30이거나 성이 김씨인 사람?
+6. 나이가 30이거나 성이 김씨인 사람? <a href=" https://docs.djangoproject.com/en/2.2/ref/models/querysets/#or" target="_blank">(참고 문서)</a>
 
    ```python
    # orm
-   User.objects.extra(where=["age=30 or last_name='김'"])
+   User.objects.extra(where=["age=30 or last_name='김'"]) # 내가 찾은 방법
+   User.objects.filter(Q(age=30) | Q(last_name='김')) # 이걸로 알아두자(Q object 활용법)
    ```
 
    ```sql
@@ -276,7 +285,7 @@ user.delete()
 
 7. 지역번호가 02인 사람의 인원 수
 
-   - `ORM`: `__startswith` 
+   - `ORM`: `__startswith` => ORM의 `__startswith`은 기본적으로 SQL에서는 `%` wild card로 넘어간다.
 
    ```python
    # orm
@@ -293,6 +302,11 @@ user.delete()
    ```python
    # orm
    User.objects.extra(where=["country='강원도'", "last_name='황'"]).values('first_name')
+   User.objects.filter(country='강원도', last_name='황').values('first_name') # 이걸로!
+   
+   # '은정'만 뽑아 올려면 다음과 같이 작성해야 한다.
+   # <QuerySet [{'first_name': '은정'}]> => QuerySet의 첫 번째 요소 임을 주의!
+   User.objects.filter(country='강원도', last_name='황').values('first_name').first().get('first_name')
    ```
    
    ```sql
@@ -312,7 +326,7 @@ user.delete()
 
    ```python
    # orm
-   User.objects.order_by('-age')[:10].values()
+   User.objects.order_by('-age')[:10]
    ```
 
       ```sql
@@ -324,7 +338,7 @@ user.delete()
 
    ```python
    # orm
-   User.objects.order_by('balance')[:10].values()
+   User.objects.order_by('balance')[:10]
    ```
 
       ```sql
@@ -332,11 +346,11 @@ user.delete()
    SELECT * FROM users_user ORDER BY balance LIMIT 10;
       ```
 
-3. 잔고는 오름차순, 나이는 내림차순으로 10명?
+3. 잔고는 오름차순, 나이는 내림차순으로 10명? (order_by는 먼저 쓴게 정렬 우선순위가 높다.)
 
       ```python
    # orm
-   User.objects.order_by('balance', '-age')[:10].values()
+   User.objects.order_by('balance', '-age')[:10]
    ```
    
    ```sql
@@ -353,7 +367,7 @@ user.delete()
 
    ```sql
    -- sql
-   SELECT first_name FROM users_user ORDER BY last_name DESC, first_name DESC LIMIT 1 OFFSET 4;
+   SELECT * FROM users_user ORDER BY last_name DESC, first_name DESC LIMIT 1 OFFSET 4;
    ```
 
 <br>
@@ -375,8 +389,10 @@ user.delete()
 
    ```python
    # orm
-   from django.db.models import Avg, Max, Sum
+   from django.db.models import Avg, Max, Sum # shell_plus로 켜면 자동으로 import 해준다.
+   # python 파일에서 작성할 때는 위 구문을 반드시 작성해줘야 한다.
    User.objects.aggregate(Avg('age'))
+   User.objects.aggregate(avg_value=Avg('age')) # aggregate customizing
    ```
 
       ```sql
@@ -425,9 +441,10 @@ user.delete()
    ```python
    # orm
    User.objects.aggregate(Max('balance'))
-```
+   ```
    
-      ```sql
+   ```sql
    -- sql
    SELECT SUM(balance) FROM users_user;
-      ```
+   ```
+
