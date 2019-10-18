@@ -655,7 +655,7 @@ Out[4]: 'create'
 >     return render(request, 'articles/detail.html', context)
 > 
 > def comments_create(request, article_pk):
->     if request.methdo == 'POST':
+>     if request.method == 'POST':
 >         comment_form = CommentForm(request.POST)
 >         if comment_form.is_valid():
 >             # commit=False => 객체를 Create 하지만, db에 레코드는 작성하지 않는다.
