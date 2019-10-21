@@ -1,4 +1,5 @@
 from IPython import embed
+from django.views.decorators.http import require_POST
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import render, redirect
@@ -41,4 +42,9 @@ def login(request):
 
 def logout(request):
     auth_logout(request)
+    return redirect('articles:index')
+
+@require_POST
+def delete(request):
+    request.user.delete()
     return redirect('articles:index')

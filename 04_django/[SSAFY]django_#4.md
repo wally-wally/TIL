@@ -440,3 +440,31 @@
 <br>
 
 ### 11.5 회원 탈퇴
+
+> `accounts` app > `views.py`
+>
+> ```python
+> @require_POST
+> def delete(request):
+>     request.user.delete()
+>     return redirect('articles:index')
+> ```
+
+> `accounts` app > `urls.py`
+>
+> ```python
+> path('delete/', views.delete, name='delete'),
+> ```
+
+> `articles` app > `index.html` ([로그아웃] 밑에 작성)
+>
+> ```django
+> <form action="{% url 'accounts:delete' %}" method="POST" style="display: inline;">
+>   {% csrf_token %}
+>   <input type="submit" value="회원탈퇴" class="btn btn-danger">
+> </form>
+> ```
+
+<br>
+
+### 11.6 회원 수정
