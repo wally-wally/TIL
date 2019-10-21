@@ -1,0 +1,11 @@
+{% extends 'articles/base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+  <h1>회원 정보 수정</h1>
+  <form action="" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons submit='정보수정' reset="Cancel" %}{% endbuttons %}
+  </form>
+{% endblock  %}

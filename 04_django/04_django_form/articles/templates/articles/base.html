@@ -14,7 +14,9 @@
     {% if user.is_authenticated %} {# request.user.is_authenticated 가 원래 맞는데 user만 써도 django는 알아서 인식해줌 #}
       <h3> {# 인증 됐을 때 #}
         Hello, {{ user.username }} &nbsp;
-        <a href="{% url 'accounts:logout' %}"><button class="btn btn-warning"><b>로그아웃</b></button></a> &nbsp;
+        <a href="{% url 'accounts:update' %}"><button class="btn btn-info">정보수정</button></a> &nbsp;
+        <a href="{% url 'accounts:change_password' %}"><button class="btn btn-success">비번변경</button></a> &nbsp;
+        <a href="{% url 'accounts:logout' %}"><button class="btn btn-warning">로그아웃</button></a> &nbsp;
         <form action="{% url 'accounts:delete' %}" method="POST" style="display: inline;">
           {% csrf_token %}
           <input type="submit" value="회원탈퇴" class="btn btn-danger">

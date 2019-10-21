@@ -1,9 +1,12 @@
 from IPython import embed
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
+from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, PasswordChangeForm
+from .forms import CustomUserChangeForm
 
 # Create your views here.
 def signup(request):
@@ -20,7 +23,7 @@ def signup(request):
     else:
         form = UserCreationForm()
     context = {'form': form,}
-    return render(request, 'accounts/signup.html', context)
+    return render(request, 'accounts/auth_form.html', context)
 
 def login(request):
     if request.user.is_authenticated:
@@ -38,7 +41,7 @@ def login(request):
     else:
         form = AuthenticationForm()
     context = {'form': form,}
-    return render(request, 'accounts/login.html', context)
+    return render(request, 'accounts/auth_form.html', context)
 
 def logout(request):
     auth_logout(request)
@@ -48,3 +51,28 @@ def logout(request):
 def delete(request):
     request.user.delete()
     return redirect('articles:index')
+
+@login_required
+def update(request):
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, instance=request.user) # 키워드 인자이므로 instance를 반드시 명시해줘야 한다.
+        if form.is_valid():
+            form.save()
+            return redirect('articles:index')
+    else:
+        form = CustomUserChangeForm(instance=request.user) # 키워드 인자이므로 instance를 반드시 명시해줘야 한다.
+    context = {'form': form,}
+    return render(request, 'accounts/auth_form.html', context)
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST) # 인자 순서 주의!!!(이거만 request.user가 먼저 나옴)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user) # 인자 순서 주의!!!
+            return redirect('articles:index')
+    else:
+        form = PasswordChangeForm(request.user)
+    context = {'form': form,}
+    return render(request, 'accounts/auth_form.html', context)

@@ -1,13 +1,4 @@
-# [SSAFY]Django_#4(written by wally-wally)
-
-----
-
-**※참고사항※**
-
-- `[SSAFY]Django_#4`은 정규과정 `Django`을 진행하면서 강의파일에 없는 추가적인 내용이나 중요하게 다루었던 내용을 상세하게 작성했음.
-- 최대한 수업 시간의 모든 내용을 담으려했으나 없는 내용이 있을 수도 있음.
-
-------
+# :notebook_with_decorative_cover: 04_django - Day11
 
 <br>
 
@@ -150,15 +141,15 @@
 >
 > ```python
 > def signup(request):
->     if request.method == 'POST':
->         form = UserCreationForm(request.POST)
->         if form.is_valid():
->             form.save()
->             return redirect('articles:index')
->     else:
->         form = UserCreationForm()
->     context = {'form': form,}
->     return render(request, 'accounts/signup.html', context)
+>  if request.method == 'POST':
+>      form = UserCreationForm(request.POST)
+>      if form.is_valid():
+>          form.save()
+>          return redirect('articles:index')
+>  else:
+>      form = UserCreationForm()
+>  context = {'form': form,}
+>  return render(request, 'accounts/signup.html', context)
 > ```
 
 > `urls.py`
@@ -169,7 +160,7 @@
 > 
 > app_name = 'accounts'
 > urlpatterns = [
->     path('signup/', views.signup, name='signup'),
+>  path('signup/', views.signup, name='signup'),
 > ]
 > ```
 
@@ -180,12 +171,12 @@
 > {% load bootstrap4 %}
 > 
 > {% block content %}
->   <h1>회원가입</h1>
->   <form action="" method="POST">
->     {% csrf_token %}
->     {% bootstrap_form form %}
->     {% buttons submit='회원가입' reset="Cancel" %}{% endbuttons %}
->   </form>
+> <h1>회원가입</h1>
+> <form action="" method="POST">
+>  {% csrf_token %}
+>  {% bootstrap_form form %}
+>  {% buttons submit='회원가입' reset="Cancel" %}{% endbuttons %}
+> </form>
 > {% endblock  %}
 > ```
 
@@ -203,17 +194,17 @@
 > from django.contrib.auth import login as auth_login
 > 
 > def login(request):
->     if request.method == 'POST':
->         # request 인자 부터 쓰는 것 주의!(들어가는 순서가 form마다 다르다!)
->         form = AuthenticationForm(request, request.POST)
->         if form.is_valid():
->             # 세션 만드는 과정
->             auth_login(request, form.get_user()) # form.get_user() : user 정보
->             return redirect('articles:index')
->     else:
->         form = AuthenticationForm()
->     context = {'form': form,}
->     return render(request, 'accounts/login.html', context)
+>  if request.method == 'POST':
+>      # request 인자 부터 쓰는 것 주의!(들어가는 순서가 form마다 다르다!)
+>      form = AuthenticationForm(request, request.POST)
+>      if form.is_valid():
+>          # 세션 만드는 과정
+>          auth_login(request, form.get_user()) # form.get_user() : user 정보
+>          return redirect('articles:index')
+>  else:
+>      form = AuthenticationForm()
+>  context = {'form': form,}
+>  return render(request, 'accounts/login.html', context)
 > ```
 
 > `urls.py`
@@ -229,12 +220,12 @@
 > {% load bootstrap4 %}
 > 
 > {% block content %}
->   <h1>로그인</h1>
->   <form action="" method="POST">
->     {% csrf_token %}
->     {% bootstrap_form form %}
->     {% buttons submit='로그인' reset="Cancel" %}{% endbuttons %}
->   </form>
+> <h1>로그인</h1>
+> <form action="" method="POST">
+>  {% csrf_token %}
+>  {% bootstrap_form form %}
+>  {% buttons submit='로그인' reset="Cancel" %}{% endbuttons %}
+> </form>
 > {% endblock  %}
 > ```
 
@@ -257,8 +248,8 @@
 > from django.contrib.auth import logout as auth_logout
 > 
 > def logout(request):
->     auth_logout(request)
->     return redirect('articles:index')
+>  auth_logout(request)
+>  return redirect('articles:index')
 > ```
 
 > `urls.py`
@@ -274,12 +265,12 @@
 > {% load bootstrap4 %}
 > 
 > {% block content %}
->   <h1>로그인</h1>
->   <form action="" method="POST">
->     {% csrf_token %}
->     {% bootstrap_form form %}
->     {% buttons submit='로그인' reset="Cancel" %}{% endbuttons %}
->   </form>
+> <h1>로그인</h1>
+> <form action="" method="POST">
+>  {% csrf_token %}
+>  {% bootstrap_form form %}
+>  {% buttons submit='로그인' reset="Cancel" %}{% endbuttons %}
+> </form>
 > {% endblock  %}
 > ```
 
@@ -289,8 +280,8 @@
 >
 > ```django
 > <h3>
->   Hello, {{ user.username }} &nbsp;
->   <a href="{% url 'accounts:logout' %}">로그아웃</a>
+> Hello, {{ user.username }} &nbsp;
+> <a href="{% url 'accounts:logout' %}">로그아웃</a>
 > </h3>
 > ```
 
@@ -334,7 +325,7 @@
 >
 > ```python
 > if request.user.is_authenticated:
->     return redirect('articles:index')
+>  return redirect('articles:index')
 > ```
 
 > `articles` > `base.html`
@@ -342,15 +333,15 @@
 > ```django
 > {% if user.is_authenticated %}
 > {# request.user.is_authenticated 가 원래 맞는데 user만 써도 django는 알아서 인식해줌 #}
->   <h3> {# 인증 됐을 때 #}
->     Hello, {{ user.username }} &nbsp;
->     <a href="{% url 'accounts:logout' %}">로그아웃</a>
->   </h3>
+> <h3> {# 인증 됐을 때 #}
+>  Hello, {{ user.username }} &nbsp;
+>  <a href="{% url 'accounts:logout' %}">로그아웃</a>
+> </h3>
 > {% else %}
->   <h3> {# 인증 안 됐을 때 #}
->     <a href="{% url 'accounts:login' %}">로그인</a>
->     <a href="{% url 'accounts:signup' %}">회원가입</a>
->   </h3>
+> <h3> {# 인증 안 됐을 때 #}
+>  <a href="{% url 'accounts:login' %}">로그인</a>
+>  <a href="{% url 'accounts:signup' %}">회원가입</a>
+> </h3>
 > {% endif %}
 > ```
 
@@ -383,15 +374,15 @@
 >
 > ```django
 > {% if user.is_authenticaed %}
->   <a href="{% url 'articles:create' %}">[NEW]</a>
+> <a href="{% url 'articles:create' %}">[NEW]</a>
 > {% else %}
->   <a href="{% url 'accounts:login' %}">[새 글을 작성하려면 로그인하세요]</a>
+> <a href="{% url 'accounts:login' %}">[새 글을 작성하려면 로그인하세요]</a>
 > {% endif %}
 > ```
 
 ##### ④ 댓글기능
 
--  `@required_POST`가 있는 함수에 `@login_required`가 설정된다면 로그인 이후 `next` 매개변수를 따라 해당 함수로 다시 redirect되면서 `@require_POST` 때문에 405 에러가 발생.
+- `@required_POST`가 있는 함수에 `@login_required`가 설정된다면 로그인 이후 `next` 매개변수를 따라 해당 함수로 다시 redirect되면서 `@require_POST` 때문에 405 에러가 발생.
 
   ```python
   # 405 에러를 해결하기 위해 delete, comments_create, comments_delete view를 다음과 같이 수정
@@ -450,8 +441,8 @@
 > ```python
 > @require_POST
 > def delete(request):
->     request.user.delete()
->     return redirect('articles:index')
+>  request.user.delete()
+>  return redirect('articles:index')
 > ```
 
 > `accounts` app > `urls.py`
@@ -464,8 +455,8 @@
 >
 > ```django
 > <form action="{% url 'accounts:delete' %}" method="POST" style="display: inline;">
->   {% csrf_token %}
->   <input type="submit" value="회원탈퇴" class="btn btn-danger">
+> {% csrf_token %}
+> <input type="submit" value="회원탈퇴" class="btn btn-danger">
 > </form>
 > ```
 
@@ -493,12 +484,12 @@
 > {% load bootstrap4 %}
 > 
 > {% block content %}
->   <h1>회원 정보 수정</h1>
->   <form action="" method="POST">
->     {% csrf_token %}
->     {% bootstrap_form form %}
->     {% buttons submit='정보수정' reset="Cancel" %}{% endbuttons %}
->   </form>
+> <h1>회원 정보 수정</h1>
+> <form action="" method="POST">
+>  {% csrf_token %}
+>  {% bootstrap_form form %}
+>  {% buttons submit='정보수정' reset="Cancel" %}{% endbuttons %}
+> </form>
 > {% endblock  %}
 > ```
 
@@ -515,9 +506,9 @@
 > from django.contrib.auth import get_user_model
 > 
 > class CustomUserChangeForm(UserChangeForm):
->     class Meta:
->         model = get_user_model() # return User
->         fields =('email', 'first_name', 'last_name',)
+>  class Meta:
+>      model = get_user_model() # return User
+>      fields =('email', 'first_name', 'last_name',)
 > ```
 
 > `views.py`
@@ -528,15 +519,15 @@
 > # 비로그인 상태에서 강제로 url로 회원 정보 수정 페이지 들어가면 로그인 페이지로 넘어가고 로그인하면 자동으로 회원 정보 수정 페이지로 redirect 해준다.
 > @ login_required
 > def update(request):
->     if request.method == 'POST':
->         form = CustomUserChangeForm(request.POST, instance=request.user)
->         if form.is_valid():
->             form.save()
->             return redirect('articles:index')
->     else:
->         form = CustomUserChangeForm(instance=request.user)
->     context = {'form': form,}
->     return render(request, 'accounts/update.html', context)
+>  if request.method == 'POST':
+>      form = CustomUserChangeForm(request.POST, instance=request.user)
+>      if form.is_valid():
+>          form.save()
+>          return redirect('articles:index')
+>  else:
+>      form = CustomUserChangeForm(instance=request.user)
+>  context = {'form': form,}
+>  return render(request, 'accounts/update.html', context)
 > ```
 
 <br>
@@ -549,15 +540,15 @@
 >
 > ```python
 > def change_password(request):
->     if request.method == 'POST':
->         form = PasswordChangeForm(request.user, request.POST)
->         if form.is_valid():
->             form.save()
->             return redirect('articles:index')
->     else:
->         form = PasswordChangeForm(request.user)
->     context = {'form': form,}
->     return render(request, 'accounts/change_password.html', context)
+>  if request.method == 'POST':
+>      form = PasswordChangeForm(request.user, request.POST)
+>      if form.is_valid():
+>          form.save()
+>          return redirect('articles:index')
+>  else:
+>      form = PasswordChangeForm(request.user)
+>  context = {'form': form,}
+>  return render(request, 'accounts/change_password.html', context)
 > ```
 
 > `urls.py`
@@ -573,12 +564,12 @@
 > {% load bootstrap4 %}
 > 
 > {% block content %}
->   <h1>비밀번호 변경</h1>
->   <form action="" method="POST">
->     {% csrf_token %}
->     {% bootstrap_form form %}
->     {% buttons submit='변경' reset="Cancel" %}{% endbuttons %}
->   </form>
+> <h1>비밀번호 변경</h1>
+> <form action="" method="POST">
+>  {% csrf_token %}
+>  {% bootstrap_form form %}
+>  {% buttons submit='변경' reset="Cancel" %}{% endbuttons %}
+> </form>
 > {% endblock  %}
 > ```
 
@@ -604,16 +595,16 @@
 > ```python
 > @login_required
 > def change_password(request):
->     if request.method == 'POST':
->         form = PasswordChangeForm(request.user, request.POST) # 인자 순서 주의!!!
->         if form.is_valid():
->             form.save()
->             update_session_auth_hash(request, form.user) # 인자 순서 주의!!!
->             return redirect('articles:index')
->     else:
->         form = PasswordChangeForm(request.user)
->     context = {'form': form,}
->     return render(request, 'accounts/change_password.html', context)
+>  if request.method == 'POST':
+>      form = PasswordChangeForm(request.user, request.POST) # 인자 순서 주의!!!
+>      if form.is_valid():
+>          form.save()
+>          update_session_auth_hash(request, form.user) # 인자 순서 주의!!!
+>          return redirect('articles:index')
+>  else:
+>      form = PasswordChangeForm(request.user)
+>  context = {'form': form,}
+>  return render(request, 'accounts/change_password.html', context)
 > ```
 
 <br>
@@ -629,21 +620,21 @@
 > {% load bootstrap4 %}
 > 
 > {% block content %}
->   {##}
->   {% if request.resolver_match.url_name == 'signup' %}
->     <h1>회원가입</h1>
->   {% elif request.resolver_match.url_name == 'login' %}
->     <h1>로그인</h1>
->   {% elif request.resolver_match.url_name == 'update' %}
->     <h1>회원정보 수정</h1>
->   {% else %}
->     <h1>비밀번호 변경</h1>
->   {% endif %}
->   <form action="" method="POST">
->     {% csrf_token %}
->     {% bootstrap_form form %}
->     {% buttons submit='Submit' reset="Cancel" %}{% endbuttons %}
->   </form>
+> {##}
+> {% if request.resolver_match.url_name == 'signup' %}
+>  <h1>회원가입</h1>
+> {% elif request.resolver_match.url_name == 'login' %}
+>  <h1>로그인</h1>
+> {% elif request.resolver_match.url_name == 'update' %}
+>  <h1>회원정보 수정</h1>
+> {% else %}
+>  <h1>비밀번호 변경</h1>
+> {% endif %}
+> <form action="" method="POST">
+>  {% csrf_token %}
+>  {% bootstrap_form form %}
+>  {% buttons submit='Submit' reset="Cancel" %}{% endbuttons %}
+> </form>
 > {% endblock  %}
 > ```
 
