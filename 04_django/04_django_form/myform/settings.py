@@ -36,14 +36,14 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    'django.contrib.sessions', # django가 알아서 세션을 관리하고 있음
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware', # django가 알아서 세션을 관리하고 있음
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -115,6 +115,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# SESSION_SAVE_EVERY_REQUEST = True # default는 False임
+# (각 view에서 request.session.modified = True를 일일이 쓰기 어려우므로
+# 모든 곳에서 request.session.modified = True를 기본 값으로 사용하고 싶을 때 작성)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

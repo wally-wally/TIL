@@ -2,6 +2,7 @@
 
 {% block content %}
   <h1>Articles</h1>
+  <p><b>당신의 방문 횟수 : {{ visits_num }} {% if visits_num == 1 %} time {% else %} times{% endif %}</b></p>
   <a href="{% url 'articles:create' %}">[NEW]</a>
   {% for article in articles %}
     <p>번호: {{ article.pk }}</p>
