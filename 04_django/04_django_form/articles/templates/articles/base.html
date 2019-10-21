@@ -11,6 +11,18 @@
 </head>
 <body>
   <div class="container">
+    {% if user.is_authenticated %} {# request.user.is_authenticated 가 원래 맞는데 user만 써도 django는 알아서 인식해줌 #}
+      <h3> {# 인증 됐을 때 #}
+        Hello, {{ user.username }} &nbsp;
+        <a href="{% url 'accounts:logout' %}">로그아웃</a>
+      </h3>
+    {% else %}
+      <h3> {# 인증 안 됐을 때 #}
+        <a href="{% url 'accounts:login' %}">로그인</a>
+        <a href="{% url 'accounts:signup' %}">회원가입</a>
+      </h3>
+    {% endif %}
+    <hr>
     {% block content %}
     {% endblock  %}
   </div>

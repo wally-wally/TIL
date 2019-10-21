@@ -11,7 +11,7 @@
 
 <br>
 
-## 11. 10월21일(10일차) - `authentication`
+## 11. 10월21일(11일차) - `authentication`
 
 ### 11.1 쿠키(Cookie) & 세션(Session)
 
@@ -47,6 +47,9 @@
 - 세션을 남발하면 사용자가 많은 서버일 경우 서버 부하가 발생한다.
 - 쿠키를 지우면 로그아웃은 왜??
   - 서버에서는 session에 사용자 로그인 정보를 가지고 있지만, 그것이 내꺼라는 걸 증명할 session id가 쿠키에서 사라졌기 때문이다.
+- 실습 파일에서 session id 확인하기
+
+<img src="https://user-images.githubusercontent.com/52685250/67169952-b4566080-f3e9-11e9-9698-06d61716ccfb.JPG" width="780px">
 
 ---
 
@@ -66,7 +69,7 @@
 
 <br>
 
-### 11.2 쿠키 & 세션 실습
+### 11.2 방문 횟수 기능 추가하기
 
 :heavy_check_mark: `index` view 처음에 `embed()` 설정
 
@@ -93,7 +96,19 @@
   context = {'articles': articles, 'visits_num': visits_num,}
   ```
 
-- 그러면 `request.session._session`을 다시 찍으면 딕셔너리에 `visits_num`을 키로 갖는 속성이 새로 추가가 된다.
+  ---
+
+  :heavy_plus_sign: <b>[참고] `settings.py`에 다음과 같은 구문을 추가하면...</b>
+
+  ```python
+  SESSION_SAVE_EVERY_REQUEST = True # default는 False임
+  ```
+
+  - 각 view에서 request.session.modified = True를 일일이 쓰기 어려우므로 모든 곳에서 `request.session.modified = True`를 기본 값으로 사용하고 싶을 때 작성
+
+  ---
+
+  그러면 `request.session._session`을 다시 찍으면 딕셔너리에 `visits_num`을 키로 갖는 속성이 새로 추가가 된다.
 
   ```python
   {'_auth_user_id'': '1',
@@ -108,4 +123,320 @@
   <p><b>당신의 방문 횟수 : {{ visits_num }} {% if visits_num == 1 %} time {% else %} times{% endif %}</b></p>
   ```
 
+
+<br>
+
+### 11.3 Sign up - `user를 create` <a href=" https://docs.djangoproject.com/en/2.2/topics/auth/default/#module-django.contrib.auth.forms " target="_blank">(user 인증 관련 공식 문서)</a>
+
+---
+
+:heavy_exclamation_mark: <b>user 관련된 app 생성시 이름은 통상적으로 `accounts`를 사용한다!</b>
+
+- project의 `urls.py`에 `path('accounts/', include('accounts.urls')),` 추가
+
+---
+
+:heavy_check_mark: <b>Authentication, Authorization</b>
+
+- `Authentication`(인증) - 신원 확인
+  - 자신이 누구라고 주장하는 사람의 신원을 확인하는 것
+  - <b><u>django에서는 user 인증과 관련하여 form을 이미 다 만들어놨다! (공식 문서를 보고 사용하자!)</u></b>
+- `Authorization`(권한, 허가) - 권환 부여
+  - 가고 싶은 곳으로 가도록 혹은 원하는 정보를 얻도록 허용하는 과정
+
+---
+
+> `views.py` - `signup` view
+>
+> ```python
+> def signup(request):
+>     if request.method == 'POST':
+>         form = UserCreationForm(request.POST)
+>         if form.is_valid():
+>             form.save()
+>             return redirect('articles:index')
+>     else:
+>         form = UserCreationForm()
+>     context = {'form': form,}
+>     return render(request, 'accounts/signup.html', context)
+> ```
+
+> `urls.py`
+>
+> ```python
+> from django.urls import path
+> from . import views
+> 
+> app_name = 'accounts'
+> urlpatterns = [
+>     path('signup/', views.signup, name='signup'),
+> ]
+> ```
+
+> `signup.html`
+>
+> ```django
+> {% extends 'articles/base.html' %}
+> {% load bootstrap4 %}
+> 
+> {% block content %}
+>   <h1>회원가입</h1>
+>   <form action="" method="POST">
+>     {% csrf_token %}
+>     {% bootstrap_form form %}
+>     {% buttons submit='회원가입' reset="Cancel" %}{% endbuttons %}
+>   </form>
+> {% endblock  %}
+> ```
+
+- `admin` 페이지 > `인증 및 권한` > `사용자(들)`에 새로운 user가 생성됨을 확인할 수 있다. 새로 생성된 user는 스태프가 아니고 일반 user이다.
+
+<br>
+
+### 11.4 Login & Logout
+
+#### (1) Login - `session을 create`
+
+> `views.py` - `login` view <a href=" https://docs.djangoproject.com/en/2.2/topics/auth/default/#how-to-log-a-user-in " target="_blank">(login 함수 공식 문서)</a>
+>
+> ```python
+> from django.contrib.auth import login as auth_login
+> 
+> def login(request):
+>     if request.method == 'POST':
+>         # request 인자 부터 쓰는 것 주의!(들어가는 순서가 form마다 다르다!)
+>         form = AuthenticationForm(request, request.POST)
+>         if form.is_valid():
+>             # 세션 만드는 과정
+>             auth_login(request, form.get_user()) # form.get_user() : user 정보
+>             return redirect('articles:index')
+>     else:
+>         form = AuthenticationForm()
+>     context = {'form': form,}
+>     return render(request, 'accounts/login.html', context)
+> ```
+
+> `urls.py`
+>
+> ```python
+> path('login/', views.login, name='login'),
+> ```
+
+> `signup.html`
+>
+> ```django
+> {% extends 'articles/base.html' %}
+> {% load bootstrap4 %}
+> 
+> {% block content %}
+>   <h1>로그인</h1>
+>   <form action="" method="POST">
+>     {% csrf_token %}
+>     {% bootstrap_form form %}
+>     {% buttons submit='로그인' reset="Cancel" %}{% endbuttons %}
+>   </form>
+> {% endblock  %}
+> ```
+
+> `articles` > `base.html`
+>
+> - `container` 클래스 안에 구문 추가
+> - 세션을 가지고 있으므로 다른 페이지를 왔다갔다해도 username이 유지된다.
+>
+> ```django
+> <h3>Hello, {{ user.username }}</h3>
+> ```
+
+<br>
+
+#### (2) Logout - `session을 delete`
+
+> `views.py` - `logout` view <a href=" https://docs.djangoproject.com/en/2.2/topics/auth/default/#how-to-log-a-user-in " target="_blank">(login 함수 공식 문서)</a>
+>
+> ```python
+> from django.contrib.auth import logout as auth_logout
+> 
+> def logout(request):
+>     auth_logout(request)
+>     return redirect('articles:index')
+> ```
+
+> `urls.py`
+>
+> ```python
+> path('logout/', views.logout, name='logout'),
+> ```
+
+> `signup.html`
+>
+> ```django
+> {% extends 'articles/base.html' %}
+> {% load bootstrap4 %}
+> 
+> {% block content %}
+>   <h1>로그인</h1>
+>   <form action="" method="POST">
+>     {% csrf_token %}
+>     {% bootstrap_form form %}
+>     {% buttons submit='로그인' reset="Cancel" %}{% endbuttons %}
+>   </form>
+> {% endblock  %}
+> ```
+
+> `articles` > `base.html`
+>
+> - 하지만 로그아웃을 하면 로그아웃 버튼이 여전히 살아있으므로 이를 위한 인증 처리가 필요하다!
+>
+> ```django
+> <h3>
+>   Hello, {{ user.username }} &nbsp;
+>   <a href="{% url 'accounts:logout' %}">로그아웃</a>
+> </h3>
+> ```
+
+<br>
+
+#### (3) 로그인 사용자에 대한 접근 제한 <a href=" https://docs.djangoproject.com/en/2.2/topics/auth/default/#auth-web-requests " target="_blank">(공식 문서)</a> - `is_authenticated`
+
+- django는 세션과 미들웨어를 통해 인증 시스템을 request 객체에 연결한다.
+
+- request는 현재 사용자를 나타내는 모든 요청에서 `request.user`를 제공한다.
+
+##### ① `is_authenticated`
+
+- User model의 속성들 중 하나임
+- 사용자가 인증 되었는지 알 수 있는 방법
+- User 에는 항상 True / AnnoymousUser에 대해서만 항상 False
+- 단, 이것은 권한(permission)과는 관련이 없으며 사용자가 활동중(active)이거나 유효한 세션(valid session)을 가지고 있는지도 확인하지 않는다.
+- 일반적으로` request.user` 에서 이 속성을 사용하여 미들웨어의 `django.contrib.auth.middleware.AuthenticationMiddleware` (`settings.py` > `MIDDLEWARE` 내부에 있는 있음)를 통과했는지 확인한다.
+
+- 로그인 상태에 따른 return 값 확인 - `is_anonymous`, `is_authenticated`, `is_superuser`
+
+  - `비로그인` 상태
+
+    ![비로그인상태](https://user-images.githubusercontent.com/52685250/67172549-b5da5580-f3f6-11e9-93a9-479fe20c631e.JPG)
+
+  - `관리자 계정`으로 로그인 상태
+
+  ![관리자 계정](https://user-images.githubusercontent.com/52685250/67172550-b672ec00-f3f6-11e9-8fb5-2cc6997ccafa.JPG)
+
+  - `일반 계정`으로 로그인 상태
+
+  ![일반계정](https://user-images.githubusercontent.com/52685250/67172551-b672ec00-f3f6-11e9-93dd-43e4c8d5fd52.JPG)
+
+> `views.py`
+>
+> - `signup`, `login` view에 다음 구문 추가
+>
+> ```python
+> if request.user.is_authenticated:
+>     return redirect('articles:index')
+> ```
+
+> `articles` > `base.html`
+>
+> ```django
+> {% if user.is_authenticated %}
+> {# request.user.is_authenticated 가 원래 맞는데 user만 써도 django는 알아서 인식해줌 #}
+>   <h3> {# 인증 됐을 때 #}
+>     Hello, {{ user.username }} &nbsp;
+>     <a href="{% url 'accounts:logout' %}">로그아웃</a>
+>   </h3>
+> {% else %}
+>   <h3> {# 인증 안 됐을 때 #}
+>     <a href="{% url 'accounts:login' %}">로그인</a>
+>     <a href="{% url 'accounts:signup' %}">회원가입</a>
+>   </h3>
+> {% endif %}
+> ```
+
+##### ② 회원가입 동시에 로그인 상태 유지 기능 추가
+
+> `views.py` > `signup` view의 유효성 검증 구문 안에 다음 구문 추가
+>
+> ![213213](https://user-images.githubusercontent.com/52685250/67173495-f12a5380-f3f9-11e9-9298-bfba9b60caf5.JPG)
+>
+> - form.save()를 통해 반환된 User 클래스의 인스턴스를 auth_login의 인자로 전달하게 된다.
+>
+> ```python
+> user = form.save()
+> auth_login(request, user)
+> ```
+
+##### ③ 비로그인 상태일 때 [NEW] 기능 사용 못하게 막기
+
+> `articles` > `view.py`
+>
+> ```python
+> from django.contrib.auth.decorators import login_required
+> 
+> @login_required # create, delete, update view위에 데코레이터 추가
+> ```
+
+> `index.html`
+>
+> - 현재 상태에서는 비로그인일 때 주소를 직접 입력하면 회원가입 페이지로 이동할 수 있어 문제가 생긴다.
+>
+> ```django
+> {% if user.is_authenticaed %}
+>   <a href="{% url 'articles:create' %}">[NEW]</a>
+> {% else %}
+>   <a href="{% url 'accounts:login' %}">[새 글을 작성하려면 로그인하세요]</a>
+> {% endif %}
+> ```
+
+##### ④ 댓글기능
+
+-  `@required_POST`가 있는 함수에 `@login_required`가 설정된다면 로그인 이후 `next` 매개변수를 따라 해당 함수로 다시 redirect되면서 `@require_POST` 때문에 405 에러가 발생.
+
+  ```python
+  # 405 에러를 해결하기 위해 delete, comments_create, comments_delete view를 다음과 같이 수정
+  # @login_required를 쓰지 못하므로 if request.user.is_authenticated: 구문을 사용하여 인증된 사용자만 게시글 삭제, 댓글 생성 및 삭제를 할 수 있게 해준다.
   
+  from django.http import Http404, HttpResponse
+  # HttpResponse는 댓글 삭제 401 에러 처리를 위해 작성
+  
+  @require_POST
+  def delete(request, article_pk):
+      if request.user.is_authenticated:
+          article = get_object_or_404(Article, pk=article_pk)
+          article.delete()
+      return redirect('articles:index')
+  
+  @require_POST
+  def comments_create(request, article_pk):
+      if request.user.is_authenticated:
+          comment_form = CommentForm(request.POST)
+          if comment_form.is_valid():
+              comment = comment_form.save(commit=False)
+              comment.article_id = article_pk
+              comment.save()
+      return redirect('articles:detail', article_pk)
+  
+  @require_POST
+  def comments_delete(request, article_pk, comment_pk):
+      if request.user.is_authenticated:
+          comment = get_object_or_404(Comment, pk=comment_pk)
+          comment.delete()
+          return redirect('articles:detail', article_pk)
+     	# [추가 내용]HTTP 상태 코드 사용하여 semantic하게 작성하기
+      return HttpResponse('You are Unauthorized', status=401)
+  	# 401 에러가 비인증됐을 때 http 상태 코드이다.
+  ```
+
+<br>
+
+#### (4) `next` query string parameter
+
+- `@login_required` 데코레이터가 기본적으로 인증 성공 후 사용자를 redirect 할 경로를 `next`라는 문자열 매개 변수에 저장한다.
+
+- 우리가 url로 접근하려고 했던 그 주소가 로그인하지 않으면 볼 수 없는 곳이라서, django가 로그인 페이지로 강제로 redirect 했는데, 로그인을 다시 정상적으로 하고 나면 원래 요청했던 주소로 보내주기 위해 keep 해준 것
+  - ex) ` http://127.0.0.1:8000/accounts/login/?next=/articles/3/update/ `
+  - 로그인에 성공하면 `http://127.0.0.1:8000/articles/3/update`로 redirect 해 줌
+
+- `accounts` app의 `views.py`의 `login` view의 redirect 구문 수정
+  - `return redirect(request.GET.get('next') or 'articles:index')`
+
+<br>
+
+### 11.5 회원 탈퇴

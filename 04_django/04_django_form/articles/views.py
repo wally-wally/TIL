@@ -1,12 +1,14 @@
 from IPython import embed
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.views.decorators.http import require_POST
 from .models import Article, Comment
 from .forms import ArticleForm, CommentForm
 
 # Create your views here.
 def index(request):
+    # embed()
     # session 에 visits_num 키로 접근해 값을 가져온다.
     # visits_num은 기본적으로 존재하지 않은 키 이므로 키가 없다면(방문한적이 없다면) 0 값을 가져오도록 한다.
     visits_num = request.session.get('visits_num', 0)
@@ -20,6 +22,7 @@ def index(request):
     return render(request, 'articles/index.html', context)
 
 
+@login_required
 def create(request):
     # embed()
     if request.method == 'POST':
@@ -67,11 +70,13 @@ def detail(request, article_pk):
 
 @require_POST
 def delete(request, article_pk):
-    article = get_object_or_404(Article, pk=article_pk)
-    article.delete()
+    if request.user.is_authenticated:
+        article = get_object_or_404(Article, pk=article_pk)
+        article.delete()
     return redirect('articles:index')
 
 
+@login_required
 def update(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     if request.method == 'POST':
@@ -97,17 +102,25 @@ def update(request, article_pk):
 
 @require_POST
 def comments_create(request, article_pk):
-    comment_form = CommentForm(request.POST) # request.POST => POST방식으로 들어온 모든 데이터
-    if comment_form.is_valid():
-        # commit=False => 객체를 Create 하지만, db에 레코드는 작성하지 않는다.
-        comment = comment_form.save(commit=False)
-        comment.article_id = article_pk
-        comment.save()
+    if request.user.is_authenticated:
+        comment_form = CommentForm(request.POST) # request.POST => POST방식으로 들어온 모든 데이터
+        if comment_form.is_valid():
+            # commit=False => 객체를 Create 하지만, db에 레코드는 작성하지 않는다.
+            comment = comment_form.save(commit=False)
+            comment.article_id = article_pk
+            comment.save()
     return redirect('articles:detail', article_pk)
 
 
 @require_POST
 def comments_delete(request, article_pk, comment_pk):
-    comment = get_object_or_404(Comment, pk=comment_pk)
-    comment.delete()
-    return redirect('articles:detail', article_pk)
+    if request.user.is_authenticated:
+        comment = get_object_or_404(Comment, pk=comment_pk)
+        comment.delete()
+        return redirect('articles:detail', article_pk)
+    return HttpResponse('You are Unauthorized', status=401)
+    # 원래는 아래와 같이 작성
+    # if request.user.is_authenticated:
+    #     comment = get_object_or_404(Comment, pk=comment_pk)
+    #     comment.delete()
+    # return redirect('articles:detail', article_pk)
