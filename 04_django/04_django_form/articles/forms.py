@@ -50,8 +50,8 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model = Article # 이 모델은 models.py에 만들어놓은 Article에 의해 만들어질꺼라는 의미
-        # fields = ('title', 'content',)
-        fields = '__all__' # 전체 입력 column(field)을 가져온다.
+        fields = ('title', 'content',)
+        # fields = '__all__' # 전체 입력 column(field)을 가져온다.
         # exclude = ('title',) # title를 뺀 field를 사용한다.
 
 class CommentForm(forms.ModelForm):

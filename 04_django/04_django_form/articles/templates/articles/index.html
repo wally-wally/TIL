@@ -1,18 +1,25 @@
 {% extends 'articles/base.html' %} <!-- app에 base.html이 있으므로 앞에 `articles/` 경로를 붙여준다. -->
 
 {% block content %}
-  <h1>Articles</h1>
-  <p><b>당신의 방문 횟수 : {{ visits_num }} {% if visits_num == 1 %} time {% else %} times{% endif %}</b></p>
-  {% if user.is_authenticated %}
-    <a href="{% url 'articles:create' %}">[NEW]</a>
-  {% else %}
-    <a href="{% url 'accounts:login' %}">[새 글을 작성하려면 로그인하세요]</a>
-  {% endif %}
+  <table>
+    <tr>
+      <td><h1>Articles</h1></td>
+      <td colspan="2">
+        {% if user.is_authenticated %}
+          <a href="{% url 'articles:create' %}"><button class="btn btn-secondary">NEW</button></a>
+        {% else %}
+          <a href="{% url 'accounts:login' %}"><button class="btn btn-secondary">Please login to write NEW article</button></a>
+        {% endif %}
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <p><b>당신의 방문 횟수 : {{ visits_num }} {% if visits_num == 1 %} time {% else %} times{% endif %}</b></p>
+      </td>
+    </tr>
+  </table>
+  <hr>
   {% for article in articles %}
-    <p>번호: {{ article.pk }}</p>
-    <p>제목: {{ article.title }}</p>
-    <a href="{{ article.get_absolute_url }}">[DETAIL]</a>
-    <!-- 원래는 {# url 'articles:detail' article_pk #}이지만 get_absoulte_url에 의해 {{ article.get_absolute_url }}로 간결해진다. -->
-    <hr>
+    {% include 'articles/_article.html' %}
   {% endfor %}
 {% endblock  %}
