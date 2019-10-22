@@ -2,13 +2,15 @@
 {% load bootstrap4 %}
 
 {% block content %}
-<h1 style="text-align: center;">INDEX</h1>
-<a href="{% url 'articles:create' %}">[NEW]</a>
-<hr>
-{% for article in articles %}
-  <p>번호 : {{ article.pk }}</p>
-  <p>제목 : {{ article.title }}</p>
-  <a href="{% url 'articles:detail' article.pk %}">[DETAIL]</a>
+  <h1 style="text-align: center;">INDEX</h1>
+  {% if user.is_authenticated %}
+    <a href="{% url 'articles:create' %}">[NEW]</a>
+  {% else %}
+    <a href="{% url 'accounts:login' %}">[새 글을 작성하려면 로그인하세요]</a>
+  {% endif %}
+   <p><b>당신의 방문 횟수 : {{ visits_num }} {% if visits_num == 1 %} time {% else %} times{% endif %}</b></p>
   <hr>
-{% endfor %}
+  {% for article in articles %}
+    {% include 'articles/_article.html' %}
+  {% endfor %}
 {% endblock  %}
