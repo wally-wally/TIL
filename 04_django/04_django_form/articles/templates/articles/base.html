@@ -7,31 +7,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="https://kit.fontawesome.com/17820a52a0.js" crossorigin="anonymous"></script>
   {% bootstrap_css %}
+  <script src="https://kit.fontawesome.com/17820a52a0.js" crossorigin="anonymous"></script>
   <title>Document</title>
 </head>
 <body>
+  {% include 'articles/_nav.html' %}
   <div class="container">
-    {% if user.is_authenticated %} {# request.user.is_authenticated 가 원래 맞는데 user만 써도 django는 알아서 인식해줌 #}
-      <h3> {# 인증 됐을 때 #}
-        <img src="https://s.gravatar.com/avatar/{{ request.user.email|makemd5 }}?s=80" alt="프로필이미지">
-        Hello, {{ user.username }} &nbsp;
-        <a href="{% url 'accounts:update' %}"><button class="btn btn-info">정보수정</button></a> &nbsp;
-        <a href="{% url 'accounts:change_password' %}"><button class="btn btn-success">비번변경</button></a> &nbsp;
-        <a href="{% url 'accounts:logout' %}"><button class="btn btn-warning">로그아웃</button></a> &nbsp;
-        <form action="{% url 'accounts:delete' %}" method="POST" style="display: inline;">
-          {% csrf_token %}
-          <input type="submit" value="회원탈퇴" class="btn btn-danger">
-        </form>
-      </h3>
-    {% else %}
-      <h3> {# 인증 안 됐을 때 #}
-        <a href="{% url 'accounts:login' %}">로그인</a>
-        <a href="{% url 'accounts:signup' %}">회원가입</a>
-      </h3>
-    {% endif %}
-    <hr>
     {% block content %}
     {% endblock  %}
   </div>

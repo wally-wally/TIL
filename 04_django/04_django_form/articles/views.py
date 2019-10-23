@@ -1,5 +1,6 @@
 import hashlib
 from IPython import embed
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404, HttpResponse
@@ -66,7 +67,8 @@ def detail(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     comments = article.comment_set.all() # article의 모든 댓글 (역참조시 : _set 사용)
     comment_form = CommentForm() # 댓글 form
-    context = {'article': article, 'comment_form': comment_form, 'comments': comments,}
+    person = get_object_or_404(get_user_model(), pk=article.user_id)
+    context = {'article': article, 'comment_form': comment_form, 'comments': comments, 'person': person,}
     return render(request, 'articles/detail.html', context)
 
 
@@ -135,6 +137,7 @@ def comments_delete(request, article_pk, comment_pk):
     #     comment.delete()
     # return redirect('articles:detail', article_pk)
 
+@login_required
 def like(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     # 해당 게시글에 좋아요를 누른 사람들 중에서 현재 접속유저가 있다면 좋아요를 취소
@@ -148,3 +151,15 @@ def like(request, article_pk):
     # else:
     #     article.like_users.add(request.user) # 좋아요 선택
     return redirect('articles:index')
+
+@login_required
+def follow(request, article_pk, user_pk):
+    person = get_object_or_404(get_user_model(), pk=user_pk) # person = 게시글 유저
+    user = request.user # user = 접속 유저
+    if person != user:
+        # 내(request.user)가 게시글 유저(person) 팔로워 목록에 이미 존재 한다면,
+        if person.followers.filter(pk=user.pk).exists(): # like view 구현할 때와 유사함 / if user in person.followers.all():와 같이 써도 동일
+            person.followers.remove(user)
+        else:
+            person.followers.add(user)
+    return redirect('articles:detail', article_pk) # article_pk 대신에 중간에 객체를 가져와서 작성해도 된다.

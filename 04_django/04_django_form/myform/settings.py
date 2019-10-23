@@ -126,3 +126,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # AUTH_USER_MODEL = 'auth.User' => 이게 기본값이여서 settings.py에 나와있지 않음
+
+AUTH_USER_MODEL = 'accounts.User'

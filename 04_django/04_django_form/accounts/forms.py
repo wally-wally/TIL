@@ -8,4 +8,5 @@ class CustomUserChangeForm(UserChangeForm):
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
+        model = get_user_model() # auth.User를 바라보고 있는 것을 accounts.User를 바라볼 수 있도록 오버라이드 하게 해 줌.
         fields = UserCreationForm.Meta.fields + ('email',)

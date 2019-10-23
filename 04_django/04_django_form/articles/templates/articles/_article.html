@@ -2,7 +2,7 @@
 
 <div class="card mb-3">
   <div class="card-header">
-    <p>작성자: <b>{{ article.user }}</b></p> <!-- 기본적으로 .user만 입력해도 user_name이 나온다. -->
+    <p>작성자: <a class="card-link" href="{% url 'accounts:profile' article.user %}"><b>{{ article.user }}</b></a></p> <!-- 기본적으로 .user만 입력해도 user_name이 나온다. -->
   </div>
   <div class="card-body">
     <h5 class="card-title"><p>글 제목: <b>{{ article.title }}</b></p></h5>

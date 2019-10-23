@@ -1,12 +1,14 @@
 from IPython import embed
+from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import logout as auth_logout
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from .forms import CustomUserChangeForm, CustomUserCreationForm
+from articles.models import Article, Comment
 
 # Create your views here.
 def signup(request):
@@ -76,3 +78,11 @@ def change_password(request):
         form = PasswordChangeForm(request.user)
     context = {'form': form,}
     return render(request, 'accounts/auth_form.html', context)
+
+def profile(request, username):
+    person = get_object_or_404(get_user_model(), username=username)
+    # person.article_set.all(), person.comment_set.all()을 view에서 context로 안 보내고
+    # profile.html template에서 for문의 iterable한 객체로 바로 넣어도 된다.
+    # 이미 context로 person을 보냈으므로 인식이 가능!
+    context = {'person': person,}
+    return render(request, 'accounts/profile.html', context)
