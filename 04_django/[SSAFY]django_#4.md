@@ -899,7 +899,7 @@
 
 <br>
 
-#### (2) Custom template tags and filters <a href=" https://docs.djangoproject.com/en/2.2/howto/custom-template-tags/" target="_blank">(django custome template tag 공식 문서)</a>
+#### (2) Custom template tags and filters <a href=" https://docs.djangoproject.com/en/2.2/howto/custom-template-tags/" target="_blank">(django custom template tag 공식 문서)</a>
 
 :heavy_check_mark: <b><u>모든 페이지에서 이미지가 나오도록 수정한다.</u></b>
 
@@ -930,7 +930,7 @@
 
 > `index` view
 >
-> - (2)에서 새로 작성했던 코드가 굳이 있을 필요가 없다.
+> - (1)에서 새로 작성했던 코드가 굳이 있을 필요가 없다.
 > - django custom template tag를 사용했기 때문이다.
 
 <br>
@@ -1064,7 +1064,7 @@ harry
 
 <br>
 
-#### (3) 중개 모델을 직접 거치지 않고 바로 가져오기
+#### (3) 중개 모델을 직접 거치지 않고 바로 가져오기 - `Through` option
 
 - `Through` option
   - 중개 모델을 거치지 않고 직접 서로 테이블을 참조하는 option
@@ -1110,7 +1110,7 @@ harry
 
 <br>
 
-#### (4) Doctor도 patients 를 참조할 수 없을까?
+#### (4) Doctor도 patients 를 참조할 수 없을까? - `related_name` option
 
 - `related_name`
 

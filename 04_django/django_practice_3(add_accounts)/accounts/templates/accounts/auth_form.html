@@ -1,0 +1,16 @@
+{% extends 'articles/base.html' %}
+
+{% block content %}
+  {% if request.resolver_match.url_name == 'signup' %}
+    <h1>회원가입</h1>
+  {% elif request.resolver_match.url_name == 'login' %}
+    <h1>로그인</h1>
+  {% else %}
+    <h1>비밀번호 변경</h1>
+  {% endif %}
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+  </form>
+{% endblock  %}
