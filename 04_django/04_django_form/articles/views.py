@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import Http404, HttpResponse
 from django.views.decorators.http import require_POST
-from .models import Article, Comment
+from .models import Article, Comment, Hashtag
 from .forms import ArticleForm, CommentForm
 
 # Create your views here.
@@ -37,6 +37,13 @@ def create(request):
             article = form.save(commit=False)
             article.user = request.user # 원래는 article.user_id = request.user.pk
             article.save()
+
+            # article.save() 이후에 hashtag 기능을 작성해야 한다.
+            for word in article.content.split(): # content를 공백 기준으로 리스트로 변경
+                if word.startswith('#'): # '#'으로 시작되는 요소만 선택
+                    hashtag, created = Hashtag.objects.get_or_create(content=word) # word랑 같은 해시태그를 찾는데 있으면 기존 객체를 가져오고(.get) 없으면 새로운 객체를 생성(.create)한다.
+                    article.hashtags.add(hashtag) # created를 사용하지 않았다면(hashtag = Hashtag.objects.get_or_create(content=word)), hashtag[0]로 작성.
+
             # form.cleaned_data 로 정제된 데이터를 받는다.
             # title = form.cleaned_data.get('title')
             # content = form.cleaned_data.get('content')
@@ -93,6 +100,14 @@ def update(request, article_pk):
                 # article.title = form.cleaned_data.get('title') # 가져온 데이터(article.title)에 바꿔서 넣어준다.
                 # article.content = form.cleaned_data.get('content') # 가져온 데이터(article.content)에 바꿔서 넣어준다.
                 article = form.save()
+
+                # hashtag
+                article.hashtags.clear() # 해당 article의 hashtag 전체 삭제(이 구문만 추가됨)
+                # for문은 create 작성할 때와 동일
+                for word in article.content.split():
+                    if word.startswith('#'):
+                        hashtag, created = Hashtag.objects.get_or_create(content=word)
+                        article.hashtags.add(hashtag)
                 return redirect(article)
         else:
             # embed()
@@ -163,3 +178,9 @@ def follow(request, article_pk, user_pk):
         else:
             person.followers.add(user)
     return redirect('articles:detail', article_pk) # article_pk 대신에 중간에 객체를 가져와서 작성해도 된다.
+
+def hashtag(request, hash_pk):
+    hashtag = get_object_or_404(Hashtag, pk=hash_pk)
+    articles = hashtag.article_set.order_by('-pk')
+    context = {'hashtag': hashtag, 'articles': articles,}
+    return render(request, 'articles/hashtag.html', context)

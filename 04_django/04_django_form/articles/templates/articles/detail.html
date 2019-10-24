@@ -1,11 +1,12 @@
 {% extends 'articles/base.html' %}
+{% load make_link %}
 
 {% block content %}
   <h1>Detail</h1>
   <hr>
   <p>번호: {{ article.pk }}</p>
   <p>제목: {{ article.title }}</p>
-  <p>내용: {{ article.content }}</p>
+  <p>내용: {{ article|hashtag_link|safe }}</p>
   <p>생성날짜: {{ article.created_at|date:"SHORT_DATE_FORMAT" }}</p>
   <p>갱신날짜: {{ article.updated_at|date:"M, j, Y" }}</p>
   {% if request.user == article.user %}

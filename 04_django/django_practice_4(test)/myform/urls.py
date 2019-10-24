@@ -18,7 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('accounts/', include('accounts.urls')),
-    path('accounts/', include('allauth.urls')), # accounts보다 allauth를 밑에 작성해야 한다.
     path('articles/', include('articles.urls')),
     path('admin/', admin.site.urls),
 ]
