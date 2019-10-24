@@ -94,7 +94,7 @@
 
 <br>
 
-#### (2) `get_or_create` <a href=" https://docs.djangoproject.com/en/2.2/ref/models/querysets/#get-or-create" target="_blank">(공식문서)</a>
+#### (2) `get_or_create` <a href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#get-or-create" target="_blank">(공식문서)</a>
 
 - `get_or_create(defaults=None, **kwargs)`
 
@@ -109,7 +109,7 @@
 
 <br>
 
-#### (3) `unique` 속성 <a href=" https://docs.djangoproject.com/en/2.2/ref/models/fields/#unique" target="_blank">(공식 문서)</a>
+#### (3) `unique` 속성 <a href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#unique" target="_blank">(공식 문서)</a>
 
 - True인 경우 이 필드는 테이블 전체에서 고유한 값이어야 한다.
 - 유효성 검사(`is_valid`)단계에서 실행되며 중복 값이 있는 모델을 저장하려고 하면 `.save()` 메서드로 인해 `IntegrityError`가 발생한다.
@@ -205,7 +205,7 @@
 > <p>내용 : {{ article:content }}</p>
 > ```
 >
-> :ballot_box_with_check: `after` <a href=" https://stackoverflow.com/questions/2080559/disable-html-escaping-in-djangos-textfield" target="_blank">(참고 문서)</a> <a href=" https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#safe" target="_blank">(공식 문서)</a>
+> :ballot_box_with_check: `after` <a href="https://stackoverflow.com/questions/2080559/disable-html-escaping-in-djangos-textfield" target="_blank">(참고 문서)</a> <a href="https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#safe" target="_blank">(공식 문서)</a>
 >
 > - django는 자동으로 autoescape 기능이 켜져 있으므로 `safe` filter를 이용하여 autoescape 기능을 꺼야 한다.
 >
@@ -217,7 +217,7 @@
 
 <br>
 
-### 14.2 OAuth(Social Login) <a href=" https://django-allauth.readthedocs.io/en/latest/installation.html">(django allauth 공식문서)</a>
+### 14.2 OAuth(Social Login) <a href="https://django-allauth.readthedocs.io/en/latest/installation.html" target="_blank">(django allauth 공식문서)</a>
 
 ---
 
@@ -298,7 +298,7 @@
 > {% endblock  %}
 > ```
 
-> `settings.py` <a href=" https://docs.djangoproject.com/en/2.2/ref/settings/#login-redirect-url" target="_blank">(참고 공식 문서)</a>
+> `settings.py` <a href="https://docs.djangoproject.com/en/2.2/ref/settings/#login-redirect-url" target="_blank">(참고 공식 문서)</a>
 >
 > ```python
 > # LOGIN_REDIRECT_URL = '/accounts/profile/'
@@ -311,6 +311,6 @@
 
 ![kakao](https://user-images.githubusercontent.com/52685250/67454322-c98af380-f664-11e9-893e-3f08b908734f.JPG)
 
-:heavy_check_mark: 참고 페이지 : <a href=" https://docs.djangoproject.com/en/2.2/ref/settings/" target="_blank">(django settings 공식문서)</a>
+:heavy_check_mark: 참고 페이지 : <a href="https://docs.djangoproject.com/en/2.2/ref/settings/" target="_blank">(django settings 공식문서)</a>
 
 - 추후 AWS나 Heroku에 배포할 때 다시 볼 공식 문서이다.

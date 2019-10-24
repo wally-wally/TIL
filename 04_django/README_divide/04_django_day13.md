@@ -122,7 +122,7 @@
 > `accounts` > `models.py`
 >
 > - django는 맞춤 모델을 참조하는 AUTH_USER_MODEL 설정 값을 제공함으로써 기본 User 모델을 오버라이드(덮어씌우기)하도록 할 수 있다.
-> - <b>User 모델 대체 작업을 프로젝트 중간에 할 경우 모두 DB 초기화(<u>기존의 db.sqlite3, migrations 파일 모두 삭제</u>)하고 다시 진행한다.</b> <a href=" https://docs.djangoproject.com/ko/2.2/topics/auth/customizing/#substituting-a-custom-user-model" target="_blank">(공식 문서)</a>
+> - <b>User 모델 대체 작업을 프로젝트 중간에 할 경우 모두 DB 초기화(<u>기존의 db.sqlite3, migrations 파일 모두 삭제</u>)하고 다시 진행한다.</b> <a href="https://docs.djangoproject.com/ko/2.2/topics/auth/customizing/#substituting-a-custom-user-model" target="_blank">(공식 문서)</a>
 > - 새로 생긴 `accounts_user_followers` table이 중개모델 역할을 하게 된다.
 >   - `id`, `to_user_id`, `from_user_id` 새로운 컬럼명이 생긴다.
 >
@@ -153,7 +153,7 @@
   Manager isn't available; 'auth.User' has been swapped for 'accounts.User'
   ```
 
-- <a href=" https://docs.djangoproject.com/ko/2.2/topics/auth/customizing/#custom-users-and-the-built-in-auth-forms" target="_blank">(공식 문서)</a> 에 의해 `UserCreationForm`과 `UserChangeForm`을 Custom을 해야 한다.
+- <a href="https://docs.djangoproject.com/ko/2.2/topics/auth/customizing/#custom-users-and-the-built-in-auth-forms" target="_blank">(공식 문서)</a> 에 의해 `UserCreationForm`과 `UserChangeForm`을 Custom을 해야 한다.
 
   `CustomUserCreationForm`에 다음과 같은 구문을 추가한다.
 

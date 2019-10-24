@@ -242,7 +242,7 @@
 
 <br>
 
-#### (2) Custom template tags and filters <a href=" https://docs.djangoproject.com/en/2.2/howto/custom-template-tags/" target="_blank">(django custome template tag 공식 문서)</a>
+#### (2) Custom template tags and filters <a href="https://docs.djangoproject.com/en/2.2/howto/custom-template-tags/" target="_blank">(django custome template tag 공식 문서)</a>
 
 :heavy_check_mark: <b><u>모든 페이지에서 이미지가 나오도록 수정한다.</u></b>
 

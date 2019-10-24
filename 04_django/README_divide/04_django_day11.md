@@ -114,10 +114,9 @@
   <p><b>당신의 방문 횟수 : {{ visits_num }} {% if visits_num == 1 %} time {% else %} times{% endif %}</b></p>
   ```
 
-
 <br>
 
-### 11.3 Sign up - `user를 create` <a href=" https://docs.djangoproject.com/en/2.2/topics/auth/default/#module-django.contrib.auth.forms " target="_blank">(user 인증 관련 공식 문서)</a>
+### 11.3 Sign up - `user를 create` <a href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#module-django.contrib.auth.forms" target="_blank">(user 인증 관련 공식 문서)</a>
 
 ---
 
@@ -188,7 +187,7 @@
 
 #### (1) Login - `session을 create`
 
-> `views.py` - `login` view <a href=" https://docs.djangoproject.com/en/2.2/topics/auth/default/#how-to-log-a-user-in " target="_blank">(login 함수 공식 문서)</a>
+> `views.py` - `login` view <a href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#how-to-log-a-user-in" target="_blank">(login 함수 공식 문서)</a>
 >
 > ```python
 > from django.contrib.auth import login as auth_login
@@ -242,7 +241,7 @@
 
 #### (2) Logout - `session을 delete`
 
-> `views.py` - `logout` view <a href=" https://docs.djangoproject.com/en/2.2/topics/auth/default/#how-to-log-a-user-in " target="_blank">(login 함수 공식 문서)</a>
+> `views.py` - `logout` view 
 >
 > ```python
 > from django.contrib.auth import logout as auth_logout
@@ -287,7 +286,7 @@
 
 <br>
 
-#### (3) 로그인 사용자에 대한 접근 제한 <a href=" https://docs.djangoproject.com/en/2.2/topics/auth/default/#auth-web-requests " target="_blank">(공식 문서)</a> - `is_authenticated`
+#### (3) 로그인 사용자에 대한 접근 제한 <a href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#auth-web-requests" target="_blank">(공식 문서)</a> - `is_authenticated`
 
 - django는 세션과 미들웨어를 통해 인증 시스템을 request 객체에 연결한다.
 
@@ -462,14 +461,14 @@
 
 <br>
 
-### 11.6 회원 수정 <a href=" https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.forms.UserChangeForm " target="_blank">(UserChangeForm 공식 문서)</a>
+### 11.6 회원 수정 <a href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.forms.UserChangeForm" target="_blank">(UserChangeForm 공식 문서)</a>
 
 #### (1) `get_user_model()`
 
 - `User` model을 직접 참조하는 대신 `django.contrib.auth.get_user_model()` 를 사용하여 `User` model을 참조해야 한다.
 - 이 함수는 현재 활성화(active) 된 `User` model을 return 한다.
-- `User`를 사용하지 않는 이유는 비어 있기 때문이다. <a href=" https://github.com/django/django/blob/2f72480fbd27896c986c45193e1603e35c0b19a7/django/contrib/auth/models.py#L384 " target="_blank">(github 문서 참고1)</a> <a href=" https://github.com/django/django/blob/2f72480fbd27896c986c45193e1603e35c0b19a7/django/contrib/auth/models.py#L316 " target="_blank">(github 문서 참고2)</a>
-- custom 시 참고할 django 공식 문서 <a href=" https://docs.djangoproject.com/en/2.2/topics/auth/default/#user-objects " target="_blank">(User objects 바로 이동)</a>
+- `User`를 사용하지 않는 이유는 비어 있기 때문이다. <a href="https://github.com/django/django/blob/2f72480fbd27896c986c45193e1603e35c0b19a7/django/contrib/auth/models.py#L384" target="_blank">(github 문서 참고1)</a> <a href="https://github.com/django/django/blob/2f72480fbd27896c986c45193e1603e35c0b19a7/django/contrib/auth/models.py#L316" target="_blank">(github 문서 참고2)</a>
+- custom 시 참고할 django 공식 문서 <a href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#user-objects" target="_blank">(User objects 바로 이동)</a>
 
 > `urls.py`
 >
@@ -581,7 +580,7 @@
 
 <br>
 
-#### (2) `update_session_auth_hash` <a href=" https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.update_session_auth_hash " target="_blank">(공식 문서)</a>
+#### (2) `update_session_auth_hash` <a href="https://docs.djangoproject.com/en/2.2/topics/auth/default/#django.contrib.auth.update_session_auth_hash" target="_blank">(공식 문서)</a>
 
 - <u>비밀번호 변경 후 로그아웃 되버리는 증상</u> 발생
   - 원인 : 비밀번호가 변경되면서 기존 세션과의 회원 인증 정보가 일치하지 않게 되어 버렸기 때문
