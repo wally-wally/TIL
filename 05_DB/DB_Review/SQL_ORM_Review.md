@@ -295,7 +295,6 @@ user.delete()
    ```python
    # orm
    User.objects.filter(country='강원도', last_name='황').values('first_name')
-#############################################################################
    # 이 문제의 경우 해당되는 결과가 1개 이므로 .get() 메서드를 이용해 .first_name을 붙여 '은정'이라고 가져올 수 있다.
    User.objects.get(country='강원도', last_name='황').first_name
    # 하지만 .filter() 메서드는 QuerySet 객체로 반환하므로 .first_name을 붙여 출력할 수 없고 .values()를 사용해야 한다.
@@ -307,11 +306,10 @@ user.delete()
    User.objects.filter(country='강원도', last_name='황').values('first_name')[0].get('first_name')
    ```
    
-      ```sql
-   -- sql
+   ```sql
    SELECT first_name FROM users_user WHERE country='강원도' and last_name='황';
-      ```
-
+   ```
+   
 9. 나이의 일의 자리 수가 8인 사람의 수(모든 사람의 나이는 10세 이상 99세 이하이다.) (추가 문제)
 
    ```python
@@ -373,26 +371,23 @@ user.delete()
       ```python
    # orm
    User.objects.order_by('balance', '-age')[:10]
-```
-   
-   ```sql
-   -- sql
-   SELECT * FROM users_user ORDER BY balance, age DESC LIMIT 10;
    ```
    
+   ```sql
+   SELECT * FROM users_user ORDER BY balance, age DESC LIMIT 10;
+   ```
 4. 성, 이름 내림차순 순으로 5번째 있는 사람
 
    ```python
    # orm
    User.objects.order_by('-last_name', '-first_name')[4]
-```
+   ```
    
-      ```sql
-   -- sql
+   ```sql
    SELECT * FROM users_user ORDER BY last_name DESC, first_name DESC LIMIT 1 OFFSET 4;
-      ```
-
-
+   ```
+   
+   
 
 ---
 
@@ -464,9 +459,10 @@ user.delete()
    ```python
    # orm
    User.objects.aggregate(Sum('balance'))
-```
+   ```
    
-      ```sql
-   -- sql
+   ```sql
    SELECT SUM(balance) FROM users_user;
-      ```
+   ```
+   
+   
