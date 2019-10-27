@@ -996,7 +996,7 @@ TIL
    SELECT COUNT(*) FROM users_user WHERE last_name='김' and age=30;
       ```
 
-6. 나이가 30이거나 성이 김씨인 사람? <a href=" https://docs.djangoproject.com/en/2.2/ref/models/querysets/#or" target="_blank">(참고 문서)</a>
+6. 나이가 30이거나 성이 김씨인 사람? [(참고 문서)](https://docs.djangoproject.com/en/2.2/ref/models/querysets/#or)
 
    ```python
    # orm
