@@ -1828,3 +1828,330 @@ harry
 :heavy_check_mark: 참고 페이지 : <a href=" https://docs.djangoproject.com/en/2.2/ref/settings/" target="_blank">(django settings 공식문서)</a>
 
 - 추후 AWS나 Heroku에 배포할 때 다시 볼 공식 문서이다.
+
+<br>
+
+---
+
+<br>
+
+## 15. 10월28일(15일차) - `REST API` 
+
+### 15.1 REST
+
+- 각 요청이 어떠한 동작&정보를 위한 것인지 <b><u>요청 형식 자체(주소)로 파악이 가능</u></b>한 것
+
+<br>
+
+### 15.2 Django REST Framework <a href=" https://www.django-rest-framework.org/" target="_blank">(공식 홈페이지)</a>
+
+#### (1) install process
+
+- project명 : `api`, app명 : `musics`
+
+  ```bash
+  pip install djangorestframework
+  ```
+
+  ```python
+  INSTALLED_APPS = [
+      ...
+      'rest_framework', # settings.py의 INSTALLED_APPS에 추가
+  ]
+  ```
+
+- modeling - `models.py`
+
+  Artist : Music = 1 : N, Music : Comment = 1 : N 관계이다.
+
+  ```python
+  from django.db import models
+  
+  class Artist(models.Model):
+      name = models.TextField()
+  
+      def __str__(self):
+          return self.name
+  
+  
+  class Music(models.Model):
+      artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+      title = models.TextField()
+  
+      def __str__(self):
+          return self.title
+  
+  
+  class Comment(models.Model):
+      music = models.ForeignKey(Music, on_delete=models.CASCADE)
+      content = models.TextField()
+  
+      def __str__(self):
+          return self.content
+  ```
+
+- migrations 과정
+
+  ```bash
+  python manage.py makemigrations
+  ```
+
+  ```bash
+  python manage.py migrate
+  ```
+
+- superuser 생성 후 `admin.py` 편집
+
+  ```python
+  from django.contrib import admin
+  from .models import Artist, Music, Comment
+  
+  admin.site.register(Artist)
+  admin.site.register(Music)
+  admin.site.register(Comment)
+  ```
+
+- admin page에 들어가서 artist 2개, music는 artist당 2개, comment는 music당 2개씩 미리 dummy data를 생성하자.
+
+<br>
+
+#### (2) dump data <a href=" https://docs.djangoproject.com/ko/2.2/ref/django-admin/#dumpdata" target="_blank">(공식 문서)</a>
+
+- 공식 문서에는 `django-admin` commend로 입력해야하는데 각종 문제점이 있기 때문에 `python manage.py` commend로 사용한다.
+
+- dump data 생성
+
+  ```bash
+  python manage.py dumpdata musics > dummy.json # 하지만 현재 상태는 데이터가 한 줄로 나와 있어 보기 불편하다.
+  ```
+
+  ```bash
+  python manage.py dumpdata --indent 2 musics > dummy.json
+  # 협업할 때 migrate하고 이 dump data를 받아 DB에 load해서 사용하면 된다.
+  ```
+
+<br>
+
+#### (3) load data <a href=" https://docs.djangoproject.com/ko/2.2/ref/django-admin/#loaddata" target="_blank">(공식 문서)</a>
+
+##### ① `fixture`
+
+- 데이터베이스의 직렬화(serialized)된 내용을 포함하는 파일 모음이다.
+
+- 각 fixture는 고유한 이름을 가지며, 이를 구성하는 파일은 여러 응용 프로그램에서 여러 디렉토리에 배포될 수 있다.
+
+- [주의사항] django는 `loaddata` 시 설치된 모든 app 에서 `fixtures` 라고 하는 이름의 폴더를 찾는다.
+
+  파일 구조 예시는 다음과 같다.
+
+  ```python
+  musics/ # app
+  	fixtures/
+  		musics/ # namespace 적용
+  			dummy.json
+  ```
+
+<br>
+
+##### ② load data하기
+
+- `loaddata`를 위해 `db.sqlite3` 지우고 다시 `migrate` 과정만 한다. DB를 지웠기 때문에 createsuperuser를 다시한다.
+
+- 위와 같은 파일구조가 되도록 폴더를 생성하고 `dummy.json`을 옮겨준다.
+
+- load data하기
+
+  ```bash
+  python manage.py loaddata musics/dummy.json
+  ```
+
+- admin 페이지에 들어가면 동일한 데이터가 들어가 있음을 확인할 수 있다.
+
+<br>
+
+#### (4) Music 관련 API 만들기
+
+> `api` project의 `urls.py`
+>
+> ```python
+> from django.contrib import admin
+> from django.urls import path, include
+> 
+> urlpatterns = [
+>     path('api/v1/', include('musics.urls')),
+>     path('admin/', admin.site.urls),
+> ]
+> ```
+
+> `serializers.py`
+>
+> - serialize할 수 있는 python 파일 생성(사용자가 보기 편한 데이터를 만들어 주는 역할)
+>
+> ```python
+> from rest_framework import serializers
+> from .models import Music
+> 
+> class MusicSerializer(serializers.ModelSerializer):
+>     class Meta:
+>         model = Music
+>         fields = ('id', 'title', 'artist_id')
+> ```
+
+> view 작성 <a href=" https://www.django-rest-framework.org/api-guide/views/#function-based-views" target="_blank">(공식 문서)</a>
+>
+> ```python
+> from django.shortcuts import render, get_object_or_404
+> from rest_framework.decorators import api_view
+> from rest_framework.response import Response
+> from .serializers import MusicSerializer
+> from .models import Music
+> 
+> @api_view()
+> def music_list(request):
+>     musics = Music.objects.all()
+>     serializer = MusicSerializer(musics, many=True)
+>     # 단일 객체가 아닌 여러 개를 가져올 경우 many=True를 작성
+>     # Serializer는 musics 라고 하는 queryset을 json 타입으로 바꿔준다.
+>     return Response(serializer.data)
+> 
+> 
+> @api_view(['GET']) # GET만 허용할 경우
+> def music_detail(request, music_pk):
+>     music = get_object_or_404(Music, pk=music_pk)
+>     serializer = MusicSerializer(music) # 단일 객체이므로 music만 작성
+>     return Response(serializer.data)
+> ```
+
+> `urls.py`
+>
+> ```python
+> from django.urls import path
+> from . import views
+> 
+> urlpatterns = [
+>     path('musics/', views.music_list),
+>     path('musics/<int:music_pk>/', views.music_detail),
+> ]
+> 
+> ```
+
+:checkered_flag: API result screenshot
+
+- 전체를 조회할 때는 `list`로 출력된다!(`many=True`가 있기 때문에)
+
+![33](https://user-images.githubusercontent.com/52685250/67647760-bd5da980-f976-11e9-9de7-a3a51901d533.JPG)
+
+- 하나를 조회할 때는 `dictionary`로 출력된다.
+
+![44](https://user-images.githubusercontent.com/52685250/67647960-7d4af680-f977-11e9-865e-da9e5825032c.JPG)
+
+<br>
+
+#### (5) API Document(명세서) 작성 <a href=" https://github.com/axnsan12/drf-yasg" target="_blank">(drf-yasg 문서)</a>
+
+- install process
+
+  ```bash
+  pip install -U drf-yasg
+  ```
+
+  ```python
+  INSTALLED_APPS = [
+     ...
+     'drf_yasg',
+     ...
+  ]
+  ```
+
+  `musics` app의 `urls.py`
+
+  ```python
+  from rest_framework import permissions
+  from drf_yasg.views import get_schema_view
+  from drf_yasg import openapi
+  from django.urls import path
+  from . import views
+  
+  schema_view = get_schema_view(
+     openapi.Info( # 이 부분은 custom 가능
+        title="Music API",
+        default_version='v1',
+        description="음악 관련 API 서비스 입니다.",
+        terms_of_service="https://www.google.com/policies/terms/",
+        contact=openapi.Contact(email="wallys0213@gmail.com"),
+        license=openapi.License(name="SSAFY License"),
+     ),
+     public=True,
+     permission_classes=(permissions.AllowAny,),
+  )
+  
+  urlpatterns = [
+      path('musics/', views.music_list),
+      path('musics/<int:music_pk>/', views.music_detail),
+      # python 1 버전(github페이지에는 정규표현식으로 나와있다)이 아닌 2 버전에 맞게 url 주소 작성
+      path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+      path('redocs/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+  ]
+  
+  ```
+
+:checkered_flag: API result screenshot
+
+![01](https://user-images.githubusercontent.com/52685250/67648517-407fff00-f979-11e9-9489-9bf4cac81bf0.JPG)
+![02](https://user-images.githubusercontent.com/52685250/67648518-407fff00-f979-11e9-91bd-a281c279aeb7.JPG)
+
+#### (6) Artist 관련 API 만들기
+
+:heavy_check_mark: Artist 관련 전체 API 만들기
+
+> `serializers.py`
+>
+> ```python
+> class ArtistSerializer(serializers.ModelSerializer):
+>     class Meta:
+>         model = Artist
+>         fields = ('id', 'name')
+> ```
+
+> `views.py`
+>
+> ```python
+> @api_view(['GET'])
+> def artist_list(request):
+>     artists = Artist.objects.all()
+>     serializer = ArtistSerializer(artists, many=True)
+>     return Response(serializer.data)
+> ```
+
+> `urls.py`
+>
+> - `urlpatterns`에 다음 구문 추가
+>
+> ```python
+> path('artists/', views.artist_list),
+> ```
+
+:checkered_flag: API result screenshot
+
+- 아래 사진과 같이 좌측 메뉴에 `artists`가 새로 생성됨을 확인할 수 있다.
+
+![03](https://user-images.githubusercontent.com/52685250/67648755-f77c7a80-f979-11e9-850b-f0ae21fcd633.JPG)
+
+:heavy_check_mark: 특정 Artist 정보만 가져오는 API 만들기
+
+> `views.py`
+>
+> ```python
+> @api_view(['GET'])
+> def artist_detail(request, artist_pk):
+>     artist = get_object_or_404(Artist, pk=artist_pk)
+>     serializer = ArtistSerializer(artist)
+>     return Response(serializer.data)
+> ```
+
+> `urls.py`
+>
+> ```python
+> path('artists/<int:artist_pk>', views.artist_detail), # 구문 추가
+> ```
+
