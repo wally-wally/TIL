@@ -1,3 +1,5 @@
+
+
 # [SSAFY]Django_#4(written by wally-wally)
 
 ----
@@ -1837,13 +1839,21 @@ harry
 
 ## 15. 10월28일(15일차) - `REST API` 
 
-### 15.1 REST
+### 15.1 REST, API <a href="https://gmlwjd9405.github.io/2018/09/21/rest-and-restful.html" target="_blank">(참고하면 좋은 페이지)</a>
 
-- 각 요청이 어떠한 동작&정보를 위한 것인지 <b><u>요청 형식 자체(주소)로 파악이 가능</u></b>한 것
+- `REST(Repersentational State Transfer)`
+  - 각 요청이 어떠한 동작&정보를 위한 것인지 <b><u>요청 형식 자체(주소)로 파악이 가능</u></b>한 것
+  - 자원의 표현에 의한 상태 전달
+  - HTTP URI를 통해 자원을 명시하고, HTTP Method를 통해 해당 자원에 대한 CRUD Operation을 적용하는 것
+- `API(Application Programming Interface)`
+  - 데이터와 기능의 집합을 제공하여 컴퓨터 프로그램간 상호작용을 촉진하며, 서로 정보를 교환 가능하도록 하는 것
+- `REST API`
+  - REST 기반으로 서비스 API를 구현한 것
+  - 최근 Open API, 마이크로 서비스 등을 제공하는 업체 대부분은 REST API를 제공한다.
 
 <br>
 
-### 15.2 Django REST Framework <a href="https://www.django-rest-framework.org/">(공식 홈페이지)</a>
+### 15.2 Django REST Framework <a href="https://www.django-rest-framework.org/" target="_blank">(공식 홈페이지)</a>
 
 #### (1) install process
 
@@ -1915,7 +1925,7 @@ harry
 
 <br>
 
-#### (2) dump data <a href="https://docs.djangoproject.com/ko/2.2/ref/django-admin/#dumpdata">(공식 문서)</a>
+#### (2) dump data <a href="https://docs.djangoproject.com/ko/2.2/ref/django-admin/#dumpdata" target="_blank">(공식 문서)</a>
 
 - 공식 문서에는 `django-admin` commend로 입력해야하는데 각종 문제점이 있기 때문에 `python manage.py` commend로 사용한다.
 
@@ -1932,7 +1942,7 @@ harry
 
 <br>
 
-#### (3) load data <a href="https://docs.djangoproject.com/ko/2.2/ref/django-admin/#loaddata">(공식 문서)</a>
+#### (3) load data <a href="https://docs.djangoproject.com/ko/2.2/ref/django-admin/#loaddata" target="_blank">(공식 문서)</a>
 
 ##### ① `fixture`
 
@@ -1969,7 +1979,9 @@ harry
 
 <br>
 
-#### (4) Music 관련 API 만들기
+### 15.3 API 만들기
+
+#### (1) Music 관련 API 만들기
 
 > `api` project의 `urls.py`
 >
@@ -2035,7 +2047,7 @@ harry
 > 
 > ```
 
-:checkered_flag: API result screenshot
+:checkered_flag: **API result screenshot**
 
 - 전체를 조회할 때는 `list`로 출력된다!(`many=True`가 있기 때문에)
 
@@ -2047,7 +2059,7 @@ harry
 
 <br>
 
-#### (5) API Document(명세서) 작성 <a href=" https://github.com/axnsan12/drf-yasg">(drf-yasg 문서)</a>
+#### (2) API Document(명세서) 작성 <a href=" https://github.com/axnsan12/drf-yasg" target="_blank">(drf-yasg 문서)</a>
 
 - install process
 
@@ -2095,14 +2107,14 @@ harry
   
   ```
 
-:checkered_flag: API result screenshot
+:checkered_flag: **API result screenshot**
 
 ![01](https://user-images.githubusercontent.com/52685250/67648517-407fff00-f979-11e9-9489-9bf4cac81bf0.JPG)
 ![02](https://user-images.githubusercontent.com/52685250/67648518-407fff00-f979-11e9-91bd-a281c279aeb7.JPG)
 
-#### (6) Artist 관련 API 만들기
+#### (3) Artist 관련 API 만들기
 
-:heavy_check_mark: Artist 관련 전체 API 만들기
+:heavy_check_mark: **Artist 관련 전체 API 만들기**
 
 > `serializers.py`
 >
@@ -2131,27 +2143,193 @@ harry
 > path('artists/', views.artist_list),
 > ```
 
-:checkered_flag: API result screenshot
+:checkered_flag: **API result screenshot**
 
 - 아래 사진과 같이 좌측 메뉴에 `artists`가 새로 생성됨을 확인할 수 있다.
 
 ![03](https://user-images.githubusercontent.com/52685250/67648755-f77c7a80-f979-11e9-850b-f0ae21fcd633.JPG)
 
-:heavy_check_mark: 특정 Artist 정보만 가져오는 API 만들기
+:heavy_check_mark: **특정 Artist 정보만 가져오는 API 만들기**
+
+> `views.py`
+>
+> ```python
+> def artist_detail(request, artist_pk):
+>     artist = get_object_or_404(Artist, pk=artist_pk)
+>        serializer = ArtistSerializer(artist)
+>        return Response(serializer.data)
+>    ```
+
+> `urls.py`
+>
+> ```python
+> path('artists/<int:artist_pk>/', views.artist_detail), # 구문 추가
+> ```
+
+<br>
+
+#### (4) 1 : N 관계 적용된 API 만들기
+
+> `serializers.py`
+>
+> ```python
+> class ArtistDetailSerializer(ArtistSerializer):
+>     music_set = MusicSerializer(many=True) # 음악들에 해당하는 필드명
+> 
+>     class Meta(ArtistSerializer.Meta): # model은 굳이 쓸 필요가 없다(이미 상속 받고 있음)
+>         fields = ArtistSerializer.Meta.fields + ('music_set',)
+> ```
 
 > `views.py`
 >
 > ```python
 > @api_view(['GET'])
 > def artist_detail(request, artist_pk):
->        artist = get_object_or_404(Artist, pk=artist_pk)
->        serializer = ArtistSerializer(artist)
->        return Response(serializer.data)
+>     artist = get_object_or_404(Artist, pk=artist_pk)
+>     # ArtistSerailizer => ArtistDetailSerializer로 수정
+>     serializer = ArtistDetailSerializer(artist)
+>     return Response(serializer.data)
+> ```
+
+- ArtistDetailSerializer의 music_set 이름 변경하기
+
+  - [방법1] - `models.py`에서
+
+    ```python
+    class Music(models.Model):
+        artist = models.ForeignKey(Artist, on_delete=models.CASCADE, related_name='musics')
+        title = models.TextField()
+    
+        def __str__(self):
+            return self.title
+    ```
+
+  - [방법2] - `serializers.py`에서
+
+    ```python
+    class ArtistDetailSerializer(ArtistSerializer):
+        musics = MusicSerializer(source='music_set', many=True)
+    
+        class Meta(ArtistSerializer.Meta):
+            fields = ArtistSerializer.Meta.fields + ('musics',)
+    ```
+
+<br>
+
+#### (5) 요청만으로 API 만들기
+
+> `serializers.py`
+>
+> ```python
+> class CommentSerializer(serializers.ModelSerializer):
+>     class Meta:
+>         model = Comment
+>         fields = ('id', 'content', 'music_id')
+>         
+> class MusicDetailSerializer(MusicSerializer):
+>     comments = CommentSerializer(source='comment_set', many=True)
+>     class Meta(MusicSerializer.Meta):
+>         fields = MusicSerializer.Meta.fields + ('comments',)
+> ```
+
+> `views.py`
+>
+> ```python
+> @api_view(['POST']) # 글이 작성되는 것이므로 POST이다.
+> def comments_create(request, music_pk):
+>     serializer = CommentSerializer(data=request.data)
+>     if serializer.is_valid(raise_exception=True):
+>         serializer.save(music_id=music_pk)
+>     return Response(serializer.data)
+> ```
+>
+> ```python
+> # music_detail view의 MusicSerializer를 MusicDetailSerializer로 변경
+> serializer = MusicDetailSerializer(music)
 > ```
 
 > `urls.py`
 >
 > ```python
-> path('artists/<int:artist_pk>', views.artist_detail), # 구문 추가
+> path('musics/<int:music_pk>/comments/', views.comments_create), # 구문 추가
 > ```
 
+:checkered_flag: **API result screenshot**
+
+- 아래 사진과 같이 각 음악에 대한 댓글들이 출력됨을 볼 수 있다.
+
+  ![04](https://user-images.githubusercontent.com/52685250/67653361-695dbf80-f98c-11e9-87b0-6d84804a4c6b.JPG)
+
+- POST  방식으로 보내기 위해 POSTMAN을 설치하고 POST방식으로 댓글을 작성하여 보내준다.
+
+  URL 주소 입력 시 1, 2, 3, ...와 같이 매번 숫자를 입력하는 대신에 `:`을 붙여 `:music_pk`를 사용해 보낼 수 있다.
+
+  `Body`에서 KEY에 `content`, VALUE에 작성할 댓글 내용을 쓴다.
+
+  ![10](https://user-images.githubusercontent.com/52685250/67653895-d2decd80-f98e-11e9-9080-ad244c8fa184.JPG)
+
+  Params의 Path Variables의 VALUE에 숫자를 입력하면 된다.
+
+  ![11](https://user-images.githubusercontent.com/52685250/67653896-d3776400-f98e-11e9-8e79-eaa97529fc7b.JPG)
+  ![12](https://user-images.githubusercontent.com/52685250/67653897-d3776400-f98e-11e9-966f-af1bb7c62907.JPG)
+
+<br>
+
+#### (6) REST하게 주소 작성하기(PUT(수정), DELETE(삭제) 추가)
+
+> `views.py`
+>
+> ```python
+> @api_view(['PUT', 'DELETE']) # PUT : 수정, DELETE : 삭제
+> def comments_update_and_delete(request, comment_pk):
+>     comment = get_object_or_404(Comment, pk=comment_pk)
+>     if request.method == 'PUT':
+>         serializer = CommentSerializer(data=request.data, instance=comment)
+>         if serializer.is_valid(raise_exception=True):
+>             serializer.save()
+>             return Response({'message': 'Comment has been updated !'})
+>     else:
+>         comment.delete()
+>         return Response({'message': 'Comment has been deleted!'})
+> ```
+
+> `urls.py`
+>
+> ```python
+> path('comments/<int:comment_pk>/', views.comments_update_and_delete),
+> ```
+
+:checkered_flag: **API result screenshot**
+
+- DELETE 동작
+
+![20](https://user-images.githubusercontent.com/52685250/67654213-20a80580-f990-11e9-9933-8b6dfcace732.JPG)
+
+- PUT 동작
+
+![30](https://user-images.githubusercontent.com/52685250/67654378-b6439500-f990-11e9-864d-adfd7ec92e86.JPG)
+![31](https://user-images.githubusercontent.com/52685250/67654379-b6dc2b80-f990-11e9-88e6-9d2aed12d1d0.JPG)
+
+- 만약 view에서 정의하지 않은 방식이 들어올 경우 아래 사진과 같이 허용되지 않는다는 문구가 출력된다.
+
+![789](https://user-images.githubusercontent.com/52685250/67654721-d45dc500-f991-11e9-880c-dc7e9ac429f2.JPG)
+
+<br>
+
+#### (7) Custom API
+
+> `serializer.py`
+>
+> - 음악 개수를 의미하는 `musics_count` 라는 완전히 새로운 필드를 만든다.
+>
+> ```python
+> class ArtistDetailSerializer(ArtistSerializer):
+>     musics = MusicSerializer(source='music_set', many=True)
+>     musics_count = serializers.IntegerField(source='music_set.count')
+>     class Meta(ArtistSerializer.Meta):
+>         fields = ArtistSerializer.Meta.fields + ('musics', 'musics_count')
+> ```
+
+:checkered_flag: API result screenshot
+
+![40](https://user-images.githubusercontent.com/52685250/67654566-4c77bb00-f991-11e9-8ae5-767d3e5a09cb.JPG)
