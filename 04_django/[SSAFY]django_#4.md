@@ -1843,7 +1843,7 @@ harry
 
 <br>
 
-### 15.2 Django REST Framework <a href=" https://www.django-rest-framework.org/" target="_blank">(공식 홈페이지)</a>
+### 15.2 Django REST Framework <a href="https://www.django-rest-framework.org/">(공식 홈페이지)</a>
 
 #### (1) install process
 
@@ -1915,7 +1915,7 @@ harry
 
 <br>
 
-#### (2) dump data <a href=" https://docs.djangoproject.com/ko/2.2/ref/django-admin/#dumpdata" target="_blank">(공식 문서)</a>
+#### (2) dump data <a href="https://docs.djangoproject.com/ko/2.2/ref/django-admin/#dumpdata">(공식 문서)</a>
 
 - 공식 문서에는 `django-admin` commend로 입력해야하는데 각종 문제점이 있기 때문에 `python manage.py` commend로 사용한다.
 
@@ -1932,7 +1932,7 @@ harry
 
 <br>
 
-#### (3) load data <a href=" https://docs.djangoproject.com/ko/2.2/ref/django-admin/#loaddata" target="_blank">(공식 문서)</a>
+#### (3) load data <a href="https://docs.djangoproject.com/ko/2.2/ref/django-admin/#loaddata">(공식 문서)</a>
 
 ##### ① `fixture`
 
@@ -1978,8 +1978,8 @@ harry
 > from django.urls import path, include
 > 
 > urlpatterns = [
->     path('api/v1/', include('musics.urls')),
->     path('admin/', admin.site.urls),
+>        path('api/v1/', include('musics.urls')),
+>        path('admin/', admin.site.urls),
 > ]
 > ```
 
@@ -1992,12 +1992,12 @@ harry
 > from .models import Music
 > 
 > class MusicSerializer(serializers.ModelSerializer):
->     class Meta:
->         model = Music
->         fields = ('id', 'title', 'artist_id')
+>        class Meta:
+>            model = Music
+>            fields = ('id', 'title', 'artist_id')
 > ```
 
-> view 작성 <a href=" https://www.django-rest-framework.org/api-guide/views/#function-based-views" target="_blank">(공식 문서)</a>
+> view 작성 <a href="https://www.django-rest-framework.org/api-guide/views/#function-based-views">(공식 문서)</a>
 >
 > ```python
 > from django.shortcuts import render, get_object_or_404
@@ -2008,18 +2008,18 @@ harry
 > 
 > @api_view()
 > def music_list(request):
->     musics = Music.objects.all()
->     serializer = MusicSerializer(musics, many=True)
->     # 단일 객체가 아닌 여러 개를 가져올 경우 many=True를 작성
->     # Serializer는 musics 라고 하는 queryset을 json 타입으로 바꿔준다.
->     return Response(serializer.data)
+>        musics = Music.objects.all()
+>        serializer = MusicSerializer(musics, many=True)
+>        # 단일 객체가 아닌 여러 개를 가져올 경우 many=True를 작성
+>        # Serializer는 musics 라고 하는 queryset을 json 타입으로 바꿔준다.
+>        return Response(serializer.data)
 > 
 > 
 > @api_view(['GET']) # GET만 허용할 경우
 > def music_detail(request, music_pk):
->     music = get_object_or_404(Music, pk=music_pk)
->     serializer = MusicSerializer(music) # 단일 객체이므로 music만 작성
->     return Response(serializer.data)
+>        music = get_object_or_404(Music, pk=music_pk)
+>        serializer = MusicSerializer(music) # 단일 객체이므로 music만 작성
+>        return Response(serializer.data)
 > ```
 
 > `urls.py`
@@ -2029,8 +2029,8 @@ harry
 > from . import views
 > 
 > urlpatterns = [
->     path('musics/', views.music_list),
->     path('musics/<int:music_pk>/', views.music_detail),
+>        path('musics/', views.music_list),
+>        path('musics/<int:music_pk>/', views.music_detail),
 > ]
 > 
 > ```
@@ -2047,7 +2047,7 @@ harry
 
 <br>
 
-#### (5) API Document(명세서) 작성 <a href=" https://github.com/axnsan12/drf-yasg" target="_blank">(drf-yasg 문서)</a>
+#### (5) API Document(명세서) 작성 <a href=" https://github.com/axnsan12/drf-yasg">(drf-yasg 문서)</a>
 
 - install process
 
@@ -2108,9 +2108,9 @@ harry
 >
 > ```python
 > class ArtistSerializer(serializers.ModelSerializer):
->     class Meta:
->         model = Artist
->         fields = ('id', 'name')
+>        class Meta:
+>            model = Artist
+>            fields = ('id', 'name')
 > ```
 
 > `views.py`
@@ -2118,9 +2118,9 @@ harry
 > ```python
 > @api_view(['GET'])
 > def artist_list(request):
->     artists = Artist.objects.all()
->     serializer = ArtistSerializer(artists, many=True)
->     return Response(serializer.data)
+>        artists = Artist.objects.all()
+>        serializer = ArtistSerializer(artists, many=True)
+>        return Response(serializer.data)
 > ```
 
 > `urls.py`
@@ -2144,9 +2144,9 @@ harry
 > ```python
 > @api_view(['GET'])
 > def artist_detail(request, artist_pk):
->     artist = get_object_or_404(Artist, pk=artist_pk)
->     serializer = ArtistSerializer(artist)
->     return Response(serializer.data)
+>        artist = get_object_or_404(Artist, pk=artist_pk)
+>        serializer = ArtistSerializer(artist)
+>        return Response(serializer.data)
 > ```
 
 > `urls.py`
