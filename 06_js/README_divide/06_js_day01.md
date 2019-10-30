@@ -306,11 +306,9 @@ if (x === 1) {
 
 <br>
 
-### 1.5 타입과 연산자
+### 1.5 타입(Type)
 
-#### (1) 타입(type)
-
-##### ① Primitive
+#### (1) Primitive
 
 - <b>불변하다</b>는 특징을 띄고 있다.
 
@@ -432,6 +430,6 @@ if (x === 1) {
     isNaN('abc') // true
     ```
 
-##### ② Reference
+#### (2) Reference
 
-:heavy_exclamation_mark: `2일차 README`에 이어서 계속... <a href="#" target="_blank">(바로 이동)</a>
+- ???
