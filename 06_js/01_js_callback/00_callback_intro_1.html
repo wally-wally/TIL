@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button id="myButton">Click Me</button>
+  <script>
+    const button = document.getElementById('myButton') // 1. 버튼 가져오기
+    button.addEventListener('click', function () { // 2. 이벤트 설정 : click
+      console.log('버튼이 눌렸어요!!!') // 3. 콜백함수 설정
+    })
+  </script>
+</body>
+</html>

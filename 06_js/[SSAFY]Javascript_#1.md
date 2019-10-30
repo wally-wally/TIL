@@ -1339,5 +1339,35 @@ console.log(typeof parseData) // object
   console.log(neweveryComputers) // false
   ```
 
-  
+
+<br>
+
+### 2.5 callback 맛보기
+
+- 인수로 다른 함수에 전달된 함수
+
+- 명시적으로 호출하는 방식이 아니라 <b>특정 이벤트가 발생했을 때</b> 시스템에 의해 호출되는 함수
+  - 다른 함수의 실행이 끝나고 난 뒤에 실행되는 함수. `이따가 너 실행 끝나면 그때 나 좀 호출해줘.`
+- 함수의 호출권한을 내가 아닌 시스템이 가진다.
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button id="myButton">Click Me</button>
+  <script>
+    const button = document.getElementById('myButton') // 1. 버튼 가져오기
+    button.addEventListener('click', function () { // 2. 이벤트 설정 : click
+      console.log('버튼이 눌렸어요!!!') // 3. 콜백함수 설정
+    })
+  </script>
+</body>
+</html>
+```
 
