@@ -1,10 +1,37 @@
 # :notebook_with_decorative_cover: 06_Javascript - Day01
 
+---
+
+- Javascript Style Guide 참고 문서 : <a href="https://ui.toast.com/fe-guide/ko_CODING-CONVENSION/" target="_blank">(TOAST UI)</a> <a href="https://github.com/airbnb/javascript" target="_blank">(Airbnb github)</a>
+
+---
+
 <br>
 
 ## 1. 10월29일(1일차)
 
 ### 1.1 Introduction of Javascript
+
+#### (1) Summery
+
+- Javascript는 브라우저를 동적으로 사용하기 위해 고안된 언어다.
+- Java와 Javascript는 서로 완전히 다른 언어다. 즉, 둘은 전혀 관련/유사성이 없다.
+- 현재 Javascript는 ES5(2009)에서 ES6+(2015~)로 넘어가는 중이다.
+- 브라우저 콘솔에서 바로 사용할 수 있는 JS를 Vanilla JS라고 부른다.
+- Vanilla JS는 프로그래밍을 통해 BOM 조작, DOM 조작을 할 수 있다.
+- 브라우저라는 제한된 환경을 넘어 브라우저 밖(컴퓨터)에서 JS를 구동할 수 있는 새로운 실행 환경인 `Node.js`가 등장한다. (Node.js 환경에서는 당연히 DOM, BOM 조작 불가능)
+
+<br>
+
+#### (2) Vanilla JS vs Node.js
+
+- Vanilla JS
+  - 브라우저 콘솔 환경에서 사용하는 가장 순정의 JS를 의미
+  - 어떠한 라이브러리/프레임워크에도 의존하지 않는 Original Browser JS라고 할 수 있다.
+  - BOM(Browser Object Model) 조작, DOM(Document Object Model) 조작, 프로그래밍 가능
+- Node.js
+  - 브라우저 밖에서 JS를 구동할 수 있는 새로운 JS 실행환경(runtime environment)인 `Node.js`가 등장
+  - V8 엔진을 기반으로 제작되었으며, Node.js의 등장을 통해 JS 만으로 클라이언트-서버 를 모두 제작할 수 있게 되었다.
 
 <br>
 
@@ -306,7 +333,7 @@ if (x === 1) {
 
 <br>
 
-### 1.5 타입(Type)
+### 1.5 타입(type)
 
 #### (1) Primitive
 
@@ -416,7 +443,7 @@ if (x === 1) {
 
     ![321](https://user-images.githubusercontent.com/52685250/67748969-70a9c980-fa6f-11e9-9b69-c2e1fae4b884.JPG)
 
-    <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN" target="_blank">(Number.isNaN() 함수 공식 문서)</a>
+    [참고] `Number.isNaN()` <a href="https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Number/isNaN" target="_blank">(Number.isNaN() 함수 공식 문서)</a>
 
     ```javascript
     // Number.isNaN() 함수는 값이 NaN 인지 여부를 판별.
@@ -431,5 +458,3 @@ if (x === 1) {
     ```
 
 #### (2) Reference
-
-- ???

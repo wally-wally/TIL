@@ -8,31 +8,47 @@
 
 #### (1) 할당 연산자
 
-![할당연산자](https://user-images.githubusercontent.com/52685250/67818905-5a931c00-faf6-11e9-80fc-318468adf21f.JPG)
+| 연산자 | 의미                                 |
+| ------ | ------------------------------------ |
+| a++    | a를 평가한 다음에 a에 1을 더한다.    |
+| ++a    | a에 1을 더한 다음에 a 값을 평가한다. |
+| a--    | a를 평가한 다음에 a에서 1을 뺀다.    |
+| --a    | a에 1을 뺀 다음에 a 값을 평가한다.   |
+
+- 증가 연산자 또는 감소 연산자를 연속으로 사용하면 참조 오류가 발생한다.
+  - `(a++)++` -> `ReferenceError`
+
+<img src="https://user-images.githubusercontent.com/52685250/67818905-5a931c00-faf6-11e9-80fc-318468adf21f.JPG" width="200px">
 
 <br>
 
 #### (2) 비교 연산자
 
-![비교연산자](https://user-images.githubusercontent.com/52685250/67818906-5b2bb280-faf6-11e9-85ac-e0091d30cb39.JPG)
+<img src="https://user-images.githubusercontent.com/52685250/67818906-5b2bb280-faf6-11e9-85ac-e0091d30cb39.JPG" width="200px">
 
 <br>
 
 #### (3) 동등 연산자
 
-![동등연산자](https://user-images.githubusercontent.com/52685250/67818907-5b2bb280-faf6-11e9-9ad5-4ea527f3dc55.JPG)
+<img src="https://user-images.githubusercontent.com/52685250/67818907-5b2bb280-faf6-11e9-9ad5-4ea527f3dc55.JPG" width="500px">
 
 <br>
 
 #### (4) 일치 연산자
 
-![일치연산자](https://user-images.githubusercontent.com/52685250/67818908-5b2bb280-faf6-11e9-9fb7-0d48aaa81cdf.JPG)
+- `==` : 동등 연산자로 단순히 값만 같음
+- `===` : 일치 연산자로 값과 타입까지 같음(동등 연산자보다 두 값을 엄격하게 비교함)
+  - 예외) `NaN === NaN`의 결과는 `false`이다.
+
+<img src="https://user-images.githubusercontent.com/52685250/67818908-5b2bb280-faf6-11e9-9fb7-0d48aaa81cdf.JPG" width="500px">
 
 <br>
 
 #### (5) 논리 연산자
 
-![논리연산자](https://user-images.githubusercontent.com/52685250/67818909-5b2bb280-faf6-11e9-8b72-aa048445e576.JPG)
+- `&&` : 논리곱, `||` : 논리합, `!` : 부정
+
+<img src="https://user-images.githubusercontent.com/52685250/67818909-5b2bb280-faf6-11e9-8b72-aa048445e576.JPG" width="350px">
 
 <br>
 
@@ -40,7 +56,7 @@
 
 - if문을 한 줄로 작성할 수 있으며 `?` 앞의 식이 참일 경우 `:` 왼쪽에 있는 값이 출력되고 거짓일 경우 `:` 오른쪽에 있는 값이 출력된다.
 
-![삼항연산자](https://user-images.githubusercontent.com/52685250/67818910-5bc44900-faf6-11e9-8f5d-46f1a2282579.JPG)
+<img src="https://user-images.githubusercontent.com/52685250/67818910-5bc44900-faf6-11e9-8f5d-46f1a2282579.JPG" width="450px">
 
 <br>
 
@@ -893,5 +909,35 @@ console.log(typeof parseData) // object
   console.log(neweveryComputers) // false
   ```
 
-  
+
+<br>
+
+### 2.5 callback 맛보기
+
+- 인수로 다른 함수에 전달된 함수
+
+- 명시적으로 호출하는 방식이 아니라 <b>특정 이벤트가 발생했을 때</b> 시스템에 의해 호출되는 함수
+  - 다른 함수의 실행이 끝나고 난 뒤에 실행되는 함수. `이따가 너 실행 끝나면 그때 나 좀 호출해줘.`
+- 함수의 호출권한을 내가 아닌 시스템이 가진다.
+
+```html
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <button id="myButton">Click Me</button>
+  <script>
+    const button = document.getElementById('myButton') // 1. 버튼 가져오기
+    button.addEventListener('click', function () { // 2. 이벤트 설정 : click
+      console.log('버튼이 눌렸어요!!!') // 3. 콜백함수 설정
+    })
+  </script>
+</body>
+</html>
+```
 

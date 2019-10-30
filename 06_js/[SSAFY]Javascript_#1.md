@@ -16,6 +16,27 @@
 
 ### 1.1 Introduction of Javascript
 
+#### (1) Summery
+
+- Javascript는 브라우저를 동적으로 사용하기 위해 고안된 언어다.
+- Java와 Javascript는 서로 완전히 다른 언어다. 즉, 둘은 전혀 관련/유사성이 없다.
+- 현재 Javascript는 ES5(2009)에서 ES6+(2015~)로 넘어가는 중이다.
+- 브라우저 콘솔에서 바로 사용할 수 있는 JS를 Vanilla JS라고 부른다.
+- Vanilla JS는 프로그래밍을 통해 BOM 조작, DOM 조작을 할 수 있다.
+- 브라우저라는 제한된 환경을 넘어 브라우저 밖(컴퓨터)에서 JS를 구동할 수 있는 새로운 실행 환경인 `Node.js`가 등장한다. (Node.js 환경에서는 당연히 DOM, BOM 조작 불가능)
+
+<br>
+
+#### (2) Vanilla JS vs Node.js
+
+- Vanilla JS
+  - 브라우저 콘솔 환경에서 사용하는 가장 순정의 JS를 의미
+  - 어떠한 라이브러리/프레임워크에도 의존하지 않는 Original Browser JS라고 할 수 있다.
+  - BOM(Browser Object Model) 조작, DOM(Document Object Model) 조작, 프로그래밍 가능
+- Node.js
+  - 브라우저 밖에서 JS를 구동할 수 있는 새로운 JS 실행환경(runtime environment)인 `Node.js`가 등장
+  - V8 엔진을 기반으로 제작되었으며, Node.js의 등장을 통해 JS 만으로 클라이언트-서버 를 모두 제작할 수 있게 되었다.
+
 <br>
 
 ### 1.2 `let`, `const`, `var` - `00_variable.js`
@@ -454,31 +475,47 @@ if (x === 1) {
 
 #### (1) 할당 연산자
 
-![할당연산자](https://user-images.githubusercontent.com/52685250/67818905-5a931c00-faf6-11e9-80fc-318468adf21f.JPG)
+| 연산자 | 의미                                 |
+| ------ | ------------------------------------ |
+| a++    | a를 평가한 다음에 a에 1을 더한다.    |
+| ++a    | a에 1을 더한 다음에 a 값을 평가한다. |
+| a--    | a를 평가한 다음에 a에서 1을 뺀다.    |
+| --a    | a에 1을 뺀 다음에 a 값을 평가한다.   |
+
+- 증가 연산자 또는 감소 연산자를 연속으로 사용하면 참조 오류가 발생한다.
+  - `(a++)++` -> `ReferenceError`
+
+<img src="https://user-images.githubusercontent.com/52685250/67818905-5a931c00-faf6-11e9-80fc-318468adf21f.JPG" width="200px">
 
 <br>
 
 #### (2) 비교 연산자
 
-![비교연산자](https://user-images.githubusercontent.com/52685250/67818906-5b2bb280-faf6-11e9-85ac-e0091d30cb39.JPG)
+<img src="https://user-images.githubusercontent.com/52685250/67818906-5b2bb280-faf6-11e9-85ac-e0091d30cb39.JPG" width="200px">
 
 <br>
 
 #### (3) 동등 연산자
 
-![동등연산자](https://user-images.githubusercontent.com/52685250/67818907-5b2bb280-faf6-11e9-9ad5-4ea527f3dc55.JPG)
+<img src="https://user-images.githubusercontent.com/52685250/67818907-5b2bb280-faf6-11e9-9ad5-4ea527f3dc55.JPG" width="500px">
 
 <br>
 
 #### (4) 일치 연산자
 
-![일치연산자](https://user-images.githubusercontent.com/52685250/67818908-5b2bb280-faf6-11e9-9fb7-0d48aaa81cdf.JPG)
+- `==` : 동등 연산자로 단순히 값만 같음
+- `===` : 일치 연산자로 값과 타입까지 같음(동등 연산자보다 두 값을 엄격하게 비교함)
+  - 예외) `NaN === NaN`의 결과는 `false`이다.
+
+<img src="https://user-images.githubusercontent.com/52685250/67818908-5b2bb280-faf6-11e9-9fb7-0d48aaa81cdf.JPG" width="500px">
 
 <br>
 
 #### (5) 논리 연산자
 
-![논리연산자](https://user-images.githubusercontent.com/52685250/67818909-5b2bb280-faf6-11e9-8b72-aa048445e576.JPG)
+- `&&` : 논리곱, `||` : 논리합, `!` : 부정
+
+<img src="https://user-images.githubusercontent.com/52685250/67818909-5b2bb280-faf6-11e9-8b72-aa048445e576.JPG" width="350px">
 
 <br>
 
@@ -486,7 +523,7 @@ if (x === 1) {
 
 - if문을 한 줄로 작성할 수 있으며 `?` 앞의 식이 참일 경우 `:` 왼쪽에 있는 값이 출력되고 거짓일 경우 `:` 오른쪽에 있는 값이 출력된다.
 
-![삼항연산자](https://user-images.githubusercontent.com/52685250/67818910-5bc44900-faf6-11e9-8f5d-46f1a2282579.JPG)
+<img src="https://user-images.githubusercontent.com/52685250/67818910-5bc44900-faf6-11e9-8f5d-46f1a2282579.JPG" width="450px">
 
 <br>
 
