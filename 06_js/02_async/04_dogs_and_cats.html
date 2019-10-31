@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    img {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Random Dog & Cat Image</h1>
+  <button id="dog-button">Dog Image On!</button> <span id="dogCount">0</span>장 &nbsp;
+  <button id="cat-button">Cat Image On!</button> <span id="catCount">0</span>장 <br>
+  <hr>
+  <div class="animals"></div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    const getDogImage = function () {
+      axios.get('https://dog.ceo/api/breeds/image/random') // axios가 비동기 함수로 구동되고 있다.
+        .then(response => { // () 안에 있는게 통째로 callback 함수이므로
+          // 먼저 response를 consle로 찍어서 URL이 어디에 있는지 확인하자!
+          const imgUrl = response.data.message
+          // img tag 만들기
+          const imgTag = document.createElement('img')
+          // imgTag 의 src에 imgUrl 넣기
+          imgTag.src = imgUrl
+          // .animals 라는 div 의 자식요소로 imgTag 를 붙이자.
+          document.querySelector('.animals').append(imgTag)
+        })
+        .catch(error => console.log(error))
+    }
+    const dogButton = document.querySelector('#dog-button')
+    const dogCnt = document.querySelector('#dogCount')
+    let dogCount = 0
+    // dogButton.addEventListener('click', getDogImage)
+    dogButton.addEventListener('click', function() {
+      getDogImage()
+      dogCount += 1
+      dogCnt.innerText = dogCount
+    })
+  
+    const getCatImage = function () {
+      axios.get('https://api.thecatapi.com/v1/images/search')
+        .then(response => {
+          const imgUrl = response.data[0].url
+          const imgTag = document.createElement('img')
+          imgTag.src = imgUrl
+          document.querySelector('.animals').append(imgTag)
+        })
+        .catch(error => console.log(error))
+    }
+    const catButton = document.querySelector('#cat-button')
+    const catCnt = document.querySelector('#catCount')
+    let catCount = 0
+    catButton.addEventListener('click', function() {
+      getCatImage()
+      catCount += 1
+      catCnt.innerText = catCount
+    })
+  </script>
+</body>
+</html>

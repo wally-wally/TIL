@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Document</title>
+  <style>
+    .bg {
+      background-color: #f7f7f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg">
+    <img id="dino" width="100px" height="100px"
+      src="https://is4-ssl.mzstatic.com/image/thumb/Purple118/v4/88/e5/36/88e536d4-8a08-7c3b-ad29-c4e5dabc9f45/AppIcon-1x_U007emarketing-sRGB-85-220-0-6.png/246x0w.jpg"
+      alt="google-dino" />
+  </div>
+  <!-- 
+  <div class="bg">
+    <img id="dino-2" width="100px" height="100px"
+      src="https://is4-ssl.mzstatic.com/image/thumb/Purple118/v4/88/e5/36/88e536d4-8a08-7c3b-ad29-c4e5dabc9f45/AppIcon-1x_U007emarketing-sRGB-85-220-0-6.png/246x0w.jpg"
+      alt="google-dino" />
+  </div>
+  -->
+
+  <script>
+    const dino = document.querySelector('#dino')
+    let x = 0
+    let y = 0
+    // addEventListener에서는 화살표 함수 쓰지말고 일반 표현식으로 쓰자!
+    document.addEventListener('keydown', function(e) {
+      console.log(e)
+      if (e.key === ' ') {
+        console.log('spacebar')
+        alert('크아아아앙!!!')
+      } else if (e.key === 'ArrowLeft') {
+        console.log('left')
+        x -= 20
+        dino.style.marginLeft = `${x}px`
+      } else if (e.code === 'ArrowUp') {
+        console.log('up')
+        y -= 20
+        dino.style.marginTop = `${y}px`
+      } else if (e.keyCode === 39) {
+        console.log('right')
+        x += 20
+        dino.style.marginLeft = `${x}px`
+      } else if (e.code === 'ArrowDown') {
+        console.log('down')
+        y += 20
+        dino.style.marginTop = `${y}px`
+      } else {
+        console.log('You press wrong key!')
+      }
+    })
+
+    // [추가내용] 공룡에 마우스 대면 랜덤위치로 공룡 이동하기
+    dino.style.position = 'absolute'
+    dino.addEventListener('mouseover', function() {
+      // (현재 윈도우 너비 * 난수(0 ~ 1사이의 난수)) - (현재 윈도우 너비)
+      const newWidth = window.innerWidth * Math.random() - window.innerWidth / 2
+      const newHeight = window.innerHeight * Math.random() - window.innerHeight / 2
+      dino.style.marginLeft = newWidth + 'px'
+      dino.style.marginTop = newHeight + 'px'
+    })
+  </script>
+</body>
+
+</html>

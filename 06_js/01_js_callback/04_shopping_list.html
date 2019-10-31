@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>My Shopping List</h1>
+  Enter a new item: <input type="text" id="item-input">
+  <button id="add-button">Add Item</button>
+  <ul id="shopping-list">
+
+  </ul>
+
+  <script>
+    const input = document.querySelector('#item-input')
+    const button = document.querySelector('#add-button')
+    const shoppingList = document.querySelector('#shopping-list')
+
+    button.addEventListener('click', function() {
+      const itemName = input.value
+      input.value = '' // 물건을 담고 초기화를 시켜줘야 기존의 value 값이 사라짐
+
+      // item 변수에 li 태그 객체 담기
+      const item = document.createElement('li')
+      // item 에 itemName을 담는다.
+      item.innerText = itemName
+
+      // 1. Delete 버튼 태그 추가
+      const deleteButton = document.createElement('button')
+
+      // 2. deleteButton 변수에 텍스트(버튼에 들어가는 글자) 추가
+      deleteButton.innerText = 'DELETE'
+
+      // 3. item(li 태그)에 deleteButton 을 마지막 요소로 추가
+      item.append(deleteButton)
+
+      // 4. deleteButton 을 누르면 item을 삭제
+      deleteButton.addEventListener('click', function() {
+        item.remove()
+      })
+
+      // ul 태그(shoppingList)에 마지막에 item(li 태그)을 자식요소로 추가
+      shoppingList.append(item)
+    })
+  </script>
+</body>
+</html>

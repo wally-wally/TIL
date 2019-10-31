@@ -4,7 +4,7 @@
 
 ## 2. 10월30일(2일차)
 
-### 2.1 연산자
+### 2.1 연산자 - `02_type_operator.js`
 
 #### (1) 할당 연산자
 
@@ -60,7 +60,7 @@
 
 <br>
 
-### 2.2 조건문 & 반복문
+### 2.2 조건문 & 반복문 - `03_if_switch.js`, `04_loop.js`
 
 #### (1) if문 <a href="https://user-images.githubusercontent.com/52685250/67819540-e1e18f00-faf8-11e9-9842-cedf4381525f.JPG" target="_blank">(chrome console로 자세히 확인하기)</a>
 
@@ -138,7 +138,7 @@ for (let number of numbers) {
 
 <br>
 
-### 2.3 함수
+### 2.3 함수 - `05_function.js`
 
 #### (1) 선언식(statement, declaration)
 
@@ -319,7 +319,7 @@ function ssafy() {
 
 ### 2.4 Datastructure : Object와 Array
 
-#### (1) Array - Bulit-in Method
+#### (1) Array - Bulit-in Method - `06_data_structure_1.js`
 
 ```javascript
 const numbers = [1, 2, 3, 4]
@@ -378,7 +378,7 @@ console.log(numbers) // join은 원본을 변화시키지 않는다.
 
 <br>
 
-#### (2) Object
+#### (2) Object - `07_data_structure_2.js`
 
 ```javascript
 const me = {
@@ -442,7 +442,7 @@ console.log(me.appleProducts.ipad) // 2018pro
 
 <br>
 
-#### (3) JSON(JS Object Notation)
+#### (3) JSON(JS Object Notation) - `07_data_structure_2.js`
 
 - KEY-VALUE 형태의 자료구조를 JS 객체와 유사한 모습으로 표현하는 표기법
 - 모습만 비슷할 뿐이고 <b>실제로 Object 처럼 사용</b>하려면 다른 언어들 처럼 JS에서도 <b>Parsing(구문 분석)작업이 필요하다.</b>
@@ -473,7 +473,7 @@ console.log(typeof parseData) // object
 
 <br>
 
-#### (4) Array Helper Method
+#### (4) Array Helper Method - `08_forEach.js` ~ `13_some_every.js`
 
 ---
 

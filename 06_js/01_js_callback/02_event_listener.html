@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="my"></div>
+
+  <button id="this-button">Click me!</button>
+
+  <script>
+    // 1. 무엇을
+    const button = document.querySelector('#this-button')
+
+    // 2. 언제 - 3. 어떻게(콜백함수)
+    button.addEventListener('click', function(event) {
+      console.log(event)
+      const area = document.querySelector('#my')
+      area.innerHTML = '<h1>뿅!!!</h1>'
+    })
+  </script>
+</body>
+</html>
