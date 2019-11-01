@@ -344,7 +344,7 @@ urlpatterns = [
 
 > `index.html`
 
-- <font color="red">**extends**는 무슨 경우가 됐건 **항상 최상위 위치(가장 맨 위)**에 있어야 한다.</font>
+- <b>extends</b>는 무슨 경우가 됐건 <b>항상 최상위 위치(가장 맨 위)</b>에 있어야 한다.
 
 ```html
 {% extends 'base.html' %} <!-- 이 페이지는 base.html을 상속받고 있다는 의미 -->
