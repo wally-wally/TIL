@@ -1,5 +1,3 @@
-
-
 # [SSAFY]Django_#4(written by wally-wally)
 
 ----
