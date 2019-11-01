@@ -2059,7 +2059,7 @@ harry
 
 <br>
 
-#### (2) API Document(명세서) 작성 <a href=" https://github.com/axnsan12/drf-yasg" target="_blank">(drf-yasg 문서)</a>
+#### (2) API Document(명세서) 작성 <a href="https://github.com/axnsan12/drf-yasg" target="_blank">(drf-yasg 문서)</a>
 
 - install process
 
