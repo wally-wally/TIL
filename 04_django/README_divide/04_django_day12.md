@@ -22,9 +22,14 @@
 
 > `forms.py` > `ArticleForm`
 >
+> - 게시글을 작성하려고 할 때 user를 선택 해야하는 불필요한 field가 노출되므로 제목과 내용만 입력하도록 필드를 설정해야 한다.
+>
 > ```python
 > fields = ('title', 'content',) # 구문 수정
 > ```
+>
+> - 글을 작성해보면 create 시에 유저 정보가 저장되지 않기 때문에 ` NOT NULL constraint failed: articles_article.user_id `와 같은 에러가 발생한다.
+> - 이를 방지하기 위해 `(2) Create Logic 수정` 에서 오류를 해결한다.
 
 - `get_user_model()` : return 값이 `class`
 - `settings.AUTH_USER_MODEL` : return 값이 `str`
@@ -69,10 +74,28 @@
 
 > `views.py` > `create` view (구문 수정)
 >
+> - 이전의 댓글 작성에서 사용했던 `.save(commit=False)` 로 아직 DB 에 저장되지 않은 article 객체를 반환한다.
+> -  그리고 `request.user` 라는 현재 요청의 유저 객체를 `article.user` 에 할당한다. 
+>
 > ```python
 > article = form.save(commit=False)
 > article.user = request.user
 > article.save()
+> ```
+
+> `index.html`
+>
+> - 게시글을 작성한 user가 누구인지 보기 위해 수정
+>
+> ```django
+> {% extends 'articles/base.html' %}
+> {% block content %}
+>   ...
+>   {% for article in articles %}
+>     <p><b>작성자 : {{ article.user }}</b></p>
+>     ...
+>   {% endfor %}
+> {% endblock %}
 > ```
 
 <br>
@@ -80,20 +103,28 @@
 #### (3) Update, Delete Logic 수정
 
 - 자신의 게시글이 아니면 UPDATE, DELETE를 하지 못하도록 설정
+-  직접 로그인 한 상태로 다른 유저가 쓴 글에 들어가면 수정/삭제가 보이지 않는다.
 
 > `detail.html` (구문 수정)
+>
+> - `request.user`가 아닌 `user`라고 작성할 수 있다.
 >
 > ```django
 > {% if request.user == article.user %}
 >   <a href="{% url 'articles:update' article.pk %}">[UPDATE]</a>
 >   <form action="{% url 'articles:delete' article.pk %}" method="POST", onclick="return confirm('진짜로 지우게??')">
->     {% csrf_token %}
->     <input type="submit" value="DELETE">
+>    {% csrf_token %}
+>    <input type="submit" value="DELETE">
 >   </form>
 > {% endif %}
 > ```
 
 > `views.py` > `update` view
+>
+> -  사용자가 자신의 글만 **수정/삭제** 할 수 있도록 내부(update/delete) 로직 수정 
+>
+> - 외부적으로 뿐만 아니라 내부적인 로직상으로도 확실하게 처리하기 위해 view 로직을 다음과 같이 수정한다.
+>   - 위와 같은 상황은 템플릿에서 단순히 버튼만 가린 것 뿐이므로 직접 `articles/7/update/`, `articles/7/delete/` 로 POST 요청을 강제로 요청할 경우 수정/삭제가 동작한다.
 >
 > ```python
 > @login_required
@@ -102,6 +133,7 @@
 >     if request.user == article.user: # 큰 if ~ else문 추가
 >         if request.method == 'POST':
 >             form = ArticleForm(request.POST, instance=article)
+>             if form.is_valid():
 >                 article = form.save()
 >                 return redirect(article)
 >         else:
@@ -117,13 +149,13 @@
 > ```python
 > @require_POST
 > def delete(request, article_pk):
->     if request.user.is_authenticated:
->         article = get_object_or_404(Article, pk=article_pk)
->         if request.user == article.user: # 이 구문 추가
->             article.delete()
->         else:
->             return redirect(article)
->     return redirect('articles:index')
+>    if request.user.is_authenticated:
+>        article = get_object_or_404(Article, pk=article_pk)
+>        if request.user == article.user: # 이 구문 추가
+>            article.delete()
+>        else:
+>            return redirect(article)
+>    return redirect('articles:index')
 > ```
 
 <br>

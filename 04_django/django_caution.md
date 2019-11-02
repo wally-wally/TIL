@@ -1,4 +1,4 @@
-### 1. Internationalization(I18n) (한글화 설정)
+## 1. Internationalization(I18n) (한글화 설정)
 
 > `settings.py`
 >
@@ -16,7 +16,7 @@
 
 <br>
 
-### 2. Django Template Language(DTL)
+## 2. Django Template Language(DTL)
 
 > `template_language.html`
 >
@@ -137,7 +137,7 @@
 
 <br>
 
-### 3. Django에서 CSRF Token의 POST 방식으로 전달하는 방법
+## 3. Django에서 CSRF Token의 POST 방식으로 전달하는 방법
 
 ------
 
@@ -171,7 +171,7 @@
 
 <br>
 
-### 4. Template Inheritance(상속)
+## 4. Template Inheritance(상속)
 
 - `os.path.join(BASE_DIR, '프로젝트 이름', 'templates')`
 
@@ -195,7 +195,7 @@
 
 <br>
 
-### 5. Model 필드 <a href="https://docs.djangoproject.com/en/2.2/ref/models/fields/">Model field reference</a>
+## 5. Model 필드 <a href="https://docs.djangoproject.com/en/2.2/ref/models/fields/">Model field reference</a>
 
 - `CharField()`
   - 길이의 제한이 있는 문자열을 넣을 때 사용
@@ -216,7 +216,7 @@
 
 <br>
 
-### 6. `admin.py` 관리자 변경 목록(change list) <a href="https://docs.djangoproject.com/ko/2.2/ref/contrib/admin/">커스터마이징</a>
+## 6. `admin.py` 관리자 변경 목록(change list) <a href="https://docs.djangoproject.com/ko/2.2/ref/contrib/admin/">커스터마이징</a>
 
 ① <font color="red">**`list_display`(가장 중요!)**</font>
 
@@ -241,7 +241,7 @@
 
 <br>
 
-### 7. static file 정의하기
+## 7. static file 정의하기
 
 - django는 기본적으로 app 내부의 static 파일을 찾을 수 있는데, 프로젝트 내부의 static 파일을 찾기 위해 아래와 같이 경로를 작성해야 한다.
 - `STATIC_URL = '/static/'` : 실제 파일이나 딜게토리가 아니고 URL 로만 존재하는 단위
@@ -269,9 +269,9 @@
 
 <br>
 
-### 8. Image Upload & MEDIA
+## 8. Image Upload & MEDIA
 
-#### (1) Image Upload
+### (1) Image Upload
 
 - 이미 테이블이 만들어져 있는 경우 `models.py`에 `image = models.ImageField(blank=True)` 추가
 - `views.py` > `create` 함수 > `image = request.FILES.get('image')` 추가
@@ -287,7 +287,7 @@
 
 <br>
 
-#### (2) MEDIA
+### (2) MEDIA
 
 > `settings.py` (맨 아래에 두 줄 추가)
 >
@@ -321,4 +321,137 @@
 > # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 > ```
 >
-> 
+
+:warning: 문제점 발생-1 : 이미지 수정
+
+- 이미지는 바이너리 데이터라서 텍스트처럼 일부만 수정이 불가능하므로 html input 태그의 value 속성으로 수정하는 것이 아니라 새로운 사진으로 덮어 씌워야 한다.
+- 만약 글만 수정하고 싶다면 이전과 똑같은 이미지를 업로드해야 한다.
+
+:warning: 문제점 발생-2 : ImageField 설정 이전에 작성했던 게시글의 detail 페이지 동작 안 함
+
+- why? `article.imag.url`을 불러오지 못하므로
+
+- 템플릿에서 `{% if %}` 문으로 `article.image`가 존재하는 경우 이미지를 출력하고 없는 경우 대체 이미지를 사용하여 출력한다.
+
+  ```django
+  {% extends 'base.html' %}
+  {% load static %}
+  
+  {% block content %}
+  <h1 class="text-center">DETAIL</h1>
+  {% if article.image %}
+  <img src="{{ article.image.url }}" alt="{{ article.image }}">
+  {% else %}
+  <img src="{% static 'articles/images/no_image.png' %}" alt="no_image">
+  {% endif %}
+  {% endblock %}
+  ```
+
+<br>
+
+### (3) Image Resizing
+
+- 패키지 설치 순서 : <b>`pillow` -> `pilkit` -> `django-imagekit`</b>
+- `pilkit` : `pillow` 를 쉽게 쓸 수 있도록 도와주는 라이브러리
+- `django-imagekit` : 이미지 helper를 제공하는 dango app
+- `settings.py` 에 `django-imagekit` app 등록 => <b>`'imagekit',` 추가</b>
+
+```python
+from imagekit.models import ProcessedImageField, ImageSpecField # (2)
+from imagekit.processors import Thumbnail # (1)
+from django.urls import reverse
+from django.db import models
+
+def articles_image_path(instance, filename): # 이미지 업로드 경로 커스터마이징
+    return f'articles/{instance.pk}/images/{filename}'
+
+# Create your models here.
+class Article(models.Model):
+    title = models.CharField(max_length=20)
+    content = models.TextField()
+    # (2) 원본 O / 썸네일 O
+    # 썸네일을 쓰겠다고 호출하는 순간 썸네일로 저장
+    # 이 때는 image 필드를 다시 추가했으므로 migrations과정을 다시 해야 한다.
+    # image = models.ImageField(blank=True)
+    # image_thumbnail = ImageSpecField( # 처음엔 원본만 만들어주고 썸네일 관련해서 호출할 때만 썸네일로 저장된다.
+    #     source='image', # 원본 ImageField 이름 (upload_to 대신 source를 사용)
+    #     processors=[Thumbnail(200, 300)],
+    #     format='JPEG',
+    #     options={'quality': 90},
+    # )
+
+    # (1) 원본 X / 썸네일 O
+    image = ProcessedImageField(
+        # ProcessedImageField 에 인자로 들어가 있는 값들은 migrations 이후에
+        # 추가되거나 수정되더라도 makemigrations 를 하지 않아도 된다.
+        # Thumbnail : 이미지를 잘라서 저장되는 것이므로 원본 비율을 유지한채 작게 저장하고 싶으면 다른 것을 찾아 써야 한다.
+        processors=[Thumbnail(200, 300)], # processors : 처리할 작업 목록
+        format='JPEG', # 저장 포맷 (JPEG가 퀄리티를 낮췄을 때 이미지가 덜 깨진다.)
+        options={'quality': 90}, # 추가 옵션들
+        upload_to='articles/images', # 저장위치 커스터마이징 - 저장 위치(MEDIA_ROOT/articles/images)
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+```
+
+- `instance.pk` 는 처음 레코드가 작성되는 순간에 pk 값이 없기 때문에 `None` 폴더로 생성된다.
+- `media/articles/None/images` 로 저장이 되어버린다.
+
+<img src="https://user-images.githubusercontent.com/52685250/65299923-7bd62380-dbac-11e9-8c99-84784ac31405.JPG">
+
+- 실제 개발에서는 `instance.pk`로 하지 않고 로그인을 통해 유저 정보를 받고, `instance.user.pk` 또는 `instance.user.username` 처럼 업로드한 유저의 정보로 폴더를 구조화하는 경우가 많다.
+
+<br>
+
+## 9. `is_valid`, `cleaned_data`
+
+:heavy_check_mark: `is_valid`
+
+- <b>Form 객체의 유효성 검사</b>를 하는데 가장 중요한 역할.
+- Form 객체가 생성되면, 유효성 검사를 하고 유효한지 아닌지 여부를 boolean으로 반환.
+- `is_valid`를 수행하면 `form`을 찍었을 때 `valid` 값이 `unknown`에서 `True`로 바뀜을 볼 수 있다.
+
+:heavy_check_mark: `cleaned_data`
+
+- 유효성 검사 후 깔끔하고 정제된 dict 형태에서 데이터를 가져오는 방법.
+
+<br>
+
+## 10. `get_object_or_404`
+
+- 500 에러 페이지 대신에 404 에러 페이지로 표시하기
+
+  ```python
+  from django.http import Http404
+  
+  def detail(request, article_pk):
+      try:
+          article = Article.objects.get(pk=article_pk)
+      except Article.DoesNotExist:
+          raise Http404('No Article matches the given query.')
+      context = {'article': article,}
+      return render(request, 'articles/detail.html', context)
+  ```
+
+  ```python
+  # 이 방법을 이용하자!
+  from django.shortcuts import render, redirect, get_object_or_404
+  
+  def detail(request, article_pk):
+      article = get_object_or_404(Article, pk=article_pk)
+      context = {'article': article,}
+      return render(request, 'articles/detail.html', context)
+  ```
+
+:heavy_check_mark: `get_object_or_404()` / `get_list_or_404()`
+
+- 해당 객체가 있다면 `objects.get()`을 실행하고, 없으면 <b>ObjectDoesNotExist</b>  예외가 아닌 <b>Http404(HttpResponseNotFound)</b> 를 raise를 한다.
+
+:question: 왜 404error 가 나올 상황에 django는 500 error를 발생시켰을까?
+
+- `.get()` 메서드는 조건에 맞는 데이터가 없는 경우에 에러를 나타나게 설계되어있다. <b>코드 단계에서 발생한 에러에 대해서는 브라우저는 500 Internal Server Error</b> 로 인식.
+- <font color="blue">클라이언트 입장에서 `서버에 오류가 발생하여 요청을 수행할 수 없다(500)` 라는 원인이 정확하지 않은 에러를 마주하기 때문에 올바른 에러를 예외 처리하고 발생시키는 것 또한 개발에서 중요한 요소 중 하나이다.</font>
+- 즉, 500 에러가 최대한 안 뜨게 하자!!
+
+<br>

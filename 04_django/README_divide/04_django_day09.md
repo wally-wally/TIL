@@ -49,13 +49,13 @@
 > ```python
 > def create(request):
 >  if request.method == 'POST':
->      title = request.POST.get('title')
->      content = request.POST.get('content')
->      article = Article(title=title, content=content)
->      article.save()
->      return redirect(article)
+>        title = request.POST.get('title')
+>        content = request.POST.get('content')
+>        article = Article(title=title, content=content)
+>        article.save()
+>        return redirect(article)
 >  else:
->      return render(request, 'articles/create.html')
+>        return render(request, 'articles/create.html')
 > ```
 >
 > - `django form`을 사용해서 새로 작성
@@ -63,14 +63,14 @@
 > ```python
 > def create(request):
 >  if request.method == 'POST':
->      form = ArticleForm(request.POST)
->      if form.is_valid():
->          title = form.cleaned_data.get('title')
->          content = form.cleaned_data.get('content')
->          article = Article.objects.create(title=title, content=content)
->          return redirect(article)
+>        form = ArticleForm(request.POST)
+>        if form.is_valid():
+>            title = form.cleaned_data.get('title')
+>            content = form.cleaned_data.get('content')
+>            article = Article.objects.create(title=title, content=content)
+>            return redirect(article)
 >  else:
->      form = ArticleForm()
+>        form = ArticleForm()
 >  context = {'form': form,}
 >  return render(request, 'articles/create.html', context)
 > ```
@@ -81,9 +81,9 @@
 > from django import forms
 > 
 > class ArticleForm(forms.Form):
->  title = forms.CharField(max_length=10)
->  content = forms.CharField()
->  # form 에서는 max_length를 적지 않고 CharField를 선언하면 TextField와 동일하다.
+>      title = forms.CharField(max_length=10)
+>      content = forms.CharField()
+>      # form 에서는 max_length를 적지 않고 CharField를 선언하면 TextField와 동일하다.
 > ```
 
 > `create.html`
@@ -95,18 +95,18 @@
 > {% extends 'articles/base.html' %}
 > 
 > {% block content %}
-> <h1>CREATE</h1>
-> <form action="" method="POST">
->  {% csrf_token %}
->  {{ form.as_p }} <!-- 아래 네 줄을 form.as_p 한 줄로 정리할 수 있다. -->
-> <!--
->  <label for="title">TITLE</label>
->  <input type="text" name="title" id="title"><br>
->  <label for="content">CONTENT</label>
->  <input type="text" name="content" id="content"><br>
-> -->
->  <input type="submit" value="CREATE">
-> </form>
+>   <h1>CREATE</h1>
+>   <form action="" method="POST">
+>      {% csrf_token %}
+>      {{ form.as_p }} <!-- 아래 네 줄을 form.as_p 한 줄로 정리할 수 있다. -->
+>     <!--
+>      <label for="title">TITLE</label>
+>      <input type="text" name="title" id="title"><br>
+>      <label for="content">CONTENT</label>
+>      <input type="text" name="content" id="content"><br>
+>     -->
+>      <input type="submit" value="CREATE">
+>   </form>
 > {% endblock %}
 > ```
 
@@ -206,27 +206,27 @@ Out[13]: '<li><label for="id_title">Title:</label> <input type="text" name="titl
 > from django import forms
 > 
 > class ArticleForm(forms.Form):
->  title = forms.CharField(
->      max_length=10,
->      label='제목',
->      widget=forms.TextInput(
->          attrs={
->              'class': 'my-title',
->              'placeholder': 'Enter the title',
->          }
->      )
->  )
+>    title = forms.CharField(
+>        max_length=10,
+>        label='제목',
+>        widget=forms.TextInput(
+>            attrs={
+>                'class': 'my-title',
+>                'placeholder': 'Enter the title',
+>            }
+>        )
+>    )
 >  content = forms.CharField(
->      label='내용',
->      widget=forms.Textarea(
->          attrs={
->              'class': 'my-content',
->              'placeholder': 'Enter the content',
->              'rows': 5,
->              'cols': 50,
->          }
->      )
->  )
+>        label='내용',
+>        widget=forms.Textarea(
+>            attrs={
+>                'class': 'my-content',
+>                'placeholder': 'Enter the content',
+>                'rows': 5,
+>                'cols': 50,
+>            }
+>        )
+>    )
 > ```
 
 <img src="https://user-images.githubusercontent.com/52685250/65564339-86ffc980-df87-11e9-9d26-140f0216285b.JPG" alt="widget">
@@ -243,9 +243,9 @@ Out[13]: '<li><label for="id_title">Title:</label> <input type="text" name="titl
 >
 > ```python
 > def detail(request, article_pk):
->  article = Article.objects.get(pk=article_pk)
->  context = {'article': article,}
->  return render(request, 'articles/detail.html', context)
+>      article = Article.objects.get(pk=article_pk)
+>      context = {'article': article,}
+>      return render(request, 'articles/detail.html', context)
 > ```
 >
 > - 그래서 404 에러 페이지와 우리가 정한 오류안내 메세지가 나올 수 있게 수정해준다.
@@ -254,12 +254,12 @@ Out[13]: '<li><label for="id_title">Title:</label> <input type="text" name="titl
 > from django.http import Http404
 > 
 > def detail(request, article_pk):
->  try:
->      article = Article.objects.get(pk=article_pk)
->  except Article.DoesNotExist:
->      raise Http404('No Article matches the given query.')
->  context = {'article': article,}
->  return render(request, 'articles/detail.html', context)
+>      try:
+>            article = Article.objects.get(pk=article_pk)
+>      except Article.DoesNotExist:
+>            raise Http404('No Article matches the given query.')
+>      context = {'article': article,}
+>      return render(request, 'articles/detail.html', context)
 > ```
 >
 > - 위와 같이 작성할 수 있지만 `try-except` 구문 대신에 `get_object_or_404` shortcut을 적용하여 아래와 같이 간결하게 작성할 수 있다.
@@ -268,9 +268,9 @@ Out[13]: '<li><label for="id_title">Title:</label> <input type="text" name="titl
 > from django.shortcuts import render, redirect, get_object_or_404
 > 
 > def detail(request, article_pk):
->  article = get_object_or_404(Article, pk=article_pk)
->  context = {'article': article,}
->  return render(request, 'articles/detail.html', context)
+>      article = get_object_or_404(Article, pk=article_pk)
+>      context = {'article': article,}
+>      return render(request, 'articles/detail.html', context)
 > ```
 
 <img src="https://user-images.githubusercontent.com/52685250/65565153-08585b80-df8a-11e9-8c79-477314306957.JPG" alt="404_error">
@@ -283,7 +283,7 @@ Out[13]: '<li><label for="id_title">Title:</label> <input type="text" name="titl
 
 :question: 왜 404error 가 나올 상황에 django는 500 error를 발생시켰을까?
 
-- `.get()` 메서도는 조건에 맞는 데이터가 없는 경우에 에러를 나타나게 설계되어있다. <b>코드 단계에서 발생한 에러에 대해서는 브라우저는 500 Internal Server Error</b> 로 인식.
+- `.get()` 메서드는 조건에 맞는 데이터가 없는 경우에 에러를 나타나게 설계되어있다. <b>코드 단계에서 발생한 에러에 대해서는 브라우저는 500 Internal Server Error</b> 로 인식.
 - <font color="blue">클라이언트 입장에서 `서버에 오류가 발생하여 요청을 수행할 수 없다(500)` 라는 원인이 정확하지 않은 에러를 마주하기 때문에 올바른 에러를 예외 처리하고 발생시키는 것 또한 개발에서 중요한 요소 중 하나이다.</font>
 - 즉, 500 에러가 최대한 안 뜨게 하자!!
 
@@ -299,12 +299,12 @@ Out[13]: '<li><label for="id_title">Title:</label> <input type="text" name="titl
 > from django.shortcuts import render, redirect, get_object_or_404
 > 
 > def delete(request, article_pk):
->  article = get_object_or_404(Article, pk=article_pk)
->  if request.method == 'POST':
->      article.delete()
->      return redirect('articles:index')
->  else:
->      return redirect(article)
+>      article = get_object_or_404(Article, pk=article_pk)
+>      if request.method == 'POST':
+>            article.delete()
+>            return redirect('articles:index')
+>      else:
+>            return redirect(article)
 > ```
 
 > `urls.py`
@@ -315,8 +315,8 @@ Out[13]: '<li><label for="id_title">Title:</label> <input type="text" name="titl
 >
 > ```django
 > <form action="{% url 'articles:delete' article.pk %}" method="POST">
-> {% csrf_token %}
-> <input type="submit" value="DELETE">
+>   {% csrf_token %}
+>   <input type="submit" value="DELETE">
 > </form>
 > ```
 
@@ -333,20 +333,20 @@ Out[13]: '<li><label for="id_title">Title:</label> <input type="text" name="titl
 >
 > ```python
 > def update(request, article_pk):
->  article = get_object_or_404(Article, pk=article_pk)
->  if request.method == 'POST':
->      form = ArticleForm(request.POST) # binding 작업
->      if form.is_valid(): # 유효성 검증
->          article.title = form.cleaned_data.get('title')
->          article.content = form.cleaned_data.get('content')
->          article.save()
->          return redirect(article)
->  else:
->      #form = ArticleForm(initial={'title': article.title, 'content': article.content}) # initial : 기존의 값을 가져온다
->      form = ArticleForm(initial=article.__dict__)
->  context = {'form': form,}
->  return render(request, 'articles/create.html', context)
->  # 서로 form을 쓰므로 create.html을 빌려와서 쓴다.(template은 공유하는 상태)
+>      article = get_object_or_404(Article, pk=article_pk)
+>      if request.method == 'POST':
+>            form = ArticleForm(request.POST) # binding 작업
+>            if form.is_valid(): # 유효성 검증
+>                article.title = form.cleaned_data.get('title')
+>                article.content = form.cleaned_data.get('content')
+>                article.save()
+>                return redirect(article)
+>      else:
+>            #form = ArticleForm(initial={'title': article.title, 'content': article.content}) # initial : 기존의 값을 가져온다
+>            form = ArticleForm(initial=article.__dict__)
+>      context = {'form': form,}
+>      return render(request, 'articles/create.html', context)
+>      # 서로 form을 쓰므로 create.html을 빌려와서 쓴다.(template은 공유하는 상태)
 > ```
 
 ------
@@ -401,13 +401,12 @@ Out[3]:
 > from .models import Article
 > 
 > class ArticleForm(forms.ModelForm):
-> 
->  class Meta:
->      model = Article # 이 모델은 models.py에 만들어놓은 Article에 의해 만들어질꺼라는 의미
->      # fields = ('title', 'content',)
->      fields = '__all__' # 전체 입력 column(field)을 가져온다.
->      # exclude = ('title',) # title를 뺀 field를 사용한다.
-> ```
+>     class Meta:
+>          model = Article # 이 모델은 models.py에 만들어놓은 Article에 의해 만들어질꺼라는 의미
+>            # fields = ('title', 'content',)
+>            fields = '__all__' # 전체 입력 column(field)을 가져온다.
+>            # exclude = ('title',) # title를 뺀 field를 사용한다.
+>    ```
 
 #### (1) form customizing
 
@@ -415,7 +414,6 @@ Out[3]:
 
 ```python
 class ArticleForm(forms.ModelForm):
-
     class Meta:
         model = Article
         fields = '__all__'
@@ -426,7 +424,7 @@ class ArticleForm(forms.ModelForm):
         }
 ```
 
-- widgets을 meta data 밖에서 작성하는 방법(django 공식 문서에서 권장하는 방법)
+- <b>widgets을 meta data 밖에서 작성하는 방법(django 공식 문서에서 권장하는 방법)</b>
 
 ```python
 class ArticleForm(forms.ModelForm):
@@ -466,15 +464,15 @@ class ArticleForm(forms.ModelForm):
 >
 > ```python
 > def create(request):
->  if request.method == 'POST':
->      form = ArticleForm(request.POST)
->      if form.is_valid():
->          article = form.save()
->          return redirect(article)
->  else:
->      form = ArticleForm()
->  context = {'form': form,}
->  return render(request, 'articles/create.html', context)
+>      if request.method == 'POST':
+>          form = ArticleForm(request.POST)
+>          if form.is_valid():
+>              article = form.save()
+>              return redirect(article)
+>      else:
+>            form = ArticleForm()
+>      context = {'form': form,}
+>      return render(request, 'articles/create.html', context)
 > ```
 
 - django modelform을 쓰면 update 구문에서도 편해진다.
@@ -483,16 +481,16 @@ class ArticleForm(forms.ModelForm):
 >
 > ```python
 > def update(request, article_pk):
->  article = get_object_or_404(Article, pk=article_pk)
->  if request.method == 'POST':
->      form = ArticleForm(request.POST, instance=article)
->      if form.is_valid():
->          article = form.save()
->          return redirect(article)
->  else:
->      form = ArticleForm(instance=article)
->  context = {'form': form,}
->  return render(request, 'articles/form.html', context)
+>      article = get_object_or_404(Article, pk=article_pk)
+>      if request.method == 'POST':
+>            form = ArticleForm(request.POST, instance=article)
+>            if form.is_valid():
+>                article = form.save()
+>                return redirect(article)
+>      else:
+>            form = ArticleForm(instance=article)
+>      context = {'form': form,}
+>      return render(request, 'articles/form.html', context)
 > 	# template에서 create.html => form.html로 변경
 > ```
 
@@ -501,7 +499,7 @@ class ArticleForm(forms.ModelForm):
 
 <br>
 
-#### (2) 분기하여 표현하기
+#### (2) 분기하여 표현하기 - `request.resolver_match.url_name`
 
 ------
 
@@ -542,22 +540,22 @@ Out[4]: 'create'
 > {% extends 'articles/base.html' %}
 > 
 > {% block content %}
-> {% if request.resolver_match.url_name == 'create' %}
->  <h1>CREATE</h1>
-> {% else %}
->  <h1>UPDATE</h1>
-> {% endif %}
-> <form action="" method="POST">
->  {% csrf_token %}
->  {{ form.as_p }}
->  <input type="submit" value="CREATE">
-> </form>
-> <hr>
-> {% if request.resolver_match.url_name == 'create' %}
->  <a href="{% url 'articles:index' %}">BACK</a>
-> {% else %}
->  <a href="{{ article.get_absolute_url }}">BACK</a>
-> {% endif %}
+>   {% if request.resolver_match.url_name == 'create' %}
+>      <h1>CREATE</h1>
+>   {% else %}
+>      <h1>UPDATE</h1>
+>   {% endif %}
+>   <form action="" method="POST">
+>      {% csrf_token %}
+>      {{ form.as_p }}
+>      <input type="submit" value="CREATE">
+>   </form>
+>   <hr>
+>   {% if request.resolver_match.url_name == 'create' %}
+>      <a href="{% url 'articles:index' %}">BACK</a>
+>   {% else %}
+>      <a href="{{ article.get_absolute_url }}">BACK</a>
+>   {% endif %}
 > {% endblock %}
 > ```
 
@@ -583,18 +581,18 @@ Out[4]: 'create'
 > <!DOCTYPE html>
 > <html lang="ko">
 > <head>
-> <meta charset="UTF-8">
-> <meta name="viewport" content="width=device-width, initial-scale=1.0">
-> <meta http-equiv="X-UA-Compatible" content="ie=edge">
-> {% bootstrap_css %}
-> <title>Document</title>
+>   <meta charset="UTF-8">
+>   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+>   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+>   {% bootstrap_css %}
+>   <title>Document</title>
 > </head>
 > <body>
-> <div class="container">
->  {% block content %}
->  {% endblock  %}
-> </div>
-> {% bootstrap_javascript jquery='full' %}
+>   <div class="container">
+>      {% block content %}
+>      {% endblock %}
+>   </div>
+>   {% bootstrap_javascript jquery='full' %}
 > </body>
 > </html>
 > ```
@@ -606,25 +604,22 @@ Out[4]: 'create'
 > {% load bootstrap4 %}
 > 
 > {% block content %}
-> {% if request.resolver_match.url_name == 'create' %}
->  <h1>CREATE</h1>
-> {% else %}
->  <h1>UPDATE</h1>
-> {% endif %}
-> <form action="" method="POST">
->  {% csrf_token %}
->  {% bootstrap_form form %} {# 초록색 form은 view에서 넘어온 이름임 => form #}
->  {% buttons %}
->    <button type="submit" class="btn btn-primary">Submit</button>
->  {% endbuttons %}
-> </form>
-> <hr>
-> {% if request.resolver_match.url_name == 'create' %}
->  <a href="{% url 'articles:index' %}">BACK</a>
-> {% else %}
->  <a href="{{ article.get_absolute_url }}">BACK</a>
-> {% endif %}
-> {% endblock %}
+>   {% if request.resolver_match.url_name == 'create' %}
+>      <h1>CREATE</h1>
+>   {% else %}
+>      <h1>UPDATE</h1>
+>   {% endif %}
+>   <form action="" method="POST">
+>      {% csrf_token %}
+>      {% bootstrap_form form %} {# 초록색 form은 view에서 넘어온 이름임 => form #}
+>      {% buttons %}<button type="submit" class="btn btn-primary">Submit</button>{% endbuttons %}
+>      </form>
+>    <hr>
+>   {% if request.resolver_match.url_name == 'create' %}
+>     <a href="{% url 'articles:index' %}">BACK</a>
+>   {% else %}
+>      <a href="{{ article.get_absolute_url }}">BACK</a>
+>   {% endif %}
+>  {% endblock %}
 > ```
 
-<br>

@@ -10,27 +10,27 @@
 >
 > ```python
 > def detail(request, article_pk):
->  article = get_object_or_404(Article, pk=article_pk)
->  comments = article.comment_set.all() # article의 모든 댓글
->  comment_form = CommentForm() # 댓글 form
->  context = {'article': article, 'comment_form': comment_form, 'comments': comments,}
->  return render(request, 'articles/detail.html', context)
+>      article = get_object_or_404(Article, pk=article_pk)
+>      comments = article.comment_set.all() # article의 모든 댓글
+>      comment_form = CommentForm() # 댓글 form
+>      context = {'article': article, 'comment_form': comment_form, 'comments': comments,}
+>      return render(request, 'articles/detail.html', context)
 > 
 > def comments_create(request, article_pk):
->  if request.methdo == 'POST':
->      comment_form = CommentForm(request.POST)
->      if comment_form.is_valid():
->          # commit=False => 객체를 Create 하지만, db에 레코드는 작성하지 않는다.
->          comment = comment_form.save(commit=False)
->          comment.article_id = article_pk
->          comment.save()
->  return redirect('articles:detail', article_pk)
+>      if request.method == 'POST':
+>            comment_form = CommentForm(request.POST)
+>            if comment_form.is_valid():
+>                # commit=False => 객체를 Create 하지만, db에 레코드는 작성하지 않는다.
+>                comment = comment_form.save(commit=False)
+>                comment.article_id = article_pk # article과 comment의 번호를 일치시킨 후
+>                comment.save() # 그 다음에 .save() 메서드를 수행한다.
+>      return redirect('articles:detail', article_pk)
 > 
 > def comments_delete(request, article_pk, comment_pk):
->  if request.method == 'POST':
->      comment = get_object_or_404(Comment, pk=comment_pk)
->      comment.delete()
->  return redirect('articles:detail', article_pk)
+>      if request.method == 'POST':
+>            comment = get_object_or_404(Comment, pk=comment_pk)
+>            comment.delete()
+>      return redirect('articles:detail', article_pk)
 > ```
 
 > `urls.py`
@@ -50,28 +50,27 @@
 > <!-- 댓글 출력 -->
 > <p><b>{{ comments|length }}개의 댓글</b></p>
 > {% for comment in comments %}
-> <div> <!-- <p> 태그 대신 <div> 태그로 해야 한 줄에 delete 버튼과 댓글이 나온다. -->
->  댓글 {{ forloop.revcounter }} : {{ comment.content }}
->  <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST" style="display: inline;">
->    {% csrf_token %}
->    <input type="submit" value="DELETE">
->  </form>
-> </div>
+>   <div> <!-- <p> 태그 대신 <div> 태그로 해야 한 줄에 delete 버튼과 댓글이 나온다. -->
+>    댓글 {{ forloop.revcounter }} : {{ comment.content }}
+>      <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST" style="display: inline;">
+>          {% csrf_token %}
+>          <input type="submit" value="DELETE">
+>      </form>
+>   </div>
 > {% empty %}
-> <p><b>댓글이 없어요...</b></p>
+>   <p><b>댓글이 없어요...</b></p>
 > {% endfor %}
 > ```
 >
 > ```django
 > <!-- 댓글 작성 form -->
 > <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
-> {% csrf_token %}
-> <!-- <label for="content">COMMENT</label>
-> <input type="text" name="content" id="content"> -->
-> {{ comment_form }} <!-- 주석 처리한 위 두줄이 다음과 같이 한 줄로 작성 가능 -->
-> <input type="submit" value="submit">
+>   {% csrf_token %}
+>   <!-- <label for="content">COMMENT</label>
+>   <input type="text" name="content" id="content"> -->
+>   {{ comment_form }} <!-- 주석 처리한 위 두줄이 다음과 같이 한 줄로 작성 가능 -->
+>   <input type="submit" value="submit">
 > </form>
-> 
 > ```
 
 <br>
@@ -96,15 +95,15 @@
 >
 > ```python
 > def hello(func):
->  def wrapper():
->      print('HiHi')
->      func()
->      print('hahahaha')
->  return wrapper
+>      def wrapper():
+>            print('HiHi')
+>            func()
+>            print('hahahaha')
+>      return wrapper
 > 
 > @hello
 > def bye():
->  print('byebye')
+>      print('byebye')
 > 
 > bye()
 > ```
