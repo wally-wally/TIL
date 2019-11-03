@@ -19,7 +19,7 @@
 > {% load static %} <!-- 반드시 extends 밑에 작성해야 한다. -->
 > 
 > {% block content %}
-> <img src="{% static 'articles/images/sea.jpg' %}" alt="sample_img">
+>   <img src="{% static 'articles/images/sea.jpg' %}" alt="sample_img">
 > {% endblock %}
 > ```
 
@@ -32,7 +32,7 @@
 >
 > ```python
 > STATICFILES_DIRS = [
->  os.path.join(BASE_DIR, 'crud', 'assets'),
+>      os.path.join(BASE_DIR, 'crud', 'assets'),
 > ]
 > ```
 >
@@ -50,8 +50,8 @@
 > {% load static %}
 > 
 > {% block content %}
-> <!-- assets 이후의 경로를 써야 이미지 파일을 가져올 수 있다. -->
-> <img src="{% static 'images/apple.png' %}" alt="asset_img">
+>   <!-- assets 이후의 경로를 써야 이미지 파일을 가져올 수 있다. -->
+>   <img src="{% static 'images/apple.png' %}" alt="asset_img">
 > {% endblock %}
 > ```
 
@@ -130,20 +130,20 @@ COMMIT;
 > {% load static %}
 > 
 > {% block content %}
-> <img src="{% static 'images/apple.png' %}" alt="asset_img">
-> <h1 class="text-center">CREATE</h1>
-> <form action="{% url 'articles:create' %}" method="POST" enctype="multipart/form-data">
->  {% csrf_token %}
->  <label for="title">TITLE</label>
->  <input type="text" name="title" id="title" required><br>
->  <label for="content">CONTENT</label>
->  <textarea name="content" id="content" cols="30" rows="5"></textarea><br>
->  <label for="image">IMAGE</label>
->  <!-- 아래 두 줄 추가 -->
->  <!-- accept="image/*"는 시멘틱한 요소로 파일 선택 눌렀을 때 이미지 파일로 바로 연결 할 수 있게 해준다.-->
->  <input type="file" name="image" id="image" accept="image/*">
->  <input type="submit" value="submit">
-> </form>
+>   <img src="{% static 'images/apple.png' %}" alt="asset_img">
+>   <h1 class="text-center">CREATE</h1>
+>   <form action="{% url 'articles:create' %}" method="POST" enctype="multipart/form-data">
+>      {% csrf_token %}
+>      <label for="title">TITLE</label>
+>      <input type="text" name="title" id="title" required><br>
+>      <label for="content">CONTENT</label>
+>      <textarea name="content" id="content" cols="30" rows="5"></textarea><br>
+>      <label for="image">IMAGE</label>
+>      <!-- 아래 두 줄 추가 -->
+>      <!-- accept="image/*"는 시멘틱한 요소로 파일 선택 눌렀을 때 이미지 파일로 바로 연결 할 수 있게 해준다.-->
+>      <input type="file" name="image" id="image" accept="image/*">
+>      <input type="submit" value="submit">
+>   </form>
 > {% endblock %}
 > ```
 
@@ -214,8 +214,8 @@ Out[6]: 'sea.jpg'
 
 > `crud`의 `urls.py`
 >
-> - 첫 번째 인자(settings.MEDIA_URL) : 어떤 url을 정적으로 추가할지 (Media file url)
-> - 두 번째 인자(document_root=) : 실제 해당 미디어 파일이 어디에 존재하는지
+> - 첫 번째 인자(`settings.MEDIA_URL`) : 어떤 url을 정적으로 추가할지 (Media file url)
+> - 두 번째 인자(`document_root=`) : 실제 해당 미디어 파일이 어디에 존재하는지
 >
 > ```python
 > from django.contrib import admin
@@ -224,9 +224,9 @@ Out[6]: 'sea.jpg'
 > from django.conf.urls.static import static
 > 
 > urlpatterns = [
->  path('jobs/', include('jobs.urls')),
->  path('articles/', include('articles.urls')),
->  path('admin/', admin.site.urls),
+>      path('jobs/', include('jobs.urls')),
+>      path('articles/', include('articles.urls')),
+>      path('admin/', admin.site.urls),
 > ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 > 
 > # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
@@ -255,9 +255,9 @@ Out[6]: 'sea.jpg'
 >
 > ```python
 > class ArticleAdmin(admin.ModelAdmin):
->  list_display = ('pk', 'title', 'content', 'image', 'created_at', 'updated_at',)
+>      list_display = ('pk', 'title', 'content', 'image', 'created_at', 'updated_at',)
 > 
-> admin.site.register(Article, ArticleAdmin)
+>     admin.site.register(Article, ArticleAdmin)
 > ```
 
 ------
@@ -279,12 +279,12 @@ Out[6]: 'sea.jpg'
 > {% load static %}
 > 
 > {% block content %}
-> <h1 class="text-center">DETAIL</h1>
-> {% if article.image %}
-> <img src="{{ article.image.url }}" alt="{{ article.image }}">
-> {% else %}
-> <img src="{% static 'articles/images/no_image.png' %}" alt="no_image">
-> {% endif %}
+>   <h1 class="text-center">DETAIL</h1>
+>   {% if article.image %}
+>     <img src="{{ article.image.url }}" alt="{{ article.image }}">
+>   {% else %}
+>     <img src="{% static 'articles/images/no_image.png' %}" alt="no_image">
+>   {% endif %}
 > <!-- 이하 동일 -->
 > ```
 
@@ -295,12 +295,12 @@ Out[6]: 'sea.jpg'
 > {% load static %}
 > 
 > {% block content %}
-> <h1 class="text-center">UPDATE</h1>
-> {% if article.image %}
->  <img src="{{ article.image.url }}" alt="sample">
-> {% else %}
->  <img src="{% static 'articles/images/no_image.png' %}" alt="no_image" width="200px">
-> {% endif %}
+>   <h1 class="text-center">UPDATE</h1>
+>   {% if article.image %}
+>      <img src="{{ article.image.url }}" alt="sample">
+>   {% else %}
+>      <img src="{% static 'articles/images/no_image.png' %}" alt="no_image" width="200px">
+>   {% endif %}
 > <!-- 이하 동일 -->
 > ```
 
@@ -432,12 +432,12 @@ Out[6]: 'sea.jpg'
 > <html lang="ko">
 > 
 > <head>
-> <meta charset="UTF-8">
-> <meta name="viewport" content="width=device-width, initial-scale=1.0">
-> <meta http-equiv="X-UA-Compatible" content="ie=edge">
-> <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+>   <meta charset="UTF-8">
+>   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+>   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+>   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 >  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-> <link rel="shortcut icon" href="{% static 'articles/favicon/notebook.png'%}">
-> <title>Document</title>
+>   <link rel="shortcut icon" href="{% static 'articles/favicon/notebook.png'%}">
+>   <title>Document</title>
 > </head>
 > ```

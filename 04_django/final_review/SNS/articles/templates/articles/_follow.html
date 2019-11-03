@@ -1,0 +1,19 @@
+<table style="border: 2px solid black;">
+  <tr>
+    <td>
+      <h1 class="text-center">{{ person.username }}'s FOLLOW Info</h1>
+      {# person.username 대신에 article.user도 가능#}
+      <hr>
+      <p>팔로워 수: {{ person.followers.all|length }}</p>
+      <p>팔로잉 수: {{ person.followings.all|length }}</p>
+      <hr>
+      {% if request.user != article.user %} {# 요청한 유저와 게시글의 유저가 달라야 팔로우 버튼 보임 #}
+        {% if request.user in person.followers.all %}
+          <a href="{% url 'articles:follow' article.pk person.pk %}">Unfollow</a>
+        {% else %}
+          <a href="{% url 'articles:follow' article.pk person.pk %}">Follow</a>
+        {% endif %}
+      {% endif %}
+    </td>
+  </tr>
+</table>

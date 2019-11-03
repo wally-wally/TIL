@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block content %}
+  <img src="{% static 'images/apple.png' %}" alt="asset_img" width="100px">
+  <h1 class="text-center">INDEX</h1>
+  {% if request.user.is_authenticated %}
+    <a href="{% url 'articles:create' %}">[NEW]</a>
+    <p>당신의 방문 횟수 : <b>{{ visit_num }}</b></p>
+  {% else %}
+    <a href="{% url 'accounts:login' %}">[새 글을 작성하려면 로그인을 하세요]</a>
+  {% endif %}
+  <hr>
+  {% for article in articles %}
+    <p>번호 : {{ article.pk }}</p>
+    <p>제목 : {{ article.title }}</p>
+    <p>작성자 : {{ article.user }}</p>
+    <a href="{{ article.get_absolute_url }}" class="btn btn-primary">DETAIL</a>
+    <p>좋아요 개수 : {{ article.like_users.all|length }}개</p>
+    <a href="{% url 'articles:like' article.pk %}">
+      {% if user in article.like_users.all  %}
+        [좋아요 취소]
+      {% else %}
+        [좋아요]
+      {% endif %}
+    </a>
+    <hr>
+  {% endfor %}
+{% endblock  %}

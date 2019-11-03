@@ -11,13 +11,19 @@
 > - `get_user_model`, `get_object_or_404` import 구문 추가
 >
 > ```python
+> from django.contrib.auth import get_user_model
+> from django.shortcuts import render, redirect, get_object_or_404
+> 
 > def profile(request, username):
->  person = get_object_or_404(get_user_model(), username=username)
->  context = {'person': person,}
->  return render(request, 'accounts/profile.html', context)
+>        person = get_object_or_404(get_user_model(), username=username)
+>        context = {'person': person,}
+>        return render(request, 'accounts/profile.html', context)
 > ```
 
 > `urls.py`
+>
+> - 이 주소는 단순히 username 이라는 str 타입의 변수를 받는 주소이기 때문에 반드시 <b><u>가장 최하단에 작성</u></b>해야 한다.
+> - django 는 url 또한 위에서부터 읽어내려오므로 위 주소가 상단에 있다면 모든 요청이 profile view 로 이어진다.
 >
 > ```python
 > path('<username>/', views.profile, name='profile'),
@@ -116,7 +122,7 @@
 > `settings.py`
 >
 > ```python
-> AUTH_USER_MODEL = 'accounts.User' # 맨 마지막에 추가
+> AUTH_USER_MODEL = 'accounts.User' # 맨 마지막에 추가 / 기본값 : 'auth.User'
 > ```
 
 > `accounts` > `models.py`
@@ -131,8 +137,9 @@
 > from django.conf import settings
 > from django.contrib.auth.models import AbstractUser
 > 
-> class User(AbstractUser):
->  followers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="followings")
+> class User(AbstractUser): # 그냥 User는 빈 클래스이므로 AbstractUser를 import 해준다.
+>        # followers : 내가 팔로우한 사람 / followings : 나를 팔로우하는 사람
+>        followers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="followings")
 > ```
 
 > `accounts` app > `admin.py`
@@ -159,8 +166,24 @@
 
   `auth.User`를 바라보고 있는 것을 `accounts.User`를 바라볼 수 있도록 오버라이드 하게 해 준다.
 
+-  이는 `UserCreationForm()`에 설정된 모델이 장고 기본 내장 `User` 에 연결 되어있어 발생하는 에러이다. (AuthenticationForm, PasswordChangeForm 과 같은 다른 form 들은 AbstractBaseUser 의 하위클래스로 호환되지만, `UserCreationForm()` 과 `UserChangeForm()` 은 별도로 재작성하거나 확장해야 한다.) 
+
   ```python
-  model = get_user_model()
+  # accounts/forms.py
+  
+  from django.contrib.auth.forms import UserChangeForm, UserCreationForm
+  from django.contrib.auth import get_user_model
+  
+  class CustomUserChangeForm(UserChangeForm):
+      class Meta:
+          model = get_user_model() # return User
+          fields = ('email', 'first_name', 'last_name',)
+  
+  class CustomUserCreationForm(UserCreationForm):
+      class Meta(UserCreationForm.Meta):
+          # auth.User를 바라보고 있는 것을 accounts.User를 바라볼 수 있도록 오버라이드 하게 해 줌.
+          model = get_user_model()
+          fields = UserCreationForm.Meta.fields + ('email',)
   ```
 
 <br>
@@ -171,14 +194,15 @@
 >
 > ```python
 > def follow(request, article_pk, user_pk):
->  person = get_object_or_404(get_user_model(), pk=user_pk) # person = 게시글 유저
->  user = request.user # user = 접속 유저
->  # 내(request.user)가 게시글 유저(person) 팔로워 목록에 이미 존재 한다면,
->  if person.followers.filter(pk=user.pk).exists():
->      person.followers.remove(user)
->  else:
->      person.followers.add(user)
->  return redirect('articles:detail', article_pk)
+>        person = get_object_or_404(get_user_model(), pk=user_pk) # person = 게시글 유저
+>        user = request.user # user = 접속 유저
+>        # 내(request.user)가 게시글 유저(person) 팔로워 목록에 이미 존재 한다면,
+>        if person.followers.filter(pk=user.pk).exists():
+>        # if user in person.followers.all():와 같이 작성 가능
+>            person.followers.remove(user)
+>        else:
+>            person.followers.add(user)
+>        return redirect('articles:detail', article_pk)
 > ```
 >
 > `detail` view에 다음 두 줄 구문 추가
@@ -198,21 +222,34 @@
 >
 > ```django
 > <div class="jumbotron text-center">
-> <h1 class="display-4">{{ person.username }}</h1> {# article.user로도 가능하다. #}
-> <p class="lead">
->  팔로잉 : {{ person.followings.all|length }} / 팔로워 : {{ person.followers.all|length }}
-> </p>
-> <hr class="my-4">
-> {% if user != article.user %} {# 요청된 유저가 게시글의 유저랑 달라야 팔로우 기능이 보인다. #}
->  {% if user in person.followers.all %} {# user는 request.user이다. #}
->    <a class="btn btn-primary btn-lg" href="{% url 'articles:follow' article.pk person.pk %}" role="button">Unfollow</a>
->  {% else %}
->    <a class="btn btn-primary btn-lg" href="{% url 'articles:follow' article.pk person.pk %}#" role="button">Follow</a>
->  {% endif %}
-> {% endif %}
-> </div>
+>   <h1 class="display-4">{{ person.username }}</h1> {# article.user로도 가능하다. #}
+>   <p class="lead">팔로잉 : {{ person.followings.all|length }} / 팔로워 : {{ person.followers.all|length }} </p>
+>    <hr class="my-4">
+>   {% if user != article.user %} {# 요청된 유저가 게시글의 유저랑 달라야 팔로우 기능이 보인다. 즉, 자기자신은 follow 할 수 없다. #}
+>     {% if user in person.followers.all %} {# user는 request.user이다. #}
+>       <a class="btn btn-primary btn-lg" href="{% url 'articles:follow' article.pk person.pk %}" role="button">Unfollow</a>
+>      {% else %}
+>          <a class="btn btn-primary btn-lg" href="{% url 'articles:follow' article.pk person.pk %}#" role="button">Follow</a>
+>      {% endif %}
+>      {% endif %}
+>  </div>
 > ```
 
 ![21312321](https://user-images.githubusercontent.com/52685250/67360060-e6112800-f59f-11e9-80ce-17c55a8efe64.JPG)
 
 - 테이블로 직접 확인하면 1번 유저가 3번 유저에게 팔로우를 했다는 것을 볼 수 있다.
+
+- 추가로 실제 view에서도 자신에게 팔로우 할 수 없도록 처리해야 한다.
+
+  ```python
+  @login_required
+  def follow(request, article_pk, user_pk):
+      person = get_object_or_404(get_user_model(), pk=user_pk)
+      user = request.user
+      if person != user: # 이 구문 추가됨
+          if person.followers.filter(pk=user.pk).exists():
+              person.followers.remove(user)
+          else:
+              person.followers.add(user)
+      return redirect('articles:detail', article_pk)
+  ```

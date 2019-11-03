@@ -12,7 +12,7 @@
   - 외래 키는 참조하는 테이블에서 1개의 키(속성 또는 속성의 집합), 참조하는 측의 변수는 참조되는 측의 테이블의 키를 가리킨다.
   - 하나(또는 복수)의 다른 테이블의 기본 키 필드를 가리키는 데이터의 <u>참조 무결성을 확인</u>하기 위하여 사용된다.
 - 특징
-  - 외래 키의 값으로는 부모 테이블에 존재하는 키의 값만 넣을 수 있다.
+  - 외래 키의 값으로는 <b>부모 테이블에 존재하는 키의 값만</b> 넣을 수 있다.
   - 외래 키를 사용하여 부모 테이블의 유일한 값을 참조한다.(부모 테이블의 기본 키)
 
 <br>
@@ -33,9 +33,9 @@
 
 #### (3) Relationship Fields
 
-- ForeignKey - 1 : N 관계에서 사용
-- ManyToManyField - M : N 관계에서 성립
-- OneToOneField - 1 : 1 관계에서 성립 (ex. 내 프로필 페이지 / 잘 사용하지 않는 관계)
+- `ForeignKey` - `1 : N 관계`에서 사용
+- `ManyToManyField` - `M : N 관계`에서 성립
+- `OneToOneField` - `1 : 1 관계`에서 성립 (ex. 내 프로필 페이지 / 잘 사용하지 않는 관계)
 
 <br>
 
@@ -62,16 +62,16 @@ class Meta:
 >
 > ```python
 > class Comment(models.Model):
->  article = models.ForeignKey(Article, on_delete=models.CASCADE)
->  content = models.CharField(max_length=200)
->  created_at = models.DateTimeField(auto_now_add=True)
->  updated_at = models.DateTimeField(auto_now=True)
+>      article = models.ForeignKey(Article, on_delete=models.CASCADE)
+>      content = models.CharField(max_length=200)
+>      created_at = models.DateTimeField(auto_now_add=True)
+>      updated_at = models.DateTimeField(auto_now=True)
 > 
 >  class Meta:
->      ordering = ['-pk'] # 이렇게 model에서 선언하면 views.py에서 ordey_by('-pk') 안 쓰고 .all()로 가져와도 역순으로 출력할 수 있다.
+>        ordering = ['-pk'] # 이렇게 model에서 선언하면 views.py에서 ordey_by('-pk') 안 쓰고 .all()로 가져와도 역순으로 출력할 수 있다.
 > 
 >  def __str__(self):
->      return self.content
+>        return self.content
 > ```
 
 ```sql

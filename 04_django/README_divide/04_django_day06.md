@@ -131,8 +131,8 @@
 
 #### (1) HTTP의 속성
 
-- 비연결성(Connectionless) : 클라이언트와 서버가 한 번 연결을 맺은 후, 클라이언트 요청에 대해 서버가 응답을 마치면 맺었던 연결을 끊어버리는 성질
-- 무상태(Stateless) : Connectionless로 인해 서버는 클라이언트를 식별할 수가 없는데, 이를 Stateless라고 함
+- `비연결성(Connectionless)` : 클라이언트와 서버가 한 번 연결을 맺은 후, 클라이언트 요청에 대해 서버가 응답을 마치면 맺었던 연결을 끊어버리는 성질
+- `무상태(Stateless)` : Connectionless로 인해 서버는 클라이언트를 식별할 수가 없는데, 이를 Stateless라고 함
   - 매번 새로운 인증을 해야하는 번거로움이 발생하는데 이를 해결하기 위해 상태를 기억하는 방법 중 `쿠키`와 `세션`이 있다.
 
 <br>
@@ -228,16 +228,16 @@
 >
 > ```python
 > def create(request):
->  # CREATE 동작
->  if request.method == 'POST': 
->      title = request.POST.get('title')
->      content = request.POST.get('content')
->      article = Article(title=title, content=content)
->      article.save()
->      return redirect('articles:detail', article.pk)
->  # NEW 동작
->  else:
->      return render(request, 'articles/new.html')
+>      # CREATE 동작
+>      if request.method == 'POST': 
+>            title = request.POST.get('title')
+>            content = request.POST.get('content')
+>            article = Article(title=title, content=content)
+>            article.save()
+>            return redirect('articles:detail', article.pk)
+>      # NEW 동작
+>      else:
+>            return render(request, 'articles/new.html')
 > ```
 
 > `urls.py` 에서 `new` 구문 제거
@@ -252,15 +252,15 @@
 > {% extends 'base.html' %}
 > 
 > {% block content %}
-> <h1 class="text-center">CREATE</h1>
-> <form action="{% url 'articles:create' %}" method="POST">
->  {% csrf_token %}
->  <label for="title">TITLE</label>
->  <input type="text" name="title" id="title"><br>
->  <label for="content">CONTENT</label>
->  <textarea name="content" id="content" cols="30" rows="5"></textarea><br>
->  <input type="submit" value="submit">
-> </form>
+>   <h1 class="text-center">CREATE</h1>
+>   <form action="{% url 'articles:create' %}" method="POST">
+>      {% csrf_token %}
+>      <label for="title">TITLE</label>
+>      <input type="text" name="title" id="title"><br>
+>      <label for="content">CONTENT</label>
+>      <textarea name="content" id="content" cols="30" rows="5"></textarea><br>
+>      <input type="submit" value="submit">
+>   </form>
 > {% endblock %}
 > ```
 
@@ -272,12 +272,12 @@
 >
 > ```python
 > def delete(request, pk):
->  article = Article.objects.get(pk=pk)
->  if request.method == 'POST':
->      article.delete()
->      return redirect('articles:index')
->  else:
->      return redirect('articles:detail', article.pk)
+>      article = Article.objects.get(pk=pk)
+>      if request.method == 'POST':
+>            article.delete()
+>            return redirect('articles:index')
+>      else:
+>            return redirect('articles:detail', article.pk)
 > ```
 
 > `detail.html`
@@ -327,21 +327,21 @@
 > from django.db import models
 > 
 > class Article(models.Model):
->  title = models.CharField(max_length=20)
->  content = models.TextField()
->  created_at = models.DateTimeField(auto_now_add=True)
->  updated_at = models.DateTimeField(auto_now=True)
+>      title = models.CharField(max_length=20)
+>      content = models.TextField()
+>      created_at = models.DateTimeField(auto_now_add=True)
+>      updated_at = models.DateTimeField(auto_now=True)
 > 
->  def __str__(self):
->      return self.title
+>      def __str__(self):
+>            return self.title
 > 
->  def get_absolute_url(self):
->      # return f'/articles/{self.pk}/'
->      # args는 리스트로 넣는다.
->      # kwargs는 딕셔너리로 넣는다.
->      # return reverse('articles:detail', args=[self.pk])
->      return reverse('articles:detail', kwargs={'pk': self.pk})
->      # 딕셔너리의 key는 views.py의 detail 함수의 pk이다.
+>      def get_absolute_url(self):
+>            # return f'/articles/{self.pk}/'
+>            # args는 리스트로 넣는다.
+>            # kwargs는 딕셔너리로 넣는다.
+>            # return reverse('articles:detail', args=[self.pk])
+>            return reverse('articles:detail', kwargs={'pk': self.pk})
+>            # 딕셔너리의 key는 views.py의 detail 함수의 pk이다.
 > ```
 
 ------

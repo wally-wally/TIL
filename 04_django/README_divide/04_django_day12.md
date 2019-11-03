@@ -185,15 +185,15 @@
 >
 > ```django
 > {% if user.is_authenticated %}
->   <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
->     {% csrf_token %}
->     {{ comment_form }}
->     <input type="submit" value="submit">
->   </form>
->   <hr>
+>     <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
+>        {% csrf_token %}
+>        {{ comment_form }}
+>        <input type="submit" value="submit">
+>     </form>
+>     <hr>
 > {% else %}
->   <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요]</a>
->   <hr>
+>     <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요]</a>
+>     <hr>
 > {% endif %}
 > ```
 
@@ -205,10 +205,10 @@
 >
 > ```html
 > {% if request.user == comment.user %}
->   <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST" style="display: inline;">
->     {% csrf_token %}
->     <input type="submit" value="DELETE">
->   </form>
+>     <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST" style="display: inline;">
+>        {% csrf_token %}
+>        <input type="submit" value="DELETE">
+>     </form>
 > {% endif %}
 > ```
 
@@ -217,13 +217,12 @@
 > ```python
 > @require_POST
 > def comments_delete(request, article_pk, comment_pk):
->     if request.user.is_authenticated:
->         comment = get_object_or_404(Comment, pk=comment_pk)
->         if request.user == comment.user: # 이 조건 추가됨
->             comment.delete()
->         return redirect('articles:detail', article_pk)
->     return HttpResponse('You are Unauthorized', status=401)
-> ```
+>        if request.user.is_authenticated:
+>            comment = get_object_or_404(Comment, pk=comment_pk)
+>            if request.user == comment.user: # 이 조건 추가됨
+>                comment.delete()
+>        return redirect('articles:detail', article_pk)
+>    ```
 
 <br>
 
@@ -237,8 +236,8 @@
 > from django.contrib.auth.forms import UserCreationForm
 > 
 > class CustomUserCreationForm(UserCreationForm):
->     class Meta(UserCreationForm.Meta):
->         fields = UserCreationForm.Meta.fields + ('email',)
+>        class Meta(UserCreationForm.Meta):
+>            fields = UserCreationForm.Meta.fields + ('email',) # Django signup email 필드 추가
 > ```
 
 > `signup` view
@@ -254,16 +253,16 @@
 > import hashlib
 > 
 > def index(request):
->     if request.user.is_authenticated:
->         gravatar_url = hashlib.md5(request.user.email.encode('utf-8').lower().strip()).hexdigest()
->     else:
->         gravatar_url = None
->     visits_num = request.session.get('visits_num', 0)
->     request.session['visits_num'] = visits_num + 1
->     request.session.modified = True
->     articles = Article.objects.all()
->     context = {'articles': articles, 'visits_num': visits_num, 'gravatar_url': gravatar_url,}
->     return render(request, 'articles/index.html', context)
+>        if request.user.is_authenticated:
+>            gravatar_url = hashlib.md5(request.user.email.encode('utf-8').lower().strip()).hexdigest()
+>        else:
+>            gravatar_url = None # 변수 선언은 해야 하니까 None으로 처리.
+>        visits_num = request.session.get('visits_num', 0)
+>        request.session['visits_num'] = visits_num + 1
+>        request.session.modified = True
+>        articles = Article.objects.all()
+>        context = {'articles': articles, 'visits_num': visits_num, 'gravatar_url': gravatar_url,}
+>        return render(request, 'articles/index.html', context)
 > ```
 
 > `base.html` (구문 추가)
@@ -274,7 +273,7 @@
 
 <br>
 
-#### (2) Custom template tags and filters <a href="https://docs.djangoproject.com/en/2.2/howto/custom-template-tags/" target="_blank">(django custome template tag 공식 문서)</a>
+#### (2) Custom template tags and filters <a href="https://docs.djangoproject.com/en/2.2/howto/custom-template-tags/" target="_blank">(django custom template tag 공식 문서)</a>
 
 :heavy_check_mark: <b><u>모든 페이지에서 이미지가 나오도록 수정한다.</u></b>
 
@@ -292,10 +291,12 @@
 > 
 > @register.filter # 기존의 템플릿 라이브러리에 아래의 함수(custom filter)가 추가된다는 의미인 decorator
 > def makemd5(email): # {{ email | ssafy }} 와 같은 경우 필터 앞에 있는 왼쪽에 있는 값
->     return hashlib.md5(email.encode('utf-8').lower().strip()).hexdigest()
+>        return hashlib.md5(email.encode('utf-8').lower().strip()).hexdigest()
 > ```
 
 > `base.html`
+>
+> - load 는 폴더에 생성한 python 파일명이며, filter에 쓰이는 것(`makemd5`)은 함수명이다. 
 >
 > ```django
 > {% load gravatar %} <!-- 가장 맨 위에 코드 추가 -->
@@ -305,12 +306,23 @@
 
 > `index` view
 >
-> - (2)에서 새로 작성했던 코드가 굳이 있을 필요가 없다.
+> - (1)에서 새로 작성했던 코드가 굳이 있을 필요가 없다.
 > - django custom template tag를 사용했기 때문이다.
+>
+> ```python
+> # import hashlib 도 삭제
+> 
+> def index(request):
+>     articles = Article.objects.all()
+>     visits_num = request.session.get('visits_num', 0)
+>     request.session['visits_num'] = visits_num + 1
+>     context = {'articles': articles, 'visits_num': visits_num,}
+>     return render(request, 'articles/index.html', context)
+> ```
 
 <br>
 
-### 12.4 Model relationships(M : N) - `05_model_relation`
+### 12.4 Model relationships(M : N) - `05_model_relation` <a href="https://docs.djangoproject.com/en/2.2/topics/db/examples/many_to_many/#many-to-many-relationships" target="_blank">(M : N 공식 문서)</a>
 
 ---
 
@@ -345,7 +357,9 @@
           return f'{self.pk}번 환자 {self.name}'
   ```
 
-#### (1) 1:N의 한계 (shell_plus로 객체 생성 후 확인)
+#### (1) 1:N의 한계
+
+- shell_plus로 객체 생성 후 확인
 
 - 불필요한 필드(같은 환자 이름을 가진 필드)를 또 만들어야 하는 문제점이 발생한다.
 
@@ -453,7 +467,7 @@ harry
 
 > `shell_plus`
 >
-> ```shell
+> ```bash
 > In [1]: patient1 = Patient.objects.get(pk=1)
 > 
 > In [2]: patient1
@@ -578,26 +592,27 @@ harry
 > # blank=True : 이미 만들어진 필드에 대해서는 빈 값(빈 string)도 허용된다고 설정 (null=True 하고는 다른 개념)
 > ```
 >
-> - `articles_article_like_user`라는 테이블이 생성됨(좋아요를 누를 때마다 데이터가 이 곳에 저장됨)
+> - `articles_article`테이블에 새로운 컬럼이 생기는 것이 아니라 `articles_article_like_users`라는 테이블이 생성됨(좋아요를 누를 때마다 데이터가 이 곳에 저장됨)
+> - 여기서 `articles_article_like_users`는 두 테이블 간의 M:N 관계를 나타내주는 중개 모델이 된다.
 
 > `articles` app > `views.py` > `like` view 새로 생성
 >
 > ```python
 > def like(request, article_pk):
->     article = get_object_or_404(Article, pk=article_pk)
->     # 해당 게시글에 좋아요를 누른 사람들 중에서 현재 접속유저가 있다면 좋아요를 취소
->     if article.like_users.filter(pk=request.user.pk).exists():
->     # .get()은 없을 때 오류가 발생하므로
->     # 키가 없어도 오류(DoesNotExistError) 발생을 막기 위해 .filter()를 사용한다.
->         article.like_users.remove(request.user)
->     else:
->         article.like_users.add(request.user)
->     # 위와 아래와 같은 구문임(어느 것을 써도 무방하다)
->     # if request.user in article.like_users.all():
->     #     article.like_users.remove(request.user) # 좋아요 취소
->     # else:
->     #     article.like_users.add(request.user) # 좋아요 선택
->     return redirect('articles:index')
+>        article = get_object_or_404(Article, pk=article_pk)
+>        # 해당 게시글에 좋아요를 누른 사람들 중에서 현재 접속유저가 있다면 좋아요를 취소
+>        if article.like_users.filter(pk=request.user.pk).exists():
+>        # .get()은 없을 때 오류가 발생하므로
+>        # 키가 없어도 오류(DoesNotExistError) 발생을 막기 위해 .filter()를 사용한다.
+>            article.like_users.remove(request.user)
+>        else:
+>            article.like_users.add(request.user)
+>        # 위와 아래와 같은 구문임(어느 것을 써도 무방하다)
+>        # if request.user in article.like_users.all():
+>        #     article.like_users.remove(request.user) # 좋아요 취소
+>        # else:
+>        #     article.like_users.add(request.user) # 좋아요 선택
+>        return redirect('articles:index')
 > ```
 
 > `urls.py`
@@ -610,11 +625,11 @@ harry
 >
 > ```django
 > <a href="{% url 'articles:like' article.pk %}">
->   {% if user in article.like_users.all %}
->     <i class="fas fa-heart" style="color: crimson;"></i>
->   {% else %}
->     <i class="fas fa-heart" style="color: black;"></i>
->   {% endif %}
+>     {% if user in article.like_users.all %}
+>        <i class="fas fa-heart" style="color: crimson;"></i>
+>     {% else %}
+>        <i class="fas fa-heart" style="color: black;"></i>
+>     {% endif %}
 > </a>
 > <p>{{ article.like_users.all|length }}명이 이 글을 좋아합니다.</p>
 > ```
@@ -629,7 +644,7 @@ harry
 >
 > ```django
 > {% for article in articles %}
->   {% include 'articles/_article.html' %}
+>     {% include 'articles/_article.html' %}
 > {% endfor %}
 > ```
 

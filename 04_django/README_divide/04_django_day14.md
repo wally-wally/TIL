@@ -16,11 +16,11 @@
 >
 > ```python
 > class Hashtag(models.Model):
->     content = models.TextField(unique=True)
->     # unique=True : 해시태그 하나하나가 고유의 값을 가져야 한다.(같은 해시태그가 따로 또 저장되면 안 된다.)
+>        content = models.TextField(unique=True)
+>        # unique=True : 해시태그 하나하나가 고유의 값을 가져야 한다.(같은 해시태그가 따로 또 저장되면 안 된다.)
 > 
->     def __str__(self):
->         return self.content
+>        def __str__(self):
+>            return self.content
 > ```
 >
 > ```python
@@ -33,7 +33,7 @@
 > from .models import Article, Comment, Hashtag
 > 
 > class HashtagAdmin(admin.ModelAdmin):
->     list_display = ('content',)
+>        list_display = ('content',)
 > 
 > admin.site.register(Hashtag, HashtagAdmin)
 > ```
@@ -48,25 +48,33 @@
 >
 > - `words = ['#안녕', '하세요', '#저는', '#누구', '입니다']`
 >
->   ```python
->   # Pesudo Code
->   for word in words:
->       if word.startswith('#'):
->           # get_or_create를 사용해서 이미 객체가 있으면 저장 안하고(.get이 실행 ) 없으면 저장(.create가 실행)한다.
->           # .get_or_create()는 튜플 형태로 나오므로 아래와 같이 두 개의 변수에 저장한다.(created는 True, False 형태로 출력된다.)
->           hashtag, created = Hashtag.objects.get_or_create(content=word)
->           article.hashtags.add(hashtag) # 해시태그 저장
->   return redirect(detail)
->   ```
+> ```python
+> # Pesudo Code
+> for word in words:
+>    if word.startswith('#'):
+>        # get_or_create를 사용해서 이미 객체가 있으면 저장 안하고(.get이 실행 ) 없으면 저장(.create가 실행)한다.
+>        # .get_or_create()는 튜플 형태로 나오므로 아래와 같이 두 개의 변수에 저장한다.(created는 True, False 형태로 출력된다.)
+>        hashtag, created = Hashtag.objects.get_or_create(content=word)
+>        article.hashtags.add(hashtag) # 해시태그 저장
+> return redirect(detail)
+> ```
 >
 > ```python
-> from .models import Article, Comment, Hashtag
-> 
-> # article.save() 이후에 작성
-> for word in article.content.split(): # content를 공백 기준으로 리스트로 변경
->     if word.startswith('#'): # '#'으로 시작되는 요소만 선택
->         hashtag, created = Hashtag.objects.get_or_create(content=word)
->         article.hashtags.add(hashtag)
+> @login_required
+> def create(request):
+>     if request.method == 'POST':
+>         form = ArticleForm(request.POST)
+>         if form.is_valid():
+>             article = form.save(commit=False)
+>             article.user = request.user
+>             article.save()
+>             # article.save() 이후에 hashtag 기능을 작성해야 한다.
+>             for word in article.content.split(): # content를 공백 기준으로 리스트로 변경
+>                 if word.startswith('#'): # '#'으로 시작되는 요소만 선택
+>                     hashtag, created = Hashtag.objects.get_or_create(content=word)
+>                     article.hashtags.add(hashtag)
+> # created를 사용하지 않았다면(hashtag = Hashtag.objects.get_or_create(content=word)), article.hashtags.add(hashtag[0])과 같이 작성.
+>             return redirect(article)
 > ```
 
 ---
@@ -74,6 +82,7 @@
 :heavy_check_mark: <b>수정할 때 주의사항</b>
 
 - 수정될 때는 게시글의 <b>hashtag 전체를 삭제한 후 다시 등록하는 과정</b>이 필요하다!
+- 기존 해시태그가 수정되었는지도 판단해야 하기 때문이다.
 
 ---
 
@@ -87,23 +96,22 @@
 > article.hashtags.clear() # 해당 article의 hashtag 전체 삭제(이 구문만 추가됨)
 > # for문은 create 작성할 때와 동일
 > for word in article.content.split():
->     if word.startswith('#'):
->         hashtag, created = Hashtag.objects.get_or_create(content=word)
->         article.hashtags.add(hashtag)
+>        if word.startswith('#'):
+>            hashtag, created = Hashtag.objects.get_or_create(content=word)
+>            article.hashtags.add(hashtag)
 > ```
 
 <br>
 
-#### (2) `get_or_create` <a href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#get-or-create" target="_blank">(공식문서)</a>
+#### (2) `get_or_create` - `get_or_create(defaults=None, **kwargs)` <a href="https://docs.djangoproject.com/en/2.2/ref/models/querysets/#get-or-create" target="_blank">(공식문서)</a>
 
-- `get_or_create(defaults=None, **kwargs)`
-
-  - 주어진 kwargs로 객체를 찾으며 필요한 경우 하나를 만든다.
-  - `(object, created)` 형태의 tuple을 return 한다.
-    - `object` : 검색 또는 생성된 객체
-    - `created` : 새 객체 생성 여부를 지정하는 boolean 값(새로 만들어진 object 라면 True, 기존에 존재하던 object 라면 False)
-  - 단, 이 메서드는 DB가 키워드 인자의 `unique` 옵션을 강제하고 있다고 가정하고 실행된다.
-    - 중복 object 발생하는 것을 방지하기 위해
+- <b>QuerySets을 return 하지 않는 메서드 중 하나!</b>
+- 주어진 kwargs로 객체를 찾으며 필요한 경우 하나를 만든다.
+- `(object, created)` 형태의 tuple을 return 한다.
+  - `object` : 검색 또는 생성된 객체
+  - `created` : 새 객체 생성 여부를 지정하는 boolean 값(새로 만들어진 object 라면 True, 기존에 존재하던 object 라면 False)
+- <b>단, 이 메서드는 DB가 키워드 인자의 `unique` 옵션을 강제하고 있다고 가정하고 실행된다.</b>
+  - 중복 object 발생하는 것을 방지하기 위해
 
   - 이는 요청이 병렬로 작성될 때(`try ~ except DoesNotExist`) 및 중복 코드에 대한 문제 방지로 중복 오브젝트가 작성되는 것을 예방한다.
 
@@ -111,23 +119,25 @@
 
 #### (3) `unique` 속성 <a href="https://docs.djangoproject.com/en/2.2/ref/models/fields/#unique" target="_blank">(공식 문서)</a>
 
-- True인 경우 이 필드는 테이블 전체에서 고유한 값이어야 한다.
+- True인 경우 이 필드는 <b>테이블 전체에서 고유한 값</b>이어야 한다.
 - 유효성 검사(`is_valid`)단계에서 실행되며 중복 값이 있는 모델을 저장하려고 하면 `.save()` 메서드로 인해 `IntegrityError`가 발생한다.
 
-- ManyToManyField 및 OneToOneField 를 제외한 모든 필드 유형에서 유효하다.
+- <b>ManyToManyField 및 OneToOneField 를 제외</b>한 모든 필드 유형에서 유효하다.
 
 <br>
 
 #### (4) 해시태그 기능 구현 ② - 해시태그 모아보기, 해시태그 선택시 상세페이지 이동
 
+:heavy_check_mark: <b>해시태그 모아보기</b>
+
 > `articles` app > `hashtag` view 생성
 >
 > ```python
 > def hashtag(request, hash_pk):
->     hashtag = get_object_or_404(Hashtag, pk=hash_pk)
->     articles = hashtag.article_set.order_by('-pk')
->     context = {'hashtag': hashtag, 'articles': articles,}
->     return render(request, 'articles/hashtag.html', context)
+>        hashtag = get_object_or_404(Hashtag, pk=hash_pk)
+>        articles = hashtag.article_set.order_by('-pk')
+>        context = {'hashtag': hashtag, 'articles': articles,}
+>        return render(request, 'articles/hashtag.html', context)
 > ```
 
 > `urls.py`
@@ -184,17 +194,17 @@
 > 
 > @register.filter
 > def hashtag_link(word):
->     # word 는 article 객체가 들어갈건데
->     # article 의 content 들만 모두 가져와서 그 중 해시태그에만 링크를 붙인다.
->     content = word.content + ' '
->     hashtags = word.hashtags.all()
+>        # word 는 article 객체가 들어갈건데
+>        # article 의 content 들만 모두 가져와서 그 중 해시태그에만 링크를 붙인다.
+>        content = word.content + ' '
+>        hashtags = word.hashtags.all()
 > 
->     for hashtag in hashtags:
->         content = content.replace(hashtag.content + ' ', f'<a href="/articles/{hashtag.pk}/hashtag/">{hashtag.content}</a> ')
->         # a 태그 작성시 </a> 뒤에 공백 한 칸 반드시 있어야 한다!
->         # 공백이 없으면 모든 게시글들이 다 붙는다.
+>        for hashtag in hashtags:
+>            content = content.replace(hashtag.content + ' ', f'<a href="/articles/{hashtag.pk}/hashtag/">{hashtag.content}</a> ')
+>            # a 태그 작성시 </a> 뒤에 공백 한 칸 반드시 있어야 한다!
+>            # 공백이 없으면 모든 게시글들이 다 붙는다.
 >         
->     return content
+>        return content
 > ```
 
 > `detail.html` 내용 부분 수정
@@ -208,6 +218,7 @@
 > :ballot_box_with_check: `after` <a href="https://stackoverflow.com/questions/2080559/disable-html-escaping-in-djangos-textfield" target="_blank">(참고 문서)</a> <a href="https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#safe" target="_blank">(공식 문서)</a>
 >
 > - django는 자동으로 autoescape 기능이 켜져 있으므로 `safe` filter를 이용하여 autoescape 기능을 꺼야 한다.
+> - 현재 우리 코드에서는 `hashtag_link(article)` 로 동작하게 된다. 
 >
 > ```django
 > {% load make_link %} <!-- 상단에 load 구문 작성 -->
@@ -229,9 +240,29 @@
 
 - <b>[STEP1] 설치 및 세팅</b>
   - django allauth 공식문서에 나와 있는 순서대로 django-allauth 설치,  `settings.py`, `urls.py`에 추가할 내용 작성, migrate 과정을 진행한다.
+  
+- `settings.py`에서 `SITE_ID = 1`을 넣어야 하는 이유
+  
+    - `django.contrib.sites` 앱을 설치하고 처음으로 레코드를 추가하면 PK가 1이기 때문이다. 해당 PK 값을 변경하면 그에 맞춰 수정을 해야 한다.
+  
   - <b>[주의!] `urls.py` 작성시 `path('accounts/', include('allauth.urls')),`를 기존에 있는 `accouts` url 구문 밑에 넣자.</b>
-
-- <b>[STEP2] 플랫폼 추가</b>
+  
+    ```python
+    # myform/urls.py
+    
+    from django.contrib import admin
+    from django.urls import path, include
+    
+    urlpatterns = [
+        path('accounts/', include('accounts.urls')),
+        # accounts보다 allauth를 밑에 작성해야 한다.
+        path('accounts/', include('allauth.urls')),
+        path('articles/', include('articles.urls')),
+        path('admin/', admin.site.urls),
+    ]
+    ```
+  
+- <b>[STEP2] 플랫폼 추가</b> <a href="https://developers.kakao.com/" target="_blank">(카카오 개발자센터로 이동)</a>
 
   ![003](https://user-images.githubusercontent.com/52685250/67449474-431ae580-f655-11e9-9115-42f981403c78.JPG)
 
@@ -242,8 +273,9 @@
 
   ![004](https://user-images.githubusercontent.com/52685250/67449475-431ae580-f655-11e9-999c-73618f633c86.JPG)
 
-  - 설정 > 사용자 관리 > 카카오계정(이메일) ON 상태로 전환
+  - 설정 > 사용자 관리 > <b>프로필 정보, 카카오계정(이메일) ON 상태로 전환</b>
   - 이때 반드시 프로필 정보, 카카오계정의 <b>수집목적을 작성</b>(아무거나 작성해도 됨)
+  - 하나라도 배먹으면 Keyerror 오류 발생하므로 주의할 것
   - 작성 후 저장
 
 - <b>[STEP4] 로그인 Redirect URI 등록</b>
@@ -251,7 +283,9 @@
   ![005](https://user-images.githubusercontent.com/52685250/67449476-431ae580-f655-11e9-8f0f-2503afbd5206.JPG)
 
   - <b>django-allauth 공식 홈페이지</b>에 `kakao`라고 검색한 후 맨 위에 나오는 페이지에 들어간다. <a href=" https://django-allauth.readthedocs.io/en/latest/providers.html#kakao" target="_blank">(바로 이동)</a>
-  - callback URL(` http://localhost:8000/accounts/kakao/login/callback/ `)을 복사하여 로그인 Redirect URI에 붙여넣고 저장한다.
+  - callback URL(` http://localhost:8000/accounts/kakao/login/callback/ `)을 복사
+  - 로그인 Redirect URI에 붙여넣고 `localhost` 대신에 `127.0.0.1`로 반드시 변경해야 한다.
+    - localhost 로 작성시 인식하지 않기 때문이다. 
 
 - <b>[STEP5] Client ID, Secret Key를 Django admin(소셜 어플리케이션)에 등록</b>
 
@@ -263,6 +297,7 @@
   - 발급받은 Client ID, Secret Key를 django admin 페이지의 소셜 계정 > 소셜 어플리케이션에 위 사진과 같이 추가 및 작성 후 저장한다.
     - 이 때 제공자에 `kakao`는 자동으로 보인다.
     - 이름은 아무거나 작성해도 된다.
+    - 키는 생략한다.
     - Sites에서 왼쪽에 있던 example.com은 오른쪽으로 넘겨준다.
 
 <br>
@@ -282,6 +317,8 @@
 
 > `login.html`
 >
+> - 기존에 `auth_form.html` 에서 로그인 부분만 따로 떼서 `login.html`을 만든다.
+>
 > ```django
 > {% extends 'articles/base.html' %}
 > {% load bootstrap4 %}
@@ -291,8 +328,8 @@
 >   <h1>로그인</h1>
 >   <form action="" method="POST">
 >     {% csrf_token %}
->     {% bootstrap_form form %}
->     {% buttons submit='로그인' reset="Cancel" %}{% endbuttons %}
+>    {% bootstrap_form form %}
+>    {% buttons submit='로그인' reset="Cancel" %}{% endbuttons %}
 >   </form>
 >   <a class="btn btn-warning" href="{% provider_login_url "kakao" %}">KAKAO</a>
 > {% endblock  %}
@@ -303,7 +340,7 @@
 > ```python
 > # LOGIN_REDIRECT_URL = '/accounts/profile/'
 > # 위의 값이 기본값으로 숨겨져 있어서 처음에 카카오 로그인하면 Page Not Found 오류가 떴음
-> # 아래와 같이 구문 추가
+> # 아래와 같이 구문 추가하여 경로를 메인페이지로 변경
 > LOGIN_REDIRECT_URL = 'articles:index'
 > ```
 

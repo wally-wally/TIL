@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<django-objects version="1.0">
+  <object model="articles.hashtag" pk="1">
+    <field name="content" type="TextField">#조아요</field>
+  </object>
+  <object model="articles.hashtag" pk="2">
+    <field name="content" type="TextField">#새로운</field>
+  </object>
+  <object model="articles.hashtag" pk="3">
+    <field name="content" type="TextField">#작성합니다</field>
+  </object>
+  <object model="articles.article" pk="1">
+    <field name="title" type="CharField">제목1</field>
+    <field name="content" type="TextField">내용1</field>
+    <field name="created_at" type="DateTimeField">2019-11-03T03:46:55.169826+00:00</field>
+    <field name="updated_at" type="DateTimeField">2019-11-03T03:46:55.169826+00:00</field>
+    <field name="user" rel="ManyToOneRel" to="accounts.user">2</field>
+    <field name="like_users" rel="ManyToManyRel" to="accounts.user"></field>
+    <field name="hashtags" rel="ManyToManyRel" to="articles.hashtag"></field>
+  </object>
+  <object model="articles.article" pk="4">
+    <field name="title" type="CharField">333</field>
+    <field name="content" type="TextField">334</field>
+    <field name="created_at" type="DateTimeField">2019-11-03T04:23:50.684478+00:00</field>
+    <field name="updated_at" type="DateTimeField">2019-11-03T04:27:29.960941+00:00</field>
+    <field name="user" rel="ManyToOneRel" to="accounts.user">3</field>
+    <field name="like_users" rel="ManyToManyRel" to="accounts.user"><object pk="1"></object></field>
+    <field name="hashtags" rel="ManyToManyRel" to="articles.hashtag"></field>
+  </object>
+  <object model="articles.article" pk="5">
+    <field name="title" type="CharField">새로운 제목</field>
+    <field name="content" type="TextField">#조아요 #새로운 내용 #작성합니다</field>
+    <field name="created_at" type="DateTimeField">2019-11-03T06:27:11.966321+00:00</field>
+    <field name="updated_at" type="DateTimeField">2019-11-03T06:27:11.966321+00:00</field>
+    <field name="user" rel="ManyToOneRel" to="accounts.user">2</field>
+    <field name="like_users" rel="ManyToManyRel" to="accounts.user"><object pk="1"></object><object pk="3"></object></field>
+    <field name="hashtags" rel="ManyToManyRel" to="articles.hashtag"><object pk="1"></object><object pk="2"></object><object pk="3"></object></field>
+  </object>
+  <object model="articles.article" pk="6">
+    <field name="title" type="CharField">132123</field>
+    <field name="content" type="TextField">#새로운</field>
+    <field name="created_at" type="DateTimeField">2019-11-03T06:39:36.331593+00:00</field>
+    <field name="updated_at" type="DateTimeField">2019-11-03T06:39:36.331593+00:00</field>
+    <field name="user" rel="ManyToOneRel" to="accounts.user">3</field>
+    <field name="like_users" rel="ManyToManyRel" to="accounts.user"><object pk="1"></object></field>
+    <field name="hashtags" rel="ManyToManyRel" to="articles.hashtag"><object pk="2"></object></field>
+  </object>
+  <object model="articles.article" pk="7">
+    <field name="title" type="CharField">오렌지</field>
+    <field name="content" type="TextField">오렌지야</field>
+    <field name="created_at" type="DateTimeField">2019-11-03T07:57:33.610317+00:00</field>
+    <field name="updated_at" type="DateTimeField">2019-11-03T07:57:33.610317+00:00</field>
+    <field name="user" rel="ManyToOneRel" to="accounts.user">3</field>
+    <field name="like_users" rel="ManyToManyRel" to="accounts.user"></field>
+    <field name="hashtags" rel="ManyToManyRel" to="articles.hashtag"></field>
+  </object>
+  <object model="articles.article" pk="8">
+    <field name="title" type="CharField">wow</field>
+    <field name="content" type="TextField">wowwow</field>
+    <field name="created_at" type="DateTimeField">2019-11-03T14:06:42.877676+00:00</field>
+    <field name="updated_at" type="DateTimeField">2019-11-03T14:06:42.877676+00:00</field>
+    <field name="user" rel="ManyToOneRel" to="accounts.user">1</field>
+    <field name="like_users" rel="ManyToManyRel" to="accounts.user"><object pk="1"></object></field>
+    <field name="hashtags" rel="ManyToManyRel" to="articles.hashtag"></field>
+  </object>
+  <object model="articles.comment" pk="4">
+    <field name="article" rel="ManyToOneRel" to="articles.article">1</field>
+    <field name="user" rel="ManyToOneRel" to="accounts.user">2</field>
+    <field name="content" type="CharField">222</field>
+    <field name="created_at" type="DateTimeField">2019-11-03T04:39:54.662426+00:00</field>
+    <field name="updated_at" type="DateTimeField">2019-11-03T04:39:54.662426+00:00</field>
+  </object>
+  <object model="articles.comment" pk="5">
+    <field name="article" rel="ManyToOneRel" to="articles.article">4</field>
+    <field name="user" rel="ManyToOneRel" to="accounts.user">2</field>
+    <field name="content" type="CharField">321</field>
+    <field name="created_at" type="DateTimeField">2019-11-03T04:39:57.853904+00:00</field>
+    <field name="updated_at" type="DateTimeField">2019-11-03T04:39:57.853904+00:00</field>
+  </object>
+  <object model="articles.comment" pk="7">
+    <field name="article" rel="ManyToOneRel" to="articles.article">4</field>
+    <field name="user" rel="ManyToOneRel" to="accounts.user">3</field>
+    <field name="content" type="CharField">321132132</field>
+    <field name="created_at" type="DateTimeField">2019-11-03T04:45:02.857420+00:00</field>
+    <field name="updated_at" type="DateTimeField">2019-11-03T04:45:02.857420+00:00</field>
+  </object>
+  <object model="articles.comment" pk="8">
+    <field name="article" rel="ManyToOneRel" to="articles.article">4</field>
+    <field name="user" rel="ManyToOneRel" to="accounts.user">3</field>
+    <field name="content" type="CharField">2123132123</field>
+    <field name="created_at" type="DateTimeField">2019-11-03T04:45:06.074817+00:00</field>
+    <field name="updated_at" type="DateTimeField">2019-11-03T04:45:06.074817+00:00</field>
+  </object>
+  <object model="articles.comment" pk="9">
+    <field name="article" rel="ManyToOneRel" to="articles.article">5</field>
+    <field name="user" rel="ManyToOneRel" to="accounts.user">3</field>
+    <field name="content" type="CharField">13131313</field>
+    <field name="created_at" type="DateTimeField">2019-11-03T06:39:21.210182+00:00</field>
+    <field name="updated_at" type="DateTimeField">2019-11-03T06:39:21.210182+00:00</field>
+  </object>
+  <object model="articles.comment" pk="11">
+    <field name="article" rel="ManyToOneRel" to="articles.article">7</field>
+    <field name="user" rel="ManyToOneRel" to="accounts.user">1</field>
+    <field name="content" type="CharField">131313</field>
+    <field name="created_at" type="DateTimeField">2019-11-03T14:06:27.847153+00:00</field>
+    <field name="updated_at" type="DateTimeField">2019-11-03T14:06:27.847153+00:00</field>
+  </object>
+</django-objects>

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="text-center">{{ hashtag.content }}</h1>
+  <p>{{ articles|length }}개의 게시글</p>
+  <hr>
+  {% for article in articles %}
+    <p>제목: {{ article.title }}</p>
+    <p>좋아요 개수: {{ article.like_users.all|length }}</p>
+    <p>댓글 개수: {{ article.comment_set.all|length }}</p>
+    <a href="{{ article.get_absolute_url }}" class="btn btn-success">DETAIL</a>
+    <hr>
+  {% endfor %}
+{% endblock  %}

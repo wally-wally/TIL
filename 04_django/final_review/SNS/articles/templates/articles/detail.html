@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load make_link %}
+
+{% block content %}
+  <h1 class="text-center">DETAIL</h1>
+  <hr>
+  <p>번호 : {{ article.pk }}</p>
+  <p>제목 : {{ article.title }}</p>
+  <p>내용 : {{ article|hashtag_link|safe }}</p>
+  <p>생성일 : {{ article.created_at|date:"SHORT_DATE_FORMAT" }}</p>
+  <p>수정일 : {{ article.updated_at|date:"M, j, Y" }}</p>
+  {% if request.user == article.user %}
+    <a class="btn btn-info" href="{% url 'articles:update' article.pk %}">UPDATE</a>
+    <form action="{% url 'articles:delete' article.pk %}" method="POST" style="display: inline;">
+      {% csrf_token %}
+      <input type="submit" value="DELETE", onclick="return confirm('진짜로 지울래?')" class="btn btn-warning">
+    </form>
+  {% endif %}
+  <hr>
+  <p><b>{{ comments|length }}</b>개의 댓글</p>
+  {% for comment in comments %}
+    <div>
+      {{ forloop.revcounter }}번: {{ comment.content }}
+      {% if request.user == comment.user %}
+        <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="post" style="display: inline;">
+          {% csrf_token %}
+          <input type="submit" value="댓글 삭제">
+        </form>
+      {% endif %}
+    </div>
+  {% empty %}
+    <p>댓글이 없어요...</p>
+  {% endfor %}
+  <hr>
+  {% if request.user.is_authenticated %}
+    <form action="{% url 'articles:comments_create' article.pk %}" method="post">
+      {% csrf_token %}
+      {{ comment_form }}
+      <input type="submit" value="댓글 작성">
+    </form>
+  {% else %}
+    <a href="accounts:login">[댓글을 작성하려면 로그인을 하세요]</a>
+  {% endif %}
+  <hr>
+  {% include 'articles/_follow.html' %}
+  <a href="{% url 'articles:index' %}">[BACK]</a>
+{% endblock  %}

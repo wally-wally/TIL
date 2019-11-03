@@ -6,15 +6,28 @@
 
 ### 15.1 REST, API <a href="https://gmlwjd9405.github.io/2018/09/21/rest-and-restful.html" target="_blank">(참고하면 좋은 페이지)</a>
 
-- `REST(Repersentational State Transfer)`
+#### (1) REST, API
+
+- `REST(Repersentational State Transfer)` = `자원(URI)` + `행위(HTTP Method)` + `표현(Representations)`
   - 각 요청이 어떠한 동작&정보를 위한 것인지 <b><u>요청 형식 자체(주소)로 파악이 가능</u></b>한 것
   - 자원의 표현에 의한 상태 전달
-  - HTTP URI를 통해 자원을 명시하고, HTTP Method를 통해 해당 자원에 대한 CRUD Operation을 적용하는 것
+  - `HTTP URI`를 통해 자원을 명시하고, `HTTP Method`를 통해 해당 자원에 대한 CRUD Operation을 적용하는 것
 - `API(Application Programming Interface)`
   - 데이터와 기능의 집합을 제공하여 컴퓨터 프로그램간 상호작용을 촉진하며, 서로 정보를 교환 가능하도록 하는 것
 - `REST API`
   - REST 기반으로 서비스 API를 구현한 것
   - 최근 Open API, 마이크로 서비스 등을 제공하는 업체 대부분은 REST API를 제공한다.
+
+<br>
+
+#### (2) REST 특징
+
+- `Uniform` : Uniform Interface, 지정한 리소스에 대한 조작을 통일되고 한정적인 인터페이스로 활용
+- `Stateless(무상태성)` : 무상태성 성격을 가지고 있으며, 세션 정보나 쿠키 정보를 별도로 저장하지 않고 관리하여 단순하게 요청만을 처리
+- `Cacheable(캐시가능)` : HTTP의 캐시 기능이 적용 가능함
+- `Self-descriptiveness(자체표현구조)`
+- `Client-Server 구조` : 클라이언트 서버에서 개발할 내용이 명확하고 의존성이 줄어듬
+- `계층형 구조` : REST 서버는 다중 계층으로 구성될 수 있음
 
 <br>
 
@@ -105,6 +118,8 @@
   # 협업할 때 migrate하고 이 dump data를 받아 DB에 load해서 사용하면 된다.
   ```
 
+- db 와 manage.py 가 위치한 동일선상에 `dummy.json` 파일이 생성된다. 
+
 <br>
 
 #### (3) load data <a href="https://docs.djangoproject.com/ko/2.2/ref/django-admin/#loaddata" target="_blank">(공식 문서)</a>
@@ -150,28 +165,32 @@
 
 > `api` project의 `urls.py`
 >
+> - 아래와 같이 URL 을 설정하는 이유는 모든 모델들에 대한 정보를 표현할 것이기 때문에, `musics/` 로 시작하지 않는다.
+> - 일반적인 API들은 URL을 이렇게 버전을 명시해서 작성한다.
+>
 > ```python
 > from django.contrib import admin
 > from django.urls import path, include
 > 
 > urlpatterns = [
->     path('api/v1/', include('musics.urls')),
->     path('admin/', admin.site.urls),
+>        path('api/v1/', include('musics.urls')),
+>        path('admin/', admin.site.urls),
 > ]
 > ```
 
 > `serializers.py`
 >
 > - serialize할 수 있는 python 파일 생성(사용자가 보기 편한 데이터를 만들어 주는 역할)
+> - 사용자에게 보기 편한 <b>응답이 아니라 데이터만 주는 것</b>으로, json 형식을 활용해서 반환한다. 
 >
 > ```python
 > from rest_framework import serializers
 > from .models import Music
 > 
 > class MusicSerializer(serializers.ModelSerializer):
->     class Meta:
->         model = Music
->         fields = ('id', 'title', 'artist_id')
+>        class Meta:
+>            model = Music
+>            fields = ('id', 'title', 'artist_id')
 > ```
 
 > view 작성 <a href="https://www.django-rest-framework.org/api-guide/views/#function-based-views">(공식 문서)</a>
@@ -183,20 +202,21 @@
 > from .serializers import MusicSerializer
 > from .models import Music
 > 
-> @api_view()
+> # 먼저 요청 들어온 것은 다음과 같이 어떠한 HTTP method 대해서 처리할 것인지 정의한다.
+> @api_view(['GET'])
 > def music_list(request):
->     musics = Music.objects.all()
->     serializer = MusicSerializer(musics, many=True)
->     # 단일 객체가 아닌 여러 개를 가져올 경우 many=True를 작성
->     # Serializer는 musics 라고 하는 queryset을 json 타입으로 바꿔준다.
->     return Response(serializer.data)
+>        musics = Music.objects.all()
+>        serializer = MusicSerializer(musics, many=True)
+>        # 단일 객체가 아닌 여러 개를 가져올 경우 many=True를 작성
+>        # Serializer는 musics 라고 하는 queryset을 json 타입으로 바꿔준다.
+>        return Response(serializer.data)
 > 
 > 
 > @api_view(['GET']) # GET만 허용할 경우
 > def music_detail(request, music_pk):
->     music = get_object_or_404(Music, pk=music_pk)
->     serializer = MusicSerializer(music) # 단일 객체이므로 music만 작성
->     return Response(serializer.data)
+>        music = get_object_or_404(Music, pk=music_pk)
+>        serializer = MusicSerializer(music) # 단일 객체이므로 music만 작성
+>        return Response(serializer.data)
 > ```
 
 > `urls.py`
@@ -206,10 +226,9 @@
 > from . import views
 > 
 > urlpatterns = [
->     path('musics/', views.music_list),
->     path('musics/<int:music_pk>/', views.music_detail),
+>        path('musics/', views.music_list),
+>        path('musics/<int:music_pk>/', views.music_detail),
 > ]
-> 
 > ```
 
 :checkered_flag: **API result screenshot**
@@ -251,12 +270,13 @@
   
   schema_view = get_schema_view(
      openapi.Info( # 이 부분은 custom 가능
-        title="Music API",
-        default_version='v1',
-        description="음악 관련 API 서비스 입니다.",
-        terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="wallys0213@gmail.com"),
-        license=openapi.License(name="SSAFY License"),
+        title="Music API", # title은 필수 인자
+        default_version='v1', # default_version은 필수 인자
+        # 아래 주석인 선택 인자임
+        # description="음악 관련 API 서비스 입니다.",
+        # terms_of_service="https://www.google.com/policies/terms/",
+        # contact=openapi.Contact(email="wallys0213@gmail.com"),
+        # license=openapi.License(name="SSAFY License"),
      ),
      public=True,
      permission_classes=(permissions.AllowAny,),
@@ -269,13 +289,18 @@
       path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
       path('redocs/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
   ]
-  
   ```
 
 :checkered_flag: **API result screenshot**
 
+- 2가지 종류로 document를 지원한다.
+  - `/docs/` : ReDoc 스타일
+  - `/swagger/` : Swagger 스타일
+
 ![01](https://user-images.githubusercontent.com/52685250/67648517-407fff00-f979-11e9-9489-9bf4cac81bf0.JPG)
 ![02](https://user-images.githubusercontent.com/52685250/67648518-407fff00-f979-11e9-91bd-a281c279aeb7.JPG)
+
+<br>
 
 #### (3) Artist 관련 API 만들기
 
@@ -285,9 +310,9 @@
 >
 > ```python
 > class ArtistSerializer(serializers.ModelSerializer):
->     class Meta:
->         model = Artist
->         fields = ('id', 'name')
+>        class Meta:
+>            model = Artist
+>            fields = ('id', 'name')
 > ```
 
 > `views.py`
@@ -295,9 +320,9 @@
 > ```python
 > @api_view(['GET'])
 > def artist_list(request):
->     artists = Artist.objects.all()
->     serializer = ArtistSerializer(artists, many=True)
->     return Response(serializer.data)
+>        artists = Artist.objects.all()
+>        serializer = ArtistSerializer(artists, many=True)
+>        return Response(serializer.data)
 > ```
 
 > `urls.py`
@@ -320,9 +345,9 @@
 >
 > ```python
 > def artist_detail(request, artist_pk):
->     artist = get_object_or_404(Artist, pk=artist_pk)
->     serializer = ArtistSerializer(artist)
->     return Response(serializer.data)
+>        artist = get_object_or_404(Artist, pk=artist_pk)
+>        serializer = ArtistSerializer(artist)
+>        return Response(serializer.data)
 > ```
 
 > `urls.py`
@@ -335,14 +360,19 @@
 
 #### (4) 1 : N 관계 적용된 API 만들기
 
+- (3)번 까지의 현재 상태는 artist 가 가지고 있는 music 들이 출력되지 않는다.
+- music 에는 artist 정보가 있지만, artist 에는 music 정보가 없기 때문이다. (N 에서만 1 의 정보를 가지고 있기 때문)
+- 1:N 관계에서 실제 데이터베이스에는 N인 music 에만 artist 의 외래 키 값이 저장되어 있을 뿐이기 때문이다.
+- DetailSerializer 를 작정해보자. Serializer는 데이터의 형식을 지정해주는 것과 동일한데, 기존의 Artist 오브젝트에 추가적인 내용이 필요하기 때문이다.
+
 > `serializers.py`
 >
 > ```python
 > class ArtistDetailSerializer(ArtistSerializer):
->     music_set = MusicSerializer(many=True) # 음악들에 해당하는 필드명
+>        music_set = MusicSerializer(many=True) # 음악들에 해당하는 필드명
 > 
->     class Meta(ArtistSerializer.Meta): # model은 굳이 쓸 필요가 없다(이미 상속 받고 있음)
->         fields = ArtistSerializer.Meta.fields + ('music_set',)
+>        class Meta(ArtistSerializer.Meta): # model은 굳이 쓸 필요가 없다(이미 상속 받고 있음)
+>            fields = ArtistSerializer.Meta.fields + ('music_set',)
 > ```
 
 > `views.py`
@@ -350,15 +380,15 @@
 > ```python
 > @api_view(['GET'])
 > def artist_detail(request, artist_pk):
->     artist = get_object_or_404(Artist, pk=artist_pk)
->     # ArtistSerailizer => ArtistDetailSerializer로 수정
->     serializer = ArtistDetailSerializer(artist)
->     return Response(serializer.data)
+>        artist = get_object_or_404(Artist, pk=artist_pk)
+>        # ArtistSerailizer => ArtistDetailSerializer로 수정
+>        serializer = ArtistDetailSerializer(artist)
+>        return Response(serializer.data)
 > ```
 
-- ArtistDetailSerializer의 music_set 이름 변경하기
+- `ArtistDetailSerializer`의 `music_set` 이름 변경하기
 
-  - [방법1] - `models.py`에서
+  - [방법1] - `models.py`에서 (대신 이 방법은 작성 후 마이그레이션 작업이 필요함)
 
     ```python
     class Music(models.Model):
@@ -381,31 +411,33 @@
 
 <br>
 
-#### (5) 요청만으로 API 만들기
+#### (5) `Create Comment`
 
 > `serializers.py`
 >
 > ```python
 > class CommentSerializer(serializers.ModelSerializer):
->     class Meta:
->         model = Comment
->         fields = ('id', 'content', 'music_id')
+>        class Meta:
+>            model = Comment
+>            fields = ('id', 'content', 'music_id')
 >         
 > class MusicDetailSerializer(MusicSerializer):
->     comments = CommentSerializer(source='comment_set', many=True)
->     class Meta(MusicSerializer.Meta):
->         fields = MusicSerializer.Meta.fields + ('comments',)
+>        comments = CommentSerializer(source='comment_set', many=True)
+>        class Meta(MusicSerializer.Meta):
+>            fields = MusicSerializer.Meta.fields + ('comments',)
 > ```
 
 > `views.py`
 >
+> -  `raise_exception=True` 는 검증에 실패하면 400 Bad Request 오류를 발생시킨다. 
+>
 > ```python
 > @api_view(['POST']) # 글이 작성되는 것이므로 POST이다.
 > def comments_create(request, music_pk):
->     serializer = CommentSerializer(data=request.data)
->     if serializer.is_valid(raise_exception=True):
->         serializer.save(music_id=music_pk)
->     return Response(serializer.data)
+>        serializer = CommentSerializer(data=request.data)
+>        if serializer.is_valid(raise_exception=True):
+>            serializer.save(music_id=music_pk)
+>        return Response(serializer.data)
 > ```
 >
 > ```python
@@ -429,33 +461,38 @@
 
   URL 주소 입력 시 1, 2, 3, ...와 같이 매번 숫자를 입력하는 대신에 `:`을 붙여 `:music_pk`를 사용해 보낼 수 있다.
 
+  <b>POST 요청은 url 마지막에 반드시 `/`가 있어야 한다.</b>
+
   `Body`에서 KEY에 `content`, VALUE에 작성할 댓글 내용을 쓴다.
 
   ![10](https://user-images.githubusercontent.com/52685250/67653895-d2decd80-f98e-11e9-9080-ad244c8fa184.JPG)
 
   Params의 Path Variables의 VALUE에 숫자를 입력하면 된다.
-
+  
   ![11](https://user-images.githubusercontent.com/52685250/67653896-d3776400-f98e-11e9-8e79-eaa97529fc7b.JPG)
   ![12](https://user-images.githubusercontent.com/52685250/67653897-d3776400-f98e-11e9-966f-af1bb7c62907.JPG)
 
 <br>
 
-#### (6) REST하게 주소 작성하기(PUT(수정), DELETE(삭제) 추가)
+#### (6) Update & Delete Comment
 
 > `views.py`
+>
+> - 같은 주소로 다른(PUT, DELETE) http method 로 요청을 보내서 수정 삭제를 같은 주소로 구현 해보자.
+> - 수정은 `PUT`, 삭제는 `DELETE` method를 사용한다.
 >
 > ```python
 > @api_view(['PUT', 'DELETE']) # PUT : 수정, DELETE : 삭제
 > def comments_update_and_delete(request, comment_pk):
->     comment = get_object_or_404(Comment, pk=comment_pk)
->     if request.method == 'PUT':
->         serializer = CommentSerializer(data=request.data, instance=comment)
->         if serializer.is_valid(raise_exception=True):
->             serializer.save()
->             return Response({'message': 'Comment has been updated !'})
->     else:
->         comment.delete()
->         return Response({'message': 'Comment has been deleted!'})
+>        comment = get_object_or_404(Comment, pk=comment_pk)
+>        if request.method == 'PUT':
+>            serializer = CommentSerializer(data=request.data, instance=comment)
+>            if serializer.is_valid(raise_exception=True):
+>                serializer.save()
+>                return Response({'message': 'Comment has been updated !'})
+>        else:
+>            comment.delete()
+>            return Response({'message': 'Comment has been deleted!'})
 > ```
 
 > `urls.py`
@@ -481,7 +518,7 @@
 
 <br>
 
-#### (7) Custom API
+#### (7) Custom API - 추가 데이터 제공하기
 
 > `serializer.py`
 >
@@ -489,12 +526,12 @@
 >
 > ```python
 > class ArtistDetailSerializer(ArtistSerializer):
->     musics = MusicSerializer(source='music_set', many=True)
->     musics_count = serializers.IntegerField(source='music_set.count')
->     class Meta(ArtistSerializer.Meta):
->         fields = ArtistSerializer.Meta.fields + ('musics', 'musics_count')
+>        musics = MusicSerializer(source='music_set', many=True)
+>        musics_count = serializers.IntegerField(source='music_set.count')
+>        class Meta(ArtistSerializer.Meta):
+>            fields = ArtistSerializer.Meta.fields + ('musics', 'musics_count')
 > ```
 
-:checkered_flag: API result screenshot
+:checkered_flag: <b>API result screenshot</b>
 
 ![40](https://user-images.githubusercontent.com/52685250/67654566-4c77bb00-f991-11e9-8ae5-767d3e5a09cb.JPG)

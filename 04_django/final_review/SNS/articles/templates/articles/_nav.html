@@ -1,0 +1,14 @@
+{% if request.user.is_authenticated %}
+  <p>Hello, {{ user.username }}</p>
+  <a href="{% url 'accounts:profile' user.username %}">[내프로필]</a> &nbsp;
+  <a href="{% url 'accounts:update' %}">[정보수정]</a> &nbsp;
+  <a href="{% url 'accounts:change_password' %}">[비번변경]</a> &nbsp;
+  <a href="{% url 'accounts:logout' %}">[로그아웃]</a> &nbsp;
+  <form action="{% url 'accounts:delete' %}" method="post" style="display: inline;">
+    {% csrf_token %}
+    <input type="submit" value="회원탈퇴" class="btn btn-danger">
+  </form>
+{% else %}
+  <a href="{% url 'accounts:signup' %}">[회원가입]</a> &nbsp;
+  <a href="{% url 'accounts:login' %}">[로그인]</a>
+{% endif %}
