@@ -95,7 +95,8 @@ def comments_create(request, article_pk):
 def comments_delete(request, article_pk, comment_pk):
     if request.user.is_authenticated:
         comment = get_object_or_404(Comment, pk=comment_pk)
-        comment.delete()
+        if request.user == comment.user:
+            comment.delete()
     return redirect('articles:detail', article_pk)
 
 
