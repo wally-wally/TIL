@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h3>JS</h3>
+  <input type="text" id="js-input"> <!-- js용 -->
+  <p id="js-p"></p> <!-- JS는 한글자씩 늦게 출력됨  -->
+
+  <h3>Vue</h3>
+  <div id="app">
+    <input type="text" id="vue-input" v-model="message"> <!-- vue 용-->
+    <p id="vue-p">{{ message }}</p> <!-- vue는 반응형 웹이므로 입력과 동시에 글자가 출력됨 -->
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> <!-- vue를 쓰기 위한 CDN 구문 -->
+  <script>
+    // JS
+    const input = document.querySelector('#js-input')
+    input.addEventListener('keydown', function (e){ // 'keydown' : 키 누름 이벤트
+      const value = e.target.value
+      document.querySelector('#js-p').innerText = value
+    })
+
+    // Vue
+    const app = new Vue({
+      el: '#app', // el, data는 vue에서 정해진 이름임
+      data: {
+        message: ''
+      }
+    })
+  </script>
+</body>
+</html>

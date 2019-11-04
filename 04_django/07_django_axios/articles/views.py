@@ -1,5 +1,5 @@
 import hashlib
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseBadRequest
 from IPython import embed
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
@@ -155,22 +155,25 @@ def comments_delete(request, article_pk, comment_pk):
 
 @login_required
 def like(request, article_pk):
-    article = get_object_or_404(Article, pk=article_pk)
-    # 해당 게시글에 좋아요를 누른 사람들 중에서 현재 접속유저가 있다면 좋아요를 취소
-    if article.like_users.filter(pk=request.user.pk).exists():
-        # .get()은 없을 때 오류가 발생하므로 키가 없어도 오류(DoesNotExistError) 발생을 막기 위해 .filter()를 사용한다.
-        article.like_users.remove(request.user)
-        liked = False
+    if request.is_ajax():
+        article = get_object_or_404(Article, pk=article_pk)
+        # 해당 게시글에 좋아요를 누른 사람들 중에서 현재 접속유저가 있다면 좋아요를 취소
+        if article.like_users.filter(pk=request.user.pk).exists():
+            # .get()은 없을 때 오류가 발생하므로 키가 없어도 오류(DoesNotExistError) 발생을 막기 위해 .filter()를 사용한다.
+            article.like_users.remove(request.user)
+            liked = False
+        else:
+            article.like_users.add(request.user)
+            liked = True
+        # if request.user in article.like_users.all():
+        #     article.like_users.remove(request.user) # 좋아요 취소
+        # else:
+        #     article.like_users.add(request.user) # 좋아요 선택
+        # return redirect('articles:index')
+        context = {'liked': liked, 'count': article.like_users.count(),}
+        return JsonResponse(context)
     else:
-        article.like_users.add(request.user)
-        liked = True
-    # if request.user in article.like_users.all():
-    #     article.like_users.remove(request.user) # 좋아요 취소
-    # else:
-    #     article.like_users.add(request.user) # 좋아요 선택
-    # return redirect('articles:index')
-    context = {'liked': liked,}
-    return JsonResponse(context)
+        return HttpResponseBadRequest()
     
 
 @login_required

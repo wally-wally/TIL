@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"> <!-- View 요소 -->
+    {{ message }} - {{ count }} <!-- 문자열 표현식 => {{ }} : string interpolation(보간법) -->
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- 기본적으로 vue는 html에서도 작성할 수 있다. -->
+  <script> // view model
+    const app = new Vue({
+      el: '#app', // view model과 id가 app인 view와 binding됐다는 의미
+      data: {
+        message: 'Hello Vue!',
+        count: 0,
+      },
+      methods: {
+        // 표현식
+        plus: () => {
+          this.count++ // Vue instance 내에서는 data 내의 값들에 this 로 접근가능
+        },
+        // 선언식
+        minus() {
+          this.count--
+        }
+      }
+    })
+  </script>
+</body>
+</html>

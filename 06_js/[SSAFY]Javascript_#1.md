@@ -2020,19 +2020,25 @@ thrid()
 
 <br>
 
-## 4. 11월04일(4일차)
+## 4. 11월04일(4일차) - `04_django` > `07_django_axios`
 
-:heavy_plus_sign: `좋아요` 기능 비동기적으로 구현하기(axios 적용) - `04_django` > `07_django_axios`
+---
 
-### 4.1 XMLHttpRequest(XHR)
+:heavy_plus_sign: `좋아요` 기능 비동기적으로 구현하기(axios 적용) 
 
-- 브라우저는 XMLHttpRequest 객체를 이용하여 Ajax 요청을 생성하고 전송
-- 서버가 브라우저의 요청에 대해 응답을 반환하면 같은 XHR 객체가 그 결과를 처리
-- (참고) 단, IE 5, 6 에서는 ActiveXobject 를 사용해야 한다.
+---
 
 <br>
 
-:heavy_check_mark: <b>기능 구현하기</b>
+### :heavy_check_mark: `XMLHttpRequest`(XHR)
+
+- 브라우저는 `XMLHttpRequest` 객체를 이용하여 Ajax 요청을 생성하고 전송
+- 서버가 브라우저의 요청에 대해 응답을 반환하면 같은 XHR 객체가 그 결과를 처리
+- (참고) 단, IE 5, 6 에서는 `ActiveXobject` 를 사용해야 한다.
+
+<br>
+
+### :heavy_check_mark: 기능 구현하기(1) - `좋아요 버튼 색깔 비동기적으로 바뀌게 구현`
 
 - `base.html`에서 `fontawesome` 구문 아래에 구문 추가
 
@@ -2145,6 +2151,8 @@ thrid()
 
 - 지금까지의 `index.html` script 코드 상황
 
+  좋아요 버튼 누를 때마다 버튼의 색깔만 바뀌고 좋아요 개수는 아직 변하지 않는다.
+  
   ```html
   <script>
     // 1. 각 게시글별로 좋아요 버튼이 있으니 모두 선택해야 한다.
@@ -2172,7 +2180,90 @@ thrid()
           .catch(error => console.log(error)) // 반드시 console로 먼저 확인)
       })
     })
-  </script>
+</script>
+  ```
+  
+
+<br>
+
+### :heavy_check_mark: 기능 구현하기(2) - `좋아요 개수도 함께 출력` 
+
+- `like` view 함수의 `context` 안에 `'count': article.like_users.count(),` 추가
+
+- `_article.html`에서 구문 수정
+
+  span 태그로 숫자 부분만 감싸고 id 속성을 추가한다.
+
+  각각이 다른 id 값을 가져야 하므로 id 작성시 article.pk 이용
+
+  ```django
+  <b>{{ article.like_users.all|length }}</b>명이 이 글을 좋아합니다. <!-- before -->
+  <b><span id="like-count-{{ article.pk }}">{{ article.like_users.all|length }}</span></b>명이 이 글을 좋아합니다. <!-- after -->
   ```
 
+- `index.html`
+
+  .then 구문 안에 다음과 같은 구문 추가
+
+  id 속성에 접근하므로 `.querySelector` 안에 작성시 #을 꼭 붙여준다.
+
+  ```javascript
+  document.querySelector(`#like-count-${articleId}`).innerText = response.data.count
+  ```
+
+- `index.html` - `post` 방식으로 보내기
+
+  `axios.get(~)`을 `axios.post(~)`로 바꾸면 403 error(forbidden)가 발생한다.
+
+  ```javascript
+  axios.get(`/articles/${articleId}/like/`) // before
+  axios.post(`/articles/${articleId}/like/`) // after
+  ```
+
+  이를 해결하기 위해 쿠키에 csrf를 담아서 보내줘야 한다. <a href="https://docs.djangoproject.com/en/2.2/ref/csrf/#setting-the-token-on-the-ajax-request" target="_blank">(공식 문서)</a>
+
+  ```javascript
+  // axios.post(~) 이전에 아래 두 줄 추가
+  axios.defaults.xsrfCookieName = 'csrftoken'
+  axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+  ```
+
+- (추가사항)요청이 ajax 요청일 때만 받아들이게 하기
+
+  ```python
+  # views.py
   
+  from django.http import JsonResponse, HttpResponseBadRequest
+  
+  @login_required
+  def like(request, article_pk):
+      if request.is_ajax(): # if문으로 분기
+          article = get_object_or_404(Article, pk=article_pk)
+          if article.like_users.filter(pk=request.user.pk).exists():
+              article.like_users.remove(request.user)
+              liked = False
+          else:
+              article.like_users.add(request.user)
+              liked = True
+          context = {'liked': liked, 'count': article.like_users.count(),}
+          return JsonResponse(context)
+      else:
+          return HttpResponseBadRequest()
+  ```
+
+- 하지만 현재 상황은 django가 ajax 요청인지 아직 모른다.
+
+  django측에 ajax 요청임을 알려줘야 한다.
+
+  axios 공식 문서의 `Request Config`에서 `headers: {'X-Requested-With': 'XMLHttpRequest'},` 구문을 찾아 `index.html`에 붙여넣어야 한다. <a href="https://github.com/axios/axios#request-config" target="_blank">(공식 문서)</a>
+
+  추가로 `.headers.common`도 붙여줘야 한다. <a href="https://github.com/axios/axios#global-axios-defaults" target="_blank">(공식 문서)</a>
+
+  ```javascript
+  const articleId = event.target.dataset.id
+  axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest' // ajax 요청임을 알려주는 구문 (이거 추가)
+  axios.defaults.xsrfCookieName = 'csrftoken' // POST 요청임을 알려주는 구문1 (이거 추가)
+  axios.defaults.xsrfHeaderName = 'X-CSRFToken' // POST 요청임을 알려주는 구문2 (이거 추가)
+  axios.post(`/articles/${articleId}/like/`)
+  ...
+  ```

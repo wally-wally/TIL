@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    img {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Random Dog & Cat Image</h1>
+  <div id="app">
+    <button v-on:click="getDogImage">Dog Image On!</button> <span v-on:click="getDogImage">{{ dogCount }}장</span> &nbsp;
+    <button v-on:click="getCatImage">Cat Image On!</button> <span v-on:click="getCatImage">{{ catCount }}장</span> &nbsp; &nbsp; &nbsp;
+    <span>Total Picture Count : <b>{{ dogCount + catCount }}</b></span>
+    <br>
+    <hr>
+    <span v-for="image in images">
+      <img v-bind:src="image" alt="img" v-if="image"> <!-- 엑박 지우기 : v-if="image"-->
+    </span>
+  </div>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const Dog = function () {
+      const URL = 'https://dog.ceo/api/breeds/image/random'
+      axios.get(URL)
+        .then(response => {
+          // 같은 인스턴스 안에 data 내의 속성 값은 this 키워드를 통해서 접근
+          // this.image = response.data.message
+          this.images.push(response.data.message)
+          this.dogCount += 1
+        })
+    }
+    const app = new Vue({
+      el: '#app',
+      data: {
+        image: '', // 요청 받은 데이터를 넣어야 하기 때문에 빈 문자열로 둠 하지만 현재 상태는 사진이 한 장씩만 나온다.
+        images: [], // 이전과 같이 사진을 누적해서 보여주려면 빈 리스트 선언후 위에서 v-for문으로 돌린다.
+        dogCount: 0,
+        catCount: 0,
+      },
+      methods: {
+        getDogImage: Dog, // 함수가 복잡하다면 함수를 밖에 빼서 변수를 선언해 정의할 수도 있다.
+        getCatImage: function () {
+          const URL = 'https://api.thecatapi.com/v1/images/search'
+          axios.get(URL)
+            .then(response => {
+              // 같은 인스턴스 안에 data 내의 속성 값은 this 키워드를 통해서 접근
+              // this.image = response.data[0].url
+              this.images.push(response.data[0].url)
+              this.catCount += 1
+            })
+        }
+      }
+    })
+  </script>
+</body>
+</html>

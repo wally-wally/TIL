@@ -14,7 +14,7 @@
       {% else %}
         <i class="fas fa-heart like-button" style="color: black;" data-id="{{ article.pk }}"></i>
       {% endif %}
-      <b>{{ article.like_users.all|length }}</b>명이 이 글을 좋아합니다.
+      <b><span id="like-count-{{ article.pk }}">{{ article.like_users.all|length }}</span></b>명이 이 글을 좋아합니다.
     </p>
     <a href="{{ article.get_absolute_url }}" class="btn btn-primary">DETAIL</a>
     <!-- 원래는 {# url 'articles:detail' article_pk #}이지만 get_absoulte_url에 의해 {{ article.get_absolute_url }}로 간결해진다. -->

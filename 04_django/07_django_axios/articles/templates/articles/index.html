@@ -34,9 +34,13 @@
 
         // event.target.dataset.id 의 value는 data-id 값이 들어 있다.
         const articleId = event.target.dataset.id // 이와 같이 사용하기 위해 console로 찍어서 경로를 확인해야 한다!
-        axios.get(`/articles/${articleId}/like/`) // 해당 상세 게시글의 좋아요 요청을 보낸다.(url주소는 urls.py 참고)
+        axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest' // ajax 요청임을 알려주는 구문
+        axios.defaults.xsrfCookieName = 'csrftoken' // POST 요청임을 알려주는 구문1
+        axios.defaults.xsrfHeaderName = 'X-CSRFToken' // POST 요청임을 알려주는 구문2
+        axios.post(`/articles/${articleId}/like/`) // 해당 상세 게시글의 좋아요 요청을 보낸다.(url주소는 urls.py 참고)
           .then(response => {
             // console.log(response) // 반드시 console로 먼저 확인
+            document.querySelector(`#like-count-${articleId}`).innerText = response.data.count
             if (response.data.liked) {
               // 좋아요 색깔을 빨갛게
               event.target.style.color = 'crimson'
