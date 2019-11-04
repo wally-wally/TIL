@@ -1,0 +1,51 @@
+{% extends 'articles/base.html' %}
+{% load make_link %}
+
+{% block content %}
+  <h1>Detail</h1>
+  <hr>
+  <p>번호: {{ article.pk }}</p>
+  <p>제목: {{ article.title }}</p>
+  <p>내용: {{ article|hashtag_link|safe }}</p>
+  <p>생성날짜: {{ article.created_at|date:"SHORT_DATE_FORMAT" }}</p>
+  <p>갱신날짜: {{ article.updated_at|date:"M, j, Y" }}</p>
+  {% if request.user == article.user %}
+    <!-- django template filter : https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#date -->
+    <a href="{% url 'articles:update' article.pk %}">[UPDATE]</a>
+    <form action="{% url 'articles:delete' article.pk %}" method="POST", onclick="return confirm('진짜로 지우게??')">
+      {% csrf_token %}
+      <input type="submit" value="DELETE">
+    </form>
+  {% endif %}
+  <hr>
+<!-- 댓글 출력 -->
+  <p><b>{{ comments|length }}개의 댓글</b></p>
+  {% for comment in comments %}
+    <div>
+      댓글 {{ forloop.revcounter }} : {{ comment.content }}
+      {% if request.user == comment.user %}
+        <form action="{% url 'articles:comments_delete' article.pk comment.pk %}" method="POST" style="display: inline;">
+          {% csrf_token %}
+          <input type="submit" value="DELETE">
+        </form>
+      {% endif %}
+    </div>
+  {% empty %}
+    <p><b>댓글이 없어요...</b></p>
+  {% endfor %}
+  <hr>
+  <!-- 댓글 입력 form -->
+  {% if user.is_authenticated %}
+    <form action="{% url 'articles:comments_create' article.pk %}" method="POST">
+      {% csrf_token %}
+      {{ comment_form }}
+      <input type="submit" value="submit">
+    </form>
+    <hr>
+  {% else %}
+    <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요]</a>
+    <hr>
+  {% endif %}
+  {% include 'articles/_follow.html' %}
+  <a href="{% url 'articles:index' %}">[Back]</a>
+{% endblock  %}

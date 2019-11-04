@@ -1,0 +1,28 @@
+{% extends 'articles/base.html' %}
+
+{% block content %}
+  <div class="jumbotron jumbotron-fluid text-center my-2 text-white bg-dark">
+    <div class="container">
+      <h1 class="display-4">{{ hashtag.content }}</h1>
+      <p class="lead">{{ articles|length }} 개의 게시글</p>
+    </div>
+  </div>
+  <hr>
+  <h3 class="text-center">{{ hashtag.content }} 를 태그한 글</h3>
+  <div class="row">
+  {% for article in articles %}
+    {% with likes=article.like_users.all comments=article.comment_set.all %}
+      <div class="col-4 my-2">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ article.title }}</h5>
+            <p class="card-text">{{ likes|length }} 명이 좋아요</p>
+            <p class="card-text">{{ comments|length }} 개의 댓글</p>
+            <a href="{% url 'articles:detail' article.pk %}" class="btn btn-success">보러가기</a>
+          </div>
+        </div>
+      </div>
+    {% endwith %}
+  {% endfor %}
+  </div>
+{% endblock %}

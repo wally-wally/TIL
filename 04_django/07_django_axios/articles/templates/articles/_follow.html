@@ -1,0 +1,16 @@
+<div class="jumbotron text-center">
+{% with followings=person.followings.all followers=person.followers.all %}
+  <h1 class="display-4">{{ person.username }}</h1> {# article.user로도 가능하다. #}
+  <p class="lead">
+    팔로잉 : {{ followings|length }} / 팔로워 : {{ followers|length }}
+  </p>
+  <hr class="my-4">
+  {% if user != article.user %} {# 요청된 유저가 게시글의 유저랑 달라야 팔로우 기능이 보인다. #}
+    {% if user in followers %} {# user = request.user #}
+      <a class="btn btn-primary btn-lg" href="{% url 'articles:follow' article.pk person.pk %}" role="button">Unfollow</a>
+    {% else %}
+      <a class="btn btn-primary btn-lg" href="{% url 'articles:follow' article.pk person.pk %}#" role="button">Follow</a>
+    {% endif %}
+  {% endif %}
+{% endwith %}
+</div>

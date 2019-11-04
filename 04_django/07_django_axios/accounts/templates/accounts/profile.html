@@ -1,0 +1,46 @@
+{% extends 'articles/base.html' %}
+
+{% block content %}
+  <h1 class="text-center">{{ person.username }}'s Profile</h1> <!-- username -->
+  <hr>
+  <h3 class="text-center">{{ person.username }}이(가) 작성한 글</h3> <!-- username -->
+
+  <div class="row">
+  {% with articles=person.article_set.all %}
+    <!-- 이 유저가 작성한 게시글, 댓글만 가져오기(정렬은 모두 최근에 작성한 것부터 => models.py에서 이미 최신순으로 가져올 수 있게 모델링되어 있다.) -->
+    <!-- 그래서 view에서 order_by('-pk')를 할 필요가 없다. -->
+    {% for article in articles %}
+    <div class="col-4 my-2">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{ article.content }}</h5> <!-- 게시글 내용 -->
+          <p class="card-text">{{ article.like_users.all|length }}명이 좋아하는 글</p> <!-- article.like_users.count도 가능 -->
+          <p class="card-text">{{ article.comment_set.all|length }}개의 댓글</p> <!-- article.comment_set.count도 가능 -->
+          <a href="{% url 'articles:detail' article.pk %}" class="btn btn-primary">Go to article</a> <!-- 게시글 보기(link 설정) -->
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% endwith %}
+  </div>
+
+  <hr>
+
+  <h3 class="text-center">{{ person.username }}이(가) 작성한 댓글</h3>
+  <div class="row">
+  {% with comments=person.comment_set.all%}
+    {% for comment in comments %}
+    <div class="col-12 my-2">
+      <div class="card">
+        <div class="card-body">
+          <blockquote class="blockquote mb-0">
+            <p>{{ comment.content }}</p> <!-- 댓글의 내용-->
+            <footer class="blockquote-footer">{{ comment.created_at|date:"SHORT_DATE_FORMAT" }}</footer> <!-- 댓글의 작성 날짜 -->
+          </blockquote>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  {% endwith %}
+  </div>
+{% endblock  %}
