@@ -369,7 +369,7 @@
 
 <br>
 
-### 1.5 Vue directive (지시문) - `02_vue_todo_app.html`
+### 1.5 Vue directive① (지시문) - `02_vue_todo_app.html`
 
 ---
 
