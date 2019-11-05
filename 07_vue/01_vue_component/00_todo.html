@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="newTodo">
+    <button @click="addTodo">+</button>
+    <li v-for="todo in todos" :key="todo.id">
+      <span>{{ todo.content }}</span>
+      <button @click="removeTodo(todo.id)">X</button>
+    </li>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      todos: [],
+      newTodo: '', // 실시간 동기화될 값
+    },
+    methods: {
+      addTodo: function () {
+        if (this.newTodo.length != 0) {
+          this.todos.push({
+            id: Date.now(),
+            content: this.newTodo,
+            completed: false,
+          })
+          this.newTodo = ''
+        }
+      },
+      removeTodo: function (todoId) { // 개별 todo 삭제 가능하도록 함수 구성
+        this.todos = this.todos.filter( todo => {
+          // 완료한 todo
+          // 완료된 todo를 제외한 나머지 todo만 filter를 통해서
+          // 새로운 배열로 return
+          return todo.id !== todoId
+        })
+      }
+    }
+  })
+  </script>
+</body>
+</html>

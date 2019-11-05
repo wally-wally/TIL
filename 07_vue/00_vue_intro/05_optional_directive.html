@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- v-text : interpolation 안 쓰고 text 출력 -->
+    <span v-text="name"></span>
+    <span>{{ name }}</span>
+
+    <!-- v-html : 실제 html로 렌더링 해 줌 -->
+    {{ name2 }}
+    <span v-html="name2"></span>
+
+    <!-- v-show -->
+    <!-- v-if : 조건에 맞지 않으면 렌더링 자체를 하지 않음 -->
+    <!-- v-show : 조건과 관계 없이 일단 렌더링 후에, 조건에 맞지 않으면 CCS display 속성읕 토글해서 숨겨버림.(display: none;)-->
+    <p v-if="false">{{ name3 }}</p>
+    <p v-show="false">{{ name3 }}</p>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        name: 'harry',
+        name2 : '<h1>h1 태그 입니다.</h1>',
+        name3 : 'wallywally',
+      }
+    })
+  </script>
+</body>
+</html>

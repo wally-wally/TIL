@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .todo-list {
+      display: inline-block;
+      width: 33%;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="todo-list">
+      <h2>취업준비</h2>
+      <input type="text" v-model="newTodo1">
+      <button @click="addTodo1">+</button>
+      <li v-for="todo in todos1" :key="todo.id">
+        <span>{{ todo.content }}</span>
+        <button @click="removeTodo1(todo.id)">X</button>
+      </li>
+    </div>
+    <div class="todo-list">
+      <h2>SSAFY</h2>
+      <input type="text" v-model="newTodo2">
+      <button v-on:click="addTodo2">+</button>
+      <li v-for="todo in todos2" v-bind:key="todo.id">
+        <span>{{ todo.content }}</span>
+        <button v-on:click="removeTodo2(todo.id)">x</button>
+      </li>
+    </div>
+    <div class="todo-list">
+      <h2>기타</h2>
+      <input type="text" v-model="newTodo3">
+      <button @click="addTodo3">+</button>
+      <li v-for="todo in todos3" :key="todo.id">
+        <span>{{ todo.content }}</span>
+        <button @click="removeTodo3(todo.id)">X</button>
+      </li>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      todos1: [],
+      newTodo1: '',
+      todos2: [],
+      newTodo2: '',
+      todos3: [],
+      newTodo3: '',
+    },
+    methods: {
+      addTodo1: function () {
+        if (this.newTodo1.length != 0) {
+          this.todos1.push({
+            id: Date.now(),
+            content: this.newTodo1,
+            completed: false,
+          })
+          this.newTodo1 = ''
+        }
+      },
+      removeTodo1: function (todoId) {
+        this.todos1 = this.todos1.filter( todo => {
+          return todo.id !== todoId
+        })
+      },
+      addTodo2: function () {
+        if (this.newTodo2.length != 0) {
+          this.todos2.push({
+            id: Date.now(),
+            content: this.newTodo2,
+            completed: false,
+          })
+          this.newTodo2 = ''
+        }
+      },
+      removeTodo2: function (todoId) {
+        this.todos2 = this.todos2.filter( todo => {
+          return todo.id !== todoId
+        })
+      },
+      addTodo3: function () {
+        if (this.newTodo3.length != 0) {
+          this.todos3.push({
+            id: Date.now(),
+            content: this.newTodo3,
+            completed: false,
+          })
+          this.newTodo3 = ''
+        }
+      },
+      removeTodo3: function (todoId) {
+        this.todos3 = this.todos3.filter( todo => {
+          return todo.id !== todoId
+        })
+      }
+    }
+  })
+  </script>
+</body>
+</html>
