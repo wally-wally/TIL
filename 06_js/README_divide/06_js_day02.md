@@ -62,7 +62,9 @@
 
 ### 2.2 조건문 & 반복문 - `03_if_switch.js`, `04_loop.js`
 
-#### (1) if문 <a href="https://user-images.githubusercontent.com/52685250/67819540-e1e18f00-faf8-11e9-9842-cedf4381525f.JPG" target="_blank">(chrome console로 자세히 확인하기)</a>
+#### (1) if문
+
+<img src="https://user-images.githubusercontent.com/52685250/67819540-e1e18f00-faf8-11e9-9842-cedf4381525f.JPG">
 
 ```javascript
 const userName = 'ssafy'
@@ -78,7 +80,9 @@ if (userName === '1q2w3e4r') {
 
 <br>
 
-#### (2) switch문 <a href="https://user-images.githubusercontent.com/52685250/67819541-e1e18f00-faf8-11e9-8033-a28a7bc80ef8.JPG" target="_blank">(chrome console로 자세히 확인하기)</a>
+#### (2) switch문
+
+<img src="https://user-images.githubusercontent.com/52685250/67819541-e1e18f00-faf8-11e9-8033-a28a7bc80ef8.JPG">
 
 ```javascript
 switch (userName) {

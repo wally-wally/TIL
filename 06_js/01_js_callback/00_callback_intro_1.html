@@ -8,10 +8,15 @@
 </head>
 <body>
   <button id="myButton">Click Me</button>
+  <button id="myButton2">Click Me</button>
   <script>
     const button = document.getElementById('myButton') // 1. 버튼 가져오기
     button.addEventListener('click', function () { // 2. 이벤트 설정 : click
       console.log('버튼이 눌렸어요!!!') // 3. 콜백함수 설정
+    })
+    const button2 = document.querySelector('#myButton2')
+    button2.addEventListener('mouseover', function () {
+      console.log('버튼 위에 있어요!!!')
     })
   </script>
 </body>

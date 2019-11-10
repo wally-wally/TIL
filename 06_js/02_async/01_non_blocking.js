@@ -29,7 +29,7 @@
 //   console.log('thrid')
 // }
 // first()
-// seTtime(second, 1000)
+// setTimeout(second, 1000)
 // thrid()
 
 console.log('Hi')

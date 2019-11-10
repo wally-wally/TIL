@@ -554,7 +554,7 @@ thrid()
       const getDogImage = function () {
         // axios가 비동기 함수로 구동되고 있다.
         // 중요한건 누르는 순서가 아닌 내부적으로 처리되는 순서로 사진이 출력되므로
-        // 우리가 원하는 대로 출력되지 않을 수도 있따.
+        // 우리가 원하는 대로 출력되지 않을 수도 있다.
         axios.get('https://dog.ceo/api/breeds/image/random')
           .then(response => { // () 안에 있는게 통째로 callback 함수이므로
             // 먼저 response를 consle로 찍어서 URL이 어디에 있는지 확인하자!
