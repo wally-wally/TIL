@@ -1933,6 +1933,14 @@ mounted: function() {
 
 ---
 
+:heavy_check_mark: <b>Project Structure</b>
+
+<img src="https://user-images.githubusercontent.com/52685250/68567123-91284980-049b-11ea-9c7c-e1dff97cc768.JPG" width="700px">
+
+<img src="https://user-images.githubusercontent.com/52685250/68567124-91284980-049b-11ea-9a3b-0ada5a70ff3c.JPG" width="600px">
+
+---
+
 :heavy_check_mark: <b>기본 세팅</b>
 
 - `vue create youtube-browser` 로 vue cli 생성
@@ -2074,6 +2082,8 @@ mounted: function() {
 <br>
 
 #### (2) `emit` 으로 하위 컴포넌트에서 상위 컴포넌트로 데이터 보내기
+
+<img src="https://user-images.githubusercontent.com/52685250/68567125-91284980-049b-11ea-9a9b-f2b230261a7d.JPG" width="600px">
 
 - 하위 컴포넌트에서 상위 컴포넌트로 데이터가 보내지도록 `emit`을 설정하자
 
@@ -2794,6 +2804,14 @@ mounted: function() {
 :checkered_flag: <b>최종 결과 화면</b>
 
 ![6045](https://user-images.githubusercontent.com/52685250/68565172-07c24880-0496-11ea-911f-42d8808d55e0.JPG)
+
+---
+
+:crown: <b>Youtube Project 전체 흐름도</b>
+
+- 아래 흐름도에서 `emmiti`를 `emit`으로 수정
+
+<img src="https://user-images.githubusercontent.com/52685250/68567126-91284980-049b-11ea-94da-5653a82a608c.JPG" width="700px">
 
 ---
 
