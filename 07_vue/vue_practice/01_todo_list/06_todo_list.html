@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .completed {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body> <!-- local storage, watch, mounted -->
+  <div id="app">
+
+    <div :style="{ color: activeColor, fontSize: fontSize + 'px' }"> 
+      To Do List
+    </div>
+    <img :src="vueImage" alt="todo_img">
+    <hr>
+
+    <select v-model="status">
+      <option value="all" selected>all</option>
+      <option value="active">active</option>
+      <option value="completed">completed</option>
+    </select>
+
+    <li v-for="todo in todosByStatus" :class="{ completed: todo.completed }" :key="todo.id" @click="check(todo)">
+        <span>{{ todo.content }}</span>
+    </li>
+    <!-- <div v-for="todo in todosByStatus" :class="{ completed: todo.completed }" :key="todo.id"> 
+      <input type="checkbox" v-model="todo.completed">
+      <span>{{ todo.content }}</span>
+    </div> -->
+
+    <div>
+      <input type="text" v-model="newTodo" @keyup.enter="addTodo">
+      <button @click="addTodo">새로운 항목 추가하기</button>
+    </div>
+    
+    <footer>
+      <button @click="removeTodo">완료 항목 삭제하기</button>
+    </footer>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // local storage(새로고침시 현재 상태를 유지하기 위해 사용)를 이용하기 위한 준비
+    const STORAGE_KEY = 'vue-todos'
+    const todoStorage = {
+      fetch: function() { // fetch : string => json(parsing 작업)
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+      },
+      save: function(todos) { // save할 때는 함수의 인자 필요
+        // stringify 작업 : json => string
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+      }
+    }
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        todos: [
+          {
+            content: '임시 해야 할 일 1',
+            completed: true
+          },
+          {
+            content: '임시 해야 할 일 2',
+            completed: false
+          },
+          {
+            content: '임시 해야 할 일 3',
+            completed: true
+          }
+        ],
+        vueImage: 'todo_image.jpg',
+        newTodo: '',
+        activeColor: 'red',
+        fontSize: 25,
+        status: 'all',
+      },
+      methods: {
+        check: function(todo) {
+          todo.completed = !todo.completed
+        },
+        addTodo: function() {
+          if (this.newTodo.length !== 0) {
+            this.todos.push({
+              id: Date.now(),
+              content: this.newTodo,
+              completed: false,
+            })
+            this.newTodo = ''
+          }
+        },
+        removeTodo: function() {
+           this.todos = this.todos.filter(todo => !todo.completed)
+        }
+      },
+      // watch : 부수 효과 처리를 위한 것
+      // 부수 효과의 일반적인 예 : 데이터 가져오기(fetching data), DOM 조작, LocalStorage 또는 오디오 재생과 같은 브라우저 API 사용
+      // 즉, 부수 효과는 직접 컴포넌트에 영향을 주지 않는 것들이다.
+      // computed : 상태를 변경하고 싶을 때, 다른 변화에 대한 응답으로 계산을 업데이트해야 할 때 주료 사용
+      // 그렇다고 해서 watch이 하는 일을 mounted에서 못하는 것도 아니다. mounted가 하는 일을 watch에서 못하는 법도 없다.
+
+      computed: { // watch와 다른 점은 computed는 계산해야 하는 목표 데이터를 정의하는 방식
+        todosByStatus: function() {
+          if (this.status == 'active') {
+            return this.todos.filter(todo => !todo.completed)
+          }
+          if (this.status == 'completed') {
+            return this.todos.filter(todo => todo.completed)
+          }
+          return this.todos
+        }
+      },
+      watch: { // 데이터 변화 감지시 자동으로 특정 로직 수행
+        todos: { // watch에서는 this를 붙이지 않아도 됨
+          handler: function(todos) { // handler : 특정 데이터가 변경되었을 때 실행될 함수
+            todoStorage.save(todos)
+          },
+          deep: true // deep : 객체의 nested item 들도 관찰할지 유무를 설정(true인 경우 내부 요소들도 감시하도록 함.)
+        }
+      },
+      mounted: function() { // mounted : 새로고침 될 때(DOM과 Vue instance가 연결되는 시점) 실행되는 것
+        this.todos = todoStorage.fetch() // 새로고침 할 때 마다 todoStorage에 저장해놓은 데이터가지 가져오게 된다.
+      } 
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .completed {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body> <!-- 특정 todo 항목만 삭제할 수 있도록 button 추가 -->
+  <div id="app">
+
+    <div :style="{ color: activeColor, fontSize: fontSize + 'px' }"> 
+      To Do List
+    </div>
+    <img :src="vueImage" alt="todo_img">
+    <hr>
+
+    <select v-model="status">
+      <option value="all" selected>all</option>
+      <option value="active">active</option>
+      <option value="completed">completed</option>
+    </select>
+
+    <li v-for="todo in todosByStatus" :class="{ completed: todo.completed }" :key="todo.id" @click="check(todo)">
+      <span>{{ todo.content }}</span>
+      <button @click="removeTodo(todo.id)">DELETE</button>
+    </li>
+
+    <div>
+      <input type="text" v-model="newTodo" @keyup.enter="addTodo">
+      <button @click="addTodo">새로운 항목 추가하기</button>
+    </div>
+    
+    <footer>
+      <button @click="allDeleteTodo">완료 항목 삭제하기</button>
+    </footer>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const STORAGE_KEY = 'vue-todos'
+    const todoStorage = {
+      fetch: function() {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
+      },
+      save: function(todos) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(todos))
+      }
+    }
+
+    const app = new Vue({
+      el: '#app',
+
+      data: {
+        todos: [],
+        vueImage: 'todo_image.jpg',
+        newTodo: '',
+        activeColor: 'red',
+        fontSize: 25,
+        status: 'all',
+      },
+
+      methods: {
+        check: function(todo) {
+          todo.completed = !todo.completed
+        },
+        addTodo: function() {
+          if (this.newTodo.length !== 0) {
+            this.todos.push({
+              id: Date.now(),
+              content: this.newTodo,
+              completed: false,
+            })
+            this.newTodo = ''
+          }
+        },
+        allDeleteTodo: function() {
+           this.todos = this.todos.filter(todo => !todo.completed)
+        },
+        removeTodo: function(todoId) {
+          this.todos = this.todos.filter(todo => todo.id !== todoId) // 완료한 todo를 제외한 나머지 todo만 filter를 통해 새로운 배열로 return
+        }
+      },
+
+      computed: {
+        todosByStatus: function() {
+          if (this.status == 'active') {
+            return this.todos.filter(todo => !todo.completed)
+          }
+          if (this.status == 'completed') {
+            return this.todos.filter(todo => todo.completed)
+          }
+          return this.todos
+        }
+      },
+
+      watch: {
+        todos: {
+          handler: function(todos) {
+            todoStorage.save(todos)
+          },
+          deep: true
+        }
+      },
+
+      mounted: function() {
+        this.todos = todoStorage.fetch()
+      } 
+    })
+  </script>
+</body>
+</html>
