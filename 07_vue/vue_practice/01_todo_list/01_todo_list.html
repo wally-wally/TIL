@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <img :src="vueImage" alt="todo_img">
+    <li v-for="todo in todos" v-if="!todo.completed" @click="check(todo)">
+      {{ todo.content }}
+    </li>
+    <li v-else @click="check(todo)">
+      [완료!]
+    </li>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        todos: [
+          {
+            content: '임시 해야 할 일 1',
+            completed: true
+          },
+          {
+            content: '임시 해야 할 일 2',
+            completed: false
+          },
+          {
+            content: '임시 해야 할 일 3',
+            completed: true
+          }
+        ],
+        vueImage: 'todo_image.jpg'
+      },
+      methods: {
+        check: function(todo) {
+          todo.completed = !todo.completed
+        }
+      }
+    })
+  </script>
+</body>
+</html>

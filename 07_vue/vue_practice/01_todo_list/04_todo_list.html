@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .completed {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body> <!-- 카테고리 만들기 -->
+  <div id="app">
+
+    <div :style="{ color: activeColor, fontSize: fontSize + 'px' }"> 
+      To Do List
+    </div>
+    <img :src="vueImage" alt="todo_img">
+    <hr>
+
+    <select v-model="status">
+      <option value="all" selected>all</option>
+      <option value="active">active</option>
+      <option value="completed">completed</option>
+    </select>
+
+    <!-- todos => todosByStatus() -->
+    <!-- v-for 사용시 id를 사용하자 -->
+    <div v-for="todo in todosByStatus()" :class="{ completed: todo.completed }" :key="todo.id"> 
+      <input type="checkbox" v-model="todo.completed">
+      <span>{{ todo.content }}</span>
+    </div>
+
+    <div>
+      <input type="text" v-model="newTodo" @keyup.enter="addTodo">
+      <button @click="addTodo">새로운 항목 추가하기</button>
+    </div>
+    
+    <footer>
+      <button @click="removeTodo">완료 항목 삭제하기</button>
+    </footer>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        todos: [
+          {
+            content: '임시 해야 할 일 1',
+            completed: true
+          },
+          {
+            content: '임시 해야 할 일 2',
+            completed: false
+          },
+          {
+            content: '임시 해야 할 일 3',
+            completed: true
+          }
+        ],
+        vueImage: 'todo_image.jpg',
+        newTodo: '',
+        activeColor: 'red',
+        fontSize: 25,
+        status: 'all',
+      },
+      methods: {
+        check: function(todo) {
+          todo.completed = !todo.completed
+        },
+        addTodo: function() {
+          if (this.newTodo.length !== 0) { // 데이터 입력 시 빈 값일 때 입력되지 않도록 처리
+            this.todos.push({
+              id: Date.now(),
+              content: this.newTodo,
+              completed: false,
+            })
+            this.newTodo = ''
+          }
+        },
+        removeTodo: function() {
+           this.todos = this.todos.filter(todo => !todo.completed)
+        },
+        todosByStatus: function() {
+          if (this.status == 'active') {
+            return this.todos.filter(todo => !todo.completed) // 진행중인 일들
+          }
+          if (this.status == 'completed') {
+            return this.todos.filter(todo => todo.completed) // 완료된 일들
+          }
+          return this.todos // all 상태일 때
+        }
+      }
+    })
+  </script>
+</body>
+</html>
