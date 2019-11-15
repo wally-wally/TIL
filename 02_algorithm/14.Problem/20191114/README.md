@@ -2,7 +2,7 @@
 
 ---
 
-:heavy_check_mark: 11/13에 진행한 모든 문제는 SW Expert Academy의 문제입니다.
+:heavy_check_mark: 11/14에 진행한 모든 문제는 SW Expert Academy의 문제입니다.
 
 ---
 
