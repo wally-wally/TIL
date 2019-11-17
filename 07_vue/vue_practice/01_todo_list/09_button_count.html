@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <h1>Button Count</h1>
+    <button-count buttonnumber="1번 버튼"></button-count>
+    <button-count buttonnumber="2번 버튼"></button-count>
+    <button-count buttonnumber="3번 버튼"></button-count>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    var data = { counter: 0}
+    Vue.component('button-count', {
+      template: `
+      <div class="button-count">
+        <h3>{{ buttonnumber }}</h3>
+        <button @click="counter += 1">{{ counter }}</button><br>
+      </div>`,
+      props: {
+        buttonnumber: {
+          type: String,
+          required: true,
+        }
+      },
+      data: function() {
+        return {
+          counter: 0
+        }
+      }
+    })
+    const app = new Vue({
+      el: '#app',
+    })
+  </script>
+</body>
+</html>

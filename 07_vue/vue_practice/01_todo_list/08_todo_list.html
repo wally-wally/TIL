@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .completed {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+  </style>
+</head>
+
+<body> <!-- component, props -->
+  <div id="app">
+    <h1>My Todo App</h1>
+    <!-- 아래 세 줄은 구역만 설정하는 것임-->
+    <todo-list category="취업특강"></todo-list>
+    <todo-list category="SSAFY"></todo-list>
+    <todo-list category="기타"></todo-list>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // 컴포넌트 등록
+    Vue.component('todo-list', {
+      template: `
+          <div class="todo-list">
+            <h2>{{ category }}</h2>
+            <input type="text" v-model="newTodo">
+            <button @click="addTodo">+</button>
+            <li v-for="todo in todos" :key="todo.id">
+              <span>{{ todo.content }}</span>
+              <button @click="removeTodo(todo.id)">X</button>
+            </li>
+          </div>`,
+      props: {
+        category: {
+          type: String, // 적어도 타입 하나는 명시해야 한다.
+          required: true, // category 타입은 string 이면서 필수 인자이다.
+          // default 값도 설정할 수 있다.
+          validator: function (value) { // 유효성 검사도 넣을 수 있다.
+            if (value.length < 5) { // false라고 해서 입력이 안되는 것이 아니고 console 창에서 error를 띄운다.
+              return true
+            } else {
+              return false
+            }
+          },
+        }
+      },
+      // 컴포넌트에서 data는 함수여야 한다.
+      // 이제 모든 todos 와 newTodo 는 각가 고유한 내부 상태가 있다.
+      data: function () {
+        return { // {}가 이름공간을 분리하여 객체를 따로따로 분리해준다.
+          todos: [],
+          newTodo: '',
+        }
+      },
+      methods: {
+        addTodo: function () {
+          if (this.newTodo.length != 0) {
+            this.todos.push({
+              id: Date.now(),
+              content: this.newTodo,
+              completed: false,
+            })
+            this.newTodo = ''
+          }
+        },
+        removeTodo: function (todoId) {
+          this.todos = this.todos.filter(todo => {
+            return todo.id !== todoId
+          })
+        },
+      },
+    }) // 이거 하나로 view 에서 todo-list html 태그를 만들 수 있다.
+
+
+    const app = new Vue({
+      el: '#app',
+    })
+  </script>
+</body>
+
+</html>
