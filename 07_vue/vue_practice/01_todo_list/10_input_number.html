@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div :style="{ color: activeColor, fontSize: fontSize + 'px' }">숫자 입력하기</div>
+    <hr>
+
+    <select v-model="numberJudge">
+      <option value="all">all</option>
+      <option value="odd">odd</option>
+      <option value="even">even</option>
+    </select>
+    <br><br>
+    
+    <input type="text" v-model="newData" @keyup.enter="addData">
+    <p v-for="data in checkArrData" :key="data.id">
+      <span>{{ data.number }}</span>
+      <button @click="addCount(data)">+1</button>
+      <button @click="removeData(data.id)">DELETE</button>
+    </p>
+    <br>
+
+    <button @click="removeTenOver">10 이상 숫자 모두 제거</button>
+
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+
+      data: {
+        arrData: [
+          {
+            number: 1,
+            tenOver: false,
+          },
+          {
+            number: 4,
+            tenOver: false,
+          },
+          {
+            number: 13,
+            tenOver: true,
+          }
+        ],
+        newData: 0,
+        activeColor: 'crimson',
+        fontSize: 30,
+        numberJudge: 'all',
+        boolCheck: false,
+      },
+
+      methods: {
+        addData: function () {
+          this.arrData.push({
+            id : Date.now(),
+            number: parseInt(this.newData),
+            tenOver: false ? this.newData < 10 : true
+          })
+          this.newData = 0
+        },
+        addCount: function (data) {
+          data.number += 1
+          if (data.number >= 10) {
+            data.tenOver = true
+          }
+        },
+        removeTenOver: function () {
+          this.arrData = this.arrData.filter(data => !data.tenOver)
+        },
+        removeData: function (dataId) {
+          this.arrData = this.arrData.filter(data => data.id !== dataId)
+        }
+      },
+
+      computed: {
+        checkArrData: function () {
+          if (this.numberJudge === 'odd') {
+            return this.arrData.filter(data => data.number % 2 === 1)
+          }
+          if (this.numberJudge === 'even') {
+            return this.arrData.filter(data => data.number % 2 === 0)
+          }
+          return this.arrData
+        }
+      },
+    })
+  </script>
+</body>
+</html>
