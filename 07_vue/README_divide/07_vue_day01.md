@@ -15,6 +15,7 @@
 
 ### 1.1 SPA(Single Page Application) <a href="https://poiemaweb.com/js-spa" target="_blank">(참고 문서)</a>
 
+- 서버로부터 완전한 새로운 페이지를 불러오지 않고 현재의 페이지를 동적으로 다시 작성함으로써 특정 부분만 사용자와 소통하는 웹 애플리케이션이나 웹 사이트
 - SPA의 가장 중요한 목표이자 핵심가치는 <b><u>사용자 경험(UX) 향상</u></b>이다.
   - 부가적으로 속도의 향상도 기대할 수 있다.
 - <b>초기 구동 속도가 다소 느리다</b>는 단점이 있다.
@@ -30,9 +31,21 @@
 
 ![31](https://user-images.githubusercontent.com/52685250/68097489-9c5b0280-fefa-11e9-89dd-7b923a4f59c5.JPG)
 
+#### (1) 용어 정리
+
+- `View` : 사용자에게 보이는 화면
+- `DOM` : HTML 문서에 들어가는 요소의 정보를 담는 데이터트리
+- `ViewModel` : View와 Model을 연결해주는(바인딩 해주는) 중개자 역할
+- `DOM Listener` : DOM의 변경내역에 대해 즉각적으로 반응하여 특정 로직을 수행하는 장치
+- `Data Binding` : View에 표시되는 내용과 Model의 데이터 동기화
+- `Model` : 데이터를 담는 용기 역할을 하며, 보통은 서버에서 가져온 데이터를 자바스크립트 객체 형태로 저장
+
+<br>
+
+#### (2) MVVM 패턴의 특징
+
 - Backend 로직과 Client의 마크업 & 데이터 표현단을 분리하기 위한 구조로 전통적인 MVC 패턴의 방식에서 기인했다.
 - 화면 앞단의 회면 동작 관련 로직과 뒷단의 DB 데이터 처리 및 서버 로직을 분리하고, 뒷단에서 넘어온 데이터를 Model 에 담아 View 로 넘어주는 중간 지점이라고 보면 된다.
-
 - <b>데이터 바인딩</b>과 화면 단위를 컴포넌트 형태로 제공하며, 관련 API를 지원하는데에 궁극적인 목적
 - Angular에서 지원하는 <b>양방향 데이터 바인딩</b> 을 동일하게 제공
 - 하지만 <b>컴포넌트 간 통신</b>의 기본 골격은 React의 <b>단방향 데이터 흐름(부모 -> 자식)</b>을 사용
@@ -73,6 +86,24 @@
 ```
 
 ![03](https://user-images.githubusercontent.com/52685250/68099974-d59a6f00-ff08-11e9-9411-fae55e41d83a.JPG)
+
+:heavy_check_mark: <b>[참고]HTML 문서에서 Vue.js CDN 구문(`<script>`형태)</b> <a href="https://kr.vuejs.org/v2/guide/#%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" target="_blank">(공식 문서)</a>
+
+```html
+<!-- 프로토타이밍 또는 학습용으로 항상 최신버전을 사용할 수 있다. -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!-- 상용버전, 속도와 용량이 최적화됨. -->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<!-- 프로덕션 환경인 경우 새 버전에서 예상치 못한 오류를 방지하기 위해 특정 버전의 빌드 파일을 추가해야 한다. -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+
+<!-- 기본 ES 모듈을 사용하는 경우 이를 지원하는 ES 모듈 호환 빌드 파일도 있다. -->
+<script type="module">
+  import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.esm.browser.js'
+</script>
+```
 
 <br>
 
@@ -121,7 +152,7 @@
 </html>
 ```
 
-- vue 관련 chorm extension 설치 후 console창에서 다음과 같이 확인할 수 있다.
+- vue 관련 chorme extension 설치 후 console창에서 다음과 같이 확인할 수 있다.
 
 ![04](https://user-images.githubusercontent.com/52685250/68100335-e21fc700-ff0a-11e9-80c1-5eeb426a8175.JPG)
 
@@ -135,8 +166,12 @@
 
 - View - View Model 을 연결 시킨다.
 
+- Vue 인스턴스 초기화에서 `.$mount()`로 대체 가능하다.
+
 - HTML의 id 나 class 와 마운트가 가능하다.
 
+  `el: 'div'` : `div` 태그와 마운트 / `el: '#app'` : `app` id와 마운트
+  
   ```html
   <body>
     {{ message }} <!-- view랑 연결되어 있지 않으므로(mount 안 됨) vue의 속성을 받지 못하고 저 글자 그대로 출력된다. -->
@@ -161,12 +196,16 @@
 
 - Vue 인스턴스의 데이터 객체, 인스턴스의 `속성` 이라고도 부름
 - 데이터 객체는 반드시 기본 객체 (`{ }`) 여야 함.
+- Vue 인스턴스가 최초 생성되면, `data` 객체 안의 모든 값들을 반응 시스템에 등록한다.
+- 이 `data` 객체에 등록된 key에 대해서만 value 수정에 대하여 반응하므로, 최초 생성시 할당할 값이 없다면 `''`, `[]`, `{}`, `0`과 같은 값으로 초기화 해야 한다.
 
 - 객체 내부의 아이템들은 value 로써 모든 타입의 객체를 가질 수 있다. (object, string, integer, array...)
 
+- <b>Vue는 `data`가 변경되면 기본적으로 DOM을 다시 렌더링 한다.</b>(단, `v-once` 같은 디렉티브는 예외)
+
 - 정의된 속성은 인터폴레이션(`{{ }}`)을 통해서 View 에서 렌더링 가능
 
-- data 에서도 이벤트리스너와 비슷한 이유로 화살표 함수를 작성해서는 안 된다.
+- data 에서도 이벤트리스너와 비슷한 이유로 <b>화살표 함수를 작성해서는 안 된다.</b>
 
   ```html
   <body>
@@ -193,9 +232,9 @@
 
 #### (3) methods
 
-- Vue 인스턴스에 추가할 메소드를 정의하는 곳
+- Vue 인스턴스에 추가할 메소드(사용할 다양한 함수들)를 정의하는 곳
 
-- (주의) 메소드를 정의하는데에 화살표 함수를 사용해서는 안 된다.
+- (주의) <b>메소드를 정의하는데에 화살표 함수를 사용해서는 안 된다.</b>
 
   ```html
   <body>
@@ -382,6 +421,7 @@
 - `v-if` : 특정 조건을 만족할때만 보여지도록(렌더링되도록) 할 수 있다.
 - `v-else`는 반드시 `v-if` 엘리먼트 바로 뒤에 와야 인식 가능.
 - `v-else-if` 도 존재.
+- <b>`v-bind:key`를 필요로 한다!</b>
 
 ```html
 <!DOCTYPE html>
@@ -435,8 +475,54 @@
 :heavy_check_mark: <b>우선순위 주의사항!</b>
 
 - <b><u>동일한 노드에서는 `v-for` 가 `v-if` 보다 높은 우선순위를 가짐</u></b>
-
 - 즉, `v-if`는 루프가 반복될때마다 실행! (일부 항목만 렌더링 할 때 유용)
+- [참고] Vue-CLI 환경에서는 기본적으로 `v-for`와 `v-if`를 함께 사용하면 에러를 발생시키도록 eslint 설정이 되어 있다.
+
+<br>
+
+:heavy_check_mark: <b>`v-for`를 사용하여 객체의 속성을 반복할 수 있는데 이 때 최대 세 개의 전달 인자를 제공할 수 있다.</b>
+
+- 첫 번째 인자 : 객체의 `value`, 두 번째 인자: 객체의 `key`, 세 번째 인자: 객체의 `index`
+
+  ```html
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <p v-for="(a, b, c) in bookData">
+        {{ a }} - {{ b }} - {{ c }}
+      </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: 'div',
+        data: {
+          bookData: {
+            title: '123',
+            author: 'wally',
+            publishedAt: '2018-06-07'
+          }
+        }
+      })
+    </script>
+  </body>
+  </html>
+  ```
+
+  ```
+  123 - title - 0
+  
+  wally - author - 1
+  
+  2018-06-07 - publishedAt - 2
+  ```
 
 <br>
 
@@ -444,7 +530,9 @@
 
 - JS 에서 이벤트리스너랑 비슷한 역할을 함
 
-- 이벤트 리스너는 HTML element 를 querySelector 로 가져와 이벤트를 붙여줬다면, Vue 는 HTML element 자체에 이벤트를 붙여준다.
+- `v-on` 디렉티브를 사용하여 DOM 이벤트 핸들링이 기능하다.
+
+- 이벤트 리스너는 HTML element 를 querySelector 로 가져와 이벤트를 붙여줬다면, Vue 는 <b>HTML element 자체에 이벤트를 붙여준다.</b>
 
 - `v-on:` 뒤에 오는 친구(`click` 같은거)를 `전달인자` 라고 한다. `:` 을 붙여서 사용하는 디렉티브 바로 뒤에 붙는 친구들을 지칭한다.
 
@@ -509,10 +597,13 @@
 
 #### (3) v-bind
 
-- HTML element 의 속성 값을 변경할 때 사용
+- HTML element 의 <b><u>속성</u></b> 값을 변경할 때 사용(절대로 HTML 태그의 값을 다루는 것이 아니다.)
+
+- HTML5 속성 뿐만 아니라, Vue 내부에서 사용하는 속성들도 `v-bind`를 통해 조작한다.
 
   ```html
   <!-- <div id="app"> 바로 아래에 추가 -->
+  <div v-bind:class="classRed">red</div>
   <img v-bind:src="vueImage" alt="todo-list">
   <img :src="vueImage" alt="todo-list"> <!-- v-bind는 생략할 수도 있음(shortcut) -->
   
@@ -523,7 +614,8 @@
         todos: [
         ...
         ],
-        vueImage: '~'
+        vueImage: '~',
+        classRed: 'red',
       }
     ...
     })

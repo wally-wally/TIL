@@ -27,15 +27,15 @@
     // 컴포넌트 등록
     Vue.component('todo-list', {
       template: `
-          <div class="todo-list">
-            <h2>{{ category }}</h2>
-            <input type="text" v-model="newTodo">
-            <button @click="addTodo">+</button>
-            <li v-for="todo in todos" :key="todo.id">
-              <span>{{ todo.content }}</span>
-              <button @click="removeTodo(todo.id)">X</button>
-            </li>
-          </div>`,
+        <div class="todo-list">
+          <h2>{{ category }}</h2>
+          <input type="text" v-model="newTodo">
+          <button @click="addTodo">+</button>
+          <li v-for="todo in todos" :key="todo.id">
+            <span>{{ todo.content }}</span>
+            <button @click="removeTodo(todo.id)">X</button>
+          </li>
+        </div>`,
       props: {
         category: {
           type: String, // 적어도 타입 하나는 명시해야 한다.

@@ -19,6 +19,12 @@
 
 - input tag의 value - <b>View</b> <------> v-model <------> data(<b>VM</b>)
 
+- `input` / `textarea` 와 같은 요소에서 사용자의 입력과 <b>양방향 데이터 바인딩</b>을 공유할 때 사용한다.
+
+- 일반적인 HTML 에서의 초기값인 `value`, `checked`, `selected` 등의 속성을 무시한다.
+
+- `v-model`은 HTML의 `<input>`, `<select>`, `<textarea>` 태그, Vue의 `components`에서만 사용가능하다.
+
 - input tag와 VM의 newTodo와 동기적으로 연결
 
   ```html
@@ -142,6 +148,63 @@
       })
     </script>
   </body>
+  ```
+
+- [참고] 텍스트 영역의 보간 (`<textarea>{{ text }}</textarea>`)은 작동하지 않는다. 대신 `v-model`을 사용해야 한다.
+
+  ```html
+  <!-- before -->
+  <textarea>{{ text }}</textarea>
+  
+  <!-- after -->
+  <p>{{ message }}</p>
+  <textarea v-model="message"></textarea>
+  ```
+
+- [참고]셀렉트 옵션
+
+  ```html
+  <select v-model="selected">
+    <!-- inline object literal -->
+    <option v-bind:value="{ number: 123 }">123</option>
+  </select>
+  ```
+
+  ```javascript
+  // 선택 하면:
+  typeof vm.selected // -> 'object'
+  vm.selected.number // -> 123
+  ```
+
+- [참고] `v-for`를 이용한 동적 옵션 렌더링
+
+  ```html
+  <select v-model="selected">
+    <option v-for="option in options" v-bind:value="option.value">
+      {{ option.text }}
+    </option>
+  </select>
+  <span>Selected: {{ selected }}</span>
+  ```
+
+  ```js
+  new Vue({
+    el: '...',
+    data: {
+      selected: 'A',
+      options: [
+        { text: 'One', value: 'A' },
+        { text: 'Two', value: 'B' },
+        { text: 'Three', value: 'C' }
+      ]
+    }
+  })
+  ```
+
+  ```
+  select 상자에서 One을 선택하면 오른쪽에 Selected: A가 나온다.
+  select 상자에서 Two을 선택하면 오른쪽에 Selected: B가 나온다.
+  select 상자에서 Three을 선택하면 오른쪽에 Selected: C가 나온다.
   ```
 
 <br>
@@ -319,7 +382,7 @@
   },
   ```
 
-  앞으로 v-for 작성할 때는 id 값을 사용하자!
+  <b>앞으로 v-for 작성할 때는 id 값을 사용하자!</b>
 
 - 문제점 해결(2) - 데이터 입력시 빈 값일 때 입력되지 않도록 처리
 
@@ -344,9 +407,29 @@
 
 - 미리 계산된 값을 반환
 
-- 종속 대상을 따라 저장(캐싱)되는 특성이 있다.
+- `data`를 수정하지 않고, 가공된 `data`를 활용하고 싶을 때 사용한다.
+
+- 반드시 `return`이 이써야 하며, 함수를 작성하지만 실제 Vue 인스턴스에서는 `return` 된(`data`를 가공한) 값을 캐싱한다. 즉, 종속 대상을 따라 저장(캐싱)되는 특성이 있다는 의미.
 
 - 연산이 많이 필요한 경우 템플릿 안에서 연산 표현식을 사용하는 것보다 computed를 사용하는 것을 권장
+
+- 너무 많은 연산을 템플릿 안에서 하면 코드가 비대해지고 유지보수가 어렵다.
+
+- <b>계산된 속성을 정의할 때 화살표 함수를 사용하면 안 된다.</b>
+
+  ```js
+  // 잘못된 예제
+  computed: {
+    aDouble: vm => vm.a * 2
+  }
+  
+  // 올바른 예제
+  computed: {
+    aDouble: function(vm) {
+      return vm.a * 2
+    }
+  }
+  ```
 
 - `{{ newTodo.split('').reverse().join('') }}` 와 같은 newTodo 역순 출력하는 JS 구문을 vue를 통해 아래와 같이 작성하면 이것을 가져다가 쓰기만 하면 된다.
 
@@ -399,7 +482,7 @@
         }
   ```
 
-- computed는 이미 호출되어 있으므로 소괄호()를 쓰지 않고 이름만 바로 가져온다.
+- computed는 이미 호출되어 있으므로 <b>소괄호()를 쓰지 않고 이름만 바로 가져온다.</b>
 
   ```html
   <!-- before -->
@@ -411,9 +494,9 @@
 
 - `methods` vs `computed` - `04_methods_and_computed.html`
 
-  `methods` : 함수 자체 이므로 호출할 때마다 매번 계산
+  `methods` : 함수 자체 이므로 <b>호출할 때마다 매번 계산</b>
 
-  `computed` : 한 페이지에서 최초 선언할 때만 계산됨
+  `computed` : 한 페이지에서 <b>최초 선언할 때만 계산</b>됨
 
   아래 예시는 BUTTON을 누를 때마다 시간이 갱신됨(단, computed는 최초 선언될 때만 계산됨)
 
@@ -454,9 +537,10 @@
 
 ---
 
-- `localStorage.getItem(keys)` : 아이템 가져오기
+- `localStorage.getItem(key)` : 아이템 가져오기
 - `localStorage.setItem(key, value)` : 아이템 저장
 - `localStorage.removeItem(key)` : 아이템 삭제
+- `localStorage.clear()` : 전체 삭제
 
 ---
 
@@ -493,10 +577,14 @@
 
 - `watch`
   - Vue 인스턴스의 data 변경을 관찰하고 이에 반응
-  - 데이터 변경에 대한 응답으로 비동기 또는 시간이 많이 소요되는 조작을 수행하려는 경우에 적합
-  - 특정 데이터가 변경되었을 때 정의한 함수를 실행
+  - 특정 데이터가 변경되었을 때 정의한 watcher 함수를 실행
+  - 함수로 정의하며, key는 변경을 감지할 `data`의 key 값으로 작성한다.(아래 예시에서는 `todos`가 해당)
+  - 다만, 같은 기능을 구현하기 위해 `computed` 속성과 `watch` 속성 두 가지 방법을 모두 사용할 수 있지만 `computed` 사용을 권장한다. 
+    - Vue의 기본적인 패러다임인 `선언형 프로그래밍`에 더 적합하며 코드도 간결해 지기 때문이다.
+  - 데이터 변경에 대한 응답으로 <u>비동기 또는 시간이 많이 소요되는</u> 조작을 수행하려는 경우에 적합
 - `mounted`
   - 새로고침 될 때(DOM과 Vue instance 가 연결되는 시점) 실행되는 것
+  - 화면 요소를 제어하는 로직에서 유용하다.
 
 ```javascript
 watch: {
@@ -541,21 +629,32 @@ mounted: function() {
 
 #### (1) v-text
 
-```html
-<!-- v-text : interpolation 안 쓰고 text 출력 -->
-<span v-text="name"></span>
-<span>{{ name }}</span>
-```
+- Vanilla JS 에서 `.innerText`와 동일한 기능을 수행하고, 태그를 일반 문자 상태로 보여준다.
+
+- 보간법(`{{ }}`)을 사용하는 것과 같으며 보간법 사용을 권장한다.
+
+  ```html
+  <!-- v-text : interpolation 안 쓰고 text 출력 -->
+  <span v-text="name"></span>
+  <span>{{ name }}</span>
+  ```
 
 <br>
 
 #### (2) v-html
 
-```html
-<!-- v-html : 실제 html로 렌더링 해 줌 -->
-{{ name2 }}
-<span v-html="name2"></span>
-```
+- Vanilla JS에서 `.innerHTML`과 동일한 기능을 수행하며, 태그를 파싱하여 화면에 구현한다.
+
+- XSS(Cross Site Scripting) 공격에 주의해야 한다.
+
+  ```html
+  <!-- v-html : 실제 html로 렌더링 해 줌 -->
+  {{ name2 }}
+  <span v-html="name2"></span>
+  ```
+
+- Vue-CLI에서 `<style>` 의 `scoped` 스타일은 `v-html` 내부에 적용하지 않는다. 다만, 적용하려면 `CSS-modules`를 추가해야 한다.
+  - `css-loader`, `vue-style-loader` 추가해야 함
 
 <br>
 
@@ -563,23 +662,77 @@ mounted: function() {
 
 - `v-if` : 조건에 맞지 않으면 렌더링 자체를 하지 않음
 
-- `v-show` : 조건과 관계 없이 일단 렌더링 후에, 조건에 맞지 않으면 CCS display 속성읕 토글해서 숨겨버림.(display: none;)
+- `v-show` : 조건과 관계 없이 일단 렌더링 후에, 조건에 맞지 않으면 CCS display 속성읕 토글해서 숨겨버림.(`display: none;`)
 
-```html
-<p v-if="false">{{ name3 }}</p>
-<p v-show="false">{{ name3 }}</p>
-```
+  - `<template>` 구문 지원 X, `<v-else>`와도 작동 X
+
+  ```html
+  <p v-if="false">{{ name3 }}</p>
+  <p v-show="false">{{ name3 }}</p>
+  ```
 
 - 아래 console 창에서 보는것과 같이 `v-if` 에 해당하는 구문이 사라졌다.
 
 ![004](https://user-images.githubusercontent.com/52685250/68174180-7ef06c00-ffc0-11e9-8119-cf9d298c77c7.JPG)
 
+:heavy_check_mark: <b>`v-show` vs `v-if`</b>
+
+- 일반적으로 `v-if`는 토글 비용이 높고 `v-show`는 초기 렌더링 비용이 더 높다.
+
+- 해당 요소의 화면 표현 전환(on/off)이 잦다면, `v-show`를 사용하는 것이 렌더링 비용이 적다.
+- 반면 전환이 잦지 않고 고정되어 있다면, `v-if`를 사용하는 것이 컴파일 비용이 적다.
+
 <br>
 
-#### (4) `computed` vs `watch`
+#### (4) v-pre
+
+- Vue.js 가 컴파일 하지 않는다.
+
+- 보간법(`{{ }}`)도 그대로 브라우저에 나타난다.
+
+  ```html
+  <template>
+    <div id="app">
+      <p v-pre>
+        {{ message }}
+      </p>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    name: 'app',
+    data () {
+      return {
+        message: 'hi'
+      }
+    }
+  }
+  </script>
+  <style></style>
+  ```
+
+  ```
+  {{ message }}
+  ```
+
+<br>
+
+#### (5) v-once
+
+- 표현식이 필요하지 않는 디렉티브로 최초 렌더링을 단 한번만 수행한다.
+- `data`가 수정되어도 처음 렌더링 된 값만을 보여준다.
+
+<br>
+
+---
+
+:boxing_glove: <b>`computed` vs `watch`</b>
 
 - `computed` : 계산해야 하는 `목표 데이터를 정의하는 방식`(선언형 프로그래밍)
 - `watch` : 감시할 데이터를 지정하고 그 `데이터가 바뀌면 특정 함수를 실행하라는 방식`(명령형 프로그래밍)
+
+---
 
 <br>
 
@@ -758,9 +911,16 @@ mounted: function() {
 #### (3) 컴포넌트
 
 - "소프트웨어 개발에서 독립적인 단위 모듈"
-- 대체로 컴포넌트는 특정 기능이나 관련된 기능의 조합으로 구성되는데, 프록래밍 설계에서 시스템은 모듈로 구성된 컴포넌트로 나뉜다.
+- 대체로 컴포넌트는 특정 기능이나 관련된 기능의 조합으로 구성되는데, 프로그래밍 설계에서 시스템은 모듈로 구성된 컴포넌트로 나뉜다.
 - Vue 공식문서에 적힌 내용
-  - 기본 HTML 엘리먼트를 확장하여 재사용 가능한 코드로 캡슐화 하는 것
+  - 기본 HTML 엘리먼트를 확장하여 <b>재사용 가능한 코드로 캡슐화 하는 것</b>
+- <b>모든 Vue 컴포넌트는 Vue 인스턴스다.</b> 그러므로, 모든 options 객체를 사용할 수 있다.(단, root에서만 사용할 수 있는 옵션은 제외)
+- 한 Vue app 안에서 각 컴포넌트들은 Root 인스턴스를 시작으로 부모-자식 컴포넌트의 관계를 가진다.
+- Vue cli 환경에서 사용하는 방법과 일반적인 HTML, JS 에서 사용하는 방법이 다르다.
+- Component 에서 활용되는 속성들
+  - `name` : 컴포넌트 사용 시, 해당 컴포넌트의 이름을 정의
+  - `components` : 부모 컴포넌트에서 사용할 자식 컴포넌트의 이름(`name`)들을 작성
+  - `props` : 부모 컴포넌트에서 자식 컴포넌트로 데이터를 전달할 때 사용
 
 ---
 
@@ -820,10 +980,51 @@ mounted: function() {
 #### (4) `props`
 
 - 컴포넌트를 재생산할 때 컴포넌트에서 사용할 변수를 부모에게 내려주게 되는데 이를 `props`라고 한다.
+
 - `props`는 반복되는 컴포넌트에서 서로 다른 정보가 들어가야 할 때 사용
+
 - 하위(자식)에서 상위(부모) 데이터를 직접 참조해선 안되고 실제로도 안된다.
+
+  - 자식 컴포넌트에서 부모 컴포넌트를 움직이게 하려면, 이벤트를 발생(`emit`)시켜야 한다.
+  - 모든 Vue 컴포넌트들은 `.$emit` 메서드를 통해 부모 컴포넌트가 들을 수 있는 이벤트를 발생시킬 수 있다.
+
 - `props` 옵션을 통해 부모 -> 자식으로 데이터를 전달
+
 - 전달하려고 하는 <b>데이터의 이름을 태그 내의 속성</b>으로, <b>내용을 속성 값</b>으로
+
+- props 예제
+
+  `type` : `String`, `Number`, `Boolean`, `Array`, `Object`, `Date`, `Function`, `Symbol`
+
+  `default` : `any`
+
+  `required` : `Boolean`
+
+  `validator` : `Function`
+
+  ```js
+  // 단순한 구문
+  Vue.component('props-demo-simple', {
+    props: ['size', 'myMessage']
+  })
+  
+  // 유효성 검사를 포함한 객체 구문
+  Vue.component('props-demo-advanced', {
+    props: {
+      // 타입 체크만 합니다.
+      height: Number,
+      // 타입 체크와 유효성 검사를 합니다.
+      age: {
+        type: Number,
+        default: 0,
+        required: true,
+        validator: function (value) {
+          return value >= 0
+        }
+      }
+    }
+  })
+  ```
 
 ---
 
@@ -870,7 +1071,7 @@ mounted: function() {
 
   ![007](https://user-images.githubusercontent.com/52685250/68187150-37caa100-ffe9-11e9-95bb-a13bb795d676.JPG)
 
-- `props` 편집(타입 명시, reqired 속성, 유효성 검사)
+- `props` 편집(타입 명시, required 속성, 유효성 검사)
 
   아래 사진과 같이 단순히 console 창에 오류를 띄울 뿐 제대로 된 오류 처리를 하려면 model까지 손봐야 한다.
 

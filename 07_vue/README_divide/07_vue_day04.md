@@ -42,15 +42,15 @@
 >
 > ```vue
 > <template>
-> <div id="app">
+>   <div id="app">
 > 
-> </div>
+>   </div>
 > </template>
 > 
 > <script>
 > 
 > export default {
-> name: 'App', // 최상단 컴포넌트기 때문에 이름이 없어도 되지만 명시적으로 작성한다.
+>   name: 'App', // 최상단 컴포넌트기 때문에 이름이 없어도 되지만 명시적으로 작성한다.
 > 
 > }
 > </script>
@@ -70,14 +70,14 @@
 >
 > ```vue
 > <template>
-> <div>
->  <input type="text">
-> </div>
+>   <div>
+>      <input type="text">
+>   </div>
 > </template>
 > 
 > <script>
 > export default {
->  name: 'SearchBar'
+>    name: 'SearchBar'
 >  
 > }
 > </script>
@@ -144,7 +144,7 @@
   </style>
   ```
 
-  `package.json`의 rules에 `"no-console": "off"` 구문 추가하고 서버를 껐다가 다시 켜면 오류 없이 console 창에서 볼 수 있다.
+  `package.json`의 <b>rules</b>에 <b>`"no-console": "off"`</b> 구문 추가하고 서버를 껐다가 다시 켜면 오류 없이 console 창에서 볼 수 있다.
 
   `target` > `value`에 input에 입력한 데이터를 확인할 수 있다.
 
@@ -178,7 +178,7 @@
       methods: {
         onInput(e) {
           this.$emit('inputChange', e.target.value)
-          // $emit(이벤트 이름(event name), 데이터(arguments))
+          // $emit(부모 컴포넌트에서 발생하는 이벤트 이름(event name), 보낼 데이터(arguments))
         }
       }
     }
@@ -231,7 +231,7 @@
 
 ---
 
-- `emit` : 하위에서 상위로 데이터를 올려 보낼 때는 Event 를 발싱시키는 방법을 사용한다.
+- `emit` : 하위에서 상위로 데이터를 올려 보낼 때는 Event 를 발생시키는 방법을 사용한다.
 - `props` 는 배열, 객체, 함수 등 무엇이든 내려보내는 속성(properties)이고, `emit event` 는 자식에서 부모로 <b>이벤트를 발생</b> 시키는 것
 
 ---
@@ -379,6 +379,7 @@
       <search-bar @inputChange="onInputChange"></search-bar>
       <!-- :videos의 videos는 이름이 바뀌어도 되고, 오른쪽 videos는 이름이 바뀔 수 없다. -->
       <video-list :videos="videos"></video-list>
+      <!-- [props] :videos="videos" => :자식컴포넌트에_작성한_props의_이름="보낼_데이터_변수명" -->
     </div>
   </template>
   
@@ -460,26 +461,26 @@
 >
 > ```vue
 > <template>
-> <ul>
->  <!-- 여기선 etag가 hash 값이라 item간 서로 안 겹치므로 key로 사용 -->
->  <!-- :video="video" : 자식쪽으로 넘겨줄 때도 v-bind 사용 -->
->  <video-list-item v-for="video in videos" :key="video.etag" :video="video"></video-list-item>
-> </ul>
+>   <ul>
+>    <!-- 여기선 etag가 hash 값이라 item간 서로 안 겹치므로 key로 사용 -->
+>    <!-- :video="video" : 자식쪽으로 넘겨줄 때도 v-bind 사용 -->
+>      <video-list-item v-for="video in videos" :key="video.etag" :video="video"></video-list-item>
+>   </ul>
 > </template>
 > 
 > <script>
 > import VideoListItem from './VideoListItem' // VideoListItem의 최상위 컴포넌트는 VideoList 컴포넌트이므로 VideoListItem 컴포넌트 등록은 여기서 한다!
 > export default {
->  name: 'VideoList',
->  components: {
->    VideoListItem,
->  },
->  props: {
->    videos: {
->      type: Array,
->      required: true,
+>    name: 'VideoList',
+>    components: {
+>        VideoListItem,
+>    },
+>    props: {
+>        videos: {
+>          type: Array,
+>          required: true,
+>        }
 >    }
->  }
 > }
 > </script>
 > 
@@ -492,20 +493,20 @@
 >
 > ```vue
 > <template>
-> <li>
->  {{ video.snippet.title }}
-> </li>
+>   <li>
+>      {{ video.snippet.title }}
+>   </li>
 > </template>
 > 
 > <script>
 > export default {
->  name: 'VideoListItem', // VideoListItem의 최상위 컴포넌트는 VideoList 컴포넌트이다.
->  props: {
->    video: {
->      type: Object,
->      requried: true,
+>    name: 'VideoListItem', // VideoListItem의 최상위 컴포넌트는 VideoList 컴포넌트이다.
+>    props: {
+>        video: {
+>          type: Object,
+>          requried: true,
+>        }
 >    }
->  }
 > }
 > </script>
 > 
@@ -575,10 +576,10 @@
 >
 > ```vue
 > <template>
-> <li class="list-group-item">
->  <img :src="video.snippet.thumbnails.default.url">
->  {{ video.snippet.title }}
-> </li>
+>   <li class="list-group-item">
+>      <img :src="video.snippet.thumbnails.default.url">
+>      {{ video.snippet.title }}
+>   </li>
 > </template>
 > ```
 
@@ -588,41 +589,41 @@
 >
 > ```vue
 > <template>
-> <li class="list-group-item">
->  <!-- 여기서 computed는 ()를 쓰지 않고 watched는 ()를 써야 한다! -->
->  <img :src="thumbnailUrl" alt="img">
->  <div class="media-body"> <!-- 글자가 어긋나게 삐져나가지 않도록 div 태그로 감싼다. -->
->    {{ video.snippet.title }}
->  </div>
-> </li>
+>   <li class="list-group-item">
+>      <!-- 여기서 computed는 ()를 쓰지 않고 watched는 ()를 써야 한다! -->
+>      <img :src="thumbnailUrl" alt="img">
+>      <div class="media-body"> <!-- 글자가 어긋나게 삐져나가지 않도록 div 태그로 감싼다. -->
+>          {{ video.snippet.title }}
+>      </div>
+>   </li>
 > </template>
 > 
 > <script>
 > export default {
->  name: 'VideoListItem', // VideoListItem의 최상위 컴포넌트는 VideoList 컴포넌트이다.
->  props: {
->    video: {
->      type: Object,
->      requried: true,
+>    name: 'VideoListItem', // VideoListItem의 최상위 컴포넌트는 VideoList 컴포넌트이다.
+>    props: {
+>        video: {
+>          type: Object,
+>          requried: true,
+>        }
+>    },
+>    computed: {
+>        thumbnailUrl() {
+>          return this.video.snippet.thumbnails.default.url // 이 곳에 미리 캐싱되어 있음
+>        }
 >    }
->  },
->  computed: {
->    thumbnailUrl() {
->      return this.video.snippet.thumbnails.default.url // 이 곳에 미리 캐싱되어 있음
->    }
->  }
 > }
 > </script>
 > 
 > <style scoped>
-> li {
->  display: flex;
->  cursor: pointer;
-> }
+>   li {
+>      display: flex;
+>      cursor: pointer;
+>   }
 > 
-> li:hover {
->  background-color: #eee; /* 마우스를 올렸을 때 회색 나게 한다. */
-> }
+>   li:hover {
+>      background-color: #eee; /* 마우스를 올렸을 때 회색 나게 한다. */
+>   }
 > </style>
 > ```
 
@@ -630,10 +631,11 @@
 
 <br>
 
-### 4.6 VideoDetail 컴포넌트 구성
+### 4.6 VideoDetail 컴포넌트 구성(조금 어려움)
 
-- `VideoListItem.vue` 에서 `VideoList.vue`로 데이터를 올리고,  다시 이를 `App.vue`로 올린다.
-- 그리고 `VideoDetail.vue`로 데이터를 내려 보내준다.
+- 데이터 전달 과정(컴포넌트 간의 관계를 잘 생각하자!)
+  - `VideoListItem.vue` 에서 `VideoList.vue`로 데이터를 올리고,  다시 이를 `App.vue`로 올린다.
+  - 그리고 `VideoDetail.vue`로 데이터를 내려 보내준다.
 
 > `VideoListItem.vue`
 >
@@ -641,32 +643,32 @@
 >
 > ```vue
 > <template>
-> <li @click="onVideoSelect" class="list-group-item">
->  <img :src="thumbnailUrl" alt="img"> <!-- 여기서 computed는 ()를 쓰지 않고 watched는 ()를 써야 한다! -->
->  <div class="media-body" v-html="video.snippet.title"> <!-- 글자가 어긋나게 삐져나가지 않도록 div 태그로 감싼다. -->
->  </div>
-> </li>
+>   <li @click="onVideoSelect" class="list-group-item">
+>      <img :src="thumbnailUrl" alt="img"> <!-- 여기서 computed는 ()를 쓰지 않고 watched는 ()를 써야 한다! -->
+>      <div class="media-body" v-html="video.snippet.title"> <!-- 글자가 어긋나게 삐져나가지 않도록 div 태그로 감싼다. -->
+>      </div>
+>   </li>
 > </template>
 > 
 > <script>
 > export default {
->  name: 'VideoListItem',
->  props: {
->    video: {
->      type: Object,
->      requried: true,
+>    name: 'VideoListItem',
+>    props: {
+>        video: {
+>          type: Object,
+>          requried: true,
+>        }
+>    },
+>    methods: {
+>        onVideoSelect() {
+>          this.$emit('videoSelect', this.video) // VideoList로 올려 보내므로 emit 추가
+>        }
+>    },
+>    computed: {
+>        thumbnailUrl() {
+>          return this.video.snippet.thumbnails.default.url 
+>        }
 >    }
->  },
->  methods: {
->    onVideoSelect() {
->      this.$emit('videoSelect', this.video) // VideoList로 올려 보내므로 emit 추가
->    }
->  },
->  computed: {
->    thumbnailUrl() {
->      return this.video.snippet.thumbnails.default.url 
->    }
->  }
 > }
 > </script>
 > ```
@@ -675,36 +677,36 @@
 >
 > ```vue
 > <template>
-> <ul class="list-group">
->  <video-list-item
->    v-for="video in videos"
->    :key="video.etag"
->    :video="video"
->    @videoSelect="onVideoSelect">
->  <!-- VideoListItem.vue의 onVideoSelect와 다른 onVideoSelect 이다. -->
->  </video-list-item>
-> </ul>
+>   <ul class="list-group">
+>      <video-list-item
+>          v-for="video in videos"
+>          :key="video.etag"
+>          :video="video"
+>          @videoSelect="onVideoSelect">
+>      <!-- VideoListItem.vue의 onVideoSelect와 다른 onVideoSelect 이다. -->
+>      </video-list-item>
+>   </ul>
 > </template>
 > 
 > <script>
 > import VideoListItem from './VideoListItem'
 > // VideoListItem의 최상위 컴포넌트는 VideoList 컴포넌트이므로 VideoListItem 컴포넌트 등록은 여기서 한다!
 > export default {
->  name: 'VideoList',
->  components: {
->    VideoListItem,
->  },
->  methods: {
->    onVideoSelect(video) {
->      this.$emit('videoSelect', video) // App으로 올려 보내므로 emit 추가 
+>    name: 'VideoList',
+>    components: {
+>        VideoListItem,
+>    },
+>    methods: {
+>        onVideoSelect(video) {
+>          this.$emit('videoSelect', video) // App으로 올려 보내므로 emit 추가 
+>        }
+>    },
+>    props: {
+>        videos: {
+>          type: Array,
+>          required: true,
+>        }
 >    }
->  },
->  props: {
->    videos: {
->      type: Array,
->      required: true,
->    }
->  }
 > }
 > </script>
 > 
@@ -717,12 +719,12 @@
 >
 > ```vue
 > <template>
-> <div id="app">
->  <search-bar @inputChange="onInputChange"></search-bar>
->  <!-- selecteVideo를 VideoDetail로 보내주기 위해 바인딩해준다. -->
->  <video-detail :video="selectedVideo"></video-detail>
->  <video-list @videoSelect="onVideoSelect" :videos="videos"></video-list>
-> </div>
+>   <div id="app">
+>      <search-bar @inputChange="onInputChange"></search-bar>
+>      <!-- selecteVideo를 VideoDetail로 보내주기 위해 바인딩해준다. -->
+>      <video-detail :video="selectedVideo"></video-detail>
+>      <video-list @videoSelect="onVideoSelect" :videos="videos"></video-list>
+>   </div>
 > </template>
 > 
 > <script>
@@ -734,41 +736,41 @@
 > const API_URL = 'https://www.googleapis.com/youtube/v3/search'
 > 
 > export default {
-> name: 'App',
-> components: {
->  SearchBar, 
->  VideoList,
->  VideoDetail,
-> },
-> data() {
->  return {
->    videos: [],
->    // 올라온 video를 넣어줘야 하므로 새로운 변수 선언
->    // 선택 안 된 기본상태가 필요하므로 null 선언
->    selectedVideo: null,
->  }
-> },
-> methods: {
->  onVideoSelect(video) { // emit으로 받은 video를 selectedVideo에 할당 후 selectedVideo를 하위 컴포넌트인 VideoDetail.vue로 넘겨준다.
->    this.selectedVideo = video
->  },
->  onInputChange(inputValue) {
->    axios.get(API_URL, {
->      params: {
->        key: API_KEY,
->        type: 'video',
->        part: 'snippet',
->        q: inputValue,
+>   name: 'App',
+>   components: {
+>      SearchBar, 
+>      VideoList,
+>      VideoDetail,
+>   },
+>   data() {
+>      return {
+>          videos: [],
+>          // 올라온 video를 넣어줘야 하므로 새로운 변수 선언
+>          // 선택 안 된 기본상태가 필요하므로 null 선언
+>          selectedVideo: null,
 >      }
->    })
->    .then(response => {
->      this.videos = response.data.items
->    })
->    .catch(err => {
->      console.log(err)
->    })
->  }
-> }
+>   },
+>   methods: {
+>      onVideoSelect(video) { // emit으로 받은 video를 selectedVideo에 할당 후 selectedVideo를 하위 컴포넌트인 VideoDetail.vue로 넘겨준다.
+>          this.selectedVideo = video
+>      },
+>      onInputChange(inputValue) {
+>          axios.get(API_URL, {
+>            params: {
+>              key: API_KEY,
+>              type: 'video',
+>              part: 'snippet',
+>              q: inputValue,
+>            }
+>          })
+>          .then(response => {
+>            this.videos = response.data.items
+>          })
+>          .catch(err => {
+>            console.log(err)
+>          })
+>      }
+>   }
 > }
 > </script>
 > ```
@@ -777,41 +779,41 @@
 >
 > ```vue
 > <template>
-> <!-- console에 출력되는 error를 처리하기 위해 video에 데이터가 있을 때만 출력! -->
-> <div v-if="video" class="col-lg-8">
->  <div class="embed-responsive embed-responsive-16by9">
->    <iframe :src="videoUrl" frameborder="0" class="embed-responsive-item"></iframe>
->  </div>
->  <div class="details">
->    <!--
->      특수문자 인코딩 깨지는 것을 막기 위해
->      h4 태그 안에 작성했던 <h4>{{ video.snippet.title }}</h4>을
->      v-html을 이용해 <h4 v-html="video.snippet.title"></h4>로 작성한다.
->    -->
->    <h4 v-html="video.snippet.title"></h4>
->    <p>{{ video.snippet.description }}</p>
->  </div>
-> </div>
+>   <!-- console에 출력되는 error를 처리하기 위해 video에 데이터가 있을 때만 출력! -->
+>   <div v-if="video" class="col-lg-8">
+>      <div class="embed-responsive embed-responsive-16by9">
+>          <iframe :src="videoUrl" frameborder="0" class="embed-responsive-item"></iframe>
+>      </div>
+>      <div class="details">
+>        <!--
+>          특수문자 인코딩 깨지는 것을 막기 위해
+>          h4 태그 안에 작성했던 <h4>{{ video.snippet.title }}</h4>을
+>          v-html을 이용해 <h4 v-html="video.snippet.title"></h4>로 작성한다.
+>        -->
+>          <h4 v-html="video.snippet.title"></h4>
+>          <p>{{ video.snippet.description }}</p>
+>      </div>
+>   </div>
 > </template>
 > 
 > <script>
 > export default {
->  name: 'VideoDetail',
->  props: { // App.vue에서 데이터를 받으므로 props 선언
->    video: {
->      type: Object,
+>    name: 'VideoDetail',
+>    props: { // App.vue에서 데이터를 받으므로 props 선언
+>        video: {
+>          type: Object,
+>        }
 >    }
->  }
 > }
 > </script>
 > 
 > <style scoped>
-> .details {
->  margin-top: 10px;
->  padding: 10px;
->  border: 1px solid #ddd;
->  border-radius: 4px;
-> }
+>   .details {
+>      margin-top: 10px;
+>      padding: 10px;
+>      border: 1px solid #ddd;
+>      border-radius: 4px;
+>   }
 > </style>
 > ```
 
@@ -821,23 +823,23 @@
 >
 > ```vue
 > <template>
-> <div v-if="video">
->  <div> <!-- iframe 태그를 div 태그로 감싸 추가 -->
->    <iframe :src="videoUrl" frameborder="0"></iframe>
->  </div>
->  ...
-> </div>
+>   <div v-if="video">
+>      <div> <!-- iframe 태그를 div 태그로 감싸 추가 -->
+>          <iframe :src="videoUrl" frameborder="0"></iframe>
+>      </div>
+>      ...
+>   </div>
 > </template>
 > 
 > <script>
 > export default {
->  ...
->  computed: { // computed 구문 추가
->    videoUrl() {
->      const videoId = this.video.id.videoId
->      return `http://www.youtube.com/embed/${videoId}`
+>    ...
+>    computed: { // computed 구문 추가
+>        videoUrl() {
+>          const videoId = this.video.id.videoId
+>          return `http://www.youtube.com/embed/${videoId}`
+>        }
 >    }
->  }
 > }
 > </script>
 > ```
@@ -852,24 +854,24 @@
 >
 > ```vue
 > <template>
-> <div v-if="video" class="col-lg-8"> <!-- console에 출력되는 error를 처리하기 위해 video에 데이터가 있을 때만 출력! -->
->  <div class="embed-responsive embed-responsive-16by9">
->    <iframe :src="videoUrl" frameborder="0" class="embed-responsive-item"></iframe>
->  </div>
-> ...
+>   <div v-if="video" class="col-lg-8"> <!-- console에 출력되는 error를 처리하기 위해 video에 데이터가 있을 때만 출력! -->
+>      <div class="embed-responsive embed-responsive-16by9">
+>          <iframe :src="videoUrl" frameborder="0" class="embed-responsive-item"></iframe>
+>      </div>
+>     ...
 > ```
 
 > `App.vue`
 >
 > ```vue
 > <template>
-> <div id="app">
->  <search-bar @inputChange="onInputChange"></search-bar>
->  <div class="row">
->    <video-detail :video="selectedVideo"></video-detail>
->    <video-list @videoSelect="onVideoSelect" :videos="videos"></video-list>
->  </div>
-> </div>
+>   <div id="app">
+>      <search-bar @inputChange="onInputChange"></search-bar>
+>      <div class="row">
+>          <video-detail :video="selectedVideo"></video-detail>
+>          <video-list @videoSelect="onVideoSelect" :videos="videos"></video-list>
+>      </div>
+>   </div>
 > </template>
 > ```
 
@@ -877,9 +879,9 @@
 >
 > ```vue
 > <template>
-> <ul class="col-lg-4 list-group">
->  ..    
-> </ul>
+>   <ul class="col-lg-4 list-group">
+>    ..    
+>   </ul>
 > </template>
 > ```
 

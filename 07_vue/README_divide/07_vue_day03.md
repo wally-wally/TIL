@@ -17,6 +17,8 @@
 
 ![웹팩](https://user-images.githubusercontent.com/52685250/68270147-c4d03180-009f-11ea-9110-b2ddeb7bc485.JPG)
 
+- 서로 연관 있는 모듈 간의 관계를 해석하여 정적인 자원으로 변환해주는 변환 도구
+- 파일 간의 연관관계를 파악하여 하나의 자바스크립트 파일로 변환해주는 변환 도구
 - 웹팩은 현재 가장 널리 쓰이는 모듈 번들러.
 - JS 뿐만 아니라 CSS, IMAGE 파일 등 리소스의 의존성들도 관리한다.
 
@@ -38,15 +40,21 @@
 
 - `npm init` : 설정을 모두 완료하면 `package.json` 파일이 새로 생긴다.
 
-- javascript 관련 github에 가면 `package.json`에 기본 정보들이 담겨 있다.
+- javascript 관련 github에 가면 `package.json`에 기본 정보들이 담겨 있다. <a href="https://github.com/wally-wally/TIL/blob/master/07_vue/package.json%20%EB%B6%84%EC%84%9D%ED%95%98%EA%B8%B0.md" target="_blank">(package.json 분석)</a>
 
   ![npm init](https://user-images.githubusercontent.com/52685250/68270403-7ec79d80-00a0-11ea-9ab1-33bbf4fac237.JPG)
 
-- `npm init` 후 `npm install vue`, `npm i webpack webpack-cli -D` 설치
+- `npm init` 후 `npm install vue`설치
+
+  vue 설치를 완료하여 `node_modules` 폴더와 `package-lock.json` 파일이 새로 생성된다.
+
+-  `npm i webpack webpack-cli -D` 설치
+
+  `webpack-cli`는 webpack 명령 실행시 필요하기 때문에 설치해야 한다.
 
   이 때 `-D`는 배포가 아닌 개발할 때의 모드를 의미함.
 
-- 설치하고 나면 `node_modules` 폴더가 새로 생긴다.
+  각 종속성을 package.json의 devDependencies로 표시함(하나의 파일에 모든 종속성을 묶어 놈)
 
   ![result1](https://user-images.githubusercontent.com/52685250/68270531-d6660900-00a0-11ea-9793-d724b47dce0e.JPG)
 
@@ -69,10 +77,10 @@
 
 | 요소    | 내용                                                         |
 | ------- | ------------------------------------------------------------ |
-| entry   | <ul><li>여러 js 파일들의 시작점 => 웹팩이 파일을 읽어 들이기 시작하는 부분</li></ul> |
+| entry   | <ul><li>여러 js 파일들의 시작점 => 웹팩이 파일을 읽어 들이기 시작하는 부분</li><li>전체 애플리케이션 설치, 필요 라이브러리를 로딩하는 로직을 포함</li><li>웹팩으로 빌드(변환)할 대상 파일을 지정</li></ul> |
 | module  | <ul><li>웹팩은 JS 만 변환 가능하기 때문에 HTML, CSS 등은 모듈을 통해서 웹팩이 이해할 수 있도록 변환이 필요하다.</li><li>변환 내용을 담는 곳</li></ul> |
-| plugins | <ul><li>웹팩을 통해 번들된 결과물을 추가로 처리하는 부분</li></ul> |
-| output  | <ul><li>여러 js 파일을 <b>하나로 만들어 낸 결과물</b></li></ul> |
+| plugins | <ul><li>웹팩을 통해 번들된 결과물을 추가로 처리하는 부분</li><li>ex) 결과물의 사이즈를 줄이거나 결과물(기본적으로 JS)을 기타 CSS, HTML 파일로 분리하는 기능 등이 있음</li></ul> |
+| output  | <ul><li>여러 js 파일을 <b>하나로 만들어 낸 결과물</b></li><li>결과물의 위치, 파일명 등 세부 옵션을 설정</li></ul> |
 
 <br>
 
@@ -91,7 +99,9 @@
     entry: {
       // __dirname : 최상위 위치(entry point) - Django 에서 BASE_DIR 역할과 동일
       // 여기서 __dirname은 '02_vue_webpack'이다.
-      app: path.join(__dirname, 'src', 'main.js') // 경로 설정 (src(entry의 시작 파일)는 vue-cli의 기본값임)
+      app: path.join(__dirname, 'src', 'main.js')
+      // 경로 설정 (src(entry의 시작 파일)는 vue-cli의 기본값임)
+      // main.js가 entry 역할을 한다.
     },
     module: {
       rules: [ // rules는 배열로 선언
@@ -144,7 +154,7 @@
   // Vue 인스턴스를 최종으로 만드는 파일
   
   // 1. 설치된 vue를 추가
-  // (내가 판든 파일 아닌 경우) 현재 위치에서 vue 이름을 가진 폴더가 없음 => 자동으로 node_modules 에서 가져옴
+  // (내가 만든 파일 아닌 경우) 현재 위치에서 vue 이름을 가진 폴더가 없음 => 자동으로 node_modules 에서 가져옴
   import Vue from 'vue'
   
   // 2. 최상위 컴포넌트 추가(App.vue)
@@ -177,8 +187,9 @@
   - 웹팩은 js 코드만 이해 가능하기 때문에 vue파일(`vue-loader`) 및 html, css 파일(`vue-template-compiler`) 등을 변환하기 위하여 모듈을 설치
 
 - `npm run build` : webpack 만드는 구문
-  - `dist` 폴더에 `app.js` 파일이 생성됨을 볼 수 있다.
-
+  
+- `dist` 폴더가 새로 생기고 이 안에 `app.js` 파일이 생성됨을 볼 수 있다.
+  
 - `public` > `index.html`
 
   ```html
@@ -341,7 +352,12 @@
 
 - css와 관련하여 npm 을 설치 => `npm install vue-style-loader css-loader -D`
 
+  - `css-loader` : vue 파일에 작성한 CSS 또는 자바스크립트로 가져온 CSS를 가져와서 해당 파일경로를 확인
+  - `vue-style-loader` : css-loader로 가져온 CSS를 HTML에 삽입. 그러면 HTML의 header 부분에 `<style>` 태그가 만들어짐
+
 - 그러면 `package.json`의 `devDependencies`에 두 개의 항목이 추가 된다.
+
+  cf) `babel-loader` : ES6 코드를 ES5 코드로 변환
 
   ```javascript
   "devDependencies": {
@@ -373,12 +389,27 @@
 
 <br>
 
+---
+
+:spiral_notepad: <b>webpack의 각 폴더 및 파일 정리</b>
+
+- `node_modules` 폴더 : `npm install` 명령어로 다운받은 라이브러리가 존재하는 위치
+- `src` 폴더 : vue 파일을 비롯해 애플리케이션이 동작하는데 필요한 로직이 들어가는 위치
+
+- `index.html` : 뷰로 만든 웹 앱의 시작점, `npm run build` 시 로딩되는 파일
+- `package.json` : npm 설정파일. 뷰, 애플리케이션이 동작하는데 필요한 라이브러리를 정의하는 파일
+- `webpack.config.js` : 웹팩 설정 파일. 웹팩 빌드를 위해 필요한 로직들을 정의하는 파일
+
+---
+
+<br>
+
 ### 3.3 Vue-CLI <a href="https://cli.vuejs.org/guide/installation.html">(공식 문서)</a>
 
 #### (1) Installation
 
 - `npm i -g @vue/cli`
-  - vue-cli로 webpack 설정 등등 모든 것을 한 방에 해결해 준다.
+  - vue-cli로 webpack 설정 등 모든 것을 한 방에 해결해 준다.
   - django-admin startproject와 동일한 기능
 
 - `vue --version`
