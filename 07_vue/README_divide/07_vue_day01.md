@@ -170,12 +170,12 @@
 
 - HTML의 id 나 class 와 마운트가 가능하다.
 
-  `el: 'div'` : `div` 태그와 마운트 / `el: '#app'` : `app` id와 마운트
+  `el: '.myClass'` : `myClass` 클래스와 마운트 / `el: '#app'` : `app` id와 마운트
   
   ```html
   <body>
     {{ message }} <!-- view랑 연결되어 있지 않으므로(mount 안 됨) vue의 속성을 받지 못하고 저 글자 그대로 출력된다. -->
-    <div id="app">
+    <div class="myClass" id="app">
       {{ message }}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
