@@ -24,8 +24,6 @@
 ### [4008] [모의 SW 역량테스트] 숫자 만들기 <a href="https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIeRZV6kBUDFAVH&categoryId=AWIeRZV6kBUDFAVH&categoryType=CODE" target="_blank">(Go to Problem)</a>
 
 - 숫자 위치는 고정한 채 연산자의 순서를 조합을 이용하여 계산할 수 있다.
-- [참고] `2117_1.py` : 처음 구현했던 알고리즘, 하지만 실행시간이 7초 정도 걸리는 구문...
-- [참고] `2117_2.py` : 실행시간이 줄이기 위해 다시 작성한 알고리즘
 
 <br>
 
@@ -33,3 +31,5 @@
 
 - 도시의 크기(N)이 20 이하 이므로 (0, 0) 지점을 중심으로 도시 전체를 덮을 때까지 마름모 영역을 확장시켜보자
 - 이 때 중요한 포인트는 K가 언제까지 커져야 하는지 잡아야 한다. => 단순히 N까지만 늘리면 안 됨!
+- [참고] `2117_1.py` : 처음 구현했던 알고리즘, 하지만 실행시간이 7초 정도 걸리는 구문...
+- [참고] `2117_2.py` : 실행시간이 줄이기 위해 다시 작성한 알고리즘
