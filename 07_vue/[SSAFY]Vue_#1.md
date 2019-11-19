@@ -19,6 +19,7 @@
 
 ### 1.1 SPA(Single Page Application) <a href="https://poiemaweb.com/js-spa" target="_blank">(참고 문서)</a>
 
+- 서버로부터 완전한 새로운 페이지를 불러오지 않고 현재의 페이지를 동적으로 다시 작성함으로써 특정 부분만 사용자와 소통하는 웹 애플리케이션이나 웹 사이트
 - SPA의 가장 중요한 목표이자 핵심가치는 <b><u>사용자 경험(UX) 향상</u></b>이다.
   - 부가적으로 속도의 향상도 기대할 수 있다.
 - <b>초기 구동 속도가 다소 느리다</b>는 단점이 있다.
@@ -34,9 +35,21 @@
 
 ![31](https://user-images.githubusercontent.com/52685250/68097489-9c5b0280-fefa-11e9-89dd-7b923a4f59c5.JPG)
 
+#### (1) 용어 정리
+
+- `View` : 사용자에게 보이는 화면
+- `DOM` : HTML 문서에 들어가는 요소의 정보를 담는 데이터트리
+- `ViewModel` : View와 Model을 연결해주는(바인딩 해주는) 중개자 역할
+- `DOM Listener` : DOM의 변경내역에 대해 즉각적으로 반응하여 특정 로직을 수행하는 장치
+- `Data Binding` : View에 표시되는 내용과 Model의 데이터 동기화
+- `Model` : 데이터를 담는 용기 역할을 하며, 보통은 서버에서 가져온 데이터를 자바스크립트 객체 형태로 저장
+
+<br>
+
+#### (2) MVVM 패턴의 특징
+
 - Backend 로직과 Client의 마크업 & 데이터 표현단을 분리하기 위한 구조로 전통적인 MVC 패턴의 방식에서 기인했다.
 - 화면 앞단의 회면 동작 관련 로직과 뒷단의 DB 데이터 처리 및 서버 로직을 분리하고, 뒷단에서 넘어온 데이터를 Model 에 담아 View 로 넘어주는 중간 지점이라고 보면 된다.
-
 - <b>데이터 바인딩</b>과 화면 단위를 컴포넌트 형태로 제공하며, 관련 API를 지원하는데에 궁극적인 목적
 - Angular에서 지원하는 <b>양방향 데이터 바인딩</b> 을 동일하게 제공
 - 하지만 <b>컴포넌트 간 통신</b>의 기본 골격은 React의 <b>단방향 데이터 흐름(부모 -> 자식)</b>을 사용
@@ -77,6 +90,24 @@
 ```
 
 ![03](https://user-images.githubusercontent.com/52685250/68099974-d59a6f00-ff08-11e9-9411-fae55e41d83a.JPG)
+
+:heavy_check_mark: <b>[참고]HTML 문서에서 Vue.js CDN 구문(`<script>`형태)</b> <a href="https://kr.vuejs.org/v2/guide/#%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0" target="_blank">(공식 문서)</a>
+
+```html
+<!-- 프로토타이밍 또는 학습용으로 항상 최신버전을 사용할 수 있다. -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<!-- 상용버전, 속도와 용량이 최적화됨. -->
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+<!-- 프로덕션 환경인 경우 새 버전에서 예상치 못한 오류를 방지하기 위해 특정 버전의 빌드 파일을 추가해야 한다. -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+
+<!-- 기본 ES 모듈을 사용하는 경우 이를 지원하는 ES 모듈 호환 빌드 파일도 있다. -->
+<script type="module">
+  import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.0/dist/vue.esm.browser.js'
+</script>
+```
 
 <br>
 
@@ -125,13 +156,13 @@
 </html>
 ```
 
-- vue 관련 chorm extension 설치 후 console창에서 다음과 같이 확인할 수 있다.
+- vue 관련 chorme extension 설치 후 console창에서 다음과 같이 확인할 수 있다.
 
 ![04](https://user-images.githubusercontent.com/52685250/68100335-e21fc700-ff0a-11e9-80c1-5eeb426a8175.JPG)
 
 <br>
 
-### 1.4 인스턴스 옵션①
+### 1.4 인스턴스 옵션
 
 #### (1) el
 
@@ -139,12 +170,16 @@
 
 - View - View Model 을 연결 시킨다.
 
+- Vue 인스턴스 초기화에서 `.$mount()`로 대체 가능하다.
+
 - HTML의 id 나 class 와 마운트가 가능하다.
+
+  `el: '.myClass'` : `myClass` 클래스와 마운트 / `el: '#app'` : `app` id와 마운트
 
   ```html
   <body>
     {{ message }} <!-- view랑 연결되어 있지 않으므로(mount 안 됨) vue의 속성을 받지 못하고 저 글자 그대로 출력된다. -->
-    <div id="app">
+    <div class="myClass" id="app">
       {{ message }}
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -164,13 +199,20 @@
 #### (2) data
 
 - Vue 인스턴스의 데이터 객체, 인스턴스의 `속성` 이라고도 부름
+
 - 데이터 객체는 반드시 기본 객체 (`{ }`) 여야 함.
+
+- Vue 인스턴스가 최초 생성되면, `data` 객체 안의 모든 값들을 반응 시스템에 등록한다.
+
+- 이 `data` 객체에 등록된 key에 대해서만 value 수정에 대하여 반응하므로, 최초 생성시 할당할 값이 없다면 `''`, `[]`, `{}`, `0`과 같은 값으로 초기화 해야 한다.
 
 - 객체 내부의 아이템들은 value 로써 모든 타입의 객체를 가질 수 있다. (object, string, integer, array...)
 
+- <b>Vue는 `data`가 변경되면 기본적으로 DOM을 다시 렌더링 한다.</b>(단, `v-once` 같은 디렉티브는 예외)
+
 - 정의된 속성은 인터폴레이션(`{{ }}`)을 통해서 View 에서 렌더링 가능
 
-- data 에서도 이벤트리스너와 비슷한 이유로 화살표 함수를 작성해서는 안 된다.
+- data 에서도 이벤트리스너와 비슷한 이유로 <b>화살표 함수를 작성해서는 안 된다.</b>
 
   ```html
   <body>
@@ -197,9 +239,9 @@
 
 #### (3) methods
 
-- Vue 인스턴스에 추가할 메소드를 정의하는 곳
+- Vue 인스턴스에 추가할 메소드(사용할 다양한 함수들)를 정의하는 곳
 
-- (주의) 메소드를 정의하는데에 화살표 함수를 사용해서는 안 된다.
+- (주의) <b>메소드를 정의하는데에 화살표 함수를 사용해서는 안 된다.</b>
 
   ```html
   <body>
@@ -386,6 +428,7 @@
 - `v-if` : 특정 조건을 만족할때만 보여지도록(렌더링되도록) 할 수 있다.
 - `v-else`는 반드시 `v-if` 엘리먼트 바로 뒤에 와야 인식 가능.
 - `v-else-if` 도 존재.
+- <b>`v-bind:key`를 필요로 한다!</b>
 
 ```html
 <!DOCTYPE html>
@@ -439,8 +482,54 @@
 :heavy_check_mark: <b>우선순위 주의사항!</b>
 
 - <b><u>동일한 노드에서는 `v-for` 가 `v-if` 보다 높은 우선순위를 가짐</u></b>
-
 - 즉, `v-if`는 루프가 반복될때마다 실행! (일부 항목만 렌더링 할 때 유용)
+- [참고] Vue-CLI 환경에서는 기본적으로 `v-for`와 `v-if`를 함께 사용하면 에러를 발생시키도록 eslint 설정이 되어 있다.
+
+<br>
+
+:heavy_check_mark: <b>`v-for`를 사용하여 객체의 속성을 반복할 수 있는데 이 때 최대 세 개의 전달 인자를 제공할 수 있다.</b>
+
+- 첫 번째 인자 : 객체의 `value`, 두 번째 인자: 객체의 `key`, 세 번째 인자: 객체의 `index`
+
+  ```html
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <p v-for="(a, b, c) in bookData">
+        {{ a }} - {{ b }} - {{ c }}
+      </p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      const app = new Vue({
+        el: 'div',
+        data: {
+          bookData: {
+            title: '123',
+            author: 'wally',
+            publishedAt: '2018-06-07'
+          }
+        }
+      })
+    </script>
+  </body>
+  </html>
+  ```
+
+  ```
+  123 - title - 0
+  
+  wally - author - 1
+  
+  2018-06-07 - publishedAt - 2
+  ```
 
 <br>
 
@@ -448,7 +537,9 @@
 
 - JS 에서 이벤트리스너랑 비슷한 역할을 함
 
-- 이벤트 리스너는 HTML element 를 querySelector 로 가져와 이벤트를 붙여줬다면, Vue 는 HTML element 자체에 이벤트를 붙여준다.
+- `v-on` 디렉티브를 사용하여 DOM 이벤트 핸들링이 기능하다.
+
+- 이벤트 리스너는 HTML element 를 querySelector 로 가져와 이벤트를 붙여줬다면, Vue 는 <b>HTML element 자체에 이벤트를 붙여준다.</b>
 
 - `v-on:` 뒤에 오는 친구(`click` 같은거)를 `전달인자` 라고 한다. `:` 을 붙여서 사용하는 디렉티브 바로 뒤에 붙는 친구들을 지칭한다.
 
@@ -513,10 +604,13 @@
 
 #### (3) v-bind
 
-- HTML element 의 속성 값을 변경할 때 사용
+- HTML element 의 <b><u>속성</u></b> 값을 변경할 때 사용(절대로 HTML 태그의 값을 다루는 것이 아니다.)
+
+- HTML5 속성 뿐만 아니라, Vue 내부에서 사용하는 속성들도 `v-bind`를 통해 조작한다.
 
   ```html
   <!-- <div id="app"> 바로 아래에 추가 -->
+  <div v-bind:class="classRed">red</div>
   <img v-bind:src="vueImage" alt="todo-list">
   <img :src="vueImage" alt="todo-list"> <!-- v-bind는 생략할 수도 있음(shortcut) -->
   
@@ -527,7 +621,8 @@
         todos: [
         ...
         ],
-        vueImage: '~'
+        vueImage: '~',
+        classRed: 'red',
       }
     ...
     })
@@ -602,6 +697,12 @@
 #### (1) v-model
 
 - input tag의 value - <b>View</b> <------> v-model <------> data(<b>VM</b>)
+
+- `input` / `textarea` 와 같은 요소에서 사용자의 입력과 <b>양방향 데이터 바인딩</b>을 공유할 때 사용한다.
+
+- 일반적인 HTML 에서의 초기값인 `value`, `checked`, `selected` 등의 속성을 무시한다.
+
+- `v-model`은 HTML의 `<input>`, `<select>`, `<textarea>` 태그, Vue의 `components`에서만 사용가능하다.
 
 - input tag와 VM의 newTodo와 동기적으로 연결
 
@@ -726,6 +827,63 @@
       })
     </script>
   </body>
+  ```
+
+- [참고] 텍스트 영역의 보간 (`<textarea>{{ text }}</textarea>`)은 작동하지 않는다. 대신 `v-model`을 사용해야 한다.
+
+  ```html
+  <!-- before -->
+  <textarea>{{ text }}</textarea>
+  
+  <!-- after -->
+  <p>{{ message }}</p>
+  <textarea v-model="message"></textarea>
+  ```
+
+- [참고]셀렉트 옵션
+
+  ```html
+  <select v-model="selected">
+    <!-- inline object literal -->
+    <option v-bind:value="{ number: 123 }">123</option>
+  </select>
+  ```
+
+  ```javascript
+  // 선택 하면:
+  typeof vm.selected // -> 'object'
+  vm.selected.number // -> 123
+  ```
+
+- [참고] `v-for`를 이용한 동적 옵션 렌더링
+
+  ```html
+  <select v-model="selected">
+    <option v-for="option in options" v-bind:value="option.value">
+      {{ option.text }}
+    </option>
+  </select>
+  <span>Selected: {{ selected }}</span>
+  ```
+
+  ```js
+  new Vue({
+    el: '...',
+    data: {
+      selected: 'A',
+      options: [
+        { text: 'One', value: 'A' },
+        { text: 'Two', value: 'B' },
+        { text: 'Three', value: 'C' }
+      ]
+    }
+  })
+  ```
+
+  ```
+  select 상자에서 One을 선택하면 오른쪽에 Selected: A가 나온다.
+  select 상자에서 Two을 선택하면 오른쪽에 Selected: B가 나온다.
+  select 상자에서 Three을 선택하면 오른쪽에 Selected: C가 나온다.
   ```
 
 <br>
@@ -903,7 +1061,7 @@
   },
   ```
 
-  앞으로 v-for 작성할 때는 id 값을 사용하자!
+  <b>앞으로 v-for 작성할 때는 id 값을 사용하자!</b>
 
 - 문제점 해결(2) - 데이터 입력시 빈 값일 때 입력되지 않도록 처리
 
@@ -928,9 +1086,29 @@
 
 - 미리 계산된 값을 반환
 
-- 종속 대상을 따라 저장(캐싱)되는 특성이 있다.
+- `data`를 수정하지 않고, 가공된 `data`를 활용하고 싶을 때 사용한다.
+
+- 반드시 `return`이 이써야 하며, 함수를 작성하지만 실제 Vue 인스턴스에서는 `return` 된(`data`를 가공한) 값을 캐싱한다. 즉, 종속 대상을 따라 저장(캐싱)되는 특성이 있다는 의미.
 
 - 연산이 많이 필요한 경우 템플릿 안에서 연산 표현식을 사용하는 것보다 computed를 사용하는 것을 권장
+
+- 너무 많은 연산을 템플릿 안에서 하면 코드가 비대해지고 유지보수가 어렵다.
+
+- <b>계산된 속성을 정의할 때 화살표 함수를 사용하면 안 된다.</b>
+
+  ```js
+  // 잘못된 예제
+  computed: {
+    aDouble: vm => vm.a * 2
+  }
+  
+  // 올바른 예제
+  computed: {
+    aDouble: function(vm) {
+      return vm.a * 2
+    }
+  }
+  ```
 
 - `{{ newTodo.split('').reverse().join('') }}` 와 같은 newTodo 역순 출력하는 JS 구문을 vue를 통해 아래와 같이 작성하면 이것을 가져다가 쓰기만 하면 된다.
 
@@ -983,7 +1161,7 @@
         }
   ```
 
-- computed는 이미 호출되어 있으므로 소괄호()를 쓰지 않고 이름만 바로 가져온다.
+- computed는 이미 호출되어 있으므로 <b>소괄호()를 쓰지 않고 이름만 바로 가져온다.</b>
 
   ```html
   <!-- before -->
@@ -995,9 +1173,9 @@
 
 - `methods` vs `computed` - `04_methods_and_computed.html`
 
-  `methods` : 함수 자체 이므로 호출할 때마다 매번 계산
+  `methods` : 함수 자체 이므로 <b>호출할 때마다 매번 계산</b>
 
-  `computed` : 한 페이지에서 최초 선언할 때만 계산됨
+  `computed` : 한 페이지에서 <b>최초 선언할 때만 계산</b>됨
 
   아래 예시는 BUTTON을 누를 때마다 시간이 갱신됨(단, computed는 최초 선언될 때만 계산됨)
 
@@ -1038,9 +1216,10 @@
 
 ---
 
-- `localStorage.getItem(keys)` : 아이템 가져오기
+- `localStorage.getItem(key)` : 아이템 가져오기
 - `localStorage.setItem(key, value)` : 아이템 저장
 - `localStorage.removeItem(key)` : 아이템 삭제
+- `localStorage.clear()` : 전체 삭제
 
 ---
 
@@ -1077,10 +1256,14 @@
 
 - `watch`
   - Vue 인스턴스의 data 변경을 관찰하고 이에 반응
-  - 데이터 변경에 대한 응답으로 비동기 또는 시간이 많이 소요되는 조작을 수행하려는 경우에 적합
-  - 특정 데이터가 변경되었을 때 정의한 함수를 실행
+  - 특정 데이터가 변경되었을 때 정의한 watcher 함수를 실행
+  - 함수로 정의하며, key는 변경을 감지할 `data`의 key 값으로 작성한다.(아래 예시에서는 `todos`가 해당)
+  - 다만, 같은 기능을 구현하기 위해 `computed` 속성과 `watch` 속성 두 가지 방법을 모두 사용할 수 있지만 `computed` 사용을 권장한다. 
+    - Vue의 기본적인 패러다임인 `선언형 프로그래밍`에 더 적합하며 코드도 간결해 지기 때문이다.
+  - 데이터 변경에 대한 응답으로 <u>비동기 또는 시간이 많이 소요되는</u> 조작을 수행하려는 경우에 적합
 - `mounted`
   - 새로고침 될 때(DOM과 Vue instance 가 연결되는 시점) 실행되는 것
+  - 화면 요소를 제어하는 로직에서 유용하다.
 
 ```javascript
 watch: {
@@ -1125,21 +1308,33 @@ mounted: function() {
 
 #### (1) v-text
 
-```html
-<!-- v-text : interpolation 안 쓰고 text 출력 -->
-<span v-text="name"></span>
-<span>{{ name }}</span>
-```
+- Vanilla JS 에서 `.innerText`와 동일한 기능을 수행하고, 태그를 일반 문자 상태로 보여준다.
+
+- 보간법(`{{ }}`)을 사용하는 것과 같으며 보간법 사용을 권장한다.
+
+  ```html
+  <!-- v-text : interpolation 안 쓰고 text 출력 -->
+  <span v-text="name"></span>
+  <span>{{ name }}</span>
+  ```
 
 <br>
 
 #### (2) v-html
 
-```html
-<!-- v-html : 실제 html로 렌더링 해 줌 -->
-{{ name2 }}
-<span v-html="name2"></span>
-```
+- Vanilla JS에서 `.innerHTML`과 동일한 기능을 수행하며, 태그를 파싱하여 화면에 구현한다.
+
+- XSS(Cross Site Scripting) 공격에 주의해야 한다.
+
+  ```html
+  <!-- v-html : 실제 html로 렌더링 해 줌 -->
+  {{ name2 }}
+  <span v-html="name2"></span>
+  ```
+
+- Vue-CLI에서 `<style>` 의 `scoped` 스타일은 `v-html` 내부에 적용하지 않는다. 다만, 적용하려면 `CSS-modules`를 추가해야 한다.
+
+  - `css-loader`, `vue-style-loader` 추가해야 함
 
 <br>
 
@@ -1147,23 +1342,77 @@ mounted: function() {
 
 - `v-if` : 조건에 맞지 않으면 렌더링 자체를 하지 않음
 
-- `v-show` : 조건과 관계 없이 일단 렌더링 후에, 조건에 맞지 않으면 CCS display 속성읕 토글해서 숨겨버림.(display: none;)
+- `v-show` : 조건과 관계 없이 일단 렌더링 후에, 조건에 맞지 않으면 CCS display 속성읕 토글해서 숨겨버림.(`display: none;`)
 
-```html
-<p v-if="false">{{ name3 }}</p>
-<p v-show="false">{{ name3 }}</p>
-```
+  - `<template>` 구문 지원 X, `<v-else>`와도 작동 X
+
+  ```html
+  <p v-if="false">{{ name3 }}</p>
+  <p v-show="false">{{ name3 }}</p>
+  ```
 
 - 아래 console 창에서 보는것과 같이 `v-if` 에 해당하는 구문이 사라졌다.
 
 ![004](https://user-images.githubusercontent.com/52685250/68174180-7ef06c00-ffc0-11e9-8119-cf9d298c77c7.JPG)
 
+:heavy_check_mark: <b>`v-show` vs `v-if`</b>
+
+- 일반적으로 `v-if`는 토글 비용이 높고 `v-show`는 초기 렌더링 비용이 더 높다.
+
+- 해당 요소의 화면 표현 전환(on/off)이 잦다면, `v-show`를 사용하는 것이 렌더링 비용이 적다.
+- 반면 전환이 잦지 않고 고정되어 있다면, `v-if`를 사용하는 것이 컴파일 비용이 적다.
+
 <br>
 
-#### (4) `computed` vs `watch`
+#### (4) v-pre
+
+- Vue.js 가 컴파일 하지 않는다.
+
+- 보간법(`{{ }}`)도 그대로 브라우저에 나타난다.
+
+  ```html
+  <template>
+    <div id="app">
+      <p v-pre>
+        {{ message }}
+      </p>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    name: 'app',
+    data () {
+      return {
+        message: 'hi'
+      }
+    }
+  }
+  </script>
+  <style></style>
+  ```
+
+  ```
+  {{ message }}
+  ```
+
+<br>
+
+#### (5) v-once
+
+- 표현식이 필요하지 않는 디렉티브로 최초 렌더링을 단 한번만 수행한다.
+- `data`가 수정되어도 처음 렌더링 된 값만을 보여준다.
+
+<br>
+
+---
+
+:boxing_glove: <b>`computed` vs `watch`</b>
 
 - `computed` : 계산해야 하는 `목표 데이터를 정의하는 방식`(선언형 프로그래밍)
 - `watch` : 감시할 데이터를 지정하고 그 `데이터가 바뀌면 특정 함수를 실행하라는 방식`(명령형 프로그래밍)
+
+---
 
 <br>
 
@@ -1342,9 +1591,16 @@ mounted: function() {
 #### (3) 컴포넌트
 
 - "소프트웨어 개발에서 독립적인 단위 모듈"
-- 대체로 컴포넌트는 특정 기능이나 관련된 기능의 조합으로 구성되는데, 프록래밍 설계에서 시스템은 모듈로 구성된 컴포넌트로 나뉜다.
+- 대체로 컴포넌트는 특정 기능이나 관련된 기능의 조합으로 구성되는데, 프로그래밍 설계에서 시스템은 모듈로 구성된 컴포넌트로 나뉜다.
 - Vue 공식문서에 적힌 내용
-  - 기본 HTML 엘리먼트를 확장하여 재사용 가능한 코드로 캡슐화 하는 것
+  - 기본 HTML 엘리먼트를 확장하여 <b>재사용 가능한 코드로 캡슐화 하는 것</b>
+- <b>모든 Vue 컴포넌트는 Vue 인스턴스다.</b> 그러므로, 모든 options 객체를 사용할 수 있다.(단, root에서만 사용할 수 있는 옵션은 제외)
+- 한 Vue app 안에서 각 컴포넌트들은 Root 인스턴스를 시작으로 부모-자식 컴포넌트의 관계를 가진다.
+- Vue cli 환경에서 사용하는 방법과 일반적인 HTML, JS 에서 사용하는 방법이 다르다.
+- Component 에서 활용되는 속성들
+  - `name` : 컴포넌트 사용 시, 해당 컴포넌트의 이름을 정의
+  - `components` : 부모 컴포넌트에서 사용할 자식 컴포넌트의 이름(`name`)들을 작성
+  - `props` : 부모 컴포넌트에서 자식 컴포넌트로 데이터를 전달할 때 사용
 
 ---
 
@@ -1404,10 +1660,51 @@ mounted: function() {
 #### (4) `props`
 
 - 컴포넌트를 재생산할 때 컴포넌트에서 사용할 변수를 부모에게 내려주게 되는데 이를 `props`라고 한다.
+
 - `props`는 반복되는 컴포넌트에서 서로 다른 정보가 들어가야 할 때 사용
+
 - 하위(자식)에서 상위(부모) 데이터를 직접 참조해선 안되고 실제로도 안된다.
+
+  - 자식 컴포넌트에서 부모 컴포넌트를 움직이게 하려면, 이벤트를 발생(`emit`)시켜야 한다.
+  - 모든 Vue 컴포넌트들은 `.$emit` 메서드를 통해 부모 컴포넌트가 들을 수 있는 이벤트를 발생시킬 수 있다.
+
 - `props` 옵션을 통해 부모 -> 자식으로 데이터를 전달
+
 - 전달하려고 하는 <b>데이터의 이름을 태그 내의 속성</b>으로, <b>내용을 속성 값</b>으로
+
+- props 예제
+
+  `type` : `String`, `Number`, `Boolean`, `Array`, `Object`, `Date`, `Function`, `Symbol`
+
+  `default` : `any`
+
+  `required` : `Boolean`
+
+  `validator` : `Function`
+
+  ```js
+  // 단순한 구문
+  Vue.component('props-demo-simple', {
+    props: ['size', 'myMessage']
+  })
+  
+  // 유효성 검사를 포함한 객체 구문
+  Vue.component('props-demo-advanced', {
+    props: {
+      // 타입 체크만 합니다.
+      height: Number,
+      // 타입 체크와 유효성 검사를 합니다.
+      age: {
+        type: Number,
+        default: 0,
+        required: true,
+        validator: function (value) {
+          return value >= 0
+        }
+      }
+    }
+  })
+  ```
 
 ---
 
@@ -1454,7 +1751,7 @@ mounted: function() {
 
   ![007](https://user-images.githubusercontent.com/52685250/68187150-37caa100-ffe9-11e9-95bb-a13bb795d676.JPG)
 
-- `props` 편집(타입 명시, reqired 속성, 유효성 검사)
+- `props` 편집(타입 명시, required 속성, 유효성 검사)
 
   아래 사진과 같이 단순히 console 창에 오류를 띄울 뿐 제대로 된 오류 처리를 하려면 model까지 손봐야 한다.
 
@@ -1491,6 +1788,8 @@ mounted: function() {
 
 ![웹팩](https://user-images.githubusercontent.com/52685250/68270147-c4d03180-009f-11ea-9110-b2ddeb7bc485.JPG)
 
+- 서로 연관 있는 모듈 간의 관계를 해석하여 정적인 자원으로 변환해주는 변환 도구
+- 파일 간의 연관관계를 파악하여 하나의 자바스크립트 파일로 변환해주는 변환 도구
 - 웹팩은 현재 가장 널리 쓰이는 모듈 번들러.
 - JS 뿐만 아니라 CSS, IMAGE 파일 등 리소스의 의존성들도 관리한다.
 
@@ -1512,15 +1811,21 @@ mounted: function() {
 
 - `npm init` : 설정을 모두 완료하면 `package.json` 파일이 새로 생긴다.
 
-- javascript 관련 github에 가면 `package.json`에 기본 정보들이 담겨 있다.
+- javascript 관련 github에 가면 `package.json`에 기본 정보들이 담겨 있다. <a href="https://github.com/wally-wally/TIL/blob/master/07_vue/package.json%20%EB%B6%84%EC%84%9D%ED%95%98%EA%B8%B0.md" target="_blank">(package.json 분석)</a>
 
   ![npm init](https://user-images.githubusercontent.com/52685250/68270403-7ec79d80-00a0-11ea-9ab1-33bbf4fac237.JPG)
 
-- `npm init` 후 `npm install vue`, `npm i webpack webpack-cli -D` 설치
+- `npm init` 후 `npm install vue`설치
+
+  vue 설치를 완료하여 `node_modules` 폴더와 `package-lock.json` 파일이 새로 생성된다.
+
+- `npm i webpack webpack-cli -D` 설치
+
+  `webpack-cli`는 webpack 명령 실행시 필요하기 때문에 설치해야 한다.
 
   이 때 `-D`는 배포가 아닌 개발할 때의 모드를 의미함.
 
-- 설치하고 나면 `node_modules` 폴더가 새로 생긴다.
+  각 종속성을 package.json의 devDependencies로 표시함(하나의 파일에 모든 종속성을 묶어 놈)
 
   ![result1](https://user-images.githubusercontent.com/52685250/68270531-d6660900-00a0-11ea-9793-d724b47dce0e.JPG)
 
@@ -1543,10 +1848,10 @@ mounted: function() {
 
 | 요소    | 내용                                                         |
 | ------- | ------------------------------------------------------------ |
-| entry   | <ul><li>여러 js 파일들의 시작점 => 웹팩이 파일을 읽어 들이기 시작하는 부분</li></ul> |
+| entry   | <ul><li>여러 js 파일들의 시작점 => 웹팩이 파일을 읽어 들이기 시작하는 부분</li><li>전체 애플리케이션 설치, 필요 라이브러리를 로딩하는 로직을 포함</li><li>웹팩으로 빌드(변환)할 대상 파일을 지정</li></ul> |
 | module  | <ul><li>웹팩은 JS 만 변환 가능하기 때문에 HTML, CSS 등은 모듈을 통해서 웹팩이 이해할 수 있도록 변환이 필요하다.</li><li>변환 내용을 담는 곳</li></ul> |
-| plugins | <ul><li>웹팩을 통해 번들된 결과물을 추가로 처리하는 부분</li></ul> |
-| output  | <ul><li>여러 js 파일을 <b>하나로 만들어 낸 결과물</b></li></ul> |
+| plugins | <ul><li>웹팩을 통해 번들된 결과물을 추가로 처리하는 부분</li><li>ex) 결과물의 사이즈를 줄이거나 결과물(기본적으로 JS)을 기타 CSS, HTML 파일로 분리하는 기능 등이 있음</li></ul> |
+| output  | <ul><li>여러 js 파일을 <b>하나로 만들어 낸 결과물</b></li><li>결과물의 위치, 파일명 등 세부 옵션을 설정</li></ul> |
 
 <br>
 
@@ -1565,7 +1870,9 @@ mounted: function() {
     entry: {
       // __dirname : 최상위 위치(entry point) - Django 에서 BASE_DIR 역할과 동일
       // 여기서 __dirname은 '02_vue_webpack'이다.
-      app: path.join(__dirname, 'src', 'main.js') // 경로 설정 (src(entry의 시작 파일)는 vue-cli의 기본값임)
+      app: path.join(__dirname, 'src', 'main.js')
+      // 경로 설정 (src(entry의 시작 파일)는 vue-cli의 기본값임)
+      // main.js가 entry 역할을 한다.
     },
     module: {
       rules: [ // rules는 배열로 선언
@@ -1618,7 +1925,7 @@ mounted: function() {
   // Vue 인스턴스를 최종으로 만드는 파일
   
   // 1. 설치된 vue를 추가
-  // (내가 판든 파일 아닌 경우) 현재 위치에서 vue 이름을 가진 폴더가 없음 => 자동으로 node_modules 에서 가져옴
+  // (내가 만든 파일 아닌 경우) 현재 위치에서 vue 이름을 가진 폴더가 없음 => 자동으로 node_modules 에서 가져옴
   import Vue from 'vue'
   
   // 2. 최상위 컴포넌트 추가(App.vue)
@@ -1651,9 +1958,9 @@ mounted: function() {
   - 웹팩은 js 코드만 이해 가능하기 때문에 vue파일(`vue-loader`) 및 html, css 파일(`vue-template-compiler`) 등을 변환하기 위하여 모듈을 설치
 
 - `npm run build` : webpack 만드는 구문
-  
-- `dist` 폴더에 `app.js` 파일이 생성됨을 볼 수 있다.
-  
+
+- `dist` 폴더가 새로 생기고 이 안에 `app.js` 파일이 생성됨을 볼 수 있다.
+
 - `public` > `index.html`
 
   ```html
@@ -1718,64 +2025,64 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <!-- 이전 수업자료(02_todo_component.html)에 적었던 template 내용 -->
->   <div class="todo-list">
->     <h2>{{ category }}</h2>
->     <input type="text" v-model="newTodo">
->     <button @click="addTodo">+</button>
->     <li v-for="todo in todos" :key="todo.id">
->       <span>{{ todo.content }}</span>
->       <button @click="removeTodo(todo.id)">X</button>
->     </li>
->   </div>
+> <!-- 이전 수업자료(02_todo_component.html)에 적었던 template 내용 -->
+> <div class="todo-list">
+>  <h2>{{ category }}</h2>
+>  <input type="text" v-model="newTodo">
+>  <button @click="addTodo">+</button>
+>  <li v-for="todo in todos" :key="todo.id">
+>    <span>{{ todo.content }}</span>
+>    <button @click="removeTodo(todo.id)">X</button>
+>  </li>
+> </div>
 > </template>
 > 
 > <script> // 이전 수업자료(02_todo_component.html)에 적었던 props 이하의 내용
->   export default {
->     props: {
->       category: {
->         type: String,
->         required: true,
->         validator: function (value) {
->           if (value.length < 5) {
->             return true
->           } else {
->             return false
->           }
->         },
->       }
->     },
->     data: function () {
->       return {
->         todos: [],
->         newTodo: '',
->       }
->     },
->     methods: {
->       addTodo: function () {
->         if (this.newTodo.length != 0) {
->           this.todos.push({
->             id: Date.now(),
->             content: this.newTodo,
->             completed: false,
->           })
->           this.newTodo = ''
->         }
->       },
->       removeTodo: function (todoId) {
->         this.todos = this.todos.filter(todo => {
->           return todo.id !== todoId
->         })
->       }
->     }
->   }
+> export default {
+>  props: {
+>    category: {
+>      type: String,
+>      required: true,
+>      validator: function (value) {
+>        if (value.length < 5) {
+>          return true
+>        } else {
+>          return false
+>        }
+>      },
+>    }
+>  },
+>  data: function () {
+>    return {
+>      todos: [],
+>      newTodo: '',
+>    }
+>  },
+>  methods: {
+>    addTodo: function () {
+>      if (this.newTodo.length != 0) {
+>        this.todos.push({
+>          id: Date.now(),
+>          content: this.newTodo,
+>          completed: false,
+>        })
+>        this.newTodo = ''
+>      }
+>    },
+>    removeTodo: function (todoId) {
+>      this.todos = this.todos.filter(todo => {
+>        return todo.id !== todoId
+>      })
+>    }
+>  }
+> }
 > </script>
 > 
 > <style> /* 이전 수업자료(02_todo_component.html)에 적었던 style 내용 */
->   .todo-list {
->     display: inline-block;
->     width: 33%;
->   }
+> .todo-list {
+>  display: inline-block;
+>  width: 33%;
+> }
 > </style>
 > ```
 
@@ -1783,26 +2090,26 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <div> <!-- 반드시 div로 감싸줘야 한다.-->
->     <h1>여기는 최상위 컴포넌트 입니다.</h1>
->     <!-- 이하 component 사용 구문 -->
->     <!-- 3. 사용 -->
->     <todo-list category="취업특강"></todo-list>
->     <todo-list category="SSAFY"></todo-list>
->     <todo-list category="기타"></todo-list>
->   </div>
+> <div> <!-- 반드시 div로 감싸줘야 한다.-->
+>  <h1>여기는 최상위 컴포넌트 입니다.</h1>
+>  <!-- 이하 component 사용 구문 -->
+>  <!-- 3. 사용 -->
+>  <todo-list category="취업특강"></todo-list>
+>  <todo-list category="SSAFY"></todo-list>
+>  <todo-list category="기타"></todo-list>
+> </div>
 > </template>
 > 
 > <script>
->   // 1. 하위 컴포넌트 불러오기
->   import TodoList from './components/TodoList.vue'
+> // 1. 하위 컴포넌트 불러오기
+> import TodoList from './components/TodoList.vue'
 > 
->   // 2. 불러온 컴포넌트를 최상위(부모) 컴포넌트에 등록
->   export default {
->     components: {
->       TodoList
->     }
->   }
+> // 2. 불러온 컴포넌트를 최상위(부모) 컴포넌트에 등록
+> export default {
+>  components: {
+>    TodoList
+>  }
+> }
 > </script>
 > 
 > <style>
@@ -1816,7 +2123,12 @@ mounted: function() {
 
 - css와 관련하여 npm 을 설치 => `npm install vue-style-loader css-loader -D`
 
+  - `css-loader` : vue 파일에 작성한 CSS 또는 자바스크립트로 가져온 CSS를 가져와서 해당 파일경로를 확인
+  - `vue-style-loader` : css-loader로 가져온 CSS를 HTML에 삽입. 그러면 HTML의 header 부분에 `<style>` 태그가 만들어짐
+
 - 그러면 `package.json`의 `devDependencies`에 두 개의 항목이 추가 된다.
+
+  cf) `babel-loader` : ES6 코드를 ES5 코드로 변환
 
   ```javascript
   "devDependencies": {
@@ -1848,12 +2160,27 @@ mounted: function() {
 
 <br>
 
+---
+
+:spiral_notepad: <b>webpack의 각 폴더 및 파일 정리</b>
+
+- `node_modules` 폴더 : `npm install` 명령어로 다운받은 라이브러리가 존재하는 위치
+- `src` 폴더 : vue 파일을 비롯해 애플리케이션이 동작하는데 필요한 로직이 들어가는 위치
+
+- `index.html` : 뷰로 만든 웹 앱의 시작점, `npm run build` 시 로딩되는 파일
+- `package.json` : npm 설정파일. 뷰, 애플리케이션이 동작하는데 필요한 라이브러리를 정의하는 파일
+- `webpack.config.js` : 웹팩 설정 파일. 웹팩 빌드를 위해 필요한 로직들을 정의하는 파일
+
+---
+
+<br>
+
 ### 3.3 Vue-CLI <a href="https://cli.vuejs.org/guide/installation.html">(공식 문서)</a>
 
 #### (1) Installation
 
 - `npm i -g @vue/cli`
-  - vue-cli로 webpack 설정 등등 모든 것을 한 방에 해결해 준다.
+  - vue-cli로 webpack 설정 등 모든 것을 한 방에 해결해 준다.
   - django-admin startproject와 동일한 기능
 
 - `vue --version`
@@ -1960,15 +2287,15 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <div id="app">
+> <div id="app">
 > 
->   </div>
+> </div>
 > </template>
 > 
 > <script>
 > 
 > export default {
->   name: 'App', // 최상단 컴포넌트기 때문에 이름이 없어도 되지만 명시적으로 작성한다.
+> name: 'App', // 최상단 컴포넌트기 때문에 이름이 없어도 되지만 명시적으로 작성한다.
 > 
 > }
 > </script>
@@ -1988,16 +2315,16 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <div>
->     <input type="text">
->   </div>
+> <div>
+>   <input type="text">
+> </div>
 > </template>
 > 
 > <script>
->   export default {
->     name: 'SearchBar'
->     
->   }
+> export default {
+> name: 'SearchBar'
+> 
+> }
 > </script>
 > 
 > <style>
@@ -2062,7 +2389,7 @@ mounted: function() {
   </style>
   ```
 
-  `package.json`의 rules에 `"no-console": "off"` 구문 추가하고 서버를 껐다가 다시 켜면 오류 없이 console 창에서 볼 수 있다.
+  `package.json`의 <b>rules</b>에 <b>`"no-console": "off"`</b> 구문 추가하고 서버를 껐다가 다시 켜면 오류 없이 console 창에서 볼 수 있다.
 
   `target` > `value`에 input에 입력한 데이터를 확인할 수 있다.
 
@@ -2096,7 +2423,7 @@ mounted: function() {
       methods: {
         onInput(e) {
           this.$emit('inputChange', e.target.value)
-          // $emit(이벤트 이름(event name), 데이터(arguments))
+          // $emit(부모 컴포넌트에서 발생하는 이벤트 이름(event name), 보낼 데이터(arguments))
         }
       }
     }
@@ -2149,7 +2476,7 @@ mounted: function() {
 
 ---
 
-- `emit` : 하위에서 상위로 데이터를 올려 보낼 때는 Event 를 발싱시키는 방법을 사용한다.
+- `emit` : 하위에서 상위로 데이터를 올려 보낼 때는 Event 를 발생시키는 방법을 사용한다.
 - `props` 는 배열, 객체, 함수 등 무엇이든 내려보내는 속성(properties)이고, `emit event` 는 자식에서 부모로 <b>이벤트를 발생</b> 시키는 것
 
 ---
@@ -2297,6 +2624,7 @@ mounted: function() {
       <search-bar @inputChange="onInputChange"></search-bar>
       <!-- :videos의 videos는 이름이 바뀌어도 되고, 오른쪽 videos는 이름이 바뀔 수 없다. -->
       <video-list :videos="videos"></video-list>
+      <!-- [props] :videos="videos" => :자식컴포넌트에_작성한_props의_이름="보낼_데이터_변수명" -->
     </div>
   </template>
   
@@ -2378,27 +2706,27 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <ul>
->     <!-- 여기선 etag가 hash 값이라 item간 서로 안 겹치므로 key로 사용 -->
->     <!-- :video="video" : 자식쪽으로 넘겨줄 때도 v-bind 사용 -->
->     <video-list-item v-for="video in videos" :key="video.etag" :video="video"></video-list-item>
->   </ul>
+> <ul>
+> <!-- 여기선 etag가 hash 값이라 item간 서로 안 겹치므로 key로 사용 -->
+> <!-- :video="video" : 자식쪽으로 넘겨줄 때도 v-bind 사용 -->
+>   <video-list-item v-for="video in videos" :key="video.etag" :video="video"></video-list-item>
+> </ul>
 > </template>
 > 
 > <script>
->   import VideoListItem from './VideoListItem' // VideoListItem의 최상위 컴포넌트는 VideoList 컴포넌트이므로 VideoListItem 컴포넌트 등록은 여기서 한다!
->   export default {
->     name: 'VideoList',
->     components: {
->       VideoListItem,
->     },
->     props: {
->       videos: {
->         type: Array,
->         required: true,
->       }
+> import VideoListItem from './VideoListItem' // VideoListItem의 최상위 컴포넌트는 VideoList 컴포넌트이므로 VideoListItem 컴포넌트 등록은 여기서 한다!
+> export default {
+> name: 'VideoList',
+> components: {
+>     VideoListItem,
+> },
+> props: {
+>     videos: {
+>       type: Array,
+>       required: true,
 >     }
->   }
+> }
+> }
 > </script>
 > 
 > <style>
@@ -2410,21 +2738,21 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <li>
->     {{ video.snippet.title }}
->   </li>
+> <li>
+>   {{ video.snippet.title }}
+> </li>
 > </template>
 > 
 > <script>
->   export default {
->     name: 'VideoListItem', // VideoListItem의 최상위 컴포넌트는 VideoList 컴포넌트이다.
->     props: {
->       video: {
->         type: Object,
->         requried: true,
->       }
+> export default {
+> name: 'VideoListItem', // VideoListItem의 최상위 컴포넌트는 VideoList 컴포넌트이다.
+> props: {
+>     video: {
+>       type: Object,
+>       requried: true,
 >     }
->   }
+> }
+> }
 > </script>
 > 
 > <style>
@@ -2493,10 +2821,10 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <li class="list-group-item">
->     <img :src="video.snippet.thumbnails.default.url">
->     {{ video.snippet.title }}
->   </li>
+> <li class="list-group-item">
+>   <img :src="video.snippet.thumbnails.default.url">
+>   {{ video.snippet.title }}
+> </li>
 > </template>
 > ```
 
@@ -2506,41 +2834,41 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <li class="list-group-item">
->     <!-- 여기서 computed는 ()를 쓰지 않고 watched는 ()를 써야 한다! -->
->     <img :src="thumbnailUrl" alt="img">
->     <div class="media-body"> <!-- 글자가 어긋나게 삐져나가지 않도록 div 태그로 감싼다. -->
+> <li class="list-group-item">
+>   <!-- 여기서 computed는 ()를 쓰지 않고 watched는 ()를 써야 한다! -->
+>   <img :src="thumbnailUrl" alt="img">
+>   <div class="media-body"> <!-- 글자가 어긋나게 삐져나가지 않도록 div 태그로 감싼다. -->
 >       {{ video.snippet.title }}
->     </div>
->   </li>
+>   </div>
+> </li>
 > </template>
 > 
 > <script>
->   export default {
->     name: 'VideoListItem', // VideoListItem의 최상위 컴포넌트는 VideoList 컴포넌트이다.
->     props: {
->       video: {
->         type: Object,
->         requried: true,
->       }
->     },
->     computed: {
->       thumbnailUrl() {
->         return this.video.snippet.thumbnails.default.url // 이 곳에 미리 캐싱되어 있음
->       }
+> export default {
+> name: 'VideoListItem', // VideoListItem의 최상위 컴포넌트는 VideoList 컴포넌트이다.
+> props: {
+>     video: {
+>       type: Object,
+>       requried: true,
 >     }
->   }
+> },
+> computed: {
+>     thumbnailUrl() {
+>       return this.video.snippet.thumbnails.default.url // 이 곳에 미리 캐싱되어 있음
+>     }
+> }
+> }
 > </script>
 > 
 > <style scoped>
->   li {
->     display: flex;
->     cursor: pointer;
->   }
+> li {
+>   display: flex;
+>   cursor: pointer;
+> }
 > 
->   li:hover {
->     background-color: #eee; /* 마우스를 올렸을 때 회색 나게 한다. */
->   }
+> li:hover {
+>   background-color: #eee; /* 마우스를 올렸을 때 회색 나게 한다. */
+> }
 > </style>
 > ```
 
@@ -2548,10 +2876,11 @@ mounted: function() {
 
 <br>
 
-### 4.6 VideoDetail 컴포넌트 구성
+### 4.6 VideoDetail 컴포넌트 구성(조금 어려움)
 
-- `VideoListItem.vue` 에서 `VideoList.vue`로 데이터를 올리고,  다시 이를 `App.vue`로 올린다.
-- 그리고 `VideoDetail.vue`로 데이터를 내려 보내준다.
+- 데이터 전달 과정(컴포넌트 간의 관계를 잘 생각하자!)
+  - `VideoListItem.vue` 에서 `VideoList.vue`로 데이터를 올리고,  다시 이를 `App.vue`로 올린다.
+  - 그리고 `VideoDetail.vue`로 데이터를 내려 보내준다.
 
 > `VideoListItem.vue`
 >
@@ -2559,33 +2888,33 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <li @click="onVideoSelect" class="list-group-item">
->     <img :src="thumbnailUrl" alt="img"> <!-- 여기서 computed는 ()를 쓰지 않고 watched는 ()를 써야 한다! -->
->     <div class="media-body" v-html="video.snippet.title"> <!-- 글자가 어긋나게 삐져나가지 않도록 div 태그로 감싼다. -->
->     </div>
->   </li>
+> <li @click="onVideoSelect" class="list-group-item">
+>   <img :src="thumbnailUrl" alt="img"> <!-- 여기서 computed는 ()를 쓰지 않고 watched는 ()를 써야 한다! -->
+>   <div class="media-body" v-html="video.snippet.title"> <!-- 글자가 어긋나게 삐져나가지 않도록 div 태그로 감싼다. -->
+>   </div>
+> </li>
 > </template>
 > 
 > <script>
->   export default {
->     name: 'VideoListItem',
->     props: {
->       video: {
->         type: Object,
->         requried: true,
->       }
->     },
->     methods: {
->       onVideoSelect() {
->         this.$emit('videoSelect', this.video) // VideoList로 올려 보내므로 emit 추가
->       }
->     },
->     computed: {
->       thumbnailUrl() {
->         return this.video.snippet.thumbnails.default.url 
->       }
+> export default {
+> name: 'VideoListItem',
+> props: {
+>     video: {
+>       type: Object,
+>       requried: true,
 >     }
->   }
+> },
+> methods: {
+>     onVideoSelect() {
+>       this.$emit('videoSelect', this.video) // VideoList로 올려 보내므로 emit 추가
+>     }
+> },
+> computed: {
+>     thumbnailUrl() {
+>       return this.video.snippet.thumbnails.default.url 
+>     }
+> }
+> }
 > </script>
 > ```
 
@@ -2593,37 +2922,37 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <ul class="list-group">
->     <video-list-item
+> <ul class="list-group">
+>   <video-list-item
 >       v-for="video in videos"
 >       :key="video.etag"
 >       :video="video"
 >       @videoSelect="onVideoSelect">
->     <!-- VideoListItem.vue의 onVideoSelect와 다른 onVideoSelect 이다. -->
->     </video-list-item>
->   </ul>
+>   <!-- VideoListItem.vue의 onVideoSelect와 다른 onVideoSelect 이다. -->
+>   </video-list-item>
+> </ul>
 > </template>
 > 
 > <script>
->   import VideoListItem from './VideoListItem'
->   // VideoListItem의 최상위 컴포넌트는 VideoList 컴포넌트이므로 VideoListItem 컴포넌트 등록은 여기서 한다!
->   export default {
->     name: 'VideoList',
->     components: {
->       VideoListItem,
->     },
->     methods: {
->       onVideoSelect(video) {
->         this.$emit('videoSelect', video) // App으로 올려 보내므로 emit 추가 
->       }
->     },
->     props: {
->       videos: {
->         type: Array,
->         required: true,
->       }
+> import VideoListItem from './VideoListItem'
+> // VideoListItem의 최상위 컴포넌트는 VideoList 컴포넌트이므로 VideoListItem 컴포넌트 등록은 여기서 한다!
+> export default {
+> name: 'VideoList',
+> components: {
+>     VideoListItem,
+> },
+> methods: {
+>     onVideoSelect(video) {
+>       this.$emit('videoSelect', video) // App으로 올려 보내므로 emit 추가 
 >     }
->   }
+> },
+> props: {
+>     videos: {
+>       type: Array,
+>       required: true,
+>     }
+> }
+> }
 > </script>
 > 
 > <style>
@@ -2635,12 +2964,12 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <div id="app">
->     <search-bar @inputChange="onInputChange"></search-bar>
->     <!-- selecteVideo를 VideoDetail로 보내주기 위해 바인딩해준다. -->
->     <video-detail :video="selectedVideo"></video-detail>
->     <video-list @videoSelect="onVideoSelect" :videos="videos"></video-list>
->   </div>
+> <div id="app">
+>   <search-bar @inputChange="onInputChange"></search-bar>
+>   <!-- selecteVideo를 VideoDetail로 보내주기 위해 바인딩해준다. -->
+>   <video-detail :video="selectedVideo"></video-detail>
+>   <video-list @videoSelect="onVideoSelect" :videos="videos"></video-list>
+> </div>
 > </template>
 > 
 > <script>
@@ -2652,25 +2981,25 @@ mounted: function() {
 > const API_URL = 'https://www.googleapis.com/youtube/v3/search'
 > 
 > export default {
->   name: 'App',
->   components: {
->     SearchBar, 
->     VideoList,
->     VideoDetail,
->   },
->   data() {
->     return {
+> name: 'App',
+> components: {
+>   SearchBar, 
+>   VideoList,
+>   VideoDetail,
+> },
+> data() {
+>   return {
 >       videos: [],
 >       // 올라온 video를 넣어줘야 하므로 새로운 변수 선언
 >       // 선택 안 된 기본상태가 필요하므로 null 선언
 >       selectedVideo: null,
->     }
->   },
->   methods: {
->     onVideoSelect(video) { // emit으로 받은 video를 selectedVideo에 할당 후 selectedVideo를 하위 컴포넌트인 VideoDetail.vue로 넘겨준다.
+>   }
+> },
+> methods: {
+>   onVideoSelect(video) { // emit으로 받은 video를 selectedVideo에 할당 후 selectedVideo를 하위 컴포넌트인 VideoDetail.vue로 넘겨준다.
 >       this.selectedVideo = video
->     },
->     onInputChange(inputValue) {
+>   },
+>   onInputChange(inputValue) {
 >       axios.get(API_URL, {
 >         params: {
 >           key: API_KEY,
@@ -2685,8 +3014,8 @@ mounted: function() {
 >       .catch(err => {
 >         console.log(err)
 >       })
->     }
 >   }
+> }
 > }
 > </script>
 > ```
@@ -2695,41 +3024,41 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <!-- console에 출력되는 error를 처리하기 위해 video에 데이터가 있을 때만 출력! -->
->   <div v-if="video" class="col-lg-8">
->     <div class="embed-responsive embed-responsive-16by9">
+> <!-- console에 출력되는 error를 처리하기 위해 video에 데이터가 있을 때만 출력! -->
+> <div v-if="video" class="col-lg-8">
+>   <div class="embed-responsive embed-responsive-16by9">
 >       <iframe :src="videoUrl" frameborder="0" class="embed-responsive-item"></iframe>
->     </div>
->     <div class="details">
->       <!--
->         특수문자 인코딩 깨지는 것을 막기 위해
->         h4 태그 안에 작성했던 <h4>{{ video.snippet.title }}</h4>을
->         v-html을 이용해 <h4 v-html="video.snippet.title"></h4>로 작성한다.
->       -->
+>   </div>
+>   <div class="details">
+>     <!--
+>       특수문자 인코딩 깨지는 것을 막기 위해
+>       h4 태그 안에 작성했던 <h4>{{ video.snippet.title }}</h4>을
+>       v-html을 이용해 <h4 v-html="video.snippet.title"></h4>로 작성한다.
+>     -->
 >       <h4 v-html="video.snippet.title"></h4>
 >       <p>{{ video.snippet.description }}</p>
->     </div>
 >   </div>
+> </div>
 > </template>
 > 
 > <script>
->   export default {
->     name: 'VideoDetail',
->     props: { // App.vue에서 데이터를 받으므로 props 선언
->       video: {
->         type: Object,
->       }
+> export default {
+> name: 'VideoDetail',
+> props: { // App.vue에서 데이터를 받으므로 props 선언
+>     video: {
+>       type: Object,
 >     }
->   }
+> }
+> }
 > </script>
 > 
 > <style scoped>
->   .details {
->     margin-top: 10px;
->     padding: 10px;
->     border: 1px solid #ddd;
->     border-radius: 4px;
->   }
+> .details {
+>   margin-top: 10px;
+>   padding: 10px;
+>   border: 1px solid #ddd;
+>   border-radius: 4px;
+> }
 > </style>
 > ```
 
@@ -2739,24 +3068,24 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <div v-if="video">
->     <div> <!-- iframe 태그를 div 태그로 감싸 추가 -->
+> <div v-if="video">
+>   <div> <!-- iframe 태그를 div 태그로 감싸 추가 -->
 >       <iframe :src="videoUrl" frameborder="0"></iframe>
->     </div>
->     ...
 >   </div>
+>   ...
+> </div>
 > </template>
 > 
 > <script>
->   export default {
->     ...
->     computed: { // computed 구문 추가
->       videoUrl() {
->         const videoId = this.video.id.videoId
->         return `http://www.youtube.com/embed/${videoId}`
->       }
+> export default {
+> ...
+> computed: { // computed 구문 추가
+>     videoUrl() {
+>       const videoId = this.video.id.videoId
+>       return `http://www.youtube.com/embed/${videoId}`
 >     }
->   }
+> }
+> }
 > </script>
 > ```
 
@@ -2770,24 +3099,24 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <div v-if="video" class="col-lg-8"> <!-- console에 출력되는 error를 처리하기 위해 video에 데이터가 있을 때만 출력! -->
->     <div class="embed-responsive embed-responsive-16by9">
+> <div v-if="video" class="col-lg-8"> <!-- console에 출력되는 error를 처리하기 위해 video에 데이터가 있을 때만 출력! -->
+>   <div class="embed-responsive embed-responsive-16by9">
 >       <iframe :src="videoUrl" frameborder="0" class="embed-responsive-item"></iframe>
->     </div>
->   ...
+>   </div>
+>  ...
 > ```
 
 > `App.vue`
 >
 > ```vue
 > <template>
->   <div id="app">
->     <search-bar @inputChange="onInputChange"></search-bar>
->     <div class="row">
+> <div id="app">
+>   <search-bar @inputChange="onInputChange"></search-bar>
+>   <div class="row">
 >       <video-detail :video="selectedVideo"></video-detail>
 >       <video-list @videoSelect="onVideoSelect" :videos="videos"></video-list>
->     </div>
 >   </div>
+> </div>
 > </template>
 > ```
 
@@ -2795,9 +3124,9 @@ mounted: function() {
 >
 > ```vue
 > <template>
->   <ul class="col-lg-4 list-group">
->     ..    
->   </ul>
+> <ul class="col-lg-4 list-group">
+> ..    
+> </ul>
 > </template>
 > ```
 
@@ -2816,471 +3145,3 @@ mounted: function() {
 ---
 
 :triangular_flag_on_post: 참고로 이번 Youtube 프로젝트에서는`watched`는 사용하지 않고 `computed` 만으로 작성했는데 실제로 프로젝트 만들 때 가급적이면 `watched` 보다는 `computed`를 사용하는 것이 좋다. 그렇다고 아예 `watched`가 안 쓰이는 것은 아니다.
-
-<br>
-
----
-
-<br>
-
-## 5. 11월18일(5일차) - `Django(6일차) & Vue.js(5일차)`
-
-### 5.1 JWT(JSON Web Token) <a href="https://jwt.io/" target="_blank">(JWT 공식 홈페이지)</a>
-
-#### (1) JWT 구조 - `xxxx.yyyy.zzzz`
-
-- `xxxx` : 헤더(header), `yyyy` : 내용(payload), `zzzz` : 서명(signature)
-- Header : token의 type과 사용된 알고리즘, 여기서 정의한 알고리즘은 시그니처에서 다시 사용된다.
-- Payload : 토큰에 담길 정보가 들어있는 곳(claim - key:value)
-- Signature : 헤더와 payload를 기반으로 이 둘을 조합해서 만든 비밀키로 hashing
-
----
-
-:heavy_check_mark: <b>정보(Payload)</b>
-
-- registered claim (등록된 클레임)
-  - 토큰에 대한 정보들을 담기 위해 이름이 이미 정해진 클레임들.
-  - 클레임의 사용은 모두 선택적이다.
-
-- public claim
-  - 공개 클레임은 충돌이 되지 않는 이름을 가지고 있어야 함.
-  - 보통 충돌을 방지하기 위해 key 값을 URI 형태로 만든다.
-  - ex) `apple` (X), `'https://test.co.kr/jwt_token': true` (O)
-
-- private claim
-  - 등록된 클레임도 아니고 공개 클레임도 아님.
-  - 클라이언트와 서버간에 협의하에 사용되는 클레임들.
-  - key 값이 중복되서 충돌이 될 수 있으니 유의해서 사용.
-  - ex) `{"username": "admin"}` (Django에서 사용되는 field 값들과 같은 경우)
-
----
-
-:heavy_check_mark: <b>서명(signature)</b>
-
-- HEADER의 인코딩 값과, PAYLOAD의 인코딩 값을 합친 후 주어진 비밀키로 해시(hash)를 생성한 값
-
----
-
-<br>
-
-#### (2) JWT의 특징
-
-- 정보를 안전하게 JSON 객체로 전송하기 위한 간결하고 독립적인 방법
-- 서로 다른 웹 프레임워크 간 데이터를 주고 받을 때 검증을 위해 사용
-- JWT 용도 : `Authorization`(회원 인증), `Information Exchanges`(정보 교환)
-
-- 세션/쿠키와 함께 모바일과 웹의 인증을 책임지는 대표 기술 중 하나.
-- 세션/쿠키의 정보 전달 방식과 유사하게 사용자는 Access Token (JWT Token) 을 HTTP header 에 실어서 서버로 요청을 보냄.
-- 세션/쿠키 방식과 가장 큰 차이점은 세션/쿠키는 세션 저장소에 유저의 정보를 넣지만, JWT 는 토큰 안에 유저의 정보를 넣는다.
-
-- <b>Client 의 입장에서는 HTTP header에 세션ID와 토큰을 실어서 보낸다는 점은 동일하지만, Server 입장에서는 인증을 위해 암호화(JWT 방식) 를 하냐 혹은 별도의 저장소(세션/쿠키 방식)를 이용하느냐의 차이</b>
-
-<br>
-
-#### (3) JWT 사용 상황
-
-- 회원 인증(Authorization)
-  - 서버가 유저 정보에 기반한 토큰(JWT)을 발급해 유저에게 전달하고, 유저는 서버에 요청을 보낼 때마다 JWT를 포함하여 전달.
-  - 서버는 세션을 유지할 필요 없이 유저의 요청정보 안에 있는 JWT 만 확인하면 된다. (서버 자원 아낄 수 있음)
-- 정보 교환(Information Exchanges)
-  - 정보가 서명되어 있기 때문에 정보를 보낸 사람의 정보 혹은 정보가 조작여부 확인 등이 가능
-
-<br>
-
----
-
-:spiral_notepad: <b>요약</b>
-
-- 두 개체에서 JSON 객체를 사용하여 가볍고 자가 수용적인(self-contained; 필요한 모든 정보를 자체적으로 지님) 방식으로 정보를안정성 있게 전달.
-- 세션 상태를 저장하는 것이 아니라 필요한 정보를 JWT에 저장해서 사용자가 가지고 있게 하고, 해당 JWT를 증명서처럼 사용하는 방식.(즉, 매번 주민등록증을 내는 것과 같다고 생각하면 된다.)
-- JWT 장점
-  - 세션/쿠키처럼 별도의 저장소 관리가 필요 없고 발급한 이후에 검증만 하면 된다.
-  - 토큰을 기반으로 한 다른 인증시스템에 접근이 용이하기 때문에 확장성이 뛰어나다.
-  - 모바일 환경에 적합 (쿠키와 같은 데이터로 인증할 필요가 없기 때문) (세션/쿠키 방식은 모바일 환경에서 부적합)
-  - Python, JS, Ruby, Go 등 주류 프로그래밍 언어에서 대부분 지원된다.
-- JWT 단점
-  - 이미 발급된 JWT는 유효기간이 완료될 때까지 계속 사용하기 때문에 악용될 가능성이 있다.(한 번 발급된 토큰은 값을 수정하거나 폐기할 수 없으므로 계속 같은것을 사용하는 것이다.)
-    - 그래서 이 문제는 Access Token의 유효기간(expire time) 을 짧게하고 Refresh Token 등을 이용해서 중간중간 새로운 토큰을 재발행 해줌으로써 해결할 수 있다.
-  - 세션/쿠키 방식에 비해 claim 데이터(payload)가 많아진다면 JWT 토큰의 길이가 길어지기 때문에 인증 요청이 많아 질수록 네트워크의 대역폭이 낭비될 수 있다.(= 요청량이 너무 많아 네트워크에 과부하가 걸릴 수 있다는 의미)
-    - API 호출 시 매 호출마다 헤더에 붙여서 전달하기 때문이다.
-
----
-
-<br>
-
-### 5.2 Django & Vue.js 실습 프로젝트 - vue 세팅
-
----
-
-:file_folder: <b>파일 트리</b>
-
-```
-todo-back
-	-todoback
-	-todos
-	-venv
-todo-front
-	-node_modules
-	-public
-	-src
-	...
-```
-
----
-
-#### (1) 뷰 라우터
-
-- `vue ui`로 프로젝트 매니저 열고 폴더 경로를 `~~~/todo-front`(현재 vue 프로젝트가 있는 폴더 위치)로 잡아준다.
-
-- 플러그인 탭 에서 router 검색시 가장 먼저 뜨는 플러그인을 설치한다.
-- 설치 후 `@vue/cli-plugin-router의 설정`에서 `Use history mode for router?` 항목을 켜준다.(history mode를 켜준다.) 그리고 맨 밑에 `설치 완료`를 선택후 `계속`을 누른다.
-- 설치가 완료되면 vscode에 `node_modules` 폴더에 `vue-router`가 생김을 확인할 수 있다.(만약에 안 뜨면 vscode에서 새로고침하고 다시 확인해보자.)
-
-- 그리고 `src` 폳더에 `router`, `views` 폴더가 새로 생성된다. 이 때 `router` 폴더의 `index.js`가 django의 `urls.py` 역할을 하게 된다.
-- <b>[주의!] 라우터에 직접적으로 연결되는 컴포넌트는 `views` 폴더에 작성하고, 그 밑의 자식 컴포넌트들은 `components` 폴더에 작성된다.</b>
-
-<br>
-
-#### (2) view 구성
-
-##### ① 로그인 기능 구현하기
-
-> `views` > `Login.vue`
->
-> - 기본 세팅만 우선하기
->
-> ```vue
-> <template>
->   <div> <!-- template에서는 최상단에 div 태그가 항상 있어야 한다. -->
->     <h1>로그인 페이지입니다.</h1>
->   </div>
-> </template>
-> 
-> <script>
->   export default {
->     
->   }
-> </script>
-> 
-> <style>
-> 
-> </style>
-> ```
-
-> `index.js`
->
-> ```js
-> import Login from '../views/Login.vue' // import 구문 추가
-> 
-> Vue.use(VueRouter) // VueRouter를 사용하기 위한 코드
-> 
-> const routes = [
->   {
->     path: '/',
->     name: 'home',
->     component: Home
->   },
->   {
->     path: '/login',
->     name: 'login',
->     component: Login
->   }
-> ]
-> ```
-
-> `App.vue`
->
-> ```vue
-> <template>
->   <div id="app">
->     <div id="nav">
->       <!-- router-link와 to는 정해진 이름이다. -->
->       <router-link to="/">Home</router-link> |
->       <router-link to="/login">Login</router-link>
->     </div>
->     <div class="container col-6">
->       <router-view/> <!-- 이 곳에서 view가 출력되는 것이다. -->
->     </div>
->   </div>
-> </template>
-> ```
-
-> `public` > `index.html`
->
-> - `<head>` 태그 안에 Bootstrap CSS 코드 붙여넣기
-
----
-
-:heavy_check_mark: <b>`router-link`</b>
-
-- router 지원 앱에서 사용자 네비게이션을 가능하게하는 컴포넌트
-- 목표 위치는 `to` prop 으로 지정된다.
-- 라우팅은 URI 에 따라 해당하는 정적 파일을 내려주는 방식인데 이를 브라우저에서 구현하는 것이 SPA 개발의 핵심
-- `router-link`는 `a` 태그보다 선호되는데 이유는 HTML5 히스토리 모드에서 클릭 이벤트 자체를 차단하여 브라우저가 페이지를 다시 로드하지 않도록 한다.(기본적으로 `a` 태그는 클릭 이벤트가 자동으로 실행되어 페이지가 로드된다.)
-
-:heavy_check_mark: <b>`router-view`</b>
-
-- 라우팅이 경로에 맞는 컴포넌트를 제공하는 데 해당 경로에 맞는 컴포넌트를 렌더링 해주는 부분
-- `<router-link to="/login">Login</router-link>`를 선택하면 `router-view`에 `Login.vue`가 렌더링 되는 것이다.
-
----
-
-> `Home.vue`
->
-> ```vue
-> <template>
->   <div class="home">
->     
->   </div>
-> </template>
-> 
-> <script>
-> // @ is an alias to /src
-> 
-> export default {
->   name: 'home',
->   components: {
->     
->   }
-> }
-> </script>
-> 
-> ```
-
-> `HelloWorld.vue` 는 삭제하기
-
-> `components` > `LoginForm.vue`
->
-> ```vue
-> <template>
->   <div class="login-div">
->     <div class="form-group">
->       <label for="id">ID</label>
->       <input type="text" class="form-control" id="id" placeholder="Enter the email">
->     </div>
->     <div class="form-group">
->       <label for="password">PASSWORD</label>
->       <input type="text" class="form-control" id="password" placeholder="Enter the password">
->     </div>
->     <button class="btn btn-primary">LOGIN</button>
->   </div>
-> </template>
-> 
-> <script>
->   export default {
->     
->   }
-> </script>
-> 
-> <style>
-> 
-> </style>
-> ```
-
-> `views` > `Login.vue`
->
-> ```vue
-> <template>
->   <div> <!-- template에서는 최상단에 div 태그가 항상 있어야 한다. -->
->     <LoginForm/>
->   </div>
-> </template>
-> 
-> <script>
->   // @ 는 /src 의 alias이다.
->   // import LoginForm from '../components/LoginForm' // 상대경로로 작성하는 법
->   import LoginForm from '@/components/LoginForm' // 절대경로로 작성하는 법
->   export default {
->     name: 'login',
->     components: {
->       LoginForm,
->     }
->   }
-> </script>
-> 
-> <style>
-> 
-> </style>
-> ```
-
-> `LoginForm.vue`
->
-> - 현재까지 상황은 vue console의 credentials에 로그인 폼에 입력하면 동적으로 입력이 되어야 하고 로그인 버튼을 누를때마다 console 창에 console 구문이 찍혀야 한다.
->
-> ```vue
-> <template>
->   <div class="login-div">
-> 
->     <div v-if="loading" class="spinner-border" role="status">
->       <span class="sr-only">Loading...</span>
->     </div>
-> 
->     <div v-else class="login-form">
->       <div class="form-group">
->         <label for="id">ID</label>
->         <input type="text" class="form-control" id="id" placeholder="아이디 입력" v-model="credentials.username"
->           @keyup.enter="login">
->       </div>
->       <div class="form-group">
->         <label for="password">PASSWORD</label>
->         <input type="text" class="form-control" id="password" placeholder="비번 입력" v-model="credentials.password"
->           @keyup.enter="login">
->         <div>
->           <button class="btn btn-primary" @click="login">로그인</button>
->         </div>
->       </div>
->     </div>
-> 
->   </div>
-> </template>
-> 
-> <script>
->   export default {
->     name: 'LoginForm',
->     data() {
->       return {
->         credentials: {},
->         loading: false,
->       }
->     },
->     methods: {
->       login() {
->         console.log('Login button Clicked!!')
->       }
->     }
->   }
-> </script>
-> 
-> <style>
-> 
-> </style>
-> ```
-
-- 로그인 검증 구현하기
-
-> `LoginForm.vue`
->
-> - 이 때, `form-group`에 있는 `@keyup.enter` 구문 두 개와 로그인 버튼의 `@click="login"` 구문을 삭제하고 가장 밖에 있는 form 태그 안에 `@submit.prevent="login"`으로 작성하면 위 세 줄의 구문을 한 줄로 간단하게 작성할 수 있게 된다.
->
-> ```vue
-> <template>
->   <div class="login-div">
-> 
->     <div v-if="loading" class="spinner-border" role="status">
->       <span class="sr-only">Loading...</span>
->     </div>
-> 
->     <form v-else class="login-form" @submit.prevent="login"> <!-- .prevent를 써야 redirect 되는 기본 동작을 막을 수 있다. -->
->       <!-- 에러 메세지 출력 -->
->       <div v-if="errors.length" class="error-list alert alert-danger" role="alert">
->         <h4>다음의 오류를 해결해주세요.</h4>
->         <hr>
->         <div v-for="(error, idx) in errors" :key="idx">
->           {{ error }}
->         </div>
->       </div>
-> 
->       <div class="form-group">
->         <label for="id">ID</label>
->         <input type="text" class="form-control" id="id" placeholder="아이디 입력" v-model="credentials.username">
->       </div>
->       <div class="form-group">
->         <label for="password">PASSWORD</label>
->         <input type="password" class="form-control" id="password" placeholder="비번 입력" v-model="credentials.password">
->       </div>
->       <button class="btn btn-primary">로그인</button>
->     </form>
-> 
->   </div>
-> </template>
-> 
-> <script>
->   export default {
->     name: 'LoginForm',
->     data() {
->       return {
->         credentials: {
->           username: '',
->           password: '',
->         },
->         loading: false,
->         errors: [],
->       }
->     },
->     methods: {
->       login() {
->         if (this.checkForm()) {
->           console.log('로그인 성공')
->         } else {
->           console.log('로그인 실패') // return이 없으면 undefined 이므로 else 구문이 실행됨
->         }
->       },
->       checkForm() {
->         this.errors = [] // 로그인 버튼 누를 때마다 빈 배열로 시작해야 한다. 누적되면 안 됨!
->         if (!this.credentials.username) { // 아이디를 입력 안 했을 때
->           this.errors.push("아이디를 입력해주세요")
->         }
->         if (this.credentials.password.length < 8) {// 패스워드 길이가 8 미만인 경우 로그인 막기
->           this.errors.push("비밀번호는 8자 이상 입력해주세요.")
->         }
->         if (this.errors.length === 0) { // 로그인 검증을 모두 통과한 경우
->           return true
->         }
->       }
->     }
->   }
-> </script>
-> 
-> <style>
-> 
-> </style>
-> ```
-
-- axios로 django에 로그인 요청 보내기
-
-  `npm i axios` => `LoginForm.vue`의 script 구문 상단에 `import axios from 'axios'` 작성
-
-> `LoginForm.vue` > `<script>` 부분 > `methods`
->
-> ```javascript
->       login() {
->         if (this.checkForm()) {
->           this.loading = true
->           axios.get('http://127.0.0.1:8000', this.credentials)
->           .then(res => {
->             console.log(res)
->           })
->           .catch(err => {
->             console.log(err)
->           })
->         } else {
->           console.log('로그인 검증 실패')
->         }
->       },
-> ```
-
-- vue에서 django 측으로 로그인 요청을 해야 하는데 django는 8000 포트번호를 사용하고 vue는 8080 포트번호를 사용하는데 서로 포트번호가 달라 request를 denied 해버리게 된다. 보안상의 이유로 제약을 걸어버린다.
-- 이를 해결하기 위해 HTTP 접근 제어(CORS)를 처리해줘야 한다. 즉, CORS 헤더를 포함해야 한다.
-
-<br>
-
-##### ② CORS (Cross-Origin Resource Sharing) <a href="https://developer.mozilla.org/ko/docs/Web/HTTP/Access_control_CORS" target="_blank">(CORS MDN 공식 문서)</a>
-
-- 정의
-
-  - 한 도메인에서 로드되어 다른 도메인에 있는 리소스와 상호 작용 하는 것.
-  - 즉, 도메인이나 포트가 다른 서버의 자원을 요청하는 메커니즘.
-
-- 문제 상황
-
-  - 요청을 할 때 cross-origin HTTP 에 의해 요청을 한다.
-  - 하지만 CORS 와 같은 상황이 발생하면 외부 서버에 의한 요청 데이터를 브라우저에서 차단하기 때문에(보안 목적) 정상적으로 데이터를 받을 수 없다.
-  - 예를 들어, `http://localhost:8080/` 에서 vue를 실행하고, `http://localhost:8000/` 에서 django를 실행할 경우 포트가 달라 다른 도메인으로 인지하고 브라우저가 요청을 차단한다.
-
-- 해결 방법
-
-  - 가장 쉬운 방법은 서버(django)와 클라이언트(vue)가 같은 도메인과 포트를 사용하도록 한다. => 하지만 이 방법으로는 잘 해결 안 함
-
-  - 서버에서 cross-origin HTTP 요청을 허가한다.(우리가 해결할 방법)
-    - 실제 API 서버들은 이러한 CORS 제한과 관련된 처리를 모두 해두어야한다.
-

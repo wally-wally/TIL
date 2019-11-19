@@ -1,11 +1,11 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
     <div id="nav">
       <router-link to="/">Home</router-link> |
       <router-link to="/login">Login</router-link> <!-- router-link와 to는 정해진 이름이다. -->
     </div>
-    <div class="container col-6">
-      <router-view/> <!-- 이 곳에서 view가 출력되는 것이다. -->
+    <div class="row justify-content-center">
+      <router-view class="col-6"/> <!-- 이 곳에서 view가 출력되는 것이다. -->
     </div>
   </div>
 </template>
