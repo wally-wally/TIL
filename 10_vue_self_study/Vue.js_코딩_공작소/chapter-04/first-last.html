@@ -1,0 +1,16 @@
+<div class="col-md-6">
+  <strong>이름:</strong>
+  <input v-model="order.firstName"
+    class="form-control"/>
+</div>
+<div class="col-md-6">
+  <strong>성:</strong>
+  <input v-model="order.lastName"
+   class="form-control"/>
+</div>
+<div class="col-md-12 verify">
+  <pre>
+    이름: {{order.firstName}}
+    성:  {{order.lastName}}
+  </pre>
+</div>

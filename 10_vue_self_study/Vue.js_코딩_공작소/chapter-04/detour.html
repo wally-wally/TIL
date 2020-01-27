@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+<div id="app">
+  <ol>
+    <li v-for="state in states">
+      {{state}}
+    </li>
+  </ol>
+</div>
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script type="text/javascript">
+var webstore = new Vue({
+  el: '#app',
+  data: {
+    states: [
+      '알라바마',
+      '알래스카',
+      '애리조나',
+      '캘리포니아',
+      '네바다'
+    ]
+  }
+})
+</script>
+</body>
+</html>

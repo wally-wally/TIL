@@ -1,0 +1,35 @@
+<div class="form-group">
+  <div class="col-md-6 boxes">
+    <input type="checkbox"
+ id="gift"
+ value="true"
+ v-model="order.gift">
+    <label for="gift">선물로 보내기?</label>
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-md-6 boxes">
+    <input type="radio"
+      id="home"
+      value="자택"
+      v-model="order.method">
+    <label for="home">자택</label>
+    <input type="radio"
+      id="business"
+      value="자택"
+      v-model="order.method">
+    <label for="business">자택</label>
+  </div>
+</div>
+<div class="col-md-12 verify">
+  <pre>
+    이름: {{order.firstName}}
+    성: {{order.lastName}}
+    주소: {{order.address}}
+    도시: {{order.city}}
+    우편번호: {{order.zip}}
+    주: {{order.state}}
+    주소지: {{order.method}}
+    선물: {{order.gift}}
+  </pre>
+</div>

@@ -1,0 +1,24 @@
+
+  Vue.component('my-comp', {
+    render(createElement) {
+        return createElement('h'+this.header,
+        {'class':'text-center',
+          on: {
+            click(e) {
+              alert('클릭됨');
+            }
+          }
+        },
+        this.welcome + this.$slots.default[0].text)
+    },
+    data() {
+      return {
+        welcome: '안녕하세요 '
+      }
+    },
+    props: ['header']
+  });
+  new Vue({el: '#app'})
+</script>
+</body>
+</html>

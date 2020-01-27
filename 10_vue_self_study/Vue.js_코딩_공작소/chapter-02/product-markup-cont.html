@@ -1,0 +1,14 @@
+<main>
+  <div class="row">
+    <div class="col-md-2 col-md-offset-1">
+      <figure>
+        <img v-bind:src="product.image">
+      </figure>
+    </div>
+    <div class="col-md-6 col-md-offset-2 description">
+      <h1 v-text="product.title"></h1>
+      <p v-html="product.description"></p>
+      <p v-text="product.price" class="price"></p>
+    </div>
+  </div>
+</main>

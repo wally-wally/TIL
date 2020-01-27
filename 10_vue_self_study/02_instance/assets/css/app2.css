@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+}
+
+header {
+  background-color: lightgray;
+  padding: 3px 0;
+  margin-bottom: 10px;
+}
+
+.navbar > .page-name {
+  font-size: 2rem;
+  font-weight: bold;
+  color: darkblue;
+}
+
+.reset-button,
+.checkout-button {
+  margin-right: 10px;
+  display: inline;
+}
+
+.inventory-count {
+  display: inline;
+}
+
+#product-title {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+.price {
+  font-size: 1.2rem;
+}

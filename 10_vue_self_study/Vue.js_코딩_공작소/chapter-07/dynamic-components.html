@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+<div class="app">
+  <button @click="cycle">순환하기</button>
+  <h1>
+    <component :is="currentView"/>
+  </h1>
+</div>
+<script>
+const BookComponent ={
+  template: `
+  <div>
+    책 컴포넌트
+  </div>
+  `
+}
+
+const FormComponent = {
+  template: `
+  <div>
+    폼 컴포넌트
+  </div>
+  `
+}
+
+const HeaderComponent = {
+  template: `
+  <div>
+    헤더 컴포넌트
+  </div>
+  `
+}
+
+new Vue({
+  el: '#app',
+  components: {'book-component': BookComponent,
+               'form-component': FormComponent,
+               'header-component': HeaderComponent},
+  data() {
+    return {
+      currentView: BookComponent
+    }
+  },
+  methods: {
+    cycle() {
+      if(this.currentView === HeaderComponent)
+        this.currentView = BookComponent
+      else
+        this.currentView = this.currentView === BookComponent ? FormComponent : HeaderComponent;
+    }
+  }
+})
+</script>
+</body>
+</html>

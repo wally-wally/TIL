@@ -1,0 +1,9 @@
+* {
+  margin: 0;
+}
+
+header {
+  background-color: lightgray;
+  padding: 6px 0;
+  margin-bottom: 10px;
+}

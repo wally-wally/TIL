@@ -1,0 +1,75 @@
+<html>
+<head>
+  <title>Vue.js 애완용품샵</title>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/vue"></script>
+  <link rel="stylesheet" type="text/css" href="assets/css/app.css"/>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+  <div id="app">
+    <main>
+      <div class="row product">
+        <div>
+          <div class="col-md-2 col-md-offset-1">
+            <figure>
+              <img v-bind:src="product.image">
+            </figure>
+          </div>
+          <div class="col-md-6 col-md-offset-2 description">
+            <h1 v-text="product.title"></h1>
+            <p v-html="product.description"></p>
+            <p class="price">
+              {{product.price | formatPrice}}
+            </p>
+            <button class="btn btn-primary btn-lg"
+              v-on:click="addToCart">장바구니 담기
+            </button>
+          </div>
+        </div>
+      </div><!--end of row-->
+
+    </main><!--end of main-->
+
+  </div>
+  <script type="text/javascript">
+  var webstore = new Vue({
+    el: '#app',
+    data: {
+      sitename: "Vue.js 애완용품샵",
+      product: {
+        id: 1001,
+        title: "고양이 사료, 25파운드",
+        description: "당신의 고양이를 위한 <em>거부할 수 없는</em>, 유기농 25파운드 사료입니다.",
+        price: 2000,
+        image: "assets/images/product-fullsize.png"
+      },
+      cart: []
+    },
+    methods: {
+      addToCart: function() {
+        this.cart.push( this.product.id );
+      },
+    },
+    filters: {
+    formatPrice(price) {	//#B
+      if (!parseInt(price)) { return ""; }	//#C
+      if (price > 99999) {	//#D
+        var priceString = (price / 100).toFixed(2);	//#E
+        var priceArray = priceString.split("").reverse();	//#F
+        var index = 3;	//#F
+        while (priceArray.length > index + 3) {	//#F
+          priceArray.splice(index+3, 0, ",");	//#F
+          index += 4;	//#F
+        }	//#F
+        return "$" + priceArray.reverse().join("");	//#G
+      } else {
+        return "$" + (price / 100).toFixed(2);	//#H
+      }
+    }
+  }
+  });
+
+  </script>
+</body>
+</html>

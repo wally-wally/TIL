@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/vue"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  <div id="app">
+    <div id="container">
+      <h1 class="text-center">{{title}}</h1>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-2">
+          <my-comp1 class="comp1"></my-comp1>
+        </div>
+        <div class="col-md-3">
+            <h2 class="text-center">혹은</h2>
+        </div>
+        <div class="col-md-3">
+          <my-comp2 class="comp2"></my-comp2>
+        </div> <!--end col-md-2-->
+      </div><!-- end row -->
+    </div> <!-- end container -->
+  </div> <!-- end app -->
+  <script>
+    new Vue({
+      el: '#app',
+      data() {
+        return {
+          title: '컴포넌트 두 개를 사용한 믹스인 예제'
+        }
+      },
+      components:{
+          myComp1: comp1,
+          myComp2: comp2
+      }
+    });
+  </script>
+</body>
+</html>

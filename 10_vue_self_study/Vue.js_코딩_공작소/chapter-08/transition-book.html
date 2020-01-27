@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/vue"></script>
+  <style>
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 3.0s ease-out;
+  }
+
+  .fade-enter, .fade-leave-to {
+    opacity: 0;
+  }
+  </style>
+</head>
+<body>
+  <div id="app" >
+    <div @click="show = !show">
+      <h2>{{title}}</h2>
+    </div>
+    <transition name="fade">
+      <div v-if="show">
+        <h1>{{description}}</h1>
+      </div>
+    </transition>
+  </div>
+  <script>
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        title: '전쟁 그리고 평화',
+        description: '설명 부분입니다.',
+        show: false
+      }
+    }
+  });
+  </script>
+</body>
+</html>

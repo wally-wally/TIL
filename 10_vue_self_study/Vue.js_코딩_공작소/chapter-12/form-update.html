@@ -1,0 +1,16 @@
+<!-- ... -->
+                </pre>
+                <div v-if="madeOrder">
+                  <h4>주문완료</h4>
+                </div>
+// …
+        dontSendGift: '선물로 보내기 않기'
+      },
+      madeOrder: false
+// …
+  methods: {
+    submitForm() {
+      this.madeOrder = true;
+    }
+  }
+// …

@@ -1,0 +1,11 @@
+<!-- 이것 보단 -->
+<p v-show="showMe">Some text</p>
+<p v-show="showMe">Some more text</p>
+<p v-show="showMe">Even more text</p>
+
+<!-- 이게 낫습니다. -->
+<div v-show="showMe">
+  <p>Some text</p>
+  <p>Some more text</p>
+  <p>Even more text</p>
+</div>

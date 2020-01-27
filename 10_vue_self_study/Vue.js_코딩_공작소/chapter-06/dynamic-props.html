@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="app">
+    <my-component v-bind:text="message"></my-component>
+  </div>
+  <script>
+  const MyComponent= {
+    template:`<div>안녕 {{text}}! </div>`,
+    props:['text'],
+    created() {
+        this.text = this.text +' 1';
+    }
+  };
+  new Vue({
+    el: "#app",
+    components: {'my-component': MyComponent},
+    data() {
+      return {
+        message: '부모 컴포넌트로부터!'
+      }
+    }
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>넓이 계산 - Vue.js 공작소</title>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/vue/dist/vue.js"
+    type="text/javascript"></script>
+</head>
+<body>
+  <div id="app">
+    <p>
+      넓이: {{ area }}
+    </p>
+  </div>
+  <script type="text/javascript">
+    var app = new Vue({
+      el: '#app',
+      data: {
+        length: 5,
+        width: 3
+      },
+      computed: {
+        area: function() {
+          return this.width * this.length;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

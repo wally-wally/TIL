@@ -1,0 +1,10 @@
+<div class="form-group">
+  <div class="col-md-6 boxes">
+    <input type="checkbox"
+      id="gift" value="true"
+      v-bind:true-value="order.sendGift"
+      v-bind:false-value="order.dontSendGift"
+      v-model="order.gift">
+    <label for="gift">선물로 보내기?</label>
+  </div>
+</div>

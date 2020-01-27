@@ -1,0 +1,45 @@
+
+<div class="form-group">
+  <div class="col-md-12"><strong>주소:</strong></div>
+  <div class="col-md-12">
+    <input v-model="order.address"
+      class="form-control" />
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-md-12"><strong>도시:</strong></div>
+  <div class="col-md-12">
+    <input v-model="order.city"
+      class="form-control" />
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-md-2">
+  <strong>주:</strong>
+    <select v-model="order.state"
+      class="form-control">
+      <option disabled value="">주</option>
+      <option>AL</option>
+      <option>AR</option>
+      <option>CA</option>
+      <option>NV</option>
+    </select>
+  </div>
+</div>
+<div class="form-group">
+  <div class="col-md-6 col-md-offset-4">
+  <strong>우편번호:</strong>
+    <input v-model="order.zip"
+      class="form-control"/>
+  </div>
+</div>
+<div class="col-md-12 verify">
+  <pre>
+    이름: {{order.firstName}}
+    성: {{order.lastName}}
+    주소: {{order.address}}
+    도시: {{order.city}}
+    우편번호: {{order.zip}}
+    주: {{order.state}}
+  </pre>
+</div>

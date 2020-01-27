@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="app">
+    <my-component :num="myNumber" :str="passedString"
+                  :even="myNumber" :obj="passedObject"></my-component>
+  </div>
+  <script>
+  const MyComponent={
+    template:'<div>숫자: {{num}}<br />문자열: {{str}} \
+              <br />짝수?: {{even}}<br/>객체:{{obj.message}}</div>',
+    props:{
+      num: {
+        type: Number,
+        required: true
+      },
+      str: {
+        type: String,
+        default: "안녕"
+      },
+      obj: {
+        type: Object,
+        default: ()=> {
+          return {message: '안녕, 객체로부터'}
+        }
+      },
+      even: {
+        validator: (value) => {
+          return (value % 2 === 0)
+        }
+      }
+    }
+  }
+  new Vue({
+    el: '#app',
+    components:{'my-component':MyComponent},
+    data() {
+      return {
+        passedString: '안녕, 부모로부터!',
+        myNumber: 43,
+        passedObject: {message: '넘겨준 객체'}
+      }
+    }
+  });
+  </script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<span class="inventory-message"
+  v-if="product.availableInventory - cartCount(product.id) === 0">
+품절!
+</span>
+<span class="inventory-message"
+  v-else-if="product.availableInventory - cartCount(product.id) < 5"> 
+  {{product.availableInventory - cartCount(product.id)}} 남았습니다!
+</span>
+<span class="inventory-message"
+  v-else>지금 구매하세요!
+</span>

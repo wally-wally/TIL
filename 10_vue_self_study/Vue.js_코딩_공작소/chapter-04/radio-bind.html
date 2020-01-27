@@ -1,0 +1,14 @@
+<div class="form-group">
+  <div class="col-md-6 boxes">
+    <input type="radio"
+      id="home"
+      v-bind:value="order.home"
+      v-model="order.method">
+    <label for="home">자택</label>
+    <input type="radio"
+      id="business"
+      v-bind:value="order.business"
+      v-model="order.method">
+    <label for="business">직장</label>
+  </div>
+</div>

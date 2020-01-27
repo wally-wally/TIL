@@ -1,0 +1,16 @@
+<button class="btn btn-primary btn-lg"
+  v-on:click="addToCart"
+  v-if="canAddToCart">장바구니 담기</button>
+  <button disabled="true" class="btn btn-primary btn-lg"
+  v-else >장바구니 담기</button>
+  <span class="inventory-message"
+      v-if="product.availableInventory - cartItemCount === 0">
+    품절!
+  </span>
+  <span class="inventory-message"
+      v-else-if="product.availableInventory - cartItemCount < 5">
+    {{product.availableInventory - cartItemCount}} 남았습니다!
+  </span>
+  <span class="inventory-message"
+      v-else>지금 구매하세요!
+  </span>

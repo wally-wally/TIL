@@ -1,0 +1,22 @@
+
+// 이렇게 하면 안됩니다.
+<p v-if="showMe">The if text</p>
+<p>Some text related to the if text</p>
+<p v-else>The else text</p>
+
+// 이것도 안됩니다.
+<div>
+  <p v-if="showMe">The if text</p>
+</div>
+<div>
+  <p v-else>The else text</p>
+</div>
+
+// 이렇게 하면 됩니다.
+<div v-if="showMe">
+  <p>The if text</p>
+  <p>Some text related to the if text</p>
+</div>
+<div v-else>
+  <p>The else text</p>
+</div>

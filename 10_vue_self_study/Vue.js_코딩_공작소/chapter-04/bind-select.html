@@ -1,0 +1,12 @@
+<div class="form-group">
+  <div class="col-md-2">
+    <strong>State:</strong>
+    <select v-model="order.state" class="form-control">
+      <option disabled value="">State</option>
+      <option v-bind:value="states.AL">AL</option>
+      <option v-bind:value="states.AR">AR</option>
+      <option v-bind:value="states.CA">CA</option>
+      <option v-bind:value="states.NV">NV</option>
+    </select>
+  </div>
+</div>

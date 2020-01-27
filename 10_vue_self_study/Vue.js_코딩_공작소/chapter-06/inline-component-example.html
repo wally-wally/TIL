@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+  <div id="app">
+    <my-component :my-info="message" inline-template>
+      <div>
+          <p>
+            inline-template - {{myInfo}}
+          </p>
+      </div>
+    </my-component>
+  </div>
+  <script>
+  const MyComponent = {
+    props: ['myInfo']
+  };
+  new Vue({
+      el: '#app',
+      components: {'my-component': MyComponent},
+      data() {
+        return {
+          message: '안녕'
+        }
+      }
+  });
+  </script>
+</body>
+</html>
