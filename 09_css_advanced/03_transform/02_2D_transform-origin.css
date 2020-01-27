@@ -1,0 +1,108 @@
+#sec-a {
+  width: 100px;
+  height: 100px;
+  border: 5px solid black;
+  margin: 30px;
+}
+
+#div-a {
+  width: 100px;
+  height: 100px;
+  background: red;
+
+  transform: rotate(60deg);
+}
+
+#sec-b {
+  width: 100px;
+  height: 100px;
+  border: 5px solid black;
+  margin: 30px;
+}
+
+#div-b {
+  width: 100px;
+  height: 100px;
+  background: yellow;
+
+  transform: rotate(60deg);
+  /*
+    transform-origin 속성에는 2개의 크기 단위를 적용할 수 있음
+    각각 변환 중심의 X 좌표와 Y 좌표를 의미함
+  */
+
+  /* 100% 100%: 객체의 오른쪽 아래가 변환의 중심이 됨. */
+  transform-origin: 100% 100%;
+  /* 위와 같은 의미임. */
+  /* transform-origin: right bottom; */
+}
+
+
+/* 연습문제(1) */
+#sec-c {
+  width: 100px;
+  height: 100px;
+  border: 5px solid black;
+  margin: 30px;
+}
+
+#div-c {
+  width: 100px;
+  height: 100px;
+  background: green;
+}
+
+/* 아래 구문에 작성 */
+#div-c:active {
+  transition-duration: 2s;
+  transform: translateX(50px);
+}
+
+
+/* 연습문제(2) */
+#sec-d {
+  width: 100px;
+  height: 100px;
+  border: 5px solid black;
+  margin: 30px;
+}
+
+#div-d {
+  width: 100px;
+  height: 100px;
+  background: blue;
+}
+
+/* 아래 구문에 작성 */
+#div-d:hover {
+  animation-name: transform-practice;
+  /* 
+    [주의!] 4초 동작한다고 해서 4s가 아님!
+    keyframe에서 from => to 싸이클 또는 to => from 싸이클 당 동작하는 시간을
+    animation-duration으로 간주한다.
+    주어진 조건에서 필요한 싸이클 수는 총 4개이므로 한 싸이클당 1초로 간주하여
+    총 애니메이션 실행시간이 4초가 되는 것이다.
+  */
+  animation-duration: 1s;
+  /*
+    [주의!] 2회 동작한다고 해서 2가 아님!
+    keyframe에서 from => to 싸이클, to => from 싸이클 각각을 iteration-count 하나로 간주한다.
+    주어진 조건에서 회전하고 커졌다가 다시 원래상태로 되돌아오는 것을 1회로 설정했으므로
+    animation-iteration-count는 4로 해야 한다.
+  */
+  animation-iteration-count: 4;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes transform-practice {
+  from {
+    /* '100% 0'은 'right top'와 같은 의미 */
+    transform-origin: 100% 0;
+    transform: rotate(0deg);
+  }
+  to {
+    transform-origin: right top;
+    transform: rotate(80deg) scale(1.3);
+  }
+}

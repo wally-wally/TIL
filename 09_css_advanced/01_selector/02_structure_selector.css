@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+}
+
+#navbar {
+  margin-bottom: 20px;
+}
+
+#navbar > ul {
+  overflow: hidden;
+}
+
+#navbar li {
+  list-style: none;
+  float: left;
+  padding: 20px;
+  font-weight: bold;
+}
+
+
+/* 
+  [일반 구조 선택자] : 특정한 위치에 있는 태그를 선택하는 선택지이다.
+  - :first-child : 형제 관계 중에서 첫 번째에 위치하는 태그를 선택
+  - :last-child : 형제 관계 중에서 마지막에 위치하는 태그를 선택
+  - :nth-child(수열) : 형제 관계 중에서 앞에서 수열 번째에 위치하는 태그를 선택
+  - :nth-last-child(수열) : 형제 관계 중에서 뒤에서 수열 번째에 위치하는 태그를 선택
+  - 참고로 (수열)에는 2n+1과 같이 수열 말고 단순 숫자가 들어갈 수 있다.
+*/
+
+#navbar li:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+#navbar li:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+#navbar li:nth-child(2n) {
+  background-color: khaki;
+}
+
+#navbar li:nth-child(2n+1) {
+  background-color: lightpink;
+}
+
+
+/* 
+  [주의!] 구조 선택자 사용할 때 형제 관계를 주의하자!
+*/
+
+#warning,
+#footer,
+#footer-2 {
+  margin: 20px 0;
+  padding-left: 20px;
+}
+
+#warning-title {
+  padding-bottom: 10px;
+}
+
+#warning li {
+  font-size: 1.3em;
+  padding-bottom: 10px;
+}
+
+
+/* [예시] NATE 항목(번호 제외)만 글꼴 굵기를 bold로, 글꼴 색을 crimson 으로 만드시오. */
+
+/* 잘못된 코드(1) */
+/* li > a:last-child {
+  font-weight: bold;
+  color: crimson;
+} */
+
+/* 잘못된 코드(2) */
+/* 아래 코드는 css 스타일이 원하는대로 적용되지 않는다. */
+/* ol > li:last-child {
+  font-weight: bold;
+  color: crimson;
+} */
+
+/* 올바른 코드 */
+li:last-child > a {
+  font-weight: bold;
+  color: crimson;
+}
+
+
+/* 
+  [형태 구조 선택자] : 일반 구조 선택자와 비슷하지만 태그 형태를 구분하는 선택자이다.
+  - :first-of-type : 형제 관계 중에서 첫 번째로 등장하는 특정 태그를 선택
+  - :last-of-type : 형제 관계 중에서 마지막으로 등장하는 특정 태그를 선택
+  - :nth-of-type(수열) : 형제 관계 중에서 앞에서 수열 번째로 등장하는 특정 태그를 선택
+  - :nth-last-of-type(수열) : 형제 관계 중에서 뒤에서 수열 번째로 등장하는 특정 태그를 선택
+*/
+
+#footer > h1:first-of-type {
+  color: red;
+}
+#footer > h2:first-of-type {
+  color: yellow;
+}
+#footer > h3:first-of-type {
+  color: green;
+}
+#footer > h4:first-of-type {
+  color: blue;
+}
+
+#footer > h1:last-of-type {
+color: rebeccapurple;
+}
+#footer > h2:last-of-type {
+  color: burlywood;
+}
+#footer > h3:last-of-type {
+  color: grey;
+}
+#footer > h4:last-of-type {
+  color: olive;
+}
+
+#footer-2 > * {
+  padding-bottom: 15px;
+}
+
+#footer-2 > *:nth-of-type(2) {
+  text-decoration-line: underline;
+  color: lightsalmon;
+}

@@ -1,0 +1,87 @@
+* {
+  margin: 0;
+}
+
+div {
+  width: 200px;
+  height: 200px;
+  border: 3px solid black;
+  background-color: burlywood;
+  margin: 10px;
+}
+
+/*
+  [기본 속성 선택자]
+  - 선택자[속성=값][속성=값] : 특정하 ㄴ속성 안의 값이 특정 값과 같은 문서 객체를 선택함
+*/
+
+/* div 태그 중에서 id 속성값이 'box-1'인 태그에 아래와 같은 css 스타일 적용 */
+div[id=box-1] {
+  width: 100px;
+  height: 100px;
+  border: 3px dashed black;
+  background-color: aqua;
+  margin: 10px;
+}
+
+/* 
+  [문자열 속성 선택자]
+  - 선택자[속성~=값] : 속성 안의 값이 특정 값을 단어로 포함하는 태그를 선택
+  - 선택자[속성|=값] : 속성 안의 값이 특정 값을 단어로 포함하는 태그를 선택
+  - 선택자[속성^=값] : 속성 안의 값이 특정 값으로 시작하는 태그를 선택
+  - 선택자[속성$=값] : 속성 안의 값이 특정 값으로 끝나는 태그를 선택
+  - 선택자[속성*=값] : 속성 안의 값이 특정 값을 포함하는 태그를 선택
+*/
+
+/* 
+  '~='와 '|='의 차이점 : 하이픈(-)이 들어간 단어의 구분 방법이 다르다.
+  ex. 'ko-kr'이라는 글자
+  - 선택자[속성~=값] : 'ko-kr' 그 자체로 인식
+  - 선택자[속성|=값] : 'ko'와 'kr' 따로따로 인식
+*/
+
+section {
+  margin: 10px;
+}
+
+/* 아래 CSS 속성을 적용하기 위해서는 .txt-1[id~=text-sample]로 작성해야 한다. */
+.txt-1[id~=text] {
+  font-size: 2rem;
+  font-weight: bold;
+  color: crimson;
+}
+
+span[class=txt-2][id|=text] {
+  font-size: 3rem;
+  font-weight: bold;
+  color: darkblue;
+}
+
+img {
+  display: block;
+  margin-bottom: 10px;
+}
+
+img[src$=png] {
+  border: 3px dotted black;
+  width: 200px;
+  height: 200px;
+}
+
+img[src^=com] {
+  border: thick dashed black;
+  border-radius: 20px;
+}
+
+img[src*=ok] {
+  max-width: 500px;
+  max-height: 500px;
+  width: auto;
+  height: auto;
+}
+
+/* 반응 선택자(가상 클래스)와도 혼합하여 사용할 수 있다. */
+img[src*=ok]:hover {
+  transition-duration: 1s;
+  opacity: 0.4;
+}

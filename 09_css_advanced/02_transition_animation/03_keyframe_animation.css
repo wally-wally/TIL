@@ -1,0 +1,64 @@
+/* 기본 세팅 */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  position: relative;
+}
+
+#box {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 100px;
+  text-align: center;
+  background: linear-gradient(#cb60b3 0%, #db36a4 100%);
+
+  animation-name: rint; /* keyframes에 작성한 rint(애니메이션 이름)와 연결 */
+  animation-duration: 3s;
+  animation-timing-function: linear; /* transition-timing-function 속성과 동일 */
+
+  /* (2) animation-iteration-count 속성 : 애니메이션을 특정 횟수만큼 반복하고 싶을 때 사용 */
+  animation-iteration-count: 2;
+
+  /* (3) animation-direction 속성 : 키 프레임 규칙에서 어느 방향으로 애니메이션의 반복하는 형태를 지정 */
+  animation-direction: alternate;
+
+  /* 
+    (5) animation-shorthand : animation 속성은 다음과 같이 한 번에 입력할 수 있다.
+    animation : name | duration | timing-function | delay | iteration-count | direction 순서로 적는다.
+  */
+  /* animation: rint 2s ease-in none 4 alternate-reverse; */
+}
+
+#box > h1 {
+  line-height: 200px;
+}
+
+/* (4) animation-play-state 속성 : 애니메이션을 중지하고 재생할 때 사용하는 속성 */
+#box:hover {
+  animation-play-state: paused;
+}
+
+/*
+  (1) 키 프레임 규칙(keyframes @-rule) : CSS에서 애니메이션을 지정하는 형식
+  - '@keyframes 이름' 형태로 입력함
+  - 키 프레임 안에는 퍼센트 단위로 애니메이션을 적용한다.
+  - 예외적으로 0% 경우와 100% 경우는 'from' 키워드와 'to' 키워드를 사용할 수 있다.
+*/
+
+@keyframes rint { /* rint(원하는 이름으로 작성)가 애니메이션 이름이 됨 */
+  from {
+    left: 0;
+    transform: rotate(0deg);
+  }
+  50% {
+    left: 400px;
+  }
+  to {
+    left: 400px;
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,49 @@
+/* transition-duration 속성 */
+
+.box-1 {
+  width: 100px;
+  height: 100px;
+  background-color: orange;
+
+  /* 구형 브라우저와 호환하려면 Vendor Prefix를 적용한 transition-duration 속성을 사용해야 한다. */
+  -ms-transition-duration: 2s;
+  -moz-transition-duration: 2s;
+  -webkit-transition-duration: 2s;
+  transition-duration: 2s;
+}
+
+/* :hover 가상 클래스는 해당 요소에 마우스를 올려 놓을 때 적용된다. */
+.box-1:hover {
+  width: 200px;
+  height: 300px;
+}
+
+/*
+  :active 가상 클래스는 해당 요소를 마우스 버튼으로 누르고 있을 때 적용된다. 
+  :active 가상 클래스는 가상 클래스 중에서 마지막 우선순위를 가지므로 맨 마지막에 작성해야 한다. 
+  가상 클래스 우선순위 :link > :visited > :hover > :active
+*/
+.box-1:active {
+  background-color: red;
+}
+
+.box-2 {
+  font-size: 3rem;
+  font-family: 'Jua', sans-serif;
+
+  -ms-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -webkit-transition-duration: 1s;
+  transition-duration: 1s;
+}
+
+.box-2:active {
+  font-size: 6rem;
+  background-color: rebeccapurple;
+  opacity: 0.5;
+
+  -ms-transition-duration: 1s;
+  -moz-transition-duration: 1s;
+  -webkit-transition-duration: 1s;
+  transition-duration: 1s;
+}

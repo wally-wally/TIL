@@ -1,0 +1,70 @@
+/*
+  [media query 작성법]
+  @media (조건문) {
+    실행문
+  }
+*/
+
+/* 화면으로 볼 때만 h1 태그의 글꼴이 'Jua' 이다. */
+@media only screen {
+  h1 {
+    font-family: 'Jua', sans-serif;
+  }
+}
+
+/* 문서를 출력할 때만 h1 태그의 내용이 darkblue 색으로 출력된다. */
+/* Chrome으로 html 파일을 열어 [Ctrl] + [P]를 누른 후 출력 미리보기로 색상 확인 */
+@media only print {
+  h1 {
+    color: darkblue;
+  }
+}
+
+/* 뷰포트 너비가 600px 이상(최소 너비가 600px)일 때 h1 태그의 내용이 crimson 색으로 나온다. */
+@media (min-width: 600px) {
+  h1 {
+    color: crimson;
+  }
+}
+
+
+/* 
+  media query의 종류(주로 많이 쓰는 것들 위주로만 작성)
+  - width, height : 화면의 너비와 높이
+  - device-width, device-height : 기기의 너비와 높이
+  - max-width, min-width : 뷰포트의 최대 너비, 최소 너비(height도 존재)
+  - orientation : 기기의 방향(가로 : landscape, 세로 : portrait)
+  - device-aspect-ratio : 화면의 비율
+  - resolution : 기기의 해상도
+*/
+
+
+/* 논리 연산자(not / and / ,(or))를 사용하여 조건을 설정할 수 있다. */
+/* 화면이 가로 방향이고 화면의 너비가 992px 이상일 때 첫 번째, 두 번째 항목의 글꼴과 굵기가 변경 */
+@media (orientation: landscape) and (min-width: 992px) {
+  #todo-1,
+  #todo-2 {
+    font-family: 'Gothic A1', sans-serif;
+    font-weight: bold;
+  }
+}
+
+/* 화면의 너비가 768px 이상일 때 세 번째 항목 끝에 '[complete]'라고 문구 추가하고 글꼴 색을 darkmagenta 로 변경*/
+@media (min-width: 768px) {
+  #todo-3 {
+    color: darkmagenta;
+  }
+
+  #todo-3::after {
+    content: '[complete]';
+  }
+}
+
+/* 뷰포트 높이가 700px 이하이고, 너비가 900px 이하일 때 네 번째 항목 사라지기 */
+@media (max-height: 700px) and (max-width: 900px) {
+  #todo-4 {
+    display: none;
+  }
+}
+
+/* 이와 같이 media query를 이용하면 반응형 웹을 만드는데 큰 도움이 된다. */

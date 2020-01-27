@@ -1,0 +1,6 @@
+@import url('import_css/style_A.css');
+@import url('import_css/style_B.css');
+
+h1 {
+  color: crimson;
+}

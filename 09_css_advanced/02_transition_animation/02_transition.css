@@ -1,0 +1,121 @@
+/* 기본 세팅 */
+#name {
+  font-size: 3rem;
+  font-family: 'Do Hyeon', sans-serif;
+}
+
+#graph {
+  width: 610px;
+  border: 3px solid black;
+  margin-bottom: 30px;
+}
+
+.bar {
+  width: 10px;
+  height: 50px;
+  background-color: royalblue;
+  margin: 5px;
+
+  /* transition-duration: 1s; (1), (2)번 할 때 사용 */
+  /* (3) transition-property 속성 : 각각의 속성에 다른 형태의 애니메이션을 적용하고 싶을 때 사용 */
+  transition-property: background-color, width;
+  transition-duration: 0.5s, 5s;
+}
+
+/* #graph:hover > .bar {
+  width: 600px;
+} */
+
+
+/* (1) transition-delay 속성 : 이벤트가 발생하고 몇 초 동안 기다린 후 애니메이션이 작동할 지 지정하는 속성 */
+/* .bar:nth-child(1) {
+  transition-delay: 0s;
+}
+
+.bar:nth-child(2) {
+  transition-delay: 0.5s;
+}
+
+.bar:nth-child(3) {
+  transition-delay: 1s;
+}
+
+.bar:nth-child(4) {
+  transition-delay: 1.5s;
+}
+
+.bar:nth-child(5) {
+  transition-delay: 2s;
+} */
+
+
+/* (2) transition-timing-functoin 속성 : 수치를 변형하는 함수를 지정할 때 사용 */
+/* 지정된 함수 외에 맘에 드는 것이 없을 때 cubic-bezier() 함수를 사용할 수 있다. (https://cubic-bezier.com/) */
+/* .bar:nth-child(1) {
+  transition-delay: 0s;
+  transition-timing-function: linear;
+}
+
+.bar:nth-child(2) {
+  transition-delay: 1s;
+  transition-timing-function: ease;
+}
+
+.bar:nth-child(3) {
+  transition-delay: 2s;
+  transition-timing-function: ease-in;
+}
+
+.bar:nth-child(4) {
+  transition-delay: 3s;
+  transition-timing-function: ease-in-out;
+}
+
+.bar:nth-child(5) {
+  transition-delay: 4s;
+  transition-timing-function: cubic-bezier(.83,.18,.25,.6)
+} */
+
+
+/* (3) transition-property 속성 : 각각의 속성에 다른 형태의 애니메이션을 적용하고 싶을 때 사용 */
+#graph:hover > .bar:nth-child(1) {
+  background-color: red;
+  width: 100px;
+}
+
+#graph:hover > .bar:nth-child(2) {
+  background-color: orange;
+  width: 300px;
+}
+
+#graph:hover > .bar:nth-child(3) {
+  background-color: yellow;
+  width: 450px;
+}
+
+#graph:hover > .bar:nth-child(4) {
+  background-color: green;
+  width: 200px;
+}
+
+#graph:hover > .bar:nth-child(5) {
+  background-color: blue;
+  width: 500px;
+}
+
+
+/*
+  (4) transition-shorthand : transition 속성은 다음과 같이 한 번에 입력할 수 있다.
+  transition : property | duration | timing-fuction | delay 순서로 적는다.
+*/
+#content {
+  font-family: 'Stylish', sans-serif;
+  font-size: 2rem;
+  transition: background-color 2s ease-in-out, color 4s linear, font-size 1s cubic-bezier(0.6, 0.04, 0.98, 0.335);
+}
+
+#content:hover {
+  font-size: 3rem;
+  background-color: grey;
+  color: lightskyblue;
+}

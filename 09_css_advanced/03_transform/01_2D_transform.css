@@ -1,0 +1,81 @@
+#sec-a {
+  width: 100px;
+  height: 100px;
+  border: 5px solid black;
+  margin: 30px;
+}
+
+#div-a {
+  width: 100px;
+  height: 100px;
+  background: red;
+
+  /* 식별자 rotate는 함수이다. */
+  transform: rotate(60deg);
+}
+
+
+/*
+  2차원 변환 함수
+  - translate(X, Y) : 특정 크기만큼 이동
+  - scale(X, Y) : 특정 크기만큼 확대 및 축소
+  - skew(angleX, angleY) : 특정 각도만큼 기울임
+  - rotate(angle) : 특정 각도만큼 회전
+*/
+
+#sec-b {
+  width: 100px;
+  height: 100px;
+  border: 5px solid black;
+  margin: 30px;
+}
+
+#div-b {
+  width: 100px;
+  height: 100px;
+  background: yellow;
+
+  /*
+    transform은 아래와 같이 한 줄로 작성할 수 있다.
+    (아래 예제. 60도 회전하고 크기가 1.4배이며 Y축 방향으로 20도 기울어진 노란색 사각형)
+  */
+  transform: rotate(60deg) scale(1.4) skewY(20deg);
+}
+
+
+/*
+  [중요!] transform 함수의 순서
+  - transform 속성에 변환 함수를 입력하는 순서에 따라 실행 결과가 바뀔 수 있다.
+*/
+
+#sec-c {
+  width: 100px;
+  height: 100px;
+  border: 5px solid black;
+  margin: 30px;
+}
+
+#div-c {
+  width: 100px;
+  height: 100px;
+  background: green;
+
+  /* Y축으로 30px만큼 이동 후 60도 회전 */
+  transform: translateY(30px) rotate(60deg);
+}
+
+#sec-d {
+  width: 100px;
+  height: 100px;
+  border: 5px solid black;
+  margin: 30px;
+}
+
+#div-d {
+  width: 100px;
+  height: 100px;
+  background: blue;
+
+  /* 60도 회전한 후 Y축으로 30px만큼 이동 */
+  transform: rotate(60deg) translateY(30px);
+}
