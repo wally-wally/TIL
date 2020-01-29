@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./style.css">
+  <link href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/17820a52a0.js" crossorigin="anonymous"></script>
+  <title>05_02_search_box</title>
+</head>
+<body>
+  <div class="page-title">NAVER Search Box</div>
+  <div class="search-box">
+    <input class="search-txt" type="text" placeholder="Type to search">
+    <a class="search-btn" href="#">
+      <i class="fas fa-search"></i>
+    </a>
+  </div>
+</body>
+<script>
+  const searchKeyword = document.querySelector('.search-txt')
+  const searchButton = document.querySelector('.search-btn')
+
+  searchButton.addEventListener('click', function() {
+    const keyword = searchKeyword.value
+    window.open(`https://search.naver.com/search.naver?query=${keyword}`)
+  })
+</script>
+</html>
