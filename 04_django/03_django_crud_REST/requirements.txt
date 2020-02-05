@@ -4,7 +4,7 @@ certifi==2019.9.11
 chardet==3.0.4
 colorama==0.4.1
 decorator==4.4.0
-Django==2.2.4
+Django==2.2.8
 django-extensions==2.2.1
 Faker==2.0.2
 idna==2.8

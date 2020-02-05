@@ -2,7 +2,7 @@ astroid==2.2.5
 certifi==2019.6.16
 chardet==3.0.4
 colorama==0.4.1
-Django==2.2.4
+Django==2.2.8
 idna==2.8
 isort==4.3.21
 lazy-object-proxy==1.4.1
