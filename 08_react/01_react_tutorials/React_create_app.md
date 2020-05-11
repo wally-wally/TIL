@@ -1,4 +1,4 @@
-# React create app
+# :page_facing_up: React CRUD Basic
 
 ---
 
@@ -199,5 +199,482 @@ class PhoneForm extends Component {
 }
 
 export default PhoneForm;
+```
+
+<br>
+
+## 3. 배열 랜더링 : `.map()`
+
+`App.js`
+
+```react
+import React, { Component } from 'react';
+import PhoneForm from './components/PhoneForm';
+import PhoneInfoList from './components/PhoneInfoList';
+
+class App extends Component {
+
+  id = 0
+
+  state = {
+    information: [],
+  }
+
+  handleCreate = (data) => {
+    const { information } = this.state
+    this.setState({
+      information: information.concat(Object.assign({}, data, {
+        id: this.id++
+      }))
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <PhoneForm onCreate={this.handleCreate} />
+        <PhoneInfoList data={this.state.information} /> 
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+<br>
+
+`src` > `PhoneInfo.js`
+
+```react
+import React, { Component } from 'react';
+
+class PhoneInfo extends Component {
+  render() {
+    const { name, phone, id } = this.props.info;
+
+    const style = {
+      border: '1px solid black',
+      padding: '8px',
+      margin: '8px'
+    }
+    return (
+      <div style={style}>
+        <div><b>{name}</b></div>
+        <div>{phone}</div>
+      </div>
+    );
+  }
+}
+
+export default PhoneInfo;
+```
+
+<br>
+
+`src` > `PhoneInfoList.js`
+
+- 배열 랜더링할 때 `key`가 없어도 랜더링은 되지만  `key`가 있어야 element를 추가, 수정, 삭제할 때 효율적으로 수행하기 위해 사용된다.
+
+```react
+import React, { Component } from 'react';
+import PhoneInfo from './PhoneInfo';
+
+class PhoneInfoList extends Component {
+  static defaultProps = {
+    data: []
+  }
+  
+  render() {
+    const { data } = this.props;
+    const list = data.map(
+      info => (<PhoneInfo info={info} key={info.id} />)
+    );
+    return (
+      <div>
+        {list}
+      </div>
+    );
+  }
+}
+
+export default PhoneInfoList;
+```
+
+<br>
+
+## 4. 배열에서 데이터 제거 : `.slice()`, `.filter()`
+
+:heavy_check_mark: <b>`.slice()`로 배열의 중간 데이터 제거 또는 수정하기</b>
+
+```javascript
+const numbers = [1, 2, 3, 4, 5, 6];
+numbers.slice(0, 2); // [1, 2]
+numbers.slice(0, 2).concat(numbers.slice(3, 6)); // [1, 2, 4, 5, 6]
+[
+  ...numbers.slice(0, 2),
+  10,
+  ...numbers.slice(3, 6)
+] // [1, 2, 10, 4, 5, 6]
+```
+
+<br>
+
+:heavy_check_mark: <b>`.filter()`로 배열의 중간 데이터 제거 또는 수정하기</b>
+
+- `.filter()`는 기존의 배열을 수정하지 않기 때문에 react의 불변성을 지키면서 데이터를 제거 또는 수정할 수 있다.
+
+```javascript
+const numbers = [1, 2, 3, 4, 5, 6];
+numbers.filter(number => number > 3); // [4, 5, 6]
+numbers.filter(number => number !== 3); // [1, 2, 4, 5, 6]
+```
+
+<br>
+
+`App.js`
+
+```react
+import React, { Component } from 'react';
+import PhoneForm from './components/PhoneForm';
+import PhoneInfoList from './components/PhoneInfoList';
+
+class App extends Component {
+
+  id = 0
+
+  state = {
+    information: [],
+  }
+
+  handleCreate = (data) => {
+    const { information } = this.state
+    this.setState({
+      information: information.concat(Object.assign({}, data, {
+        id: this.id++
+      }))
+    })
+  }
+
+  // handleRemove() 함수 추가
+  handleRemove = (id) => {
+    const { information } = this.state;
+    this.setState({
+      information: information.filter(info => info.id !== id)
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <PhoneForm onCreate={this.handleCreate} />
+        <PhoneInfoList
+          data={this.state.information}
+          onRemove={this.handleRemove}
+        /> 
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+<br>
+
+`src` > `PhoneInfoList.js`
+
+```react
+import React, { Component } from 'react';
+import PhoneInfo from './PhoneInfo';
+
+class PhoneInfoList extends Component {
+  static defaultProps = {
+    data: []
+  }
+  
+  render() {
+    const { data, onRemove } = this.props;
+    const list = data.map(
+      info => (
+        <PhoneInfo
+          onRemove={onRemove}
+          info={info}
+          key={info.id}
+        />
+      )
+    );
+    return (
+      <div>
+        {list}
+      </div>
+    );
+  }
+}
+
+export default PhoneInfoList;
+```
+
+<br>
+
+`src` > `PhoneInfo.js`
+
+```react
+import React, { Component } from 'react';
+
+class PhoneInfo extends Component {
+
+  handleRemove = () => {
+    const { info, onRemove } = this.props;
+    onRemove(info.id);
+  }
+
+  render() {
+    const { name, phone } = this.props.info;
+
+    const style = {
+      border: '1px solid black',
+      padding: '8px',
+      margin: '8px'
+    }
+    return (
+      <div style={style}>
+        <div><b>{name}</b></div>
+        <div>{phone}</div>
+        <button onClick={this.handleRemove}>삭제</button>
+      </div>
+    );
+  }
+}
+
+export default PhoneInfo;
+```
+
+<br>
+
+## 5. 배열 안의 데이터 수정 : `.slice()`, `.map()`
+
+:heavy_check_mark: <b>`.slice()`로 데이터 수정하기</b>
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+[
+  ...numbers.slice(0, 2),
+  9,
+  ...numbers.slice(3, 5)
+] // [1, 2, 9, 4, 5]
+```
+
+<br>
+
+:heavy_check_mark: <b>`.map()`으로 데이터 수정하기</b>
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+numbers.map(number => {
+  if (number === 3) {
+    return 9;
+  }
+})
+```
+
+<br>
+
+`App.js`
+
+```react
+import React, { Component } from 'react';
+import PhoneForm from './components/PhoneForm';
+import PhoneInfoList from './components/PhoneInfoList';
+
+class App extends Component {
+
+  id = 0
+
+  state = {
+    information: [],
+  }
+
+  handleCreate = (data) => {
+    const { information } = this.state
+    this.setState({
+      information: information.concat({
+        ...data,
+        id: this.id++
+      })
+    })
+  }
+
+  handleRemove = (id) => {
+    const { information } = this.state;
+    this.setState({
+      information: information.filter(info => info.id !== id)
+    });
+  }
+
+  handleUpdate = (id, data) => {
+    const { information } = this.state;
+    this.setState({
+      information: information.map(
+        info => {
+          if (info.id === id) {
+            return {
+              id,
+              ...data
+            };
+          }
+          return info;
+        }
+      )
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <PhoneForm onCreate={this.handleCreate} />
+        <PhoneInfoList
+          data={this.state.information}
+          onRemove={this.handleRemove}
+          onUpdate={this.handleUpdate}
+        /> 
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+
+<br>
+
+`src` > `PhoneInfoList.js`
+
+```react
+import React, { Component } from 'react';
+import PhoneInfo from './PhoneInfo';
+
+class PhoneInfoList extends Component {
+  static defaultProps = {
+    data: []
+  }
+  
+  render() {
+    const { data, onRemove, onUpdate } = this.props;
+    const list = data.map(
+      info => (
+        <PhoneInfo
+          onRemove={onRemove}
+          onUpdate={onUpdate}
+          info={info}
+          key={info.id}
+        />
+      )
+    );
+    return (
+      <div>
+        {list}
+      </div>
+    );
+  }
+}
+
+export default PhoneInfoList;
+```
+
+<br>
+
+`src` > `PhoneInfo.js`
+
+- `handleToggleEdit()` 함수 로직
+  - editing 값이 true => false로 될 때 : `onUpdate()` 함수로 부모 컴포넌트에게 알린다.
+  - editing 값이 false => true로 될 때 : props로 받은 info의 name과 phone 값을 이 컴포넌트의 state의 name과 phone에 각각 넣어준다.
+
+```react
+import React, { Component, Fragment } from 'react';
+
+class PhoneInfo extends Component {
+
+  state = {
+    editing: false, // 수정모드 설정 관련 변수
+    name: '',
+    phone: ''
+  }
+
+  handleRemove = () => {
+    const { info, onRemove } = this.props;
+    onRemove(info.id);
+  }
+
+  handleToggleEdit = () => {
+    const { info, onUpdate } = this.props;
+    if (this.state.editing) {
+      onUpdate(info.id, {
+        name: this.state.name,
+        phone: this.state.phone,
+      })
+    } else {
+      this.setState({
+        name: info.name,
+        phone: info.phone,
+      })
+    }
+    this.setState({
+      editing: !this.state.editing,
+    })
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  render() {
+    const { name, phone } = this.props.info;
+    const { editing } = this.state;
+    const style = {
+      border: '1px solid black',
+      padding: '8px',
+      margin: '8px'
+    }
+    return (
+      <div style={style}>
+        {/* state의 editing 값에 따라 input box 또는 div 태그로 보여진다. */}
+        {
+          editing ? (
+            <Fragment>
+              <div>
+                <input
+                  name="name"
+                  onChange={this.handleChange}
+                  value={this.state.name}
+                />
+              </div>
+              <div>
+                <input
+                  name="phone"
+                  onChange={this.handleChange}
+                  value={this.state.phone}
+                />
+              </div>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <div><b>{name}</b></div>
+              <div>{phone}</div>
+            </Fragment>
+          )
+        }
+        <button onClick={this.handleRemove}>삭제</button>
+        <button onClick={this.handleToggleEdit}>
+          { editing ? '적용' : '수정 '}
+        </button>
+      </div>
+    );
+  }
+}
+
+export default PhoneInfo;
 ```
 
