@@ -6,10 +6,33 @@ class App extends Component {
 
   // 배열의 각 원소를 랜더링 할 대 key 값으로 고유값이 필요하다.
   // 참고로 id는 랜더링해서 보여주는 값이 아니므로 굳이 state에 넣을 필요가 없다.
-  id = 0
+  id = 3
 
   state = {
-    information: [],
+    information: [
+      {
+        id: 0,
+        name: '홍길동',
+        phone: '010-0000-0001'
+      },
+      {
+        id: 1,
+        name: '심월리',
+        phone: '010-0000-0002'
+      },
+      {
+        id: 2,
+        name: '월리월리',
+        phone: '010-0000-0003'
+      },
+    ],
+    keyword: ''
+  }
+
+  handleChange = (e) => {
+    this.setState({
+      keyword: e.target.value
+    })
   }
 
   handleCreate = (data) => {
@@ -19,10 +42,10 @@ class App extends Component {
     const { information } = this.state
     this.setState({
       // 방법(1)
-      // information: information.concat({
-      //   ...data,
-      //   id: this.id++
-      // })
+      information: information.concat({
+        ...data,
+        id: this.id++
+      })
 
       // 방법(2)
       // information: information.concat({
@@ -32,9 +55,9 @@ class App extends Component {
       // })
 
       // 방법(3)
-      information: information.concat(Object.assign({}, data, {
-        id: this.id++
-      }))
+      // information: information.concat(Object.assign({}, data, {
+      //   id: this.id++
+      // }))
     })
   }
 
@@ -66,9 +89,16 @@ class App extends Component {
     return (
       <div>
         <PhoneForm onCreate={this.handleCreate} />
+        <input
+          value={this.state.keyword}
+          onChange={this.handleChange}
+          placeholder="검색..."
+        />
         {/* {JSON.stringify(this.state.information)} */}
         <PhoneInfoList
-          data={this.state.information}
+          data={this.state.information.filter(
+            info => info.name.indexOf(this.state.keyword) > -1
+          )}
           onRemove={this.handleRemove}
           onUpdate={this.handleUpdate}
         /> 
