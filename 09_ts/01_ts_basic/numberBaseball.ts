@@ -1,4 +1,5 @@
 const { body } = document;
+// Typescript 개발 팁
 // 내가 만든 변수는 type을 선언하고
 // 남이 만든 거는 기존 정의되어 있는 타입 추론을 그대로 사용한다.(package가 추후 업데이트 될 때 바뀔 수도 있으므로)
 let candidate: number[];
