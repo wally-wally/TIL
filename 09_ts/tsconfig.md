@@ -37,6 +37,8 @@
 - `--strict` : 타입을 얼마나 엄격하게 설정할 지(이 옵션은 가급적 켜놓자!)
   - 기본적으로 `strict` 관련 옵션들과 `noImplicit` 관련 옵션들은  `true`로 설정하는 것이 좋다. 그래야 typescript를 사용하는 의미가 생긴다.
 
+- `strictNullChecks` : true로 설정하면 `null`과 `undefined`를 구분해준다.
+
 - `--module` : 주로 `target` 보고 설정함
 
 - `include` : 컴파일할 `.ts` 파일들 작성

@@ -1,0 +1,19 @@
+li {
+  margin: 5px;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid silver;
+  border-radius: 20px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+b:hover,
+#delete-btn:hover {
+  cursor: pointer;
+}
+
+#delete-btn {
+  all: unset;
+  color: crimson;
+  font-size: 14px;
+}

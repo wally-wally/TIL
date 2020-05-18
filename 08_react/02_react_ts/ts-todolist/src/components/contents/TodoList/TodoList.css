@@ -1,0 +1,40 @@
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+#shuffle-btn {
+  all: unset;
+  margin-left: 8px;
+  padding: 0 6px;
+  font-size: 14px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  background-color: #eee;
+  transition: all .25s;
+}
+
+#shuffle-btn:hover {
+  cursor: pointer;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+}
+
+@media (max-width: 900px) {
+  ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  ul {
+    display: block;
+  }
+}

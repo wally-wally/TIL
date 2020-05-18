@@ -1,0 +1,9 @@
+{
+  "name": "00_ts_intro",
+  "version": "1.0.0",
+  "author": "wally-wally",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^3.9.2"
+  }
+}
