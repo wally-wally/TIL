@@ -1,0 +1,49 @@
+form {
+  display: flex;
+  justify-content: center;
+  font-family: 'Gothic A1';
+  margin: 8px 0;
+}
+
+form > .problem-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  padding-right: 10px;
+}
+
+form > .problem-info > .problem-input-box {
+  margin-bottom: 5px;
+}
+
+form > .problem-info label {
+  font-size: 13px;
+  padding-right: 4px;
+}
+
+form > .problem-info input {
+  border: transparent;
+  border-radius: 8px;
+  background-color: #ddd;
+  padding: 6px;
+}
+
+form > .btn-wrapper {
+  display: flex;
+}
+
+form > .btn-wrapper button {
+  all: unset;
+  background-color: #eee;
+  min-width: 50px;
+  color: #555;
+  font-weight: 600;
+  text-align: center;
+  transition: all .2s;
+}
+
+form > .btn-wrapper button:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+}

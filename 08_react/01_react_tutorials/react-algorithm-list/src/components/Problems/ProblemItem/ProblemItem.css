@@ -1,0 +1,70 @@
+.problem-card {
+  border: 1px solid silver;
+  border-radius: 20px;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+  padding: 14px 28px;
+}
+
+.problem-card > input {
+  display: block;
+  border: transparent;
+  border-radius: 8px;
+  background-color: #ddd;
+  padding: 6px;
+}
+
+.problem-number {
+  font-size: 18px;
+  font-weight: 600;
+  font-family: 'Quicksand';
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  border-bottom: 1px solid gray;
+  display: inline-block;
+}
+
+.problem-title {
+  font-family: 'Nanum Script';
+  margin: 6px 0 10px;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-group .btn-left {
+  font-weight: 600;
+}
+
+.btn-group .btn-left i {
+  padding-right: 8px;
+  transition: all .2s;
+}
+
+.btn-group .btn-left i:hover {
+  cursor: pointer;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-group .btn-left i:first-child {
+  color: orange;
+}
+
+.btn-group .btn-left i:last-child {
+  color: crimson;
+}
+
+.btn-group .btn-right button {
+  all: unset;
+  font-family: 'Gothic A1';
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  padding: 2px 4px;
+  transition: all .2s;
+}
+
+.btn-group .btn-right button:hover {
+  cursor: pointer;
+  background-color: rgb(252, 242, 223);
+}

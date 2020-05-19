@@ -1,0 +1,10 @@
+.header-wrapper {
+  background-color: #eee;
+  color: crimson;
+  font-size: 24px;
+  font-weight: 600;
+  font-family: 'Noto Sans KR';
+  letter-spacing: 1px;
+  padding: 10px;
+  text-align: center;
+}
