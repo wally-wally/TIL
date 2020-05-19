@@ -56,7 +56,7 @@ class App extends Component {
     return (
       <div className="app">
         <Header />
-        <img src={bojImg} style={bojImgStyle}/>
+        <img src={bojImg} style={bojImgStyle} alt="boj-img" />
         <ProblemInput onCreate={this.addProblem} />
         <ProblemList
           data={this.state.problems}
