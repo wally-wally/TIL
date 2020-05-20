@@ -1,0 +1,52 @@
+.WaitingList {
+  margin-top: 1rem;
+  border: 1px solid black;
+  width: 19rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.WaitingList h2 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.WaitingList form {
+  display: flex;
+}
+
+.WaitingList form input {
+  flex: 1;
+  font-size: 1.25rem;
+}
+
+.WaitingList form button {
+  font-size: 1.25rem;
+  padding: 0.5rem;
+}
+
+.WaitingList ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+.WaitingList ul li {
+  display: flex;
+  padding: 0.5rem;
+  border: 1px solid black;
+}
+
+.WaitingList ul li+li {
+  border-top: none;
+}
+
+.WaitingList ul li .text {
+  flex: 1;
+}
+
+.WaitingList ul li .text.entered {
+  text-decoration: line-through;
+  color: gray;
+}
