@@ -1,0 +1,156 @@
+/* 출처 : https://www.youtube.com/watch?v=JbOEEtwy61A */
+
+/*
+  추후 실제 프로젝트 개발에서
+  전체 선택자(*)로 style 초기화 하면
+  랜더링이 느려지므로 아래와 같이 사용하지 말자.
+*/
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-decoration: none;
+}
+
+body {
+  background: #4e5775;
+}
+
+.lnb {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.lnb li {
+  position: relative;
+  float: left;
+  padding: 0 20px;
+  transition: all .4s;
+}
+
+.lnb li a {
+  color: #fff;
+  font-size: 30px;
+  transition: color .5s;
+}
+
+.lnb:hover li {
+  /* 
+    cf) a 태그는 inline 요소이므로 transform이 제어가 되지 않기 때문에
+        transform을 li 태그에 적용했다.
+  */
+  transform: scale(.7);
+  filter: blur(8px);
+}
+
+.lnb li:hover {
+  transform: scale(1.2);
+  filter: blur(0);
+}
+
+.lnb li:hover a {
+  color: #18eac3;
+}
+
+.lnb li:before,
+.lnb li:after,
+.lnb li a:before,
+.lnb li a:after {
+  content: '';
+  position: absolute;
+  background: #fff;
+}
+
+.lnb li:before {
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 1px;
+}
+
+.lnb li:hover:before {
+  animation: line1 .5s both;
+}
+
+.lnb li:after {
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 0;
+}
+
+.lnb li:hover:after {
+  animation: line2 .5s both;
+}
+
+.lnb li a:before {
+  right: 0;
+  top: 0;
+  width: 1px;
+  height: 0;
+}
+
+.lnb li:hover a:before {
+  animation: line2 .5s .2s both;
+}
+
+.lnb li a:after {
+  right: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+}
+
+.lnb li:hover a:after {
+  animation: line1 .5s .2s both;
+}
+
+@keyframes line1 {
+  0% {
+    left: 0;
+    width: 0;
+  }
+  
+  49% {
+    left: 0;
+    width: 100%;
+  }
+
+  50% {
+    left: inherit;
+    right: 0;
+    width: 100%;
+  }
+
+  100% {
+    left: inherit;
+    right: 0;
+    width: 0;
+  }
+}
+
+@keyframes line2 {
+  0% {
+    top: 0;
+    height: 0;
+  }
+  
+  49% {
+    top: 0;
+    height: 100%;
+  }
+
+  50% {
+    top: inherit;
+    bottom: 0;
+    height: 100%;
+  }
+
+  100% {
+    top: inherit;
+    bottom: 0;
+    height: 0;
+  }
+}
