@@ -1,8 +1,6 @@
 import sys
 sys.stdin = open('input_7569.txt', 'r')
 
-import copy
-
 def ripe_tomato():
     effect_idx = []
     for idx in effect_tomato_list:
