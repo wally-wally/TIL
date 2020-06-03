@@ -1,35 +1,36 @@
 import sys
 sys.stdin = open('input_2583.txt', 'r')
 
-sys.setrecursionlimit(10**8)
+def paper_BFS(r, c):
+    square = 1
+    queue = [(r, c)]
+    while queue:
+        pop_cell = queue.pop(0)
+        paper[pop_cell[0]][pop_cell[1]] = 1
+        for i in range(4):
+            new_row, new_col = pop_cell[0] + dx[i], pop_cell[1] + dy[i]
+            if 0 <= new_row < M and 0 <= new_col < N:
+                if paper[new_row][new_col] == 0:
+                    queue.append((new_row, new_col))
+                    paper[new_row][new_col] = 1
+                    square += 1
+    return square
 
-def DFS(x, y):
-    global area
-    arr[x][y] = 1
-    area += 1
-    for direction in [(-1, 0), (0, +1), (+1, 0), (0, -1)]:
-        new_x, new_y = x + direction[0], y + direction[1]
-        if 0 <= new_x < M and 0 <= new_y < N:
-            if not arr[new_x][new_y]:
-                DFS(new_x, new_y)
 
 M, N, K = map(int, input().split())
-arr = [[0] * N for _ in range(M)]
+paper = [[0] * N for _ in range(M)]
 for _ in range(K):
-    x1, y1, x2, y2 = map(int, input().split())
-    for x in range(y1, y2):
-        for y in range(x1, x2):
-            arr[x][y] = 1
-result = []
-for x_point in range(M):
-    for y_point in range(N):
-        if not arr[x_point][y_point]:
-            area = 0
-            DFS(x_point, y_point)
-            result.append(area)
-print(len(result))
-for n in range(len(result)):
-    if n != len(result) - 1:
-        print(sorted(result)[n], end=' ')
-    else:
-        print(sorted(result)[n])
+    y1, x1, y2, x2 = map(int, input().split())
+    for x in range(x1, x2):
+        for y in range(y1, y2):
+            paper[M - 1 if x == M else x][N - 1 if y == N else y] = 1
+
+dx, dy = (-1, 0, 1, 0), (0, 1, 0, -1)
+answer = []
+for idx in range(M * N):
+    row, col = idx // N, idx % N
+    if paper[row][col] == 0:
+        answer.append(paper_BFS(row, col))
+        
+print(len(answer))
+print(' '.join(map(str, sorted(answer))))
