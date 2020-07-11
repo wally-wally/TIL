@@ -312,7 +312,7 @@ LIMIT 3 -- 비싼 상품 상위 3개만 보고 싶을 때
 
 ## :heavy_plus_sign: 최종 문제
 
-- https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all에 접속해서 `SQL Statement` 에 `문제 조건`을 만족하는 SQL 구문을 작성한 후 `Run SQL`을 눌러 아래와 같은 결과가 나오도록 작성하시오. (정답은 `final.sql`에 있음)
+- https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all 에 접속해서 `SQL Statement` 에 `문제 조건`을 만족하는 SQL 구문을 작성한 후 `Run SQL`을 눌러 아래와 같은 결과가 나오도록 작성하시오. (정답은 `final.sql`에 있음)
 
 ![캡처](https://user-images.githubusercontent.com/52685250/87220415-6ed62b00-c39e-11ea-81d3-3fa48fdc79ca.PNG)
 
