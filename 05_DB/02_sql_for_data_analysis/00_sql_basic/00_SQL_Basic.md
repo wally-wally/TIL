@@ -222,3 +222,115 @@ WHERE CustomerID <= 100
 ---
 
 <br>
+
+## 4. ORDER BY - 정렬
+
+- `ORDER BY`는 단순히 정렬해서 데이터를 보여주는 기능이기 때문에 데이터베이스의 원래 저장 순서를 바꾸지 않는다.
+- 오름차순은 `ASC`, 내림차순은 `DESC` 옵션을 작성하면 되고 default가 오름차순이므로 `ASC`는 작성하지 않아도 된다.
+
+```sql
+SELECT *
+FROM Customers
+ORDER BY customerid DESC -- customerid를 내림차순으로 정렬
+```
+
+```sql
+-- 조건절(WHERE절)이 추가된 경우
+SELECT *
+FROM Customers
+WHERE country LIKE 's%'
+ORDER BY customerid DESC
+```
+
+- 정렬 응용 - `LIMIT` 옵션
+
+```SQL
+SELECT *
+FROM Products
+ORDER BY price DESC
+LIMIT 1 -- price가 가장 큰 값만 보고 싶을 때
+```
+
+```sql
+SELECT *
+FROM Products
+ORDER BY price ASC
+LIMIT 1 -- price가 가장 작은 값만 보고 싶을 때
+```
+
+```sql
+SELECT *
+FROM Products
+ORDER BY price DESC
+LIMIT 3 -- 비싼 상품 상위 3개만 보고 싶을 때
+```
+
+---
+
+- HackerRank Questions
+  - Employee Names(`07.sql`) : https://www.hackerrank.com/challenges/name-of-employees/problem
+  - Employee Salaries(`08.sql`) : https://www.hackerrank.com/challenges/salary-of-employees/problem
+  - Higher Than 75 Marks(`09.sql`) : https://www.hackerrank.com/challenges/more-than-75-marks/problem
+  - Weather Observation Station 15(`10.sql`) : https://www.hackerrank.com/challenges/weather-observation-station-15/problem
+
+---
+
+<br>
+
+## 5. 추가 내용
+
+### (1) MySQL 문자열 자르기
+
+- LEFT(컬럼명 또는 문자열, 문자열의 길이)
+
+  - `SELECT LEFT("20200711", 4)` => `2020`
+
+- RIGHT(컬럼명 또는 문자열, 문자열의 길이)
+
+  - `SELECT RIGHT("20200711", 4)` => `0711`
+
+- SUBSTRING(컬럼명 또는 문자열, 시작 위치, 길이) = SUBSTR()
+
+  - `SUBSTR("20200711", 2, 3)` => `020`
+  - `SUBSTR("20200711", 2)` => `0200711`
+
+  - `SUBSTR("20200711", -3)` => `711`
+
+<br>
+
+### (2) MySQL 소수점 처리
+
+- CEIL(숫자) : 올림
+  - `SELECT CEIL(3.5)` => `4`
+- FLOOR(숫자) : 내림
+  - `SELECT FLOOR(3.5)` => `3`
+- ROUND(숫자, 반올림할 자리 값) : 반올림
+  - 반올림할 자리 값이 3인 경우 소수 넷째자리에서 반올림하여 소수 셋째자리까지 표현한다는 의미
+  - `ROUND(5.1234, 3)` => `5.123`
+
+<br>
+
+## :heavy_plus_sign: 최종 문제
+
+- https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all에 접속해서 `SQL Statement` 에 `문제 조건`을 만족하는 SQL 구문을 작성한 후 `Run SQL`을 눌러 아래와 같은 결과가 나오도록 작성하시오. (정답은 `final.sql`에 있음)
+
+![캡처](https://user-images.githubusercontent.com/52685250/87220415-6ed62b00-c39e-11ea-81d3-3fa48fdc79ca.PNG)
+
+- 문제 조건
+  - Products 테이블에서 ProductName에 `co`라는 문자열을 포함하고, Price가 10 이상 50 이하인 데이터를 Price 순으로 내림차순 정렬했을 때 상위 3개의 데이터를 출력할 것
+  - 단 출력된 테이블의 컬럼은 아래 세 가지 컬럼만 나타나게 할 것
+    - ProductID
+    - ProductName: ProductName의 앞의 4글자만 출력할 것
+    - Price: 반올림하여 소수 첫째자리 까지 나타낼 것
+
+- [참고] SQL AS(Aliases) 구문
+
+  - 테이블에서 컬럼명 작성시 내가 원하는 텍스트로 표시하고 싶을 때 `AS` 구문을 사용하면 된다.
+  - 예를 들어 `Students` 테이블에서 기존의 컬럼명이 `Name`이고 바꿔서 표현하고 싶은 컬럼명이 `UserName`인 경우 아래와 같이 작성하면 된다.
+
+  ```sql
+  SELECT Name AS UserName
+  FROM Students
+  ```
+
+  
