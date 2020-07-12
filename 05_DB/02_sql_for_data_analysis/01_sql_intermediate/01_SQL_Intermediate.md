@@ -7,6 +7,7 @@
 - W3School : https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_all - 회원가입 필요 없음
 - HackerRank : https://www.hackerrank.com/domains/sql - 회원가입 필요
 - LeetCode : https://leetcode.com - 회원가입 필요
+- SQL Join Visualizer : https://sql-joins.leopard.in.ua/ - SQL JOIN이 헷갈릴 때 참고할만한 사이트
 
 ---
 
@@ -183,7 +184,7 @@ FROM Products
 
 ```SQL
 SELECT CASE
-			WHEN categoryid = 1 AND SupplierID = 1 THEN '음료'
+            WHEN categoryid = 1 AND SupplierID = 1 THEN '음료'
             WHEN categoryid = 2 THEN '조미료'
             ELSE '기타'
        END AS 'categoryName', *
@@ -195,7 +196,7 @@ FROM Products
 
 ```SQL
 SELECT CASE 
-			WHEN categoryid = 1 THEN '음료'
+            WHEN categoryid = 1 THEN '음료'
             WHEN categoryid = 2 THEN '소스'
             ELSE '이외'
        END AS new_category
@@ -222,16 +223,16 @@ GROUP BY new_category
 
 ```SQL
 SELECT AVG(CASE
-			WHEN categoryid = 1 THEN price
-            ELSE NULL
+           WHEN categoryid = 1 THEN price
+           ELSE NULL
 	   END) AS category1_avg_price
      , SUM(CASE
-			WHEN categoryid = 2 THEN price
-            ELSE NULL
+           WHEN categoryid = 2 THEN price
+           ELSE NULL
 	   END) AS category2_sum_price
      , MAX(CASE
-			WHEN categoryid = 3 THEN price
-            ELSE NULL
+           WHEN categoryid = 3 THEN price
+           ELSE NULL
 	   END) AS category3_max_price
 FROM Products
 ```
@@ -246,3 +247,184 @@ FROM Products
 ---
 
 <br>
+
+## 3. 테이블 결합
+
+### (1) INNER JOIN
+
+:bookmark_tabs: <b>`Students` Table</b>
+
+| id   | StudentName | Age  |
+| ---- | ----------- | ---- |
+| 1    | wally-wally | 27   |
+| 2    | Hong        | 25   |
+| 3    | Mike        | 24   |
+
+:bookmark_tabs: <b>`Classes` Table</b>
+
+| StudentId | ClassNumber | TeacherName |
+| --------- | ----------- | ----------- |
+| 1         | A           | Ace         |
+| 2         | B           | Boa         |
+| 3         | C           | Cally       |
+
+- 예전 방법
+
+  - Cartisan Product를 이용해서 두 테이블을 조합해서 나올 수 있는 모든 경우를 다 구한다.
+
+  ```sql
+  SELECT * FROM Students, Classes
+  ```
+
+  | id   | StudentName | Age  | StudentId | ClassNumber | TeacherName |
+  | ---- | ----------- | ---- | --------- | ----------- | ----------- |
+  | 1    | wally-wally | 27   | 1         | A           | Ace         |
+  | 2    | Hong        | 25   | 1         | A           | Ace         |
+  | 3    | Mike        | 24   | 1         | A           | Ace         |
+  | 1    | wally-wally | 27   | 2         | B           | Boa         |
+  | 2    | Hong        | 25   | 2         | B           | Boa         |
+  | 3    | Mike        | 24   | 2         | B           | Boa         |
+  | 1    | wally-wally | 27   | 3         | C           | Cally       |
+  | 2    | Hong        | 25   | 3         | C           | Cally       |
+  | 3    | Mike        | 24   | 3         | C           | Cally       |
+
+  - 그리고 나서 `WHERE`절에 `Students` 테이블의 `id`와 `Classes` 테이블의 `StudentId`가 같은 행만 가져온다.
+
+  ```sql
+  SELECT *
+  FROM Students, Classes
+  WHERE Students.id = Classes.StudentId
+  ```
+
+  | id   | StudentName | Age  | StudentId | ClassNumber | TeacherName |
+  | ---- | ----------- | ---- | --------- | ----------- | ----------- |
+  | 1    | wally-wally | 27   | 1         | A           | Ace         |
+  | 2    | Hong        | 25   | 2         | B           | Boa         |
+  | 3    | Mike        | 24   | 3         | C           | Cally       |
+
+- `INNER JOIN`을 활용한 새로운 방법
+
+  ```SQL
+  SELECT *
+  FROM Students
+  INNER JOIN Classes ON Students.id = Classes.StudentId
+  ```
+
+  | id   | StudentName | Age  | StudentId | ClassNumber | TeacherName |
+  | ---- | ----------- | ---- | --------- | ----------- | ----------- |
+  | 1    | wally-wally | 27   | 1         | A           | Ace         |
+  | 2    | Hong        | 25   | 2         | B           | Boa         |
+  | 3    | Mike        | 24   | 3         | C           | Cally       |
+
+- `INNER JOIN`에는 각 테이블에 해당 컬럼이 모두 있는 경우에만 출력된다.
+  
+- 즉, 위 테이블에서 `Students` 테이블에 `4`라는 id값이 있지만 `Classes` 테이블에 `4`라는 `StudentId`가 없으면 해당 데이터는 JOIN한 결과물에 나타나지 않는다.
+  
+- SQL Tryit Editor 예제
+
+  ```sql
+  -- 왼쪽에 Orders 테이블, 오른쪽에 Customers 테이블이 붙는다.
+  SELECT *
+  FROM Orders
+      INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID
+  ```
+
+  ![01](https://user-images.githubusercontent.com/52685250/87241408-cab3b900-c45d-11ea-8ce0-914ab5e956cb.PNG)
+
+  ```SQL
+  SELECT *
+  FROM Orders
+      INNER JOIN Customers ON Orders.CustomerID = Customers.CustomerID
+      -- 테이블을 추가로 붙이고 싶으면 INNER JOIN을 이어서 작성하면 된다.
+      INNER JOIN Shippers ON Orders.ShipperID = Shippers.ShipperID
+  ```
+
+<br>
+
+### (2) OUTER JOIN
+
+- `INNER JOIN`을 제외한 나머지 `JOIN` 들을 모두 `OUTER JOIN`이라고 한다.
+
+:bookmark_tabs: <b>`Students` Table</b>
+
+| id   | StudentName | Age  |
+| ---- | ----------- | ---- |
+| 1    | wally-wally | 27   |
+| 2    | Hong        | 25   |
+| 3    | Mike        | 24   |
+
+:bookmark_tabs: <b>`Classes` Table</b>
+
+| StudentId | ClassNumber | TeacherName |
+| --------- | ----------- | ----------- |
+| 1         | A           | Ace         |
+| 2         | B           | Boa         |
+
+- `LEFT JOIN`
+
+  - 왼쪽 테이블을 기준으로 JOIN할 때 사용
+  - 왼쪽 테이블에는 데이터가 있고 오른쪽 테이블에는 데이터가 없을 때
+
+  ```SQL
+  SELECT *
+  FROM Students
+      LEFT JOIN Classes ON Students.id = Classes.StudentId
+  ```
+
+  | id   | StudentName | Age  | StudentId | ClassNumber | TeacherName |
+  | ---- | ----------- | ---- | --------- | ----------- | ----------- |
+  | 1    | wally-wally | 27   | 1         | A           | Ace         |
+  | 2    | Hong        | 25   | 2         | B           | Boa         |
+  | 3    | Mike        | 24   | NULL      | NULL        | NULL        |
+
+  - 만약 `LEFT JOIN` 대신에 `INNER JOIN`을 한 경우 `id`가 `3`인 행은 아예 출력되지 않는다.
+  - Class 정보가 없는 학생들만 보고 싶을 때 `WHERE` 절을 섞어서 아래와 같이 작성하면 된다.
+
+  ```SQL
+  SELECT *
+  FROM Students
+      LEFT JOIN Classes ON Students.id = Classes.StudentId
+  WHERE StudentId IS NULL
+  ```
+
+  | id   | StudentName | Age  | StudentId | ClassNumber | TeacherName |
+  | ---- | ----------- | ---- | --------- | ----------- | ----------- |
+  | 3    | Mike        | 24   | NULL      | NULL        | NULL        |
+
+- `RIGHT JOIN`
+  - `RIGHT JOIN`은 `LEFT JOIN`과 반대로 생각하면 된다.
+  - 하지만 주로 `LEFT JOIN`을 사용한다.
+  - `RIGHT JOIN`과 섞어서 사용하면 `JOIN` 방향이 헷갈릴 수 있기 때문이다.
+
+---
+
+- Hackerrank Questions
+  - African Cities(`09.sql`) : https://www.hackerrank.com/challenges/african-cities/problem?h_r=internal-search
+  - Asian Population(`10.sql`) : https://www.hackerrank.com/challenges/asian-population/problem?h_r=internal-search
+  - Average Population of Each Continent(`11.sql`) : https://www.hackerrank.com/challenges/average-population-of-each-continent/problem?h_r=internal-search
+
+---
+
+- Leetcode Questions
+  - 183_Customers Who Never Order(`02.sql`) : https://leetcode.com/problems/customers-who-never-order/
+
+---
+
+:heavy_check_mark: <b>INNER JOIN, OUTER JOIN(LEFT JOIN) 정리</b>
+
+- INNER JOIN
+
+  ![01](https://user-images.githubusercontent.com/52685250/87242333-ac9e8680-c466-11ea-8366-ddd199fe02a6.PNG)
+
+- LEFT JOIN(1)
+
+  ![02](https://user-images.githubusercontent.com/52685250/87242335-adcfb380-c466-11ea-9ab6-58dded4c5e24.PNG)
+
+- LEFT JOIN(2)
+
+  ![03](https://user-images.githubusercontent.com/52685250/87242336-ae684a00-c466-11ea-8dc2-6e0d36ab3bf8.PNG)
+
+---
+
+<br>
+
