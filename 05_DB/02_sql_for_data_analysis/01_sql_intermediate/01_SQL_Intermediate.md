@@ -161,3 +161,88 @@ HAVING avg_price >= 100
 ---
 
 <br>
+
+## 2. 조건문
+
+### (1) `CASE` 사용법
+
+- `CASE` ~ `WHEN` 구문으로 조건을 설정할 수 있다.
+
+```sql
+SELECT CASE
+			WHEN categoryid = 1 THEN '음료'
+            WHEN categoryid = 2 THEN '조미료'
+            ELSE '기타'
+       END AS 'categoryName', *
+FROM Products
+```
+
+![캡처](https://user-images.githubusercontent.com/52685250/87240822-eb791000-c457-11ea-9beb-818d3400290b.PNG)
+
+- 물론 조건문에 비교 연산자와 아래와 같이 논리 연산자를 함께 사용해서 조건을 지정할 수 있다.
+
+```SQL
+SELECT CASE
+			WHEN categoryid = 1 AND SupplierID = 1 THEN '음료'
+            WHEN categoryid = 2 THEN '조미료'
+            ELSE '기타'
+       END AS 'categoryName', *
+FROM Products
+```
+
+- `CASE`로 만든 조건문을 가지고 `GROUP BY`를 할 수 있다.
+  - 즉, 새로 만든 컬럼을 가지고 그룹핑해서 평균, 합계와 같은 집계 함수를 이용해서 계산할 수 있다.
+
+```SQL
+SELECT CASE 
+			WHEN categoryid = 1 THEN '음료'
+            WHEN categoryid = 2 THEN '소스'
+            ELSE '이외'
+       END AS new_category
+     , AVG(price)
+FROM Products
+GROUP BY new_category
+```
+
+![캡처02](https://user-images.githubusercontent.com/52685250/87240051-dc429400-c450-11ea-9106-eaf9a5f67e5e.PNG)
+
+---
+
+- Hackerrank Questions
+  - Type of Triangle(`08.sql`) : https://www.hackerrank.com/challenges/what-type-of-triangle/problem?h_r=internal-search
+
+---
+
+<br>
+
+### (2) `CASE`를 활용한 테이블 피봇
+
+- `CASE`와 집계 함수를 사용해서 엑셀의 테이블 피봇과 같이 세로로 표시되는 테이블 결과물을 가로 방향으로 볼 수 있다.
+- 아래 코드와 같이 `CASE`로 각 컬럼에 맞는 데이터만 출력하고 나머지는 `NULL` 값을 출력해서 각 컬럼에서 보고싶은 연산 결과(`AVG`, `SUM`, `COUNT` 등)의 결과를 보여준다.
+
+```SQL
+SELECT AVG(CASE
+			WHEN categoryid = 1 THEN price
+            ELSE NULL
+	   END) AS category1_avg_price
+     , SUM(CASE
+			WHEN categoryid = 2 THEN price
+            ELSE NULL
+	   END) AS category2_sum_price
+     , MAX(CASE
+			WHEN categoryid = 3 THEN price
+            ELSE NULL
+	   END) AS category3_max_price
+FROM Products
+```
+
+![캡처04](https://user-images.githubusercontent.com/52685250/87240806-d8664000-c457-11ea-8925-980b3d2d8cc6.PNG)
+
+---
+
+- Leetcode Questions
+  - 1179_Reformat Department Table(`01.sql`) : https://leetcode.com/problems/reformat-department-table/
+
+---
+
+<br>
