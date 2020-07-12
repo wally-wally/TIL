@@ -428,3 +428,118 @@ FROM Products
 
 <br>
 
+### (3) SELF JOIN
+
+- 자기 자신의 테이블을 JOIN하는 것을 `SELF JOIN`이라고 한다.
+
+- [Leetcode Question]181_Employees Earning More Than Their Managers(`03.sql`)
+
+  - https://leetcode.com/problems/employees-earning-more-than-their-managers/
+  - Manager보다 더 많이 버는 직원을 찾는 문제
+  - 왼쪽 테이블을 직원 테이블, 오른쪽 테이블을 매니저 테이블로 생각해서 JOIN할 것이다.
+
+  ```sql
+  SELECT Employee.Name AS employee_name
+       , Employee.Salary AS employee_salary
+       , Manager.Name AS manager_name
+       , Manager.Salary AS manager_salary
+  FROM Employee
+    INNER JOIN Employee AS Manager ON Employee.managerid = Manager.id
+  ```
+
+  ```json
+  {"headers": ["employee_name", "employee_salary", "manager_name", "manager_salary"], "values": [["Joe", 70000, "Sam", 60000], ["Henry", 80000, "Max", 90000]]}
+  ```
+
+  - `WHERE` 절에 매니저보다 더 많이 버는 직원을 추출하는 조건식을 작성한다.
+
+  ```sql
+  SELECT Employee.Name AS Employee
+  FROM Employee
+    INNER JOIN Employee AS Manager ON Employee.managerid = Manager.id
+  WHERE Employee.Salary > Manager.Salary
+  ```
+
+  ```json
+  {"headers": ["Employee"], "values": [["Joe"]]}
+  ```
+
+- [Leetcode Question] 197_Rising Temperature(`04.sql`) - 잘못된 풀이
+
+  - https://leetcode.com/problems/rising-temperature/
+  - 어제보다 기온이 높은 날의 오늘 id를 출력하는 문제
+
+  ```sql
+  SELECT today.id AS today_id
+       , today.RecordDate AS today_recordDate
+       , today.Temperature AS today_temperature
+       , yesterday.id AS yesterday_id
+       , yesterday.RecordDate AS yesterday_recordDate
+       , yesterday.Temperature AS yesterday_temperature
+  FROM Weather AS today
+    INNER JOIN Weather AS yesterday ON yesterday.id + 1 = today.id
+  ```
+
+  ```json
+  {
+      "headers": [
+          "today_id",
+          "today_recordDate",
+          "today_temperature",
+          "yesterday_id",
+          "yesterday_recordDate",
+          "yesterday_temperature"],
+      "values": [
+          [2, "2015-01-02", 25, 1, "2015-01-01", 10],
+          [3, "2015-01-03", 20, 2, "2015-01-02", 25],
+          [4, "2015-01-04", 30, 3, "2015-01-03", 20]
+      ]
+  }
+  ```
+
+  - `WHERE`절로 기온을 비교하는 조건식을 추가해서 작성한다.
+
+  ```SQL
+  SELECT today.id AS Id
+  FROM Weather AS today
+    INNER JOIN Weather AS yesterday ON yesterday.id + 1 = today.id
+  WHERE today.temperature > yesterday.temperature
+  ```
+
+  ```json
+  {"headers": ["Id"], "values": [[2], [4]]}
+  ```
+
+  - 하지만 이렇게 풀면 테스트 케이스는 통과하지만 실제 코드를 제출하면 틀렸다고 나온다.
+  - 그 이유는 다른 테스트 케이스에서 날짜 정렬이 오름차순이 아니고 랜덤한 경우가 있기 때문이다. 그래서 `id`를 기준으로 `INNER JOIN`을 하면 안 된다.
+
+---
+
+:white_check_mark: <b>[참고] MySQL 시간(날짜) 더하기, 빼기</b>
+
+- `DATE_ADD(기준날짜, INTERVAL)`
+  - SELECT DATE_ADD(NOW(), INTERVAL 1 SECOND)
+  - SELECT DATE_ADD(NOW(), INTERVAL 1 MINUTE)
+  - SELECT DATE_ADD(NOW(), INTERVAL 1 HOUR)
+  - SELECT DATE_ADD(NOW(), INTERVAL 1 DAY)
+  - SELECT DATE_ADD(NOW(), INTERVAL 1 MONTH)
+  - SELECT DATE_ADD(NOW(), INTERVAL 1 YEAR)
+  - SELECT DATE_ADD(NOW(), INTERVAL -1 YEAR) = SELECT DATE_SUB(NOW(), INTERVAL 1 YEAR)
+- `DATE_SUB(기준날짜, INTERVAL)`
+  - SELECT DATE_SUB(NOW(), INTERVAL 1 SECOND) = SELECT DATE_ADD(NOW(), INTERVAL -1 SECOND)
+- 위 잘못된 풀이에서 `INNER JOIN`할 때 `id`값에 `+1`한 것과 같이 날짜 데이터에도 똑같이 적용해서 `yesterday.recordDate + 1 = today.recordDate`로 될 것 같지만 날짜 데이터에는 이와 같이 작성할 수 없다.
+
+---
+
+- [Leetcode Question] 197_Rising Temperature(`04.sql`) - `DATE_ADD()` 함수 적용한 올바른 풀이
+
+  ```sql
+  SELECT today.id AS Id
+  FROM Weather AS today
+    INNER JOIN Weather AS yesterday ON DATE_ADD(yesterday.recordDate, INTERVAL 1  DAY) = today.recordDate
+  WHERE today.temperature > yesterday.temperature
+  ```
+
+- <b>`SELF JOIN`에서 핵심은 똑같은 테이블을 `JOIN`하는 것이기 때문에 alias를 확실하게 구별하게 작성해야 한다!</b>
+
+<br>
