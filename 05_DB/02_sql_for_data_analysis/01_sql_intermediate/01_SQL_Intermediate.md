@@ -543,3 +543,89 @@ FROM Products
 - <b>`SELF JOIN`에서 핵심은 똑같은 테이블을 `JOIN`하는 것이기 때문에 alias를 확실하게 구별하게 작성해야 한다!</b>
 
 <br>
+
+### (4) UNION, UNION ALL
+
+- `UNION`과 `UNION ALL`은  `JOIN`과 달리 위, 아래로 데이터를 이어붙일 때 사용된다.(집합 개념)
+
+:bookmark_tabs: <b>`Students_2019` Table</b>
+
+| id   | StudentName | Age  |
+| ---- | ----------- | ---- |
+| 1    | wally-wally | 27   |
+| 2    | Hong        | 25   |
+| 3    | Mike        | 24   |
+
+:bookmark_tabs: <b>`Students_2020` Table</b>
+
+| id   | StudentName | Age  |
+| ---- | ----------- | ---- |
+| 4    | JayJay      | 30   |
+| 3    | Mike        | 24   |
+
+- `UNION` 결과 - 중복 값 제외
+
+| id   | StudentName | Age  |
+| ---- | ----------- | ---- |
+| 1    | wally-wally | 27   |
+| 2    | Hong        | 25   |
+| 3    | Mike        | 24   |
+| 4    | JayJay      | 30   |
+
+- `UNION ALL` 결과 - 중복 값 포함
+
+| id   | StudentName | Age  |
+| ---- | ----------- | ---- |
+| 1    | wally-wally | 27   |
+| 2    | Hong        | 25   |
+| 3    | Mike        | 24   |
+| 4    | JayJay      | 30   |
+| 3    | Mike        | 24   |
+
+- `UNION` 예제 `w3schools` 에서 실행할 것
+
+```sql
+-- Products 테이블에서 Price가 5 이하 또는 200 이상인 상품들만 출력
+-- SELECT * FROM Products WHERE price <= 50 OR price >= 200과 같은 의미
+SELECT *
+FROM Products
+WHERE price <= 5
+
+UNION
+
+SELECT *
+FROM Products
+WHERE price >= 200
+```
+
+<br>
+
+### (5) FULL OUTER JOIN
+
+- 두 가지 경우를 모두 한 번에 보고 싶을 때(`w3schools` 에서 실행할 것)
+
+```SQL
+-- 고객 정보는 있지만 주문 정보가 없을 때
+SELECT *
+FROM Customers
+	LEFT JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+
+UNION
+
+-- 주문 정보는 있지만 고객 정보가 없을 때
+SELECT *
+FROM Customers
+	RIGHT JOIN Orders ON Customers.CustomerID = Orders.CustomerID
+```
+
+![캡처](https://user-images.githubusercontent.com/52685250/87275148-8507f680-c518-11ea-9a1b-17673d286d89.PNG)
+
+- 위 코드와 같이 `FULL OUTER JOIN`을 쓰면 되지만 `MySQL`에서는 `FULL OUTER JOIN`이 지원이 안 되므로 `LEFT JOIN`과 `RIGHT JOIN`을 `UNION`으로 묶어서 작성하면 된다.
+
+---
+
+- Hackerrank Questions
+  - Symmetric Pairs(`12.sql`) : https://www.hackerrank.com/challenges/symmetric-pairs/problem?h_r=internal-search
+
+---
+
