@@ -5,3 +5,17 @@
   font-weight: bold;
   padding: 16px;
 }
+
+.chapter {
+  color: crimson;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.chapter::before {
+  content: '<';
+}
+
+.chapter::after {
+  content: '>';
+}
