@@ -1,3 +1,7 @@
+// 물결 문자(~)를 이용해서 mode_modules에서 라이브러리 디렉토리에 쉽게 접근할 수 있다.
+@import '~include-media/dist/include-media';
+@import '~open-color/open-color';
+
 // 변수 사용하기
 $red: #fa5252;
 $orange: #fd7e14;

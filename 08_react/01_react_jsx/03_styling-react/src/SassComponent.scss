@@ -1,36 +1,38 @@
-@import './styles/utils.scss';
-
 .SassComponent {
   display: flex;
+  background: $oc-gray-2;
+  @include media('<768px') {
+    background: $oc-gray-9;
+  }
   .box {
     background: red;
     cursor: pointer;
     transition: all 0.3s ease-in;
-    & .red { // red 클래스가 box 클래스와 함께 사용되었을 때
+    &.red { // red 클래스가 box 클래스와 함께 사용되었을 때
       background: $red;
       @include square(1); // mixin 적용시 @include 지시자 사용
     }
-    & .orange {
+    &.orange {
       background: $orange;
       @include square(2);
     }
-    & .yellow {
+    &.yellow {
       background: $yellow;
       @include square(3);
     }
-    & .green {
+    &.green {
       background: $green;
       @include square(4);
     }
-    & .blue {
+    &.blue {
       background: $blue;
       @include square(5);
     }
-    & .indigo {
+    &.indigo {
       background: $indigo;
       @include square(6);
     }
-    & .violet {
+    &.violet {
       background: $violet;
       @include square(7);
     }

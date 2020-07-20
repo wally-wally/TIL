@@ -1,0 +1,24 @@
+/* CSS Module을 사용하면 [파일 이름]_[클래스 이름]_[해시값] 형태로 자동으로 만들어서 컴포넌트 스타일 클래스 이름이 중첩되는 현상을 방지 */
+/* 자동으로 고유해지므로 흔히 사용되는 단어로 클래스 이름 사용 가능 */
+.wrapper {
+  background: black;
+  padding: 1rem;
+  color: white;
+  font-size: 2rem;
+  &.inverted {
+    // inverted 가 .wrapper 와 함께 사용 됐을 때만 적용
+    color: black;
+    background: white;
+    border: 1px solid black;
+  }
+}
+
+/* 특정 클래스가 웹 페이지에서 전역적으로 사용되는 경우(global) */
+:global {
+  // :global {} 로 감싸기
+  .something {
+    font-weight: 800;
+    color: aqua;
+  }
+  // 여기에 다른 클래스를 만들 수도 있겠죠?
+}
