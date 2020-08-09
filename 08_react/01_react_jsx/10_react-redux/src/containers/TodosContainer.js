@@ -24,6 +24,8 @@ const TodosContainer = ({
 };
 
 export default connect(
+  // destructring 문법을 이용하여
+  // state.todos.input 대신에 todos.input으로 작성
   ({ todos }) => ({
     input: todos.input,
     todos: todos.todos,
