@@ -66,18 +66,10 @@ const sample = handleActions(
   {
     [GET_POST_SUCCESS]: (state, action) => ({
       ...state,
-      loading: {
-        ...state.loading,
-        GET_POST: false // 요청 완료
-      },
       post: action.payload
     }),
     [GET_USERS_SUCCESS]: (state, action) => ({
       ...state,
-      loading: {
-        ...state.loading,
-        GET_USERS: false // 요청 완료
-      },
       users: action.payload
     }),
   },
