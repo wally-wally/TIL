@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <title>구구단</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const GuGuDan = () => {
+        const [first, setFirst] = React.useState(Math.ceil(Math.random() * 9));
+        const [second, setSecond] = React.useState(Math.ceil(Math.random() * 9));
+        const [value, setValue] = React.useState('');
+        const [result, setResult] = React.useState('');
+        const inputRef = React.useRef(null);
+
+        const onChangeInput = (e) => {
+          setValue(e.target.value);
+        }
+
+        const onSumbitForm = (e) => {
+          e.preventDefault();
+          if (parseInt(value) === first * second) {
+            // 카운터와 같이 이전 값에 1을 더하는 로직을 구성할 때 아래와 같이 함수로 구성할 수 있다.
+            // setCounter((c) => c + 1)
+            // 그리고 submit 동작을 수행할 때 렌더링이 네 번 될 것 같지만 react가 알아서 처리해서 한 번으로 처리한다.(이것이 바로 비동기!)
+            setResult((prevResult) => {
+              return `정답: ${value}`
+            });
+            setFirst(Math.ceil(Math.random() * 9));
+            setSecond(Math.ceil(Math.random() * 9));
+            setValue('');
+          } else {
+            setResult('땡');
+            setValue('');
+          }
+          inputRef.current.focus();
+        }
+
+        // state를 바꾸면 GuGuDan 함수 전체가 다시 실행된다.(render)
+        // react에서 html 태그 속성 작성시 class는 className으로,
+        // label의 for는 htmlFor로 작성해야 한다.
+        return (
+          <React.Fragment>
+            <div>{first} 곱하기 {second}는?</div>
+            <form onSubmit={onSumbitForm}>
+              <input ref={inputRef} onChange={onChangeInput} value={value} />
+              <button>입력!</button>
+            </form>
+            <div id="result">{result}</div>
+          </React.Fragment>
+        );
+      }
+    </script>
+    <script type="text/babel">
+      ReactDOM.render(<GuGuDan />, document.querySelector('#root'));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <title>구구단</title>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      class GuGuDan extends React.Component {
+        // 실무에서는 constructor 방식을 거의 안 쓴다.
+        state = {
+          first: Math.ceil(Math.random() * 9),
+          second: Math.ceil(Math.random() * 9),
+          value: '',
+          result: '',
+        }
+
+        // render 안에서는 function 키워드, 화살표 함수 모두 사용가능하나
+        // onSubmit, onChange와 같이 class의 메서드로 함수 작성할 때는 반드시 화살표 함수로 작성해야 한다.
+        // (function 키워드로 작성하면 this가 달라지기 때문)
+        onSubmit = (e) => {
+          e.preventDefault();
+          if (parseInt(this.state.value) === this.state.first * this.state.second) {
+            // 아래와 같이 함수를 return하는 형태로 작성하면 이전 state 값을 사용해서 새로운 state 값을 만들 수 있다.
+            this.setState((prevState) => {
+              return {
+                result: `정답: ${prevState.value}`,
+                first: Math.ceil(Math.random() * 9),
+                second: Math.ceil(Math.random() * 9),
+                value: '',
+              }
+            });
+          } else {
+            // this.setState를 호출할 때마다 render 함수가 실행된다.
+            // 추후 성능 최적화할 때 중요!
+            this.setState({
+              result: '땡',
+              value: '',
+            });
+          }
+          this.input.focus();
+        };
+
+        onChange = (e) => {
+          this.setState({ value: e.target.value });
+        };
+
+        // DOM에 직접 접근하고 싶을 때 ref를 사용하면 된다.
+        // (c) => { this.input = c; } 이 함수 형태는 그냥 외우자
+        input;
+
+        onRefInput = (c) => {
+          this.input = c;
+        };
+
+        // return에 있는 ()는 그룹 연산자로 무의미하다.(즉, 있으나 마나한 연산자)
+        render() {
+          return (
+            <React.Fragment>
+              <div>{this.state.first} 곱하기 {this.state.second}는?</div>
+              <form onSubmit={this.onSubmit}>
+                <input ref={this.onRefInput} type="number" value={this.state.value} onChange={this.onChange} />
+                <button type="submit">입력!</button>
+              </form>
+              <div>{this.state.result}</div>
+            </React.Fragment>
+          );
+        }
+      }
+    </script>
+    <script type="text/babel">
+      ReactDOM.render(<GuGuDan />, document.querySelector('#root'));
+    </script>
+  </body>
+</html>
