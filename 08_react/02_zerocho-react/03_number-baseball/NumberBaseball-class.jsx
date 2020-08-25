@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import Try from './Try';
 
 // this를 안 쓰는 경우 class 밖에 빼서 쓴다.
@@ -25,6 +25,9 @@ class NumberBaseball extends Component {
     const { answer, value, tries } = this.state;
     e.preventDefault();
     if (value === answer.join('')) {
+      // setState를 함수 형태로 작성하면 이전 state를 가져와서 활용할 수 있다.
+      // 자유도가 상승하여 미세한 동작 설정 가능
+      // 그렇기 때문에 Javascript는 일급 함수, High Order Function 이라고 불린다.
       this.setState((prevState) => {
         return {
           result: '홈런',
@@ -36,7 +39,8 @@ class NumberBaseball extends Component {
         value: '',
         answer: getNumbers(),
         tries: [],
-      })
+      });
+      this.inputRef.current.focus();
     } else { // 답 틀렸으면
       const answerArray = value.split('').map((v) => parseInt(v));
       let strike = 0;
@@ -51,6 +55,7 @@ class NumberBaseball extends Component {
           answer: getNumbers(),
           tries: [],
         })
+        this.inputRef.current.focus();
       } else {
         for (let i = 0; i < 4; i++) {
           if (answerArray[i] === answer[i]) {
@@ -64,7 +69,8 @@ class NumberBaseball extends Component {
             tries: [...prevState.tries, { try: value, result: `${strike} 스트라이크, ${ball} 볼입니다!`}],
             value: '',
           }
-        })
+        });
+        this.inputRef.current.focus();
       }
     }
   };
@@ -75,7 +81,19 @@ class NumberBaseball extends Component {
     });
   };
 
+  // createRef 방식
+  inputRef = createRef();
+
+  // 이전 방식(ref={this.onInputRef})
+  // inputRef;
+
+  // onInputRef = (c) => {
+  //   // 이 사이에 다른 동작 추가 가능하기 때문에 자유도가 높다.
+  //   this.inputRef = c;
+  // }
+
   render() {
+    // [주의!] render 안에서는 this.setState를 절대로 사용하지 말자(무한 루프에 빠짐...)
     const { result, value, tries } = this.state;
     return (
       <>
@@ -86,7 +104,7 @@ class NumberBaseball extends Component {
             value={this.state.value} onChange={this.onChangeInput}
             defaultValue={this.state.value}
           */}
-          <input maxLength={4} value={value} onChange={this.onChangeInput} />
+          <input ref={this.inputRef} maxLength={4} value={value} onChange={this.onChangeInput} />
         </form>
         <div>시도: {tries.length}</div>
         <ul>
