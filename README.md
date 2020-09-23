@@ -6,7 +6,7 @@
 
 - My Project(Portfolio) 리스트 추가, 알고리즘 코드 내용 데이터 이관 완료
 
-<a href="https://wally-wally.firebaseapp.com/" target="_blank"><img src="https://user-images.githubusercontent.com/52685250/81551995-af74f080-93bd-11ea-97bf-ac9dde8b5cd2.JPG"></a>
+<a href="https://wally-wally.kr" target="_blank"><img src="https://user-images.githubusercontent.com/52685250/94023286-06b9b180-fdf1-11ea-854d-915258bfbbc4.png"></a>
 
 <br>
 
