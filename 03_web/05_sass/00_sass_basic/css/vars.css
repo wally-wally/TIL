@@ -1,0 +1,33 @@
+body {
+  background-color: #ddd;
+}
+
+#box1 {
+  color: #ff0;
+  background-color: #5454ec;
+  width: 100px;
+}
+
+#box2 {
+  color: #f00;
+  background-color: #5454ec;
+  width: 100px;
+}
+
+#box3 {
+  color: #ff0;
+  background-color: #5454ec;
+  width: 300px;
+}
+
+#box4 {
+  color: #f00;
+  background-color: #5454ec;
+  width: 300px;
+}
+
+#box5 {
+  color: #0f0;
+  background-color: #5454ec;
+}
+/*# sourceMappingURL=vars.css.map */

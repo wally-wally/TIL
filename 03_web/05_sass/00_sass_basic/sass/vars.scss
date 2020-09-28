@@ -1,0 +1,38 @@
+// 변수를 작성할 때는 '$'와 영문으로 시작해야 하고
+// 영문, 숫자, 하이픈(-), 언더스코어(_)만 변수명을 작성할 수 있다.
+$bg-color: rgb(84, 84, 236);
+$color-yellow: #ff0;
+$box-width: 100px;
+
+body {
+  background-color: #ddd;
+}
+
+#box1 {
+  color: $color-yellow;
+  background-color: $bg-color;
+  width: $box-width;
+}
+
+#box2 {
+  color: #f00;
+  background-color: $bg-color;
+  width: $box-width;
+}
+
+#box3 {
+  color: $color-yellow;
+  background-color: $bg-color;
+  width: $box-width * 3; // 변수는 연산자와 조합할 수도 있다.
+}
+
+#box4 {
+  color: #f00;
+  background-color: $bg-color;
+  width: $box-width * 3;
+}
+
+#box5 {
+  color: #0f0;
+  background-color: $bg-color;
+}
