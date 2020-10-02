@@ -1,27 +1,17 @@
-// (3) mixin
-// mixin 함수명은 영문으로 시작하고 영문, 숫자, 하이픈, 언더스코어만 사용할 수 있다.
-// mixin 함수의 인자 기본값도 설정할 수 있다.
-@mixin fontSizeBgColor($fontSize: 20px, $bgColor: #fff) {
-  font-size: $fontSize;
-  background-color: $bgColor;
-}
-
-@mixin linkStyle($textColor, $textDeco: none) {
-  color: $textColor;
-  text-decoration: $textDeco;
-}
-
-// (4) extend
-// 완전히 똑같이 반복되는 코드를 묶어서 관리할 때 사용한다.
-%boxShape {
-  border-radius: 20px;
-  border: 3px solid #f00;
-  box-shadow: 0px 3px 11px 0px rgba(0, 0, 0, 0.75);
-}
+// (3) mixin(_mixins.scss 파일 참고)
+// (4) extend(partial/_styles.scss 파일 참고)
 
 // mixin vs extend
 // mixin은 사용되는 속성은 같으나 값만 바뀌는 경우에 사용하고
 // extend는 사용되는 속성과 값 모두 똑같을 때 사용한다.
+
+// (5) partial
+// 별도의 파일로 분리해서 사용
+// 단, 주의할 점은 분리해서 관리하는 파일명은 반드시 언더스코어(_)로 시작한다.
+// 그리고 불러올 때는 언더스코어(_)를 뺀 나머지 파일명을 작성하면 된다.
+@import "mixins";
+@import "partial/styles";
+
 
 html {
   font-size: 18px; 

@@ -1,0 +1,24 @@
+body {
+  margin: 50px;
+}
+
+#box1 {
+  color: #333;
+  background-color: #ff0;
+}
+
+#box2 {
+  color: #fff;
+  background-color: #000;
+}
+
+#box3 {
+  color: #f6dcf8;
+  background-color: #a747c4;
+}
+
+#box4 {
+  color: #f00;
+  background-color: #aaa;
+}
+/*# sourceMappingURL=if.css.map */
