@@ -1,0 +1,55 @@
+@import "abstracts/variables";
+@import "abstracts/mixins";
+
+@import "base/base";
+
+// Nesting
+.box {
+
+  @include width-height-padding(300px, 300px, 20px);
+  @include pos-abs-center-horizontal();
+
+  &, &-inner {
+    border: 3px solid $border-color;
+  }
+
+  // media query
+  // (기본 정의 내용보다 아래에 작성해야 한다. => CSS의 Cascading 원리)
+  @include mq('phone') {
+    width: 100%;
+    border: none;
+  }
+  @include mq('tablet-land') {
+    border: 2px solid $border-color;
+  }
+  @include mq('desktop-big') {
+    width: 600px;
+    padding: 50px;
+    border: 10px solid $border-color;
+  }
+
+  // box-inner
+  &-inner {
+    @include width-height-padding(initial, 40px, 10px);
+    
+    background-color: $color-grey;
+
+    @include mq('phone') {
+      height: 55px;
+    }
+
+    // box-inner-title
+    &-title {
+      font-size: 20px;
+      color: $color-white;
+      background-color: rgba($color-black, .5);
+
+      @include mq('phone') {
+        font-size: 40px;
+      }
+      @include mq('tablet-land') {
+        font-size: 30px;
+      }
+    }
+  }
+}

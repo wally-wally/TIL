@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  background-color: #efefef;
+  font-family: sans-serif;
+}
+
+.box {
+  width: 300px;
+  height: 300px;
+  padding: 20px;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.box, .box-inner {
+  border: 3px solid #00f;
+}
+
+@media screen and (max-width: 600px) {
+  .box {
+    width: 100%;
+    border: none;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 899px) {
+  .box {
+    border: 2px solid #00f;
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  .box {
+    width: 600px;
+    padding: 50px;
+    border: 10px solid #00f;
+  }
+}
+
+.box-inner {
+  width: initial;
+  height: 40px;
+  padding: 10px;
+  background-color: #ccc;
+}
+
+@media screen and (max-width: 600px) {
+  .box-inner {
+    height: 55px;
+  }
+}
+
+.box-inner-title {
+  font-size: 20px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+@media screen and (max-width: 600px) {
+  .box-inner-title {
+    font-size: 40px;
+  }
+}
+
+@media screen and (min-width: 601px) and (max-width: 899px) {
+  .box-inner-title {
+    font-size: 30px;
+  }
+}
+/*# sourceMappingURL=index.css.map */
