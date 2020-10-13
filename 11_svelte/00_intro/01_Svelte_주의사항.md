@@ -34,3 +34,26 @@
 - Router
   - Svelte에서 공식적으로 제공하는 router가 없다.
   - `svelte-spa-router`가 가장 많이 사용되는 라이브러리이다.
+
+<br>
+
+## :mag: Degit으로 svelte 프로젝트 생성하기
+
+- Rollup 프로젝트
+
+```bash
+npx degit sveltejs/template my-svelte-project
+cd my-svelte-project
+npm i
+npm run dev
+```
+
+- Webpack 프로젝트
+
+```bash
+npx degit sveltejs/template-webpack my-svelte-project-webpack
+cd my-svelte-project-webpack
+npm i
+npm run dev
+```
+
