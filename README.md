@@ -1,5 +1,11 @@
 # :pencil: TIL : TODAY I LEARNED
 
+---
+
+:exclamation: <b>wally-wally의 TIL 컨텐츠를 사용하실 때 출처나 URL 주소를 함께 남겨서 작성해주시면 감사하겠습니다!</b>
+
+---
+
 <br>
 
 #### :heavy_check_mark: wally-wally Homepage가 새롭게 리뉴얼 되었습니다.
