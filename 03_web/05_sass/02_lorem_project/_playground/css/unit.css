@@ -1,0 +1,17 @@
+html {
+  font-size: 62.5%;
+}
+
+#box1 {
+  font-size: 3rem;
+  width: 80vw;
+  height: 50vh;
+  background-color: #aaa;
+}
+
+#box2 {
+  font-size: 2rem;
+  width: 25rem;
+  background-color: #777;
+}
+/*# sourceMappingURL=unit.css.map */

@@ -1,0 +1,59 @@
+// google font - Nanum Gothic, Lato
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300&family=Nanum+Gothic:wght@400;700;800&display=swap');
+
+// default setting
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; // width 값에 padding과 border 값들이 모두 포함된다.
+}
+
+// rem 사용하기 위해 html 요소에 font-size 지정
+html {
+  font-size: 62.5%; // 16px의 62.5%sms 10px이며 1rem은 10px이 된다.
+}
+
+body {
+  padding: 3rem;
+  font-family: 'Nanum Gothic', sans-serif;
+}
+
+header {
+  width: 100%;
+  height: 90vh;
+  background-image: linear-gradient(to right, #285a91 0%, #1f9cfd 100%), url(../images/header-image.jpg);
+  background-blend-mode: multiply; // linear-gradient와 이미지를 합칠 수 있음
+  background-size: cover; // contain: 이미지를 다 보이게 / cover: 이미지를 잘리더라도 꽉 차게 표시
+  position: relative;
+  
+  #logo-text {
+    position: absolute;
+    left: 7rem;
+    top: 4rem;
+    font-size: 5.6rem;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+    color: #fff;
+    letter-spacing: -.1rem;
+  }
+
+  #header-text {
+    position: absolute;
+    left: 7rem;
+    bottom: 23%;
+    color: #fff;
+    letter-spacing: -.1rem;
+    font-weight: 700;
+
+    &-main {
+      font-size: 7.2rem;
+      line-height: 7.2rem;
+    }
+
+    &-sub {
+      margin-top: 3rem;
+      font-size: 2.4rem;
+    }
+  }
+}

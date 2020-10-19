@@ -1,0 +1,30 @@
+// px(절대적인 크기)
+// em, rem(상대적인 크기)
+// vw(viewport width), vh(viewport height)(상대적인 크기)
+
+html {
+  // 기본 브라우저의 폰트 사이즈는 16px
+  // font-size: 10px; // 1rem = 10px
+
+  // 반응형 웹에서 최상위 요소에 지정하는 폰트 크기만 바꿔주면 되기 때문에
+  // rem 단위를 사용하는 것이 매우 편리하다.
+  font-size: 62.5%; // 16 * 0.625 = 10px = 1rem
+}
+
+#box1 {
+  // font-size: 20px; // 1em = 20px
+  // width: 25em; // 25em = 20 * 25 = 500px
+
+  font-size: 3rem;
+  // width: 25rem;
+
+  width: 80vw; // viewport 너비의 80%를 차지
+  height: 50vh; // viewport 높이의 50%를 차지
+  background-color: #aaa;
+}
+
+#box2 {
+  font-size: 2rem;
+  width: 25rem; // 25rem = 10 * 25 = 250px
+  background-color: #777;
+}
