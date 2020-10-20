@@ -1,0 +1,55 @@
+header {
+  width: 100%;
+  height: 90vh;
+  background-image: linear-gradient(to right, $color-primary 0%, $color-secondary 100%), url(../images/header-image.jpg);
+  background-blend-mode: multiply; // linear-gradient와 이미지를 합칠 수 있음
+  background-size: cover; // contain: 이미지를 다 보이게 / cover: 이미지를 잘리더라도 꽉 차게 표시
+  position: relative;
+  
+  #logo-text {
+    position: absolute;
+    left: 7rem;
+    top: 4rem;
+    font-size: 5.6rem;
+    text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+    color:$color-white;
+    letter-spacing: -.1rem;
+
+    animation-name: moveInLeft;
+    animation-duration: 1s;
+    animation-iteration-count: 5;
+    animation-delay: 2s;
+    animation-fill-mode: backwards;
+  }
+
+  #header-text {
+    position: absolute;
+    left: 7rem;
+    bottom: 23%;
+    color:$color-white;
+    letter-spacing: -.1rem;
+    font-weight: 700;
+
+    &-main {
+      font-size: 7.2rem;
+      line-height: 7.2rem;
+
+      animation-name: moveInRight;
+      animation-duration: 1s;
+      animation-delay: 1s;
+      animation-fill-mode: backwards;
+    }
+
+    &-sub {
+      margin-top: 3rem;
+      font-size: 2.4rem;
+
+      animation-name: moveInLeft;
+      animation-duration: 1s;
+      animation-delay: 1.5s;
+      animation-fill-mode: backwards;
+    }
+  }
+}

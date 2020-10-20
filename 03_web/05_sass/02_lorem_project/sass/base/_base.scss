@@ -1,0 +1,19 @@
+// google font - Nanum Gothic, Lato
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300&family=Nanum+Gothic:wght@400;700;800&display=swap');
+
+// default setting
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; // width 값에 padding과 border 값들이 모두 포함된다.
+}
+
+// rem 사용하기 위해 html 요소에 font-size 지정
+html {
+  font-size: 62.5%; // 16px의 62.5%는 10px이며 1rem은 10px이 된다.
+}
+
+body {
+  padding: 3rem;
+  font-family: 'Nanum Gothic', sans-serif;
+}

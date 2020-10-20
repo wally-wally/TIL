@@ -1,0 +1,52 @@
+.btn {
+  font-size: 30px;
+  text-decoration: none;
+  opacity: 1;
+  transition: all 5s; // all: 모든 속성에 transition 적용
+  // transition: font-size 5s, opacity 10s; // font-size는 5초, opacity는 10초 전환 시간 적용
+
+  &:hover {
+    font-size: 50px;
+    text-decoration: underline;
+    opacity: .2;
+  }
+}
+
+// animation
+@keyframes anim1 {
+  0% {
+    opacity: .2;
+    transform: translate(100px, -30px); // (x, y)
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: .1;
+  }
+}
+
+#box1 {
+  // animation 이름
+  animation-name: anim1;
+
+  // animation 지속 시간
+  animation-duration: 5s;
+
+  // animation 끝난 후의 상태 지정
+  // - forwards: 100% 일 때로 고정
+  // - backwards: delay 시간이 있는 경우 대기할 때 0%일 때의 상태에서 대기한다.
+  // - both: forwards와 backwards 두 가지 상태를 모두 가짐
+  animation-fill-mode: both;
+
+  // animation 반복 횟수
+  animation-iteration-count: 1;
+
+  // animation 시작 지연 시간
+  animation-delay: 3s;
+
+  // cf) CSS animation shorthand
+  // https://developer.mozilla.org/ko/docs/Web/CSS/animation
+}
