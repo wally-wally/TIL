@@ -1,0 +1,45 @@
+#box {
+  background-color: #00f;
+  width: 300px;
+  height: 300px;
+  color: #fff;
+
+  &::before {
+    content: 'before';
+    display: block;
+  }
+
+  &::after {
+    content: 'after';
+    display: block;
+    background-color: #ff0;
+  }
+}
+
+@mixin clearfix() {
+  // pesudo element를 이용한 clearfix
+  &::after {
+    content: '';
+    display: block;
+    clear: left;
+  }
+}
+
+.box-parent {
+  padding: 20px;
+  background-color: #00f;
+
+  .box-child {
+    width: 200px;
+    height: 200px;
+    background-color: #f00;
+    border: 1px solid #ff0;
+    float: left;
+  }
+
+  .box-child:not(:last-child) {
+    margin-right: 40px;
+  }
+
+  @include clearfix();
+}

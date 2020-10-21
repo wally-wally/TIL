@@ -6,7 +6,9 @@
         "../sass/abstracts/_variables.scss",
         "../sass/base/_base.scss",
         "../sass/base/_animations.scss",
-        "../sass/layout/_header.scss"
+        "../sass/layout/_header.scss",
+        "../sass/layout/_main.scss",
+        "../sass/layout/_footer.scss"
     ],
     "names": [],
     "file": "index.css"
