@@ -1,5 +1,6 @@
 // partial 외부 파일을 import 할 때는 underscore(_)와 .scss 확장자 생략 가능
 @import "abstracts/variables";
+@import "abstracts/mixins";
 
 @import "base/base";
 @import "base/animations";

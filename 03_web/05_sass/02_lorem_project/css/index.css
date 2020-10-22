@@ -149,4 +149,49 @@ header #header-text-sub {
   -webkit-animation-fill-mode: backwards;
           animation-fill-mode: backwards;
 }
+
+footer {
+  color: #b9b9b9;
+  background-color: #3f4a56;
+  padding: 9rem 7rem 3rem 7rem;
+}
+
+footer::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+footer #logo-text-footer {
+  width: 25%;
+  font-size: 4rem;
+  font-family: 'Lato', sans-serif;
+  font-weight: 100;
+  text-transform: uppercase;
+  float: left;
+}
+
+footer #copyright {
+  width: 75%;
+  font-size: 1.2rem;
+  float: left;
+}
+
+footer #copyright p:nth-child(1) {
+  margin-bottom: 2rem;
+  word-break: break-all;
+  text-align: justify;
+  -webkit-column-count: 3;
+          column-count: 3;
+  -webkit-column-gap: 3rem;
+          column-gap: 3rem;
+  -webkit-column-rule-style: dashed;
+          column-rule-style: dashed;
+  -webkit-column-rule-width: 1px;
+          column-rule-width: 1px;
+  -webkit-column-rule-color: #888;
+          column-rule-color: #888;
+  -webkit-column-width: 1rem;
+          column-width: 1rem;
+}
 /*# sourceMappingURL=index.css.map */

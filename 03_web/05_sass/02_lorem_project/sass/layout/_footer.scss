@@ -1,1 +1,35 @@
-// footer
+footer {
+  color: $color-grey-light;
+  background-color: $color-blue-dark;
+  padding: 9rem 7rem 3rem 7rem;
+
+  @include clearfix();
+
+  #logo-text-footer {
+    width: 25%;
+    font-size: 4rem;
+    font-family: 'Lato', sans-serif;
+    font-weight: 100;
+    text-transform: uppercase;
+    float: left;
+  }
+
+  #copyright {
+    width: 75%;
+    font-size: 1.2rem;
+    float: left;
+
+    p:nth-child(1) {
+      margin-bottom: 2rem;
+      word-break: break-all;
+      text-align: justify; // 양쪽 정렬
+
+      column-count: 3; // 다단 생성시 단의 개수
+      column-gap: 3rem; // 단 사이의 gap 너비
+      column-rule-style: dashed; // 단을 구분하는 구분선 종류
+      column-rule-width: 1px; // 단 구분선의 두께
+      column-rule-color: #888; // 단 구분선 색상
+      column-width: 1rem;
+    }
+  }
+}
