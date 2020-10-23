@@ -84,6 +84,61 @@ body {
   }
 }
 
+h2 {
+  padding: 1rem 0;
+  font-size: 2.4rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: -webkit-gradient(linear, left top, right top, from(#285a91), to(#1f9cfd));
+  background: linear-gradient(left, #285a91, #1f9cfd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+h2:hover {
+  padding-left: 1.5rem;
+}
+
+h3 {
+  padding: .5rem 0;
+  color: #474747;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.u-margin-right-small {
+  margin-right: 1rem;
+}
+
+.u-margin-right-medium {
+  margin-right: 2rem;
+}
+
+.u-margin-right-big {
+  margin-right: 3rem;
+}
+
+.btn-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: #285a91;
+  display: inline-block;
+  padding-bottom: .3rem;
+  border-bottom: 1px solid #285a91;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+.btn-text:hover {
+  color: #fff;
+  background-color: #1f9cfd;
+  border-bottom: none;
+}
+
 header {
   width: 100%;
   height: 90vh;
@@ -149,6 +204,68 @@ header #header-text-sub {
           animation-delay: 1.5s;
   -webkit-animation-fill-mode: backwards;
           animation-fill-mode: backwards;
+}
+
+main #section-about {
+  background-color: #ededed;
+  padding: 7rem 0 6.5rem 6rem;
+}
+
+main #section-about::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+main #section-about-words {
+  width: 65%;
+  float: left;
+}
+
+main #section-about-words p {
+  padding: 1.5rem 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-align: justify;
+}
+
+main #section-about-photo {
+  position: relative;
+  width: 35%;
+  float: left;
+}
+
+main #section-about-photo .photo {
+  position: absolute;
+  width: 18rem;
+  height: 12rem;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+main #section-about-photo .photo:hover {
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  padding: 1rem;
+  border: 3px solid #285a91;
+  z-index: 10;
+}
+
+main #section-about-photo .photo:nth-child(1) {
+  left: 1rem;
+  top: 3rem;
+}
+
+main #section-about-photo .photo:nth-child(2) {
+  left: 6rem;
+  top: 10rem;
+}
+
+main #section-about-photo .photo img {
+  width: 100%;
+  height: 100%;
+  -webkit-box-shadow: 3px 3px 9px 0px rgba(0, 0, 0, 0.5);
+          box-shadow: 3px 3px 9px 0px rgba(0, 0, 0, 0.5);
 }
 
 footer {

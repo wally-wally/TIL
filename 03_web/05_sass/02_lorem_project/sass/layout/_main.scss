@@ -1,1 +1,60 @@
-// main
+main {
+  #section-about {
+    background-color: #ededed;
+    padding: 7rem 0 6.5rem 6rem;
+
+    @include clearfix();
+    
+    &-words {
+      width: 65%;
+      float: left;
+
+      p {
+        padding: 1.5rem 0;
+        font-size: 1.4rem;
+        font-weight: 700;
+        text-align: justify;
+      }
+    }
+
+    &-photo {
+      position: relative;
+      width: 35%;
+      float: left;
+
+      .photo {
+        position: absolute;
+        width: 18rem;
+        height: 12rem;
+        transition: all .5s;
+
+        &:hover {
+          transform: scale(1.1);
+          padding: 1rem;
+          border: 3px solid $color-primary;
+          z-index: 10;
+        }
+
+        &:nth-child(1) {
+          left: 1rem;
+          top: 3rem;
+        }
+
+        &:nth-child(2) {
+          left: 6rem;
+          top: 10rem;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          box-shadow: 3px 3px 9px 0px rgba(0, 0, 0, .5);
+        }
+      }
+    }
+  }
+
+  #section-etc {
+
+  }
+}

@@ -1,0 +1,22 @@
+h2 {
+  padding: 1rem 0;
+  font-size: 2.4rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  background: linear-gradient(left, $color-primary, $color-secondary);
+  -webkit-background-clip: text; // 텍스트 부분에만 마스크 처리되서 색깔 적용되도록
+  -webkit-text-fill-color: transparent; // 기존에 글자에 적용된 검은색 대신에 투명으로 설정해서 gradient 효과가 보일 수 있도록
+  transition: all .5s;
+
+  &:hover {
+    padding-left: 1.5rem;
+  }
+}
+
+h3 {
+  padding: .5rem 0;
+  color: $color-grey-dark;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}

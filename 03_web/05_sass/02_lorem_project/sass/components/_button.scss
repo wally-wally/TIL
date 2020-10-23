@@ -1,0 +1,16 @@
+.btn-text {
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: $color-primary;
+  display: inline-block;
+  padding-bottom: .3rem;
+  border-bottom: 1px solid $color-primary;
+  transition: all .5s;
+
+  &:hover {
+    color: $color-white;
+    background-color: $color-secondary;
+    border-bottom: none;
+  }
+}
