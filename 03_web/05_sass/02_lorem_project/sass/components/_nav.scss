@@ -1,0 +1,146 @@
+.nav {
+  &-checkbox {
+    display: none;
+  }
+
+  &-button {
+    background-color: #c4e3ff;
+    width: 7rem;
+    height: 6rem;
+    position: fixed;
+    top: 7rem;
+    right: 8rem;
+    z-index: 2000;
+    cursor: pointer;
+    border-radius: 2px;
+    box-shadow: 0 1rem 1rem rgba(#000, .1);
+    text-align: center;
+  }
+
+  &-bg {
+    background-image: radial-gradient($color-primary, $color-secondary);
+    width: 7rem;
+    height: 6rem;
+    position: fixed;
+    top: 7rem;
+    right: 8rem;
+    z-index: 1000;
+    border-radius: 2px;
+    transition: all .8s;
+  }
+
+  // checkbox가 체크된 경우 같은 형제 관계에 있는('~'의미) 선택자에 스타일 속성 지정
+  &-checkbox:checked ~ &-bg {
+    transform: scale(80);
+  }
+
+  // icon
+  &-icon {
+    position: relative;
+    margin-top: 3rem;
+    
+    &::before {
+      top: -0.8rem;
+    }
+    
+    &::after {
+      top: 0.8rem;
+    }
+    
+    &::before, &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      transition: all .2s;
+    }
+    
+    &, &::before, &::after {
+      width: 3rem;
+      height: 2px;
+      background-color: #333;
+      display: inline-block;
+    }
+  }
+
+  &-button:hover &-icon::before {
+    top: -1rem;
+  }
+
+  &-button:hover &-icon::after {
+    top: 1rem;
+  }
+
+  &-checkbox:checked ~ &-button &-icon {
+    background-color: transparent;
+  }
+
+  &-checkbox:checked ~ &-button &-icon:before {
+    top: 0;
+    transform: rotate(135deg); // 45deg로 하면 덜 액션적으로 회전
+  }
+
+  &-checkbox:checked ~ &-button &-icon::after {
+    top: 0;
+    transform: rotate(-135deg);
+  }
+
+  // nav-body
+  &-body {
+    position: fixed;
+    top: 0;
+    left: -120%;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1500;
+    opacity: 0;
+    transition: all .8s;
+  }
+
+  &-list {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    list-style: none;
+    width: 100%;
+    text-align: center;
+  }
+
+  &-item {
+
+  }
+
+  &-link {
+    display: inline-block;
+    font-size: 3rem;
+    font-weight: 300;
+    padding: 1rem 2rem;
+    color: $color-white;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all .4s;
+    background-image: linear-gradient(
+      120deg,
+      transparent 0%,
+      transparent 50%,
+      $color-white 50%
+    );
+    background-size: 220%;
+
+    &:hover {
+      color: $color-primary;
+      background-position: 100%;
+      transform: translateX(1rem);
+    }
+
+    span {
+      display: inline-block;
+      margin-right: 1.5rem;
+    }
+  }
+
+  &-checkbox:checked ~ &-body {
+    left: 0;
+    opacity: 1;
+  }
+}
