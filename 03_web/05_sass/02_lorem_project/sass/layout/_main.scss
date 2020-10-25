@@ -1,12 +1,18 @@
 main {
+  @include clearfix();
+
   #section-about {
     background-color: #ededed;
     padding: 7rem 0 6.5rem 6rem;
+    width: 66.66666%;
+    min-height: 42rem;
+    float: left;
 
     @include clearfix();
     
     &-words {
       width: 65%;
+      padding: 2rem 2rem 0 0;
       float: left;
 
       p {
@@ -55,6 +61,46 @@ main {
   }
 
   #section-etc {
+    width: 33.33334%;
+    float: left;
 
+    [id^="etc-"] { // id 속성이 'etc-'로 시작하는 선택자 의미
+      height: 14rem;
+    }
+
+    .etc {
+      &:nth-child(1) {
+        background-color: $color-blue-1;
+      }
+      &:nth-child(2) {
+        background-color: $color-blue-2;
+      }
+      &:nth-child(3) {
+        background-color: $color-blue-3;
+      }
+
+      .etc-icon {
+        padding-top: 3.5rem;
+        width: 30%;
+        text-align: center;
+        float: left;
+        i {
+          font-size: 6rem;
+        }
+      }
+
+      .etc-text {
+        padding-top: 1rem;
+        width: 70%;
+        float: left;
+
+        p {
+          margin: 0.5rem 0;
+          padding-right: 3.5rem;
+          text-align: justify;
+          font-size: 1.4rem;
+        }
+      }
+    }
   }
 }
