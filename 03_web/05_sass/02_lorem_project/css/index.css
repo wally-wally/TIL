@@ -369,10 +369,44 @@ main #section-about::after {
   clear: both;
 }
 
+@media screen and (min-width: 900px) and (max-width: 1200px) {
+  main #section-about {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 701px) and (max-width: 899px) {
+  main #section-about {
+    width: 100%;
+    height: 54rem;
+    padding: 7rem 6rem 6.5rem 6rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  main #section-about {
+    width: 100%;
+    height: 60rem;
+    padding: 7rem 6rem 6.5rem 6rem;
+  }
+}
+
 main #section-about-words {
   width: 65%;
   padding: 2rem 2rem 0 0;
   float: left;
+}
+
+@media screen and (min-width: 701px) and (max-width: 899px) {
+  main #section-about-words {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  main #section-about-words {
+    width: 100%;
+  }
 }
 
 main #section-about-words p {
@@ -388,12 +422,38 @@ main #section-about-photo {
   float: left;
 }
 
+@media screen and (min-width: 701px) and (max-width: 899px) {
+  main #section-about-photo {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  main #section-about-photo {
+    width: 100%;
+  }
+}
+
 main #section-about-photo .photo {
   position: absolute;
   width: 18rem;
   height: 12rem;
   -webkit-transition: all .5s;
   transition: all .5s;
+}
+
+@media screen and (min-width: 701px) and (max-width: 899px) {
+  main #section-about-photo .photo {
+    top: 3rem !important;
+    left: 50% !important;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  main #section-about-photo .photo {
+    top: 3rem !important;
+    left: 50% !important;
+  }
 }
 
 main #section-about-photo .photo:hover {
@@ -407,6 +467,20 @@ main #section-about-photo .photo:hover {
 main #section-about-photo .photo:nth-child(1) {
   left: 1rem;
   top: 3rem;
+}
+
+@media screen and (min-width: 701px) and (max-width: 899px) {
+  main #section-about-photo .photo:nth-child(1) {
+    -webkit-transform: translateX(-120%);
+            transform: translateX(-120%);
+  }
+}
+
+@media screen and (max-width: 700px) {
+  main #section-about-photo .photo:nth-child(1) {
+    -webkit-transform: translateX(-120%);
+            transform: translateX(-120%);
+  }
 }
 
 main #section-about-photo .photo:nth-child(2) {
@@ -426,8 +500,41 @@ main #section-etc {
   float: left;
 }
 
+@media screen and (min-width: 900px) and (max-width: 1200px) {
+  main #section-etc {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 701px) and (max-width: 899px) {
+  main #section-etc {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  main #section-etc {
+    width: 100%;
+  }
+}
+
 main #section-etc [id^="etc-"] {
   height: 14rem;
+}
+
+@media screen and (min-width: 900px) and (max-width: 1200px) {
+  main #section-etc .etc {
+    width: 33.33333%;
+    float: left;
+  }
+}
+
+@media screen and (min-width: 701px) and (max-width: 899px) {
+  main #section-etc .etc {
+    width: 33.33333%;
+    height: 22rem;
+    float: left;
+  }
 }
 
 main #section-etc .etc:nth-child(1) {
@@ -472,6 +579,12 @@ footer {
   padding: 9rem 7rem 3rem 7rem;
 }
 
+@media screen and (max-width: 700px) {
+  footer {
+    padding: 9rem 2rem 3rem 7rem;
+  }
+}
+
 footer::after {
   content: '';
   display: block;
@@ -487,10 +600,23 @@ footer #logo-text-footer {
   float: left;
 }
 
+@media screen and (max-width: 700px) {
+  footer #logo-text-footer {
+    margin-right: 6rem;
+    width: 20%;
+  }
+}
+
 footer #copyright {
   width: 75%;
   font-size: 1.2rem;
   float: left;
+}
+
+@media screen and (max-width: 700px) {
+  footer #copyright {
+    width: 60%;
+  }
 }
 
 footer #copyright p:nth-child(1) {

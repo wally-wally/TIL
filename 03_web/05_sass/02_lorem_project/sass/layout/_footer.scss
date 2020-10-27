@@ -3,6 +3,10 @@ footer {
   background-color: $color-blue-dark;
   padding: 9rem 7rem 3rem 7rem;
 
+  @include mq('small-screen-3') {
+    padding: 9rem 2rem 3rem 7rem;
+  }
+
   @include clearfix();
 
   #logo-text-footer {
@@ -12,12 +16,21 @@ footer {
     font-weight: 100;
     text-transform: uppercase;
     float: left;
+
+    @include mq('small-screen-3') {
+      margin-right: 6rem;
+      width: 20%;
+    }
   }
 
   #copyright {
     width: 75%;
     font-size: 1.2rem;
     float: left;
+
+    @include mq('small-screen-3') {
+      width: 60%;
+    }
 
     p:nth-child(1) {
       margin-bottom: 2rem;
