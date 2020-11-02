@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true, // @ts-check === "checkJs"
+    "noImplicitAny": true // 모든 타입에 대해서 최소한 any라도 넣어야 한다.
+  }
+}
+
+// tsconfig 참고 사이트(필요할 때 찾아서 쓰자)
+// https://www.typescriptlang.org/tsconfig
