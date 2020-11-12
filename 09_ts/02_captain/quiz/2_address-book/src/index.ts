@@ -105,4 +105,11 @@ class AddressBook {
   /* ------------------------------------------------ */
 }
 
+// 아래 코드가 지나가는 시점에서 해당 변수의 타입이 HTMLDivElement라고 타입을 정의해주는 것을 타입 단언이라고 한다.
+let div = document.querySelector('#app') as HTMLDivElement;
+div.innerText
+// if (div) {
+//   div.innerText
+// }
+
 new AddressBook();
