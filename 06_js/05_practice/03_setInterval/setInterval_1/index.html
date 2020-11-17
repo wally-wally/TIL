@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자동 페이지 이동</title>
+</head>
+<body>
+  <div id="app">
+    <h1>자동 페이지 이동</h1>
+    <hr>
+    <iframe src="src/page01.html" width="600" height="300" frameborder="0"></iframe>
+  </div>
+  <script>
+    const urls = ['src/page02.html', 'src/page03.html'];
+    const iframeTag = document.querySelector('iframe');
+    let nowPageIdx = 1;
+
+    let timer = setInterval(() => {
+      nowPageIdx += 1;
+      iframeTag.src = urls[nowPageIdx - urls.length];
+    }, 3000);
+
+    setTimeout(() => {
+      clearInterval(timer);
+    }, 3000 * urls.length);
+  </script>
+</body>
+</html>

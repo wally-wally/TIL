@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .product-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .product-item {
+      margin: 8px 0;
+      width: 60px;
+      border: 1px solid silver;
+      padding: 4px;
+      transition: all .15s;
+    }
+
+    .product-item:hover {
+      font-weight: 600;
+      background-color: antiquewhite;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <button id="add-item">제품 추가</button>
+    <hr>
+    <ul class="product-list">
+      <li class="product-item">제품1</li>
+      <li class="product-item">제품2</li>
+    </ul>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>

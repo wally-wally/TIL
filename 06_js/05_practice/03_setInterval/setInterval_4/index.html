@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자동 페이지 이동</title>
+  <style>
+    .button-wrapper {
+      display: inline-block;
+      margin: 4px 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>자동 페이지 이동 & 도메인 추가</h1>
+    <form id="timer-form">
+      <label for="period">시간 주기 설정[s] (필수)</label>
+      <input type="number" min="1" max="5" id="period" required>
+      <br>
+      <label for="domain">도메인 추가 (선택)</label>
+      <input type="text" id="domain">
+      <br>
+      <div class="button-wrapper">
+        <button type="submit" id="start">시작</button>
+        <button id="cancel" disabled>중지</button>
+      </div>
+    </form>
+    <button id="reset">초기화</button>
+    <hr>
+    <iframe src="src/init.html" width="600" height="300" frameborder="0"></iframe>
+  </div>
+  <script>
+    const timerForm = document.querySelector('#timer-form');
+    const period = document.querySelector('#period'); // 시간 주기
+    const domain = document.querySelector('#domain'); // 추가할 도메인
+    const startButton = document.querySelector('button#start'); // 시작 버튼
+    const cancelButton = document.querySelector('button#cancel'); // 중지 버튼
+    const resetButton = document.querySelector('button#reset'); // 초기화 버튼
+    const iframeTag = document.querySelector('iframe');
+    let autoChangeTimer;
+    let urls = ['src/page01.html', 'src/page02.html'];
+
+    timerForm.addEventListener('submit', e => {
+      e.preventDefault();
+      toggleDisabled();
+      if (domain.value) {
+        addDomain(domain.value);
+      }
+      changePage(period.value);
+    })
+
+    cancelButton.addEventListener('click', () => {
+      clearInterval(autoChangeTimer);
+      toggleDisabled();
+      stopAutoChangePage();
+    })
+
+    resetButton.addEventListener('click', () => {
+      period.value = null;
+      domain.value = null;
+      urls = ['src/page01.html', 'src/page02.html'];
+    })
+
+    function toggleDisabled(val) {
+      period.disabled = !period.disabled;
+      domain.disabled = !domain.disabled;
+      startButton.disabled = !startButton.disabled;
+      cancelButton.disabled = !cancelButton.disabled;
+    }
+
+    function addDomain(domain) {
+      urls.push(domain);
+    }
+
+    function changePage(period) {
+      let nowPageIdx = -1;
+      autoChangeTimer = setInterval(() => {
+        nowPageIdx += 1;
+        iframeTag.src = urls[nowPageIdx % urls.length];
+      }, period * 1000);
+    }
+
+    function stopAutoChangePage() {
+      iframeTag.src = 'src/init.html';
+    }
+  </script>
+</body>
+</html>

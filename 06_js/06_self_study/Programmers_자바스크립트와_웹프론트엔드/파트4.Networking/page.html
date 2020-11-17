@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      .charactder {
+        color: black;
+      }
+      .word {
+        color: gray;
+      }
+    </style>
+    <script>
+      var req = new XMLHttpRequest();
+      req.onreadystatechange = function a(){
+        console.log(this.readyState, this.status);
+        if(this.readyState == 4 && this.status == 200){
+          console.log(this.response);
+        }
+      }
+      req.open("GET", "./data.txt");
+      req.send();
+    </script>
+  </head>
+  <body>
+    <p id="template">
+      <span class="character">주인공</span> : <span class="word">명대사</span>
+    </p>
+  </body>
+</html>

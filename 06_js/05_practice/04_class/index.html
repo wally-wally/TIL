@@ -1,0 +1,134 @@
+<script>
+  // 해당 컨텐츠는 '드림코딩 by 엘리' Youtube의 내용을 참고해서 작성했습니다.
+  // 영상 출처: https://www.youtube.com/watch?v=_DLhUBWsRtw
+  
+  'use strict';
+
+  // 1. Class declarations
+  class Person {
+    // constructor
+    constructor(name, age) {
+      // fields
+      this.name = name;
+      this.age = age;
+    }
+
+    // methods
+    speak() {
+      console.log(`${this.name}: hello!`);
+    }
+  }
+
+  const wally = new Person('wally', 27);
+  console.log(wally.name);
+  console.log(wally.age);
+  wally.speak();
+
+
+  // 2. Getter and Setters
+  class User {
+    constructor(firstName, lastName, age) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.age = age;
+    }
+
+    // getter와 setter는 변수명을 다르게 주기 위해 보통 변수명 앞에 underscore 를 붙인다.
+    // constructor에서 정의한 age와 똑같이 하면 call stack이 초과됐다는 에러가 발생한다.
+    get age() {
+      return this._age;
+    }
+
+    set age(value) {
+      // if (value < 0) {
+      //   throw Error('age can not be negative');
+      // }
+      this._age = value < 0 ? 0 : value;
+    }
+  }
+
+  const user1 = new User('Mike', 'Job', -1);
+  console.log(user1.age);
+
+
+  // 3. Fields (public, private)
+  class Expreiment {
+    publicField = 2;
+    #privateField = 0;
+  }
+
+  const expreiment = new Expreiment();
+  console.log(expreiment.publicField);
+  console.log(expreiment.privateField);
+
+
+  // 4. Static properties and methods
+  // 공통적으로 사용되는 속성이나 메서드를 정의
+  class Article {
+    static publisher = 'wally-wally';
+    constructor(articleNumber) {
+      this.articleNumber = articleNumber;
+    }
+
+    static printPublisher() {
+      console.log(Article.publisher);
+    }
+  }
+
+  const article1 = new Article(1);
+  const article2 = new Article(2);
+  console.log(article1.publisher);
+  console.log(Article.publisher);
+  Article.printPublisher();
+
+
+  // 5. 상속, 다형성
+  class Shape {
+    constructor(width, height, color) {
+      this.width = width;
+      this.height = height;
+      this.color = color;
+    }
+
+    draw() {
+      console.log(`drawing ${this.color} color of`);
+    }
+
+    getArea() {
+      return this.width * this.height;
+    }
+  }
+
+  // extends 키워드를 이용해서 클래스를 상속할 수 있다.
+  class Rectangle extends Shape {}
+  class Triangle extends Shape {
+    // 다형성(오버라이딩 => 필요한 함수를 재정의)
+    draw() {
+      super.draw(); // super를 이용해서 부모의 메서드도 함께 호출
+      console.log('▲');
+    }
+    getArea() {
+      return (this.width * this.height) / 2;
+    }
+    toString() {
+      return `Triangle's color: ${this.color}`;
+    }
+  }
+
+  const rectangle = new Rectangle(20, 20, 'blue');
+  rectangle.draw();
+  console.log(rectangle.getArea());
+  const triangle = new Triangle(20, 20, 'red');
+  triangle.draw();
+  console.log(triangle.getArea());
+
+
+  // 6. Class checking: instanceOf
+  // 왼쪽의 object가 오른쪽의 class를 이용해서 만들어진 것인지 확인 => true or false를 return
+  console.log(rectangle instanceof Rectangle);
+  console.log(triangle instanceof Rectangle);
+  console.log(triangle instanceof Triangle);
+  console.log(triangle instanceof Shape);
+  console.log(triangle instanceof Object); // 클래스로 만든 모든 인스턴스는 Object에 속한다.
+  console.log(triangle.toString());
+</script>

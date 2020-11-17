@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자동 페이지 이동 & 도메인 추가</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div id="app">
+    <h1>자동 페이지 이동 & 도메인 추가</h1>
+    <small>여기서는 '도메인 추가' 테스트할 때 'src/page03.html'을 입력해서 테스트하세요!</small>
+    <form id="timer-form">
+      <label for="period">시간 주기 설정[s] <span>(필수)</span></label>
+      <input type="number" min="1" max="5" id="period" required>
+      <br>
+      <label for="domain">도메인 추가 <span>(선택)</span></label>
+      <input type="text" id="domain">
+      <br>
+      <button type="submit" id="start">시작</button>
+    </form>
+  </div>
+  <script>
+    const timerForm = document.querySelector('#timer-form');
+    const period = document.querySelector('#period'); // 시간 주기
+    const domain = document.querySelector('#domain'); // 추가할 도메인
+    const startButton = document.querySelector('button#start'); // 시작 버튼
+    let domains = ['src/page01.html', 'src/page02.html'];
+
+    timerForm.addEventListener('submit', e => {
+      e.preventDefault();
+      if (domain.value) {
+        domains.push(domain.value);
+      }
+      sessionStorage.setItem('period', period.value);
+      sessionStorage.setItem('domains', JSON.stringify(domains));
+      window.open('/monitor.html', '_self');
+    });
+  </script>
+</body>
+</html>

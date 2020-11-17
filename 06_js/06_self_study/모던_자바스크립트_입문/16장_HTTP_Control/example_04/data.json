@@ -1,0 +1,17 @@
+[
+  {
+    "username": "wally-wally",
+    "age": "27",
+    "favorite": [
+      "kartrider",
+      "pengsoo"
+    ]
+  },
+  {
+    "username": "minho",
+    "age": "30",
+    "favorite": [
+      "mazerunner"
+    ]
+  }
+]

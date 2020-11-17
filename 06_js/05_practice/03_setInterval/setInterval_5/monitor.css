@@ -1,0 +1,17 @@
+iframe {
+  border: 1px solid silver;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.15);
+}
+
+button {
+  background-color: #ccc;
+  border: transparent;
+  padding: 8px 12px;
+  border-radius: 10px;
+  transition: all .2s;
+}
+
+button:hover {
+  cursor: pointer;
+  box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.1);
+}

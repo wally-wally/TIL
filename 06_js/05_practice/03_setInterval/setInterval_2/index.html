@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>자동 페이지 이동</title>
+</head>
+<body>
+  <div id="app">
+    <h1>자동 페이지 이동</h1>
+    <form id="timer-form">
+      <label for="period">시간 주기 설정[s]</label>
+      <input type="number" min="1" max="5" id="period" required>
+      <button type="submit">시작</button>
+    </form>
+    <hr>
+    <iframe src="src/page01.html" width="600" height="300" frameborder="0"></iframe>
+  </div>
+  <script>
+    const timerForm = document.querySelector('#timer-form');
+    const period = document.querySelector('#period');
+    const startButton = document.querySelector('button');
+    timerForm.addEventListener('submit', e => {
+      e.preventDefault();
+      startButton.parentNode.removeChild(startButton);
+      changePage(period.value);
+    })
+
+    function changePage(period) {
+      const urls = ['src/page02.html', 'src/page03.html'];
+      const iframeTag = document.querySelector('iframe');
+      let nowPageIdx = 1;
+
+      let timer = setInterval(() => {
+        nowPageIdx += 1;
+        iframeTag.src = urls[nowPageIdx - urls.length];
+      }, period * 1000);
+
+      setTimeout(() => {
+        clearInterval(timer);
+        timerForm.innerHTML += '<button type="submit">시작</button>';
+        iframeTag.src = 'src/page01.html';
+      }, period * 1000 * (urls.length + 1));
+    }
+  </script>
+</body>
+</html>

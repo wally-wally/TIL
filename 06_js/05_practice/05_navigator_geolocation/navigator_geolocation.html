@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    // navigator.geolocation.getCurrentPosition: 디바이스의 현재 위치를 가져온다.
+    // navigator.geolocation.getCurrentPosition(success, error, options)
+    // success: GeolocationPosition 객체를 유일한 매개변수로 받는 콜백 함수로 위치를 알아낸 후 호출할 콜백 함수
+    // error: GeolocationPositionError 객체를 유일한 매개변수로 받는 콜백 함수로 오류 발생시 호출할 함수(선택사항)
+    // options: 위치 정보의 최대 수명, 요청의 최대 대기시간, 고정밀 위치정보 여부 등 옵션을 담은 객체(선택사항)
+    // (GeolocationPosition 객체: 주어진 시간에 장치가 위치한 지점을 나타내며 Coordinates 객체로 지점을 표현한다.)
+    function getLocation() {
+      if (navigator.geolocation) { // GPS 기능을 지원하는 경우에 현재 위치의 위도, 경도 추출
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const appTag = document.querySelector('#app');
+          const geoResult = `위도: ${position.coords.latitude} / 경도: ${position.coords.longitude}`;
+          alert(geoResult);
+          appTag.innerHTML += `<p>${geoResult}</p>`
+        }, function(error) {
+          console.error(error);
+        }, {
+          enableHighAccuracy: false,
+          maximumAge: 0,
+          timeout: Infinity
+        });
+      } else { // GPS 기능을 지원하지 않는 경우 지원하지 않는다는 alert 창 띄우기
+        alert('GPS를 지원하지 않습니다');
+      }
+    }
+    getLocation();
+  </script>
+</body>
+</html>
