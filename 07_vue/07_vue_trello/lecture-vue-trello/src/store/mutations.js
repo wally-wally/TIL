@@ -20,6 +20,9 @@ const mutations = {
   },
   SET_BOARD(state, board) {
     state.board = board
+  },
+  SET_CARD(state, card) {
+    state.card = card
   }
 }
 
