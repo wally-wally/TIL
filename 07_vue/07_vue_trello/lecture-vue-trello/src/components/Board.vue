@@ -20,7 +20,8 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import List from './List.vue';
+import List from './List.vue'
+import dragger from '../utils/dragger'
 
 export default {
   components: {
@@ -29,7 +30,8 @@ export default {
   data() {
     return {
       bid: 0,
-      loading: false
+      loading: false,
+      cDragger: null
     }
   },
   computed: {
@@ -40,9 +42,13 @@ export default {
   created() {
     this.fetchData()
   },
+  updated() { // 자식 컴포넌트가 모두 마운트되는 시점
+    this.setCardDragabble()
+  },
   methods: {
     ...mapActions([
-      'FETCH_BOARD'
+      'FETCH_BOARD',
+      'UPDATE_CARD'
     ]),
     fetchData() {
       this.loading = true
@@ -50,6 +56,34 @@ export default {
         .then(() => {
           this.loading = false
         })
+    },
+    setCardDragabble() {
+      if (this.cDragger) this.cDragger.destroy()
+      this.cDragger = dragger.init(Array.from(this.$el.querySelectorAll('.card-list')))
+      
+      this.cDragger.on('drop', (el, wrapper, target, silblings) => {
+        const targetCard = {
+          id: el.dataset.cardId * 1, // cardId가 문자열 이므로 숫자형으로 바꾸기 위해 1을 곱해주자
+          pos: 65535
+        }
+
+        const { prev, next } = dragger.silblings({
+          el,
+          wrapper,
+          candidates: Array.from(wrapper.querySelectorAll('.card-item')),
+          type: 'card'
+        })
+
+        if (!prev && next) { // 맨 앞에 drop할 때
+          targetCard.pos = next.pos / 2
+        } else if (!next && prev) { // 맨 뒤에 drop할 때
+          targetCard.pos = prev.pos * 2
+        } else if (prev && next) { // 중간에 drop할 때
+          targetCard.pos = (prev.pos + next.pos) / 2
+        }
+
+        this.UPDATE_CARD(targetCard)
+      })
     }
   }
 }
