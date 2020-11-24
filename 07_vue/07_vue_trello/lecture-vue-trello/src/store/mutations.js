@@ -23,6 +23,10 @@ const mutations = {
   },
   SET_CARD(state, card) {
     state.card = card
+  },
+  SET_THEME(state, color) {
+    state.bodyColor = color || '#ffffff'
+    state.navbarColor = color ? 'rgba(0, 0, 0, .15)' : '#026aa7'
   }
 }
 
