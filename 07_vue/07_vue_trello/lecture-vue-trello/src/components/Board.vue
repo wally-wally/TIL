@@ -18,8 +18,11 @@
         </div>
         <div class="list-section-wrapper">
           <div class="list-section">
-            <div class="list-wrapper" v-for="list in board.lists" :key="list.pos">
+            <div class="list-wrapper" v-for="list in board.lists" :key="list.pos" :data-list-id="list.id">
               <List :data="list" />
+            </div>
+            <div class="list-wrapper">
+              <AddList />
             </div>
           </div>
         </div>
@@ -33,12 +36,14 @@
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
 import List from './List.vue'
+import AddList from './AddList.vue'
 import BoardSettings from './BoardSettings.vue'
 import dragger from '../utils/dragger'
 
 export default {
   components: {
     List,
+    AddList,
     BoardSettings
   },
   data() {
@@ -46,6 +51,7 @@ export default {
       bid: 0,
       loading: false,
       cDragger: null,
+      lDragger: null,
       isEditTitle: false,
       inputTitle: ''
     }
@@ -65,6 +71,7 @@ export default {
   },
   updated() { // 자식 컴포넌트가 모두 마운트되는 시점
     this.setCardDragabble()
+    this.setListDragabble()
   },
   methods: {
     ...mapMutations([
@@ -74,7 +81,8 @@ export default {
     ...mapActions([
       'FETCH_BOARD',
       'UPDATE_CARD',
-      'UPDATE_BOARD'
+      'UPDATE_BOARD',
+      'UPDATE_LIST'
     ]),
     fetchData() {
       this.loading = true
@@ -104,30 +112,56 @@ export default {
     },
     setCardDragabble() {
       if (this.cDragger) this.cDragger.destroy()
+
       this.cDragger = dragger.init(Array.from(this.$el.querySelectorAll('.card-list')))
-      
       this.cDragger.on('drop', (el, wrapper, target, silblings) => {
         const targetCard = {
           id: el.dataset.cardId * 1, // cardId가 문자열 이므로 숫자형으로 바꾸기 위해 1을 곱해주자
+          listId: wrapper.dataset.listId * 1,
           pos: 65535
         }
 
-        const { prev, next } = dragger.silblings({
+        const { prev, next } = dragger.sibling({
           el,
           wrapper,
           candidates: Array.from(wrapper.querySelectorAll('.card-item')),
           type: 'card'
         })
 
-        if (!prev && next) { // 맨 앞에 drop할 때
-          targetCard.pos = next.pos / 2
-        } else if (!next && prev) { // 맨 뒤에 drop할 때
-          targetCard.pos = prev.pos * 2
-        } else if (prev && next) { // 중간에 drop할 때
-          targetCard.pos = (prev.pos + next.pos) / 2
+        if (!prev && next) targetCard.pos = next.pos / 2 // 맨 앞에
+        else if (!next && prev) targetCard.pos = prev.pos * 2 // 중간에
+        else if (next && prev) targetCard.pos = (prev.pos + next.pos) / 2 // 맨 뒤에
+        this.UPDATE_CARD(targetCard)
+      })
+    },
+    setListDragabble() {
+      if (this.lDragger) this.lDragger.destroy()
+      
+      const options = {
+        invalid: (el, handle) => !/^list/.test(handle.className)
+      }
+      this.lDragger = dragger.init(
+        Array.from(this.$el.querySelectorAll('.list-section')),
+        options
+      )
+      
+      this.lDragger.on('drop', (el, wrapper, target, silblings) => {
+        const targetList = {
+          id: el.dataset.listId * 1, // cardId가 문자열 이므로 숫자형으로 바꾸기 위해 1을 곱해주자
+          pos: 65535
         }
 
-        this.UPDATE_CARD(targetCard)
+        const { prev, next } = dragger.sibling({
+          el,
+          wrapper,
+          candidates: Array.from(wrapper.querySelectorAll('.list')),
+          type: 'list'
+        })
+
+        if (!prev && next) targetList.pos = next.pos / 2
+        else if (!next && prev) targetList.pos = prev.pos * 2
+        else if (next && prev) targetList.pos = (prev.pos + next.pos) / 2
+        this.UPDATE_LIST(targetList)
       })
     }
   }
