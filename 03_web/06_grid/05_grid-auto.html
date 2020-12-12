@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CSS Grid</title>
+	<link rel="stylesheet" href="default.css">
+	<style>
+  /* grid-auto-columns, grid-auto-rows: 그리드의 형태를 자동으로 정의 */
+  /* grid-template- 시리즈의 '통제를 벗어난'! */
+	.grid-container {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+    /* grid-template-rows: repeat(3, minmax(100px, auto)); */
+		gap: 1rem;
+    
+    /* 위의 grid-template-rows에서 repeat() 함수의 첫 번째 인자로 3을 지정했기 때문에 4번째 줄 부터는 minmax() 함수가 적용되지 않는다. */
+    /* 그래서 이와 같이 몇 줄로 되어 있는지 정해지지 않은 경우에 grid-auto-rows를 사용하면 된다. */
+    /* 참고로 grid-auto-rows는 '자동'이기 때문에 repeat() 함수를 사용하지 않아도 된다. */
+    /* 그리고 무조건 minmax() 함수를 쓰지 않고 300px, 1fr 다 올 수 있다. */
+		grid-auto-rows: minmax(100px, auto);
+	}
+	</style>
+</head>
+<body>
+	<div class="grid-container">
+		<div class="grid-item">A</div>
+		<div class="grid-item">B</div>
+		<div class="grid-item">C</div>
+		<div class="grid-item">D</div>
+		<div class="grid-item">
+			Lorem, ipsum dolor sit amet consectetur adipisicing elit. Pariatur expedita nemo illum saepe id aliquam. Nisi voluptates quis reprehenderit inventore ad, dicta velit officia alias ullam quisquam, quae beatae, distinctio voluptatibus eveniet dolores facere blanditiis iusto illum! Molestiae qui, facere odio, veritatis quo, aspernatur cum eveniet maxime totam sunt harum.
+		</div>
+		<div class="grid-item">F</div>
+		<div class="grid-item">G</div>
+		<div class="grid-item">H</div>
+		<div class="grid-item">I</div>
+		<div class="grid-item">F</div>
+		<div class="grid-item">G</div>
+		<div class="grid-item">H</div>
+		<div class="grid-item">I</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CSS Grid</title>
+	<link rel="stylesheet" href="default.css">
+	<style>
+  /* auto-fill, auto-fit => column의 개수를 미리 정하지 않고 설정된 너비가 허용하는 한 최대한 셀을 채움 */
+  /* 최솟값을 px로 설정하면 media query를 사용하지 않고도 column 개수를 조정할 수 있다. */
+  /* auto-fill: 개수가 모자란 경우 남은 공간을 채우지 않는다. */
+  /* auto-fit: 개수가 모자란 경우 남은 공간을 채운다. */
+	.grid-container {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(200px, auto));
+		grid-template-columns: repeat(auto-fit, minmax(200px, auto));
+	}
+	</style>
+</head>
+<body>
+	<div class="grid-container">
+		<div class="grid-item">A</div>
+		<div class="grid-item">B</div>
+		<div class="grid-item">C</div>
+		<!-- <div class="grid-item">D</div>
+		<div class="grid-item">E</div>
+		<div class="grid-item">F</div>
+		<div class="grid-item">G</div>
+		<div class="grid-item">H</div>
+		<div class="grid-item">I</div> -->
+	</div>
+</body>
+</html>

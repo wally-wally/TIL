@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CSS Grid</title>
+	<link rel="stylesheet" href="default.css">
+	<style>
+		.grid-container {
+			display: grid;
+			/* grid-template-columns: 100px 300px 200px; */
+
+			/*fr: fraction(비, 비율, 분수, 부분) */
+			/* grid-template-columns: 1fr 2fr 1fr;
+
+			grid-template-columns: 1fr 500px 1fr; */
+
+			/* grid-template-columns: 1fr 1fr 1fr; */
+			grid-template-columns: repeat(3, 1fr);
+			/* grid-template-columns: repeat(3, 1fr 2fr 1fr); */
+
+			/* grid-template-rows: 200px 200px 200px; */
+			/* grid-template-rows: repeat(3, 200px); */
+			/* grid-template-rows: 200px 200px; */
+
+			/* grid-template-rows: repeat(3, 1fr); */
+
+			/* 만약 창 높이만큼 꽉차게 배치하고 싶다면 height 값을 지정해줘야 한다. */
+			/* container 높이를 확보해줘야 한다. */
+			height: 100vh;
+		}
+	</style>
+</head>
+<body>
+	<div class="grid-container">
+		<div class="grid-item">A</div>
+		<div class="grid-item">B</div>
+		<div class="grid-item">C</div>
+		<div class="grid-item">D</div>
+		<div class="grid-item">E</div>
+		<div class="grid-item">F</div>
+		<div class="grid-item">G</div>
+		<div class="grid-item">H</div>
+		<div class="grid-item">I</div>
+	</div>
+</body>
+</html>

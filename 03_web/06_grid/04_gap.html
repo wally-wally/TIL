@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CSS Grid</title>
+	<link rel="stylesheet" href="default.css">
+	<style>
+	/* gap: 셀 간격 지정 */
+	.grid-container {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, minmax(200px, auto));
+    
+    /* row-gap: 줄 사이의 간격 */
+    /* row-gap: 20px; */
+    
+    /* column-gap: 셀 사이의 간격 */
+    /* column-gap: 20px; */
+    
+		/* grid-gap: 20px; 예전 버전 */
+    
+    /* 참고로 IE에서는 gap 속성을 지원하지 않기 때문에 margin이나 공백용 셀을 추가로 만들어야 한다. */
+    gap: 20px;
+	}
+	</style>
+</head>
+<body>
+	<div class="grid-container">
+		<div class="grid-item">A</div>
+		<div class="grid-item">B</div>
+		<div class="grid-item">C</div>
+		<div class="grid-item">D</div>
+		<div class="grid-item">E</div>
+		<div class="grid-item">F</div>
+		<div class="grid-item">G</div>
+		<div class="grid-item">H</div>
+		<div class="grid-item">I</div>
+	</div>
+</body>
+</html>

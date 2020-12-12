@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CSS Grid</title>
+	<link rel="stylesheet" href="default.css">
+	<style>
+  /* minmax: 최솟값, 최댓값 지정 */
+  /* 첫 번째 인자: 최솟값, 두 번째 인자: 최댓값 */
+	.grid-container {
+		display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, minmax(100px, auto));
+	}
+	</style>
+</head>
+<body>
+	<div class="grid-container">
+		<div class="grid-item">
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam, qui.
+		</div>
+		<div class="grid-item">B</div>
+		<div class="grid-item">C</div>
+		<div class="grid-item">
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum commodi, amet eligendi consectetur dolores quae, omnis nulla debitis reprehenderit voluptatum sapiente impedit culpa dolor voluptatem pariatur minima non. Modi cum perferendis enim a iure eos voluptate, maxime voluptatibus dolor voluptatum.
+		</div>
+		<div class="grid-item">E</div>
+		<div class="grid-item">F</div>
+		<div class="grid-item">G</div>
+		<div class="grid-item">H</div>
+		<div class="grid-item">I</div>
+	</div>
+</body>
+</html>
