@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CSS Grid</title>
+	<link rel="stylesheet" href="default.css">
+	<style>
+	/* grid-column, grid-row */
+	.grid-container {
+    display: grid;
+
+    /* 첫 번째 열에만 50px이 적용된다.*/
+    grid-template-columns: 50px;
+
+    /* grid-template-columns에 정의되어 있지 않은 나머지들이 grid-auto-columns에 적용된다. */
+    grid-auto-columns: 1fr 2fr;
+    
+		gap: 1rem;
+	}
+	.grid-item:nth-child(1) { grid-column: 2; }
+	.grid-item:nth-child(2) { grid-column: 3; }
+	.grid-item:nth-child(3) { grid-column: 4; }
+	.grid-item:nth-child(4) { grid-column: 5; }
+	.grid-item:nth-child(5) { grid-column: 6; }
+	.grid-item:nth-child(6) { grid-column: 7; }
+	</style>
+</head>
+<body>
+	<div class="grid-container">
+		<div class="grid-item">A</div>
+		<div class="grid-item">B</div>
+		<div class="grid-item">C</div>
+		<div class="grid-item">D</div>
+		<div class="grid-item">E</div>
+		<div class="grid-item">F</div>
+		<div class="grid-item">G</div>
+		<div class="grid-item">H</div>
+		<div class="grid-item">I</div>
+		<div class="grid-item">F</div>
+		<div class="grid-item">G</div>
+		<div class="grid-item">H</div>
+		<div class="grid-item">I</div>
+	</div>
+</body>
+</html>
