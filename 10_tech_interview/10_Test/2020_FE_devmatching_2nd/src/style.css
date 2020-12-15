@@ -1,0 +1,158 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app h1 {
+  font-size: 4rem;
+}
+
+.app header {
+  display: flex;
+  width: 800px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.keyword {
+  width: 800px;
+  font-size: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.keywords {
+  z-index: 1;
+  font-size: 2rem;
+  background-color: white;
+  display: none;
+  position: absolute;
+  top: 215px;
+  width: 800px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.keywords li {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, .15);
+}
+
+/* [customizing] 마우스 hover 할 때와 키보드로 움직였을 때 하이라이트 되는 색깔을 분리해서 나타냄 */
+.keywords li:hover {
+  cursor: pointer;
+  background-color: skyblue;
+  color: white;
+}
+
+.keywords .active {
+  background-color: blue;
+  color: white;
+}
+
+.keywords ul {
+  padding: 0;
+  margin: 0;
+}
+
+.keywords li {
+  list-style: none;
+  padding-left: 10px;
+}
+
+.search-results {
+  margin-top: 15px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 400px);
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.error-alert,
+.no-keyword-alert {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.error-alert {
+  margin: 0 auto;
+  color: crimson;
+  padding: 0.5rem;
+  background-color: rgba(244, 218, 223, .8);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, .15);
+  border-radius: 5px;
+}
+
+.no-result-alert {
+  color: green;
+  background-color: rgba(203, 220, 203, .8);
+}
+
+.refresh-button {
+  display: block;
+  margin: 0.5rem auto 0;
+  padding: 0.25rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  transition: all .15s;
+}
+
+.refresh-button:focus {
+  outline: none;
+}
+
+.refresh-button:hover {
+  cursor: pointer;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, .15);
+}
+
+.loading-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, .4);
+}
+
+.loading-message {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 1em;
+  background: rgba(255, 255, 255, .6);
+  animation: bounce 1s linear alternate infinite;
+}
+
+.loading-recommend-keywords {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+@keyframes bounce {
+  100% {
+    font-size: 1.6rem;
+  }
+}

@@ -1,0 +1,121 @@
+img {
+  vertical-align: top;
+}
+
+h1 {
+  color: crimson;
+}
+
+h2 {
+  color: orangered;
+}
+
+form {
+  padding-bottom: 15px;
+}
+
+input {
+  width: 250px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+ul li {
+  display: flex;
+  flex-direction: column;
+  margin-left: calc( (100% - (20% * 4)) / 4);
+  width: 250px;
+  height: 350px;
+}
+
+ul img {
+  height: 70%;
+}
+
+.modal-wrapper,
+.spinner-wrapper {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-contents {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 70%;
+  width: 30%;
+  background-color: #eee;
+  color: #333;
+  box-shadow: 3px 3px 5px #aaa;
+}
+
+.modal-contents > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.modal-contents header .modal-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: brown;
+}
+
+.modal-contents img {
+  width: 100%;
+}
+
+.modal-contents p::before {
+  content: 'Cat ID: ';
+}
+
+.modal-contents p {
+  font-weight: 600;
+  padding: 0 10px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.spinner-contents {
+  color: #333;
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.spinner-image {
+  width: 200px;
+  height: 200px;
+  animation: spinner 2s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes spinner {
+  100% {
+    transform: rotate(360deg);
+  }
+}

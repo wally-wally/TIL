@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="root">
+    <h1>THE CAT API</h1>
+    <h2>가져올 고양이 데이터 개수 지정</h2>
+    <form id="limit-form">
+      <input type="number" id="limit-number" placeholder="1부터 10 사이의 숫자를 입력하세요.">
+      <button type="submit">GET DATA!</button>
+    </form>
+    <ul class="cats-list"></ul>
+    <h2>랜덤 고양이 데이터 가져오기</h2>
+    <button class="get-random-cats">GET DATA!</button>
+    <ul class="random-cats-list"></ul>
+    <div class="modal-wrapper"></div>
+    <div class="spinner-wrapper"></div>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>
