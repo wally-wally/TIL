@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CSS Grid</title>
+	<link rel="stylesheet" href="default.css">
+	<style>
+	/* grid-template-areas: 아쉽게도 IE에서는 대체 속성이 없다. */
+	.grid-container {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: 1fr 3fr 1fr;
+    /*
+      빈 칸은 점 개수 상관없이 사용해도 되고 none 이라는 키워드도 가능하다.
+      그리고 grid-area로 정의하지 않은 이름을 써도 되지만 직관적이지 않으므로 추천하지는 않는다.
+    */
+    grid-template-areas:
+      '. header header'
+      'sidebar-a main sidebar-b'
+      'footer footer footer';
+	}
+  .header {
+    grid-area: header; /* grid-area 속성 값 작성할 때는 따옴표를 쓰지 않는다. */
+  }
+  .sidebar-a {
+    grid-area: sidebar-a;
+  }
+  .sidebar-b {
+    grid-area: sidebar-b;
+  }
+  .main {
+    grid-area: main;
+  }
+  .footer {
+    grid-area: footer;
+  }
+	</style>
+</head>
+<body>
+	<div class="grid-container">
+		<div class="header grid-item">Header</div>
+		<div class="sidebar-a grid-item">Sidebar A</div>
+		<div class="sidebar-b grid-item">Sidebar B</div>
+		<div class="main grid-item">
+      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sit, ex quis sint enim officiis ea quos quo odit? Neque, ad libero. Soluta illum beatae magni quisquam delectus aperiam neque aspernatur dolorem fugiat sit mollitia sint numquam eligendi laboriosam praesentium alias itaque ut veritatis rem, hic debitis, deleniti, consequatur nam consequuntur?
+    </div>
+		<div class="footer grid-item">Footer</div>
+	</div>
+</body>
+</html>
