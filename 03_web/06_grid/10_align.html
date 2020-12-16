@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CSS Grid</title>
+	<link rel="stylesheet" href="default.css">
+	<style>
+		.grid-container {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      height: 600px;
+
+      /* (1) align-items: 세로 방향 정렬 */
+      /* align-items: stretch; */
+      /* align-items: start; */
+      /* align-items: center; */
+      /* align-items: end; */
+
+      /* (2) justify-items: 가로 방향 정렬 */
+      /* justify-items: stretch; */
+      /* justify-items: start; */
+      /* justify-items: center; */
+      /* justify-items: end; */
+
+      /* (3) place-items: align-items와 justify-items의 축약형 */
+      /* place-items: center end; */
+
+      /* (4) align-content: 아이템 그룹 세로 정렬 */
+      /* align-content: stretch; */
+      /* align-content: start; */
+      /* align-content: center; */
+      /* align-content: end; */
+      /* align-content: space-between; */
+      /* align-content: space-around; */
+      /* align-content: space-evenly; */
+      
+      /* (5) justify-content: 아이템 그룹 가로 정렬 */
+      /* (justify-content 테스트할 때는 grid-template-columns를 주석 처리) */
+      /* justify-content: stretch; */
+      /* justify-content: start; */
+      /* justify-content: center; */
+      /* justify-content: end; */
+      /* justify-content: space-between; */
+      /* justify-content: space-around; */
+      /* justify-content: space-evenly; */
+
+      /* (6) place-content: align-content와 justify-content의 축약형 */
+      /* place-content: space-between end; */  
+		}
+
+    /* (7) align-self: 개별 아이템 세로 정렬 */
+    .item-b {
+      align-self: center;
+    }
+
+    /* (8) justify-self: 개별 아이템 가로 정렬 */
+    .item-f {
+      justify-self: end;
+    }
+
+    /* (9) place-self: align-self와 justify-self의 축약형 */
+    .item-g {
+      place-self: center end;
+    }
+	</style>
+</head>
+<body>
+	<div class="grid-container">
+		<div class="grid-item">A</div>
+		<div class="grid-item item-b">B</div>
+		<div class="grid-item">C</div>
+		<div class="grid-item">D</div>
+		<div class="grid-item">E</div>
+		<div class="grid-item item-f">F</div>
+		<div class="grid-item item-g">G</div>
+		<div class="grid-item">H</div>
+		<div class="grid-item">I</div>
+	</div>
+</body>
+</html>

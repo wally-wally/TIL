@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CSS Grid</title>
+	<link rel="stylesheet" href="default.css">
+	<style>
+		.grid-container {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 50px;
+		}
+
+    .grid-item:nth-child(1) {
+      /* order: 각 아이템들의 시각적 나열 순서를 결정 */
+      /* 접근성 측면에서는 시각 장애인분들이 스크린 리더로 화면을 읽을 때, order를 이용해 순서를 바꾼 것은 의미가 없다. */
+      order: 3;
+    }
+
+    .grid-item:nth-child(2) {
+      order: 1;
+    }
+
+    .grid-item:nth-child(3) {
+      order: 2;
+      /* z-index를 설정 안하면 0이므로, 1만 설정해도 나머지 아이템을 보다 위로 올라온다. */
+      z-index: 1;
+      transform: scale(2);
+      opacity: 0.75;
+    }
+	</style>
+</head>
+<body>
+	<div class="grid-container">
+		<div class="grid-item">A</div>
+		<div class="grid-item">B</div>
+		<div class="grid-item">C</div>
+	</div>
+</body>
+</html>
