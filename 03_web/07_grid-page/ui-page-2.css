@@ -1,0 +1,104 @@
+.header	{
+	display: flex;
+	align-items: center;
+	/* justify-content: space-between; */
+	height: 80px;
+	padding: 0 1rem;
+}
+/* .header에 justify-content: space-between; 대신 사용 가능 */
+.search-form {
+	width: 300px;
+	max-width: 60%;
+	margin-left: auto;
+	margin-right: 3rem;
+}
+.primary {
+	padding: 1rem;
+}
+.secondary {
+	padding: 1rem;
+}
+.secondary-a {
+	background: white;
+}
+.secondary-b {
+	color: white;
+	background: #666;
+}
+.footer {
+	padding: 1rem;
+	border-top: 1px solid lightgray;
+	text-align: center;
+}
+.modal {
+	display: none;
+	top: 80px;
+}
+#modal-switch:checked ~ .modal {
+	display: flex;
+}
+label[for="modal-switch"] {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 1.3rem;
+	right: 1rem;
+	/* z-index: 100; */
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+	/* background: red; */
+}
+label[for="modal-switch"]:before {
+	content: "⚑";
+	font-size: 2rem;
+	cursor: pointer;
+}
+#modal-switch:checked ~ label[for="modal-switch"]:before {
+	color: dodgerblue;
+}
+#modal-switch,
+label[for="modal-switch"] span {
+	overflow: hidden;
+	position: absolute;
+	top: 0;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+}
+
+@media (min-width: 1024px) {
+	.page {
+		display: grid;
+		grid-template-columns: 20% 1fr 20%;
+		grid-template-areas:
+			"  header    header    header   "
+			"   menu      menu      menu    "
+			"secondary-a primary secondary-b"
+			"  footer    footer    footer   ";
+	}
+	.header {
+		grid-area: header;
+	}
+	.menu {
+		grid-area: menu;
+	}
+	.primary {
+		grid-area: primary;
+	}
+	.secondary-a {
+		grid-area: secondary-a;
+	}
+	.secondary-b {
+		grid-area: secondary-b;
+	}
+	.footer {
+		grid-area: footer;
+	}
+}
+@media (min-width: 1400px) {
+	.page {
+		grid-template-columns: 300px 1fr 300px;
+	}
+}
