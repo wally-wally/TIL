@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    svg {
+      width: 500px;
+      height: 500px;
+      background: #ddd;
+    }
+  </style>
+</head>
+<body>
+  <!-- (1) svg 크기 설정 -->
+  <!-- svg 태그의 default width: 300, height: 150 -->
+  
+  <!--
+    svg 태그의 너비, 높이 설정은 inline 방식, CSS에 넣는 방식 두 가지 모두 가능하다.
+  -->
+  <!-- <svg width="500" height="500"> -->
+  <!-- <svg>
+    <rect x="0" y="0" width="100" height="100"></rect>
+  </svg> -->
+
+
+  <!-- (2) viewBox -->
+  <!--
+    viewBox="a b c d": (a, b) 위치에 가로 c, 세로 d 만큼의 viewBox를 세팅한다는 의미
+  -->
+  <!--
+    style 태그에 svg 태그의 너비와 높이가 500px로 세팅되어 있지만
+    viewBox에 1000px로 세팅되어 있기 때문에
+    실제 500px을 1000px로 간주해서 계산되서 크기가 두 배 작아지게 된다.
+  -->
+  <!--
+    그래서 viewBox에 세팅된 값에 따라서 rect 태그에 작성된 width, height의 값이 상대적으로 바뀐다.
+  -->
+  <!--
+    만약 style 태그에 svg 태그의 width, height 값을 지정하지 않으면 svg 영역이 반응형으로 바뀌게 된다.
+  -->
+  <svg viewBox="0 0 1000 1000">
+    <rect x="0" y="0" width="100" height="100"></rect>
+  </svg>
+</body>
+</html>
