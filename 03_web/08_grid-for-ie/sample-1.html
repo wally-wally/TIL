@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>CSS Grid</title>
+	<link rel="stylesheet" href="default.css">
+	<style>
+	/* grid-template-areas */
+	.grid-container {
+		display: -ms-grid;
+		display: grid;
+		-ms-grid-columns: 1fr 3fr 1fr;
+		grid-template-columns: 1fr 3fr 1fr;
+		/* gap: 1rem; */
+	}
+	.header {
+		-ms-grid-column: 2;
+		-ms-grid-column-span: 2;
+		grid-column: 2 / span 2;
+		-ms-grid-row: 1;
+		grid-row: 1;
+		margin: 0 0 1rem 1rem;
+	}
+	.sidebar-a {
+		-ms-grid-column: 1;
+		grid-column: 1;
+		-ms-grid-row: 2;
+		grid-row: 2;
+	}
+	.sidebar-b {
+		-ms-grid-column: 3;
+		grid-column: 3;
+		-ms-grid-row: 2;
+		grid-row: 2;
+	}
+	.main {
+		-ms-grid-column: 2;
+		grid-column: 2;
+		-ms-grid-row: 2;
+		grid-row: 2;
+		margin: 0 1rem;
+	}
+	.footer {
+		-ms-grid-column: 1;
+		-ms-grid-column-span: 3;
+		grid-column: 1 / span 3;
+		-ms-grid-row: 3;
+		grid-row: 3;
+		margin-top: 1rem;
+	}
+	</style>
+</head>
+<body>
+	<div class="grid-container">
+		<div class="header grid-item">Header</div>
+		<div class="sidebar-a grid-item">Sidebar A</div>
+		<div class="sidebar-b grid-item">Sidebar B</div>
+		<div class="main grid-item">
+			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatem voluptatibus quam rerum facilis sit fuga asperiores totam dolor qui, animi blanditiis recusandae aperiam nemo inventore unde voluptatum officia eveniet at molestiae, exercitationem repudiandae nam eum. In dignissimos ipsam alias deserunt deleniti asperiores inventore nisi consequuntur, minus fuga placeat incidunt necessitatibus voluptatum nostrum tempore, dolorem facilis temporibus recusandae eum eligendi ullam. Itaque quos fugit porro sunt velit? Cumque quod accusantium excepturi earum temporibus vitae incidunt laboriosam magnam ipsa fugiat! Ad rem consectetur, nisi et possimus hic ullam fugit quibusdam molestiae ab quas itaque? Impedit aliquid dolorem ipsa ex quod animi inventore ab, asperiores distinctio nulla ducimus exercitationem accusantium debitis, incidunt cupiditate commodi! Quis modi architecto itaque sequi mollitia cupiditate accusamus fugit explicabo dolorum repellendus consequuntur labore culpa, magnam sunt at obcaecati quisquam exercitationem libero. Architecto officia expedita cupiditate possimus eveniet nemo quibusdam dolor? Commodi tempora accusamus doloremque nisi quasi suscipit non, deleniti veniam illum consectetur libero animi voluptate modi officiis. Nobis cum in soluta provident hic, ullam consequuntur officia ab ipsa quae nihil vitae sapiente est. Aliquam aut odit, facere porro voluptatibus voluptatum dolorum eveniet eius molestias similique, voluptate consequatur provident culpa perspiciatis fuga iusto alias. Dicta soluta ducimus debitis nulla.
+		</div>
+		<div class="footer grid-item">Footer</div>
+	</div>
+</body>
+</html>
