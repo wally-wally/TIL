@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG</title>
+  <!-- (1) 일반적인 CSS 적용 방법 -->
+  <style>
+    .face {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 200px;
+      margin: auto;
+    }
+
+    .face__hair {
+      /*
+        svg에 색깔을 지정할 때는 background-color 대신에 fill 속성을 이용한다.
+      */
+      fill: brown;
+    }
+
+    /*
+      .face__hair:nth-child(1)은 svg 태그 입장에서 첫 번째 class명이 face__hair 이어야 하는데 아니기 때문에 적용이 안 된다.
+      그래서 첫 번째 .face__hair을 지정하려면 nth-of-type(1)로 작성하면 된다.
+    */
+    .face__hair:nth-of-type(1) {
+      fill: blue;
+    }
+
+    @keyframes eye-ani {
+      0% {
+        transform: scale(0.9);
+      }
+
+      100% {
+        transform: scale(1.1);
+      }
+    }
+
+    .face__eye {
+      /* 아래와 같이 작성하면 svg 태그 자체의 중심좌표로 기준점이 잡히게 된다. */
+      /* transform-origin: center center; */
+      animation: eye-ani 1s infinite alternate;
+    }
+
+    .face__eye:nth-of-type(2) {
+      /*
+        만약 각 눈동자의 중심점을 기준으로 애니메이션을 주고 싶을 때에는
+        transform-origin의 x, y 좌표값을 각 circle 태그에 있는 cx, cy 값을 사용하면 된다.
+      */
+      transform-origin: 175px 380.5px;
+    }
+
+    .face__eye:nth-of-type(3) {
+      transform-origin: 397px 380.5px;
+    }
+  </style>
+</head>
+<body>
+  <!-- svg에 CSS를 적용하고 싶을 때 class명을 각 태그에 부여해서 작성하면 된다. -->
+  <svg class="face" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 571 625.5">
+    <!-- (2) svg 태그 내에서 CSS 적용 방법 -->
+    <!--
+      svg가 xml 기반이기 때문에 xml parser에서 아래와 같은 문자를 처리할 때 오류가 생기는 경우가 있다.
+      그래서 이러한 오류를 해결하기 위해 <style> 태그에 <![CDATA[]]>를 적용하는 것이 안전하다.(안전장치)
+      script를 svg 태그 내부에 작성할 때도 마찬가지로 <![CDATA[]]>와 같은 안전장치를 적용할 수 있다.
+    -->
+    <style>
+      <![CDATA[
+      .face {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 200px;
+        margin: auto;
+      }
+  
+      .face__hair {
+        fill: brown;
+      }
+  
+      .face__hair:nth-of-type(1) {
+        fill: blue;
+      }
+  
+      @keyframes eye-ani {
+        0% {
+          transform: scale(0.9);
+        }
+  
+        100% {
+          transform: scale(1.1);
+        }
+      }
+  
+      .face__eye {
+        animation: eye-ani 1s infinite alternate;
+      }
+  
+      .face__eye:nth-of-type(2) {
+        transform-origin: 175px 380.5px;
+      }
+  
+      .face__eye:nth-of-type(3) {
+        transform-origin: 397px 380.5px;
+      }
+      ]]>
+    </style>
+    <circle cx="286.5" cy="354.5" r="251" stroke-width="40" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    <circle class="face__eye" cx="175" cy="380.5" r="42.5"/>
+    <circle class="face__eye" cx="397" cy="380.5" r="42.5"/>
+    <path d="M422 476.16a181.3 181.3 0 0 1-135.48 60.59H286a181.3 181.3 0 0 1-135.48-60.59" stroke-width="30" fill="none" stroke="#000" stroke-miterlimit="10"/>
+    <ellipse class="face__hair" cx="168.5" cy="210.5" rx="168.5" ry="121.5"/>
+    <ellipse class="face__hair" cx="428.5" cy="198.5" rx="142.5" ry="123.5"/>
+    <ellipse class="face__hair" cx="245.5" cy="103" rx="151.5" ry="103"/>
+  </svg>
+</body>
+</html>
