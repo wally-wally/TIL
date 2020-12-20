@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG</title>
+  <style>
+    .shapes {
+      width: 600px;
+      height: 400px;
+      background: #ddd;
+    }
+    path {
+      stroke: tomato;
+      stroke-width: 40;
+      fill: transparent;
+
+      /* (1) stroke-linecap: 선의 끝점을 어떻게 처리할 지 결정 */
+      /* stroke-linecap의 default는 butt */
+      stroke-linecap: round;
+      /* stroke-linecap: square; */
+
+      /* (2) stroke-linejoin: 선과 선이 만나는 지점을 어떻게 처리할 지 결정(일러스트레이터에서는 corner 옵션) */
+      /* stroke-linejoin의 default는 miter */
+      stroke-linejoin: round;
+      stroke-linejoin: bevel;
+    }
+  </style>
+</head>
+<body>
+  <svg class="shapes" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 50 200 L 300 100 L 400 200"></path>
+  </svg>
+</body>
+</html>

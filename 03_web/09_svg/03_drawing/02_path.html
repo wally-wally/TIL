@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG</title>
+  <style>
+    .shapes {
+      width: 600px;
+      height: 400px;
+      background: #ddd;
+    }
+
+    path {
+      stroke: tomato;
+      stroke-width: 5px;
+      fill: transparent;
+    }
+  </style>
+</head>
+<body>
+  <!-- 참고로 xmlns 속성은 써도 그만 안 써도 그만이지만 기본적으로는 써주는 것이 정석이긴하다. -->
+  <svg class="shapes" xmlns="http://www.w3.org/2000/svg">
+    <!--
+      path는 직선도 그릴 수 있고 곡선도 그릴 수 있다.
+      그래서 일러스트레이터에서 펜툴로 그린 것들은 거의 path 태그 형태로 나온다.
+    -->
+
+    <!-- (1) 직선 -->
+    <!--
+      M x y: 점 찍을 위치(x, y)로 포인터 이동
+      L x y: 선을 어디 지점(x, y)까지 그을 지 결정
+      H x: 가로 직선(x 좌표만 필요)
+      V y: 세로 직선(y 좌표만 필요)
+      Z: 도형 자동으로 마무리 짓기(polygon과 같은 효과)
+    -->
+    <path d="M 300 200 L 500 100 H 50 V 300 Z"></path>
+
+    <!-- (2) 곡선 -->
+    <!--
+      C x1 y1, x2 y2, x3 y3: (x1, y1) 곡선 시작점 / (x2, y2) 곡선 조정점 (x3, y3) 곡선 끝점
+    -->
+    <path d="M 100 150, C 100 150, 300 50, 500 250"></path>
+  </svg>
+</body>
+</html>
