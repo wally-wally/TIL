@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG</title>
+  <style>
+    body {
+      margin: 0;
+    }
+    svg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: #ddd;
+    }
+    .pattern-circle {
+      fill: dodgerblue;
+    }
+    .bg-rect {
+      fill: url('#bg-pattern');
+    }
+  </style>
+</head>
+<body>
+  <!--
+    viewBox를 이용하면 브라우저 창의 사이즈가 달라져도 도형이 깨지지 않게 볼 수 있다.
+    (원 하나의 지름이 50이고 10개를 배치하기 때문에 50 X 10 = 500)
+  -->
+  <svg viewBox="0 0 500 500">
+    <defs>
+      <!-- width, height: 1을 100%로 보았을 때 0.1은 10% 만큼 영역에 패턴 하나를 넣겠다는 의미 -->
+      <pattern id="bg-pattern" x="0" y="0" width="0.1" height="0.1">
+        <circle cx="25" cy="25" r="25" class="pattern-circle"></circle>
+      </pattern>
+    </defs>
+
+    <!-- fill은 CSS로 해도 되고 svg 태그 안에 inline 형식으로 작성해도 된다. -->
+    <rect class="bg-rect" x="0" y="0" width="100%" height="100%"></rect>
+  </svg>
+</body>
+</html>

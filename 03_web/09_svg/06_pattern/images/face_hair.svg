@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 571 625.5">
+  <defs>
+    <linearGradient id="hair-color">
+      <stop offset="0%" stop-color="yellow"/>
+      <stop offset="50%" stop-color="hotpink"/>
+      <stop offset="100%" stop-color="deepskyblue"/>
+    </linearGradient>
+    <!--radialGradient-->
+    <style>
+      <![CDATA[
+      .hair {
+        fill: url('#hair-color');
+      }
+      ]]>
+    </style>
+  </defs>
+  <circle cx="286.5" cy="354.5" r="251" stroke-width="40" fill="none" stroke="#000" stroke-miterlimit="10"/>
+  <circle cx="175" cy="380.5" r="42.5"/>
+  <circle cx="397" cy="380.5" r="42.5"/>
+  <path d="M422 476.16a181.3 181.3 0 0 1-135.48 60.59H286a181.3 181.3 0 0 1-135.48-60.59" stroke-width="30" fill="none" stroke="#000" stroke-miterlimit="10"/>
+  <path class="hair" d="M428.5 75a164.06 164.06 0 0 0-35.68 3.9C376.86 33.64 317 0 245.5 0 162.57 0 95.22 45.3 94 101.49c-55.71 19.82-94 61.19-94 109C0 277.6 75.44 332 168.5 332c62 0 116.14-24.14 145.41-60.09C339.87 302.3 381.53 322 428.5 322c78.7 0 142.5-55.29 142.5-123.5S507.2 75 428.5 75z"/>
+</svg>
