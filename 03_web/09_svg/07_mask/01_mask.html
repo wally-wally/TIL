@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG</title>
+  <style>
+    .the-svg {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: #ddd;
+    }
+
+    .the-svg text {
+      font-size: 3rem;
+    }
+  </style>
+</head>
+<body>
+  <svg class="the-svg">
+    <defs>
+      <mask id="mask-circle">
+        <!-- fill은 반드시 white(#ffffff)로 꼭 해야한다. -->
+        <!-- 만약 gray로 하면 약간 반투명하게 보인다.(즉, fill의 색상이 진해질수록 더 흐려진다.) -->
+        <circle cx="250" cy="70" r="40" fill="white"></circle>
+      </mask>
+    </defs>
+    <g mask="url(#mask-circle)">
+      <text x="10" y="100">Hello, Wally! Hello, Wally! Hello, Wally! Hello, Wally! Hello, Wally!</text>
+    </g>
+  </svg>
+</body>
+</html>
