@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG</title>
+  <style>
+    @keyframes dash-ani {
+      from {
+        stroke-dashoffset: 700;
+      }
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+    circle {
+      stroke: black;
+      stroke-width: 5;
+      stroke-dasharray: 700;
+      /* stroke-dashoffset: stroke-dasharray로 그린 선의 위치를 잡아준다. */
+      /* stroke-dashoffset: 350; */
+      /* stroke-dashoffset: 0; */
+      fill: transparent;
+      animation: dash-ani 2s;
+    }
+
+    path {
+      stroke: black;
+      stroke-width: 5;
+      stroke-dasharray: 727;
+      /* stroke-dashoffset: 0; */
+      fill: transparent;
+      animation: dash-ani 2s linear;
+    }
+  </style>
+</head>
+<body>
+  <svg viewBox="0 0 800 500">
+    <circle cx="400" cy="250" r="100"></circle>
+    <path d="M 50 400 C 50 400, 300 500, 400 400 C 400 400, 600 170, 700 300"></path>
+  </svg>
+
+  <script>
+    // Javascript로 stroke-dasharray 얻는 방법
+    console.log(document.querySelector('path').getTotalLength());
+  </script>
+</body>
+</html>
