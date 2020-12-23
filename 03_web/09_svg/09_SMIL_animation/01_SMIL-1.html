@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG</title>
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <!--
+    SMIL(Synchronized Multimedia Integration Language)이란?
+    - 참고자료: https://unipro.tistory.com/107
+  -->
+  <svg class="svg" viewBox="0 0 1000 1000">
+    <defs>
+      <script>
+        window.addEventListener('DOMContentLoaded', () => {
+          const rectElem = document.querySelector('.rect');
+          const aniElem = document.querySelector('.ani');
+
+          // 클릭했을 때 애니메이션 실행되도록 설정
+          rectElem.addEventListener('click', () => {
+            aniElem.beginElement();
+          });
+        });
+      </script>
+    </defs>
+    <rect class="rect" x="10" y="10" width="20%" height="20%">
+      <!--
+        attributeName: 바꿀 속성명
+        dur: 애니메이션 시간
+        to: attributeName에 선언한 속성의 값이 어떻게 변할지 작성
+        repeatCount: 애니메이션 반복 횟수(무한 반복하고 싶을 때는 'indefinite')
+        fill: 애니메이션 동작 속성
+        begin: 언제 애니메이션을 시작할지 결정(ex. 1s)('indefinite'로 하면 애니메이션 동작을 안 함)
+      -->
+      <animate class="ani" attributeName="x" dur="1s" to="700" repeatCount="1" fill="freeze" begin="indefinite"></animate>
+    </rect>
+  </svg>
+</body>
+</html>

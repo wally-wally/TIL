@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG</title>
+  <style>
+    body {
+      margin: 0;
+      background: #666;
+    }
+  </style>
+</head>
+<body>
+  <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 684 684">
+    <defs>
+      <style>
+        .cls-1 {
+          fill: #fff000;
+        }
+      </style>
+    </defs>
+    <!--
+      일러스트레이터에서 morphing 효과를 만들 때 주의할 점은
+      처음에 만들었던 path의 개수(점의 개수)를 유지한 채로
+      즉, 새로 만드는 것이 아니라 기존 형태에서 변화를 시켜서 만들어야 한다.
+    -->
+    <title>Untitled-19</title>
+    <path class="cls-1" d="M282,192s-96-20-131,56c0,0-39,105,38,157,0,0,22,51,17,88,0,0-20,117,91,142,0,0,273,77,243-181,0,0-10-93,49-137,0,0,134-101-34-193,0,0-112-62-211,43C344,167,320,205,282,192Z" transform="translate(-42 -42)">
+      <!-- d 속성의 값을 바꾸기 때문에 attributeName에 'd'를 써준다. -->
+      <animate attributeName="d" dur="3s" to="M282,142s-96,30-131,106c0,0-109,105-32,157,0,0,22,51,17,88,0,0,50,117,161,142,0,0,373,77,343-181,0,0-10-93,49-137,0,0,34-101-134-193,0,0-112-112-211-7C344,117,320,155,282,142Z"></animate>
+    </path>
+  </svg>
+</body>
+</html>

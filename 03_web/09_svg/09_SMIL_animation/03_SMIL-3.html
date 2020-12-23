@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG</title>
+  <style>
+    body {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- CSS 애니메이션의 alternate를 SMIL로 구현 -->
+  <svg class="svg" viewBox="0 0 1000 1000">
+    <rect class="rect" x="10" y="10" width="20%" height="20%">
+      <!--
+        values="시작위치; 중간위치; 끝나는위치"
+        keyTimes: values에 작성한 위치 포인트가 동작한 지점(타임라인과 같은 기능) /values의 개수에 따라 keyTimes의 개수도 변할 수 있다.
+      -->
+      <animate class="ani" attributeName="x" dur="2s" values="0; 700; 0"  keyTimes="0; 0.5; 1" repeatCount="indefinite"></animate>
+    </rect>
+  </svg>
+</body>
+</html>
