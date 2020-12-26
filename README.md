@@ -2,20 +2,19 @@
 
 ---
 
-:exclamation: <b>wally-wally의 TIL 컨텐츠를 사용하실 때 출처나 URL 주소를 함께 남겨서 작성해주시면 감사하겠습니다:pray:</b>
+:exclamation: <b>wally-wally의 TIL 컨텐츠를 사용하실 때 출처나 URL 주소를 함께 작성해주시면 감사하겠습니다:pray:</b>
 
 :grey_exclamation: <b>:star:Star와 :handshake:Follow 해주신 모든 분들께 감사드리며 더 좋은 컨텐츠로 보답하겠습니다:pray:</b>
 
 ---
 
-#### :heavy_check_mark: wally-wally Homepage가 새롭게 리뉴얼 되었습니다.
-
-- My Project(Portfolio) 리스트 추가, 알고리즘 코드 내용 데이터 이관 완료
-
-<a href="https://wally-wally.kr" target="_blank"><img src="https://user-images.githubusercontent.com/52685250/94023286-06b9b180-fdf1-11ea-854d-915258bfbbc4.png"></a>
+<img src="https://user-images.githubusercontent.com/52685250/103148625-16a4b100-47a5-11eb-8cf5-f19c882ffcd2.jpg" alt="wally-wally TIL image">
 
 <br>
 
-:warning: <b>TIL 관련 내용은 데이터 이관 작업 준비 중이므로 TIL 내용을 보고 싶으시면 이전 wally-wally 홈페이지를 이용해주세요. (아래 이미지 클릭)</b>
+#### :heavy_check_mark: wally-wally Homepage가 새롭게 리뉴얼 되었습니다.
 
-<a href="https://wally-wally.tistory.com/" target="_blank"><img src="https://user-images.githubusercontent.com/52685250/81552167-f4992280-93bd-11ea-8278-d2a1bbb6daa6.JPG"></a>
+- My Project(Portfolio) 리스트 추가, 알고리즘 코드 내용 데이터 이관 완료
+- 추후 github TIL 컨텐츠를 트리 형태로 구성해서 github link와 연결할 예정
+
+<a href="https://wally-wally.kr" target="_blank"><img src="https://user-images.githubusercontent.com/52685250/94023286-06b9b180-fdf1-11ea-854d-915258bfbbc4.png"></a>
