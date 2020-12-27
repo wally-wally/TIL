@@ -1,0 +1,31 @@
+<script src="./lib/fx.js"></script>
+
+<script>
+  const products = [
+    { name: 'Product1', price: 12000 },
+    { name: 'Product2', price: 20000 },
+    { name: 'Product3', price: 16000 },
+    { name: 'Product4', price: 31000 },
+    { name: 'Product5', price: 24000 }
+  ]
+
+  // [예제] 20000원 미만의 상품들의 가격 합 출력
+  const add = (a, b) => a + b;
+
+  console.log(
+    reduce(
+      add,
+      map(p => p.price,
+      filter(p => p.price < 20000, products))));
+      
+  console.log(
+    reduce(
+      add,
+      filter(n => n < 20000,
+      map(p => p.price, products))));
+
+  console.log(
+    reduce(
+      add,
+      [10, 20, 30, 40]));
+</script>

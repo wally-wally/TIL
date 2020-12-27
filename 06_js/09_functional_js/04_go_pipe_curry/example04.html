@@ -1,0 +1,41 @@
+<script src="./lib/fx.js"></script>
+
+<script>
+  const products = [
+    { name: 'Product1', price: 12000 },
+    { name: 'Product2', price: 20000 },
+    { name: 'Product3', price: 16000 },
+    { name: 'Product4', price: 31000 },
+    { name: 'Product5', price: 24000 }
+  ]
+
+  // [예제] 20000원 미만의 상품들의 가격 합 출력
+  const add = (a, b) => a + b;
+
+  // 위 코드를 go 함수, curry 함수를 이용해서 읽기 좋은 코드로 만들기
+  const go = (...args) => reduce((a, f) => f(a), args);
+
+  // before
+  go(
+    products,
+    products => filter(p => p.price < 20000, products),
+    products => map(p => p.price, products),
+    prices => reduce(add, prices),
+    log);
+
+  // after
+  go(
+    products,
+    products => filter(p => p.price < 20000)(products),
+    products => map(p => p.price)(products),
+    prices => reduce(add)(prices),
+    log);
+
+  // ultra best
+  go(
+    products,
+    filter(p => p.price < 20000),
+    map(p => p.price),
+    reduce(add),
+    log);
+</script>

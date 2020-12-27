@@ -1,0 +1,104 @@
+<script src="./lib/fx1.js"></script>
+
+<script>
+  L.map = curry(function* (f, iter) {
+    iter = iter[Symbol.iterator]();
+    let cur;
+    while (!(cur = iter.next()).done) {
+      const a = cur.value;
+      yield f(a);
+    }
+  });
+  // const queryStr = obj => go(
+  //   obj,
+  //   Object.entries,
+  //   map(([k, v]) => `${k}=${v}`),
+  //   reduce((a, b) => `${a}&${b}`)
+  // );
+
+  // const queryStr = pipe(
+  //   Object.entries,
+  //   map(([k, v]) => `${k}=${v}`),
+  //   reduce((a, b) => `${a}&${b}`)
+  // );
+
+  // Array.prototype.join 보다 다형성이 높은 join 함수 만들기
+  const join = curry((sep = ',', iter) => 
+    reduce((a, b) => `${a}${sep}${b}`, iter));
+
+  const queryStr = pipe(
+    Object.entries,
+    map(([k, v]) => `${k}=${v}`),
+    join('&'));
+
+  log(queryStr({ limit: 10, offset: 10, type: 'notice' }));
+
+  function *a() {
+    yield 10;
+    yield 20;
+    yield 30;
+    yield 40;
+  }
+
+  // log(a().join(',')); // 기존 방식으로는 불가
+  log(join(' - ', a())); // 이 방식으로 가능(다형성이 높아짐)
+
+  log('--------------------');
+
+  // 연산을 마쳐서 깨뜨린 결과를 주는 것이 아니라
+  // ([k, v]) => `${k}=${v}`함수를 적용하기로 예정되어 있는 미뤄진 결과를 join에게 던져도 동일한 결과를 출력한다.
+
+  // 또한 Object.entries는 즉시 만든 결과를 주지만 이것 역시도 이터레이터로 결과를 보내도록 할 수 있다.(지연성 적용 가능)
+  L.entries = function *(obj) {
+    for (const k in obj) {
+      yield [k, obj[k]];
+    }
+  }
+
+  const queryStr2 = pipe(
+    L.entries,
+    L.map(([k, v]) => `${k}=${v}`),
+    join('&'));
+
+  log(queryStr2({ limit: 10, offset: 10, type: 'notice' }));
+</script>
+
+<script>
+  L.filter = curry(function* (f, iter) {
+    iter = iter[Symbol.iterator]();
+    let cur;
+    while (!(cur = iter.next()).done) {
+      const a = cur.value;
+      if (f(a)) {
+        yield a;
+      }
+    }
+  });
+
+  // take, find
+  const users = [
+    { age: 30 },
+    { age: 20 },
+    { age: 40 },
+    { age: 50 },
+    { age: 55 },
+    { age: 33 },
+    { age: 27 },
+  ];
+
+  // 1개만 꺼내질 때까지만 필터링 한 후 구조분해 해서 보여준다.
+  const find = curry((f, iter) => go(
+    iter,
+    L.filter(f),
+    take(1),
+    ([a]) => a
+  ));
+
+  log(find(u => u.age < 30)(users));
+
+  // map 이나 L.map 둘 다 결과는 동일하다.
+  go(users,
+    L.map(u => u.age),
+    find(n => n < 30),
+    log);
+</script>

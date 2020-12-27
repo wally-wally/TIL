@@ -1,0 +1,87 @@
+<script src="./lib/fx.js"></script>
+
+<!-- range -->
+<script>
+  const add = (a, b) => a + b;
+
+  const range = l => {
+    let i = -1;
+    let res = [];
+    while (++i < l) {
+      // log(i, 'range');
+      res.push(i);
+    }
+    return res;
+  };
+
+  log(range(5)); // [0, 1, 2, 3, 4]
+
+  log(range(2)); // [0, 1]
+
+  var list = range(4);
+  log(list); // [0, 1, 2, 3] => 이미 모두 평가 완료된 상태
+  // log(reduce(add, list)); // 0 + 1 + 2 + 3 = 6
+</script>
+
+<!-- 느긋한 L.range -->
+<script>
+  const L = {};
+  L.range = function *(l) {
+    let i = -1;
+    while (++i < l) {
+      // log(i, 'L.range');
+      yield i;
+    }
+  };
+
+  var list = L.range(4);
+  log(list); // L.range {<suspended>} => 이터레이터 형태(__proto__ 안에 next를 가지고 있음)
+  // list.next()를 실행하기 전(순회되기 전)까지는 위에서 구현한 L.range 함수가 실행되지 않는다.
+  log(list.next());
+  log(list.next());
+  // 위와 같이 두 번만 next() 함수를 실행하면 0과 1만 console 창에 출력된다.
+  log(reduce(add, list)); // 6(reduce가 이터러블을 받기 때문에 L.range로 구현한 list도 이터레이터 형태이므로 동일한 결과가 출력된다.)
+</script>
+
+<!-- range vs L.range 성능 테스트 -->
+<script>
+  function test(name, time, f) {
+    console.time(name);
+    while (time--) f();
+    console.timeEnd(name);
+  }
+
+  test('range', 10, () => reduce(add, range(1000000)));
+  test('L.range', 10, () => reduce(add, L.range(1000000)));
+  console.clear();
+</script>
+
+<!-- take -->
+<script>
+  const take = curry((l, iter) => {
+    let res = [];
+    for (const a of iter) {
+      res.push(a);
+      if (res.length === l) {
+        return res;
+      }
+    }
+    return res;
+  });
+
+  console.time('');
+  go(
+    range(1000000),
+    take(5),
+    reduce(add),
+    log);
+  console.timeEnd('');
+
+  console.time('');
+  go(
+    L.range(1000000),
+    take(5),
+    reduce(add),
+    log);
+  console.timeEnd('');
+</script>

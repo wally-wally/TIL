@@ -1,0 +1,35 @@
+<script src="./lib/fx2.js"></script>
+
+<script>
+  // L.flatten(한 depth를 가지고 있는 Array를 펼치는 지연평가하는 flatten)
+  log([...[1, 2], 3, 4, ...[5, 6], ...[7, 8, 9]]);
+
+  // && 연산자로 nullable한 값이 오는 것을 방어
+  const isIterable = a => a && a[Symbol.iterator];
+
+  // 이터러블 프로토콜을 이용한 지연적으로 동작하는 함수를 만들 것이기 때문에
+  // 제너레이터를 이용해서 함수를 선언했다.
+  L.flatten = function *(iter) {
+    for (const a of iter) {
+      // a가 iterable이면 펼쳐서 yield 하는 방식
+      if (isIterable(a)) for (const b of a) yield b;
+      else yield a;
+    }
+  };
+
+  var it = L.flatten([[1, 2], 3, 4, [5, 6], [7, 8, 9]]);
+  // 한 번에 모두 펼치기
+  log([...it]);
+  
+  // 원하는 시점까지 평가해서 펼치기
+  // log(it.next());
+  // log(it.next());
+  // log(it.next());
+  // log(it.next());
+  // ex) take와 L.flatten을 이용해서 몇 개의 값만 가져와서 사용
+  log(take(3, L.flatten([[1, 2], 3, 4, [5, 6], [7, 8, 9]])));
+
+  // 위 코드와는 다르게 즉시 모두 펼친 값을 만드는 즉시평가하는 flatten도 만들 수 있다.
+  const flatten = pipe(L.flatten, takeAll);
+  log(flatten([[1, 2], 3, 4, [5, 6], [7, 8, 9]]));
+</script>

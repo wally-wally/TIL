@@ -1,0 +1,40 @@
+<script src="./lib/fx.js"></script>
+
+<!-- L.map -->
+<script>
+  const L = {};
+
+  L.map = function *(f, iter) {
+    for (const a of iter) {
+      yield f(a);
+    }
+  }
+
+  var it = L.map(a => a + 10, [1, 2, 3]);
+  // 여기까지만 하면 아무것도 실행되지 않는다.
+  // next() 함수를 실행할 때마다 하나씩 출력된다.
+
+  // log(it.next()); // 11
+  // log(it.next()); // 12
+  // log(it.next()); // 13
+
+  // 아래와 같이 내가 원하는 형태로 평가할 수 있는 준비 상태를 만들 수 있다.
+  log([...it]); // 전개 연산자를 통해서 평가된 값들을 배열에 담아서 표현할 수도 있다. [11, 12, 13]
+  log([it.next().value]); // [11]와 같은 형태도 가능
+</script>
+
+<!-- L.filter -->
+  <script>
+  L.filter = function *(f, iter) {
+    for (const a of iter) {
+      if (f(a)) {
+        yield a;
+      }
+    }
+  }
+
+  var it = L.filter(a => a % 2, [1, 2, 3, 4, 5, 6, 7, 8]);
+  // L.map과 마찬가지로 next() 함수를 실행할 때마다 원하는 상황까지만 yield 된다.
+  log(it.next()); // {value: 1, done: false}
+  log(it.next()); // {value: 3, done: false}
+</script>

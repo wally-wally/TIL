@@ -1,0 +1,49 @@
+<script src="./lib/fx.js"></script>
+
+<script>
+  const products = [
+    { name: 'Product1', price: 12000 },
+    { name: 'Product2', price: 20000 },
+    { name: 'Product3', price: 16000 },
+    { name: 'Product4', price: 31000 },
+    { name: 'Product5', price: 24000 }
+  ]
+
+  const add = (a, b) => a + b;
+  const go = (...args) => reduce((a, f) => f(a), args);
+  const pipe = (f, ...fs) => (...as) => go(f(...as), ...fs);
+
+  // 아래 두 go 함수 구문을 조합해서 하나의 함수 구문으로 만들기
+  // go(
+  //   products,
+  //   filter(p => p.price < 20000),
+  //   map(p => p.price),
+  //   reduce(add),
+  //   log);
+
+  // go(
+  //   products,
+  //   filter(p => p.price >= 20000),
+  //   map(p => p.price),
+  //   reduce(add),
+  //   log);
+  
+  const totalPrice = pipe(
+    map(p => p.price),
+    reduce(add));
+
+  const baseTotalPrice = predi => pipe(
+    filter(predi),
+    totalPrice
+  )
+
+  go(
+    products,
+    baseTotalPrice(p => p.price < 20000),
+    log);
+
+  go(
+    products,
+    baseTotalPrice(p => p.price >= 20000),
+    log);
+</script>
