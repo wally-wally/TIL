@@ -1,0 +1,13 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 327 291.84">
+  <defs>
+    <style>
+      .cls-1{fill:none;stroke:#61dafb;stroke-miterlimit:10;stroke-width:15px}
+    </style>
+  </defs>
+  <ellipse class="cls-1" cx="163.5" cy="145.92" rx="156" ry="60"/>
+  <ellipse class="cls-1" cx="384" cy="384" rx="156" ry="60" transform="matrix(.5 -.87 .87 .5 -361.05 286.47)"/>
+  <ellipse class="cls-1" cx="384" cy="384" rx="60" ry="156" transform="rotate(-30 -170.504 676.413)"/>
+  <circle cx="163.5" cy="145.92" r="31" fill="#61dafb"/>
+  <ellipse cx="163.5" cy="145.92" rx="28" ry="14" fill="#fff"/>
+  <circle cx="163.5" cy="145.92" r="13" fill="#333"/>
+</svg>

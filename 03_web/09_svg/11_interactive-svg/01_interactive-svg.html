@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SVG</title>
+  <style>
+    @keyframes eye-ball-ani {
+      0% {
+        transform: translateX(-20px);
+      }
+      100% {
+        transform: translateX(20px);
+      }
+    }
+    @keyframes eye-ani {
+      80% {
+        transform: scaleY(1);
+      }
+      90% {
+        transform: scaleY(0.01);
+      }
+      100% {
+        transform: scaleY(0.01);
+      }
+    }
+    @keyframes ell-ani {
+      0% {
+        stroke-dashoffset: -713;
+      }
+      50% {
+        stroke-dashoffset: 0;
+      }
+      100% {
+        stroke-dashoffset: 713;
+      }
+    }
+    @keyframes rotate-ani-1 {
+      100% {
+        transform: rotate3D(0, 1, 0, 360deg);
+      }
+    }
+    @keyframes rotate-ani-2 {
+      100% {
+        transform: rotate3D(2, 1.22, 0, 360deg);
+      }
+    }
+    @keyframes rotate-ani-3 {
+      100% {
+        transform: rotate3D(-2, 1.22, 0, 360deg);
+      }
+    }
+    .react-mon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 200px;
+      height: 200px;
+      margin: auto;
+    }
+    .eye {
+      transform-origin: 50% 50%;
+      animation: eye-ani 2s alternate linear infinite;
+    }
+    .eye-ball {
+      animation: eye-ball-ani 1s alternate linear infinite;
+    }
+    .cls-1 {
+      fill: none;
+      stroke: #61dafb;
+      stroke-width: 15px;
+      opacity: 0.3;
+    }
+    .cls-eff {
+      opacity: 1;
+      stroke-dasharray: 713;
+      stroke-dashoffset: -713;
+      animation: ell-ani 0.7s infinite ease-in-out;
+    }
+    .cls-eff-2 {
+      animation-delay: 0.1s;
+    }
+    .cls-eff-3 {
+      animation-delay: 0.2s;
+    }
+    .ells {
+      transform-origin: 50% 50%;
+    }
+    .ells-1 {
+      animation: rotate-ani-1 5s linear infinite;
+    }
+    .ells-2 {
+      animation: rotate-ani-2 5s linear infinite;
+    }
+    .ells-3 {
+      animation: rotate-ani-3 5s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <svg class="react-mon" viewBox="0 0 327 291.84">
+    <defs>
+      <mask id="eye-mask">
+        <ellipse class="eye" cx="163.5" cy="145.92" rx="28" ry="14" fill="#fff"/>
+      </mask>
+    </defs>
+    <g class="ells ells-1">
+      <ellipse class="cls-1" cx="163.5" cy="145.92" rx="156" ry="60"/>
+      <ellipse class="cls-1 cls-eff cls-eff-1" cx="163.5" cy="145.92" rx="156" ry="60"/>
+    </g>
+    <g class="ells ells-2">
+      <ellipse class="cls-1" cx="384" cy="384" rx="156" ry="60" transform="matrix(.5 -.87 .87 .5 -361.05 286.47)"/>
+      <ellipse class="cls-1 cls-eff cls-eff-2" cx="384" cy="384" rx="156" ry="60" transform="matrix(.5 -.87 .87 .5 -361.05 286.47)"/>
+    </g>
+    <g class="ells ells-3">
+      <ellipse class="cls-1" cx="384" cy="384" rx="60" ry="156" transform="rotate(-30 -170.504 676.413)"/>
+      <ellipse class="cls-1 cls-eff cls-eff-3" cx="384" cy="384" rx="60" ry="156" transform="rotate(-30 -170.504 676.413)"/>
+    </g>
+    <circle cx="163.5" cy="145.92" r="31" fill="#61dafb"/>
+    <ellipse class="eye" cx="163.5" cy="145.92" rx="28" ry="14" fill="#fff"/>
+    <g mask="url(#eye-mask)">
+      <circle class="eye-ball" cx="163.5" cy="145.92" r="13" fill="#333"/>
+    </g>
+  </svg>
+
+  <script>
+  (() => {
+    const reactMonElem = document.querySelector('.react-mon');
+    const targetPos = { x: 0, y: 0 };
+    const easeValue = 0.05;
+    const reactMonInfo = {
+      x: 0,
+      y: 0
+    };
+    
+    window.addEventListener('mousemove', (e) => {
+      targetPos.x = e.clientX - innerWidth * 0.5;
+      targetPos.y = e.clientY - innerHeight * 0.5;
+    });
+
+    let dx;
+    let dy;
+    function render() {
+      dx = targetPos.x - reactMonInfo.x;
+      dy = targetPos.y - reactMonInfo.y;
+      reactMonInfo.x = reactMonInfo.x + dx * easeValue;
+      reactMonInfo.y = reactMonInfo.y + dy * easeValue;
+      reactMonElem.style.transform = `translate3d(${reactMonInfo.x}px, ${reactMonInfo.y}px, 0px)`;
+      requestAnimationFrame(render);
+    }
+
+    render();
+  })();
+  </script>
+</body>
+</html>
