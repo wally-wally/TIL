@@ -10,7 +10,7 @@ function getUnixTimestamp(date: Date) {
 
 // ex)
 // 왼쪽에 있는 타입이 더 상위 타입
-// var a: Element | HTMLElement | HTMLParagraphElement;
+// let a: Element | HTMLElement | HTMLParagraphElement;
 
 // deathsTotal 변수 자체에 HTMLParagraphElement 타입을 선언하면 오류나는 이유는
 // Element와 HTMLParagraphElement 타입 간에 서로 호환할 수 있는 형태가 아니라는 오류 문구가 났다.
@@ -31,7 +31,7 @@ function createSpinnerElement(id: string) {
   wrapperDiv.setAttribute('id', id);
   wrapperDiv.setAttribute(
     'class',
-    'spinner-wrapper flex justify-center align-center',
+    'spinner-wrapper flex justify-center align-center'
   );
   const spinnerDiv = document.createElement('div');
   spinnerDiv.setAttribute('class', 'ripple-spinner');
@@ -43,7 +43,7 @@ function createSpinnerElement(id: string) {
 
 // state
 let isDeathLoading = false;
-let isRecoveredLoading = false;
+const isRecoveredLoading = false;
 
 // api
 function fetchCovidSummary() {
@@ -54,7 +54,7 @@ function fetchCovidSummary() {
 enum CovidStatus {
   Confirmed = 'confirmed',
   Recovered = 'recovered',
-  Deaths = 'deaths'
+  Deaths = 'deaths',
 }
 
 function fetchCountryInfo(countryCode: string, status: CovidStatus) {
@@ -92,14 +92,17 @@ async function handleListClick(event: any) {
   clearRecoveredList();
   startLoadingAnimation();
   isDeathLoading = true;
-  const { data: deathResponse } = await fetchCountryInfo(selectedId, CovidStatus.Deaths);
+  const { data: deathResponse } = await fetchCountryInfo(
+    selectedId,
+    CovidStatus.Deaths
+  );
   const { data: recoveredResponse } = await fetchCountryInfo(
     selectedId,
-    CovidStatus.Recovered,
+    CovidStatus.Recovered
   );
   const { data: confirmedResponse } = await fetchCountryInfo(
     selectedId,
-    CovidStatus.Confirmed,
+    CovidStatus.Confirmed
   );
   endLoadingAnimation();
   setDeathsList(deathResponse);
@@ -112,7 +115,7 @@ async function handleListClick(event: any) {
 
 function setDeathsList(data: any) {
   const sorted = data.sort(
-    (a: any, b: any) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date),
+    (a: any, b: any) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date)
   );
   sorted.forEach((value: any) => {
     const li = document.createElement('li');
@@ -138,7 +141,7 @@ function setTotalDeathsByCountry(data: any) {
 
 function setRecoveredList(data: any) {
   const sorted = data.sort(
-    (a: any, b: any) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date),
+    (a: any, b: any) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date)
   );
   sorted.forEach((value: any) => {
     const li = document.createElement('li');
@@ -182,7 +185,7 @@ async function setupData() {
 }
 
 function renderChart(data: any, labels: any) {
-  var ctx = $('#lineChart').getContext('2d');
+  const ctx = $('#lineChart').getContext('2d');
   Chart.defaults.global.defaultFontColor = '#f5eaea';
   Chart.defaults.global.defaultFontFamily = 'Exo 2';
   new Chart(ctx, {
@@ -206,34 +209,36 @@ function setChartData(data: any) {
   const chartData = data.slice(-14).map((value: any) => value.Cases);
   const chartLabel = data
     .slice(-14)
-    .map((value: any) => new Date(value.Date).toLocaleDateString().slice(5, -1));
+    .map((value: any) =>
+      new Date(value.Date).toLocaleDateString().slice(5, -1)
+    );
   renderChart(chartData, chartLabel);
 }
 
 function setTotalConfirmedNumber(data: any) {
   confirmedTotal.innerText = data.Countries.reduce(
     (total: any, current: any) => (total += current.TotalConfirmed),
-    0,
+    0
   );
 }
 
 function setTotalDeathsByWorld(data: any) {
   deathsTotal.innerText = data.Countries.reduce(
     (total: any, current: any) => (total += current.TotalDeaths),
-    0,
+    0
   );
 }
 
 function setTotalRecoveredByWorld(data: any) {
   recoveredTotal.innerText = data.Countries.reduce(
     (total: any, current: any) => (total += current.TotalRecovered),
-    0,
+    0
   );
 }
 
 function setCountryRanksByConfirmedCases(data: any) {
   const sorted = data.Countries.sort(
-    (a: any, b: any) => b.TotalConfirmed - a.TotalConfirmed,
+    (a: any, b: any) => b.TotalConfirmed - a.TotalConfirmed
   );
   sorted.forEach((value: any) => {
     const li = document.createElement('li');
