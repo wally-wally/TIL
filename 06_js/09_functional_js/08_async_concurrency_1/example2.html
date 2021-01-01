@@ -14,3 +14,33 @@
   const n2 = delay100(10);
   go1(go1(n2, add5), log);
 </script>
+
+<script type="module">
+  // Composition 관점의 Promise와 모나드
+  // 모나드: 함수 합성을 안전하게 하기 위한 도구
+
+  // 함수 합성 f(g(x))
+  const g = a => a + 1;
+  const f = a => a * a;
+
+  log(f(g(1))); // 안전한 함수 합성
+  log(f(g())); // 안전하지 않은 함수 합성(NaN 출력)
+
+  // 모나드를 이용한 안전한 함수 합성
+  // log(f(g(1))); 와 동일한 코드
+  [1].map(g).map(f).forEach(r => log(r));
+  // log(f(g())); 와 동일하지만 아래 코드는 아예 구문이 실행되지 않는다.
+  [].map(g).map(f).forEach(r => log(r));
+  [1, 2, 3].map(g).filter(a => a % 2).forEach(r => log(r));
+
+  // Promise
+  // Array.of(1) == [1]
+  Array.of(1).map(g).map(f).forEach(r => log(r));
+  Promise.resolve(2).then(g).then(f).then(r => log(r)); // 위 코드와 동일한 구조
+  // Promise.resolve()로 하면 함수 합성이 안전하지 않음
+  // 아래와 같이 어느 시점 이후에 값이 실행된다고 모나드를 명시(함수 합성 시점을 명확히 제시)하면 함수 합성이 안전해진다.
+  // 함수를 적절한 시점에 평가해서 합성시키기 위한 도구로 Promise를 바라볼 수 있다.
+  new Promise(resolve => 
+    setTimeout(() => resolve(2), 100)
+  ).then(g).then(f).then(r => log(r));
+</script>
