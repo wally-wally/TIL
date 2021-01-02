@@ -1,3 +1,10 @@
+// 라이브러리 로딩
+// import 변수명 from '라이브러리 이름';
+// 변수, 함수 임포트 문법
+// import {} from '파일 상대 경로';
+import axios from 'axios'; // 타입 정의를 하지 않아도 되는 라이브러리
+import * as Chart from 'chart.js'; // 타입 정의를 별도로 해줘야하는 라이브러리(sol1. 타입 선언 라이브러리 설치, sol2. 외부 라이브러리 직접 모듈화 하기)
+
 // utils
 function $(selector: string) {
   return document.querySelector(selector);
