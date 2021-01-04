@@ -35,12 +35,57 @@
 
   // Promise
   // Array.of(1) == [1]
-  Array.of(1).map(g).map(f).forEach(r => log(r));
-  Promise.resolve(2).then(g).then(f).then(r => log(r)); // 위 코드와 동일한 구조
+  Array.of(1).map(g).map(f)/*.forEach(r => log(r))*/;
+  Promise.resolve(2).then(g).then(f)/*.then(r => log(r))*/; // 위 코드와 동일한 구조
   // Promise.resolve()로 하면 함수 합성이 안전하지 않음
   // 아래와 같이 어느 시점 이후에 값이 실행된다고 모나드를 명시(함수 합성 시점을 명확히 제시)하면 함수 합성이 안전해진다.
   // 함수를 적절한 시점에 평가해서 합성시키기 위한 도구로 Promise를 바라볼 수 있다.
   new Promise(resolve => 
     setTimeout(() => resolve(2), 100)
-  ).then(g).then(f).then(r => log(r));
+  ).then(g).then(f)/*.then(r => log(r))*/;
+</script>
+
+<script>
+  // Kleisli composition(Kleisli arrow)
+  // 오류가 있을 수 있는 상황에서 함수 합성을 안전하게 하는 방법
+  // 정확한 인자가 들어와도 외부에 의존하고 있는 상태에서 결과를 정확히 전달할 수 없는 상황일 때 에러 나는 것을 해결해 줌
+  // f(g(x)) = g(x) 와 같은 식이 성립 가능(우변의 g(x)는 함수 g에서 에러가 난 경우)
+
+  var users = [
+    { id: 1, name: 'aa' },
+    { id: 2, name: 'bb' },
+    { id: 3, name: 'cc' },
+  ];
+
+  const getUserById = id =>
+    find(u => u.id == id, users) || Promise.reject('없어요!');
+
+  const f = ({ name }) => name;
+  const g = getUserById;
+
+  /*
+    const fg = id => f(g(id));
+
+    // log(fg(2));
+
+    const r = fg(2);
+    log(r);
+
+    // 외부의 변화가 일어나면 에러가 발생한다.
+    users.pop();
+    users.pop();
+
+    const r2 = fg(2);
+    log(r2);
+  */
+
+  const fg = id => Promise.resolve(id).then(g).then(f).catch(a => a);
+  fg(2).then(log);
+
+  // 외부의 변화
+  // users.pop();
+  // users.pop();
+
+  // 함수 합성이 g만 실행한 것과 같은 결과를 출력한다.
+  // fg(2).then(log);
 </script>
