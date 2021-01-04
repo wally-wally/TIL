@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,6 +35,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+// 라이브러리 로딩
+// import 변수명 from '라이브러리 이름';
+// 변수, 함수 임포트 문법
+// import {} from '파일 상대 경로';
+var axios_1 = require("axios"); // 타입 정의를 하지 않아도 되는 라이브러리
+var Chart = require("chart.js"); // 타입 정의를 별도로 해줘야하는 라이브러리(sol1. 타입 선언 라이브러리 설치, sol2. 외부 라이브러리 직접 모듈화 하기)
 // utils
 function $(selector) {
     return document.querySelector(selector);
@@ -42,8 +50,15 @@ function getUnixTimestamp(date) {
     return new Date(date).getTime();
 }
 // DOM
-var confirmedTotal = $('.confirmed-total');
-var deathsTotal = $('.deaths');
+// ex)
+// 왼쪽에 있는 타입이 더 상위 타입
+// let a: Element | HTMLElement | HTMLParagraphElement;
+// deathsTotal 변수 자체에 HTMLParagraphElement 타입을 선언하면 오류나는 이유는
+// Element와 HTMLParagraphElement 타입 간에 서로 호환할 수 있는 형태가 아니라는 오류 문구가 났다.
+// 그래서 이를 해결하기 위해 타입 단언을 이용해서 타입 호환할 수 있는 형태로 바꿨다.
+// const deathsTotal: HTMLParagraphElement = $('.deaths'); (X)
+var confirmedTotal = $('.confirmed-total'); // confirmed-total 태그는 index.html에서 span 태그라는 것을 보았기 때문에 HTMLSpanElement로 정의했다.
+var deathsTotal = $('.deaths'); // as 키워드로 타입 단언을 이용해서 해당 결과 값의 type을 HTMLParagraphElement로 정의해준다.
 var recoveredTotal = $('.recovered');
 var lastUpdatedTime = $('.last-updated-time');
 var rankList = $('.rank-list');
@@ -68,12 +83,18 @@ var isRecoveredLoading = false;
 // api
 function fetchCovidSummary() {
     var url = 'https://api.covid19api.com/summary';
-    return axios.get(url);
+    return axios_1.default.get(url);
 }
+var CovidStatus;
+(function (CovidStatus) {
+    CovidStatus["Confirmed"] = "confirmed";
+    CovidStatus["Recovered"] = "recovered";
+    CovidStatus["Deaths"] = "deaths";
+})(CovidStatus || (CovidStatus = {}));
 function fetchCountryInfo(countryCode, status) {
-    // params: confirmed, recovered, deaths
+    // status params: confirmed, recovered, deaths
     var url = "https://api.covid19api.com/country/" + countryCode + "/status/" + status;
-    return axios.get(url);
+    return axios_1.default.get(url);
 }
 // methods
 function startApp() {
@@ -104,13 +125,13 @@ function handleListClick(event) {
                     clearRecoveredList();
                     startLoadingAnimation();
                     isDeathLoading = true;
-                    return [4 /*yield*/, fetchCountryInfo(selectedId, 'deaths')];
+                    return [4 /*yield*/, fetchCountryInfo(selectedId, CovidStatus.Deaths)];
                 case 1:
                     deathResponse = (_a.sent()).data;
-                    return [4 /*yield*/, fetchCountryInfo(selectedId, 'recovered')];
+                    return [4 /*yield*/, fetchCountryInfo(selectedId, CovidStatus.Recovered)];
                 case 2:
                     recoveredResponse = (_a.sent()).data;
-                    return [4 /*yield*/, fetchCountryInfo(selectedId, 'confirmed')];
+                    return [4 /*yield*/, fetchCountryInfo(selectedId, CovidStatus.Confirmed)];
                 case 3:
                     confirmedResponse = (_a.sent()).data;
                     endLoadingAnimation();
@@ -217,7 +238,9 @@ function setChartData(data) {
     var chartData = data.slice(-14).map(function (value) { return value.Cases; });
     var chartLabel = data
         .slice(-14)
-        .map(function (value) { return new Date(value.Date).toLocaleDateString().slice(5, -1); });
+        .map(function (value) {
+        return new Date(value.Date).toLocaleDateString().slice(5, -1);
+    });
     renderChart(chartData, chartLabel);
 }
 function setTotalConfirmedNumber(data) {

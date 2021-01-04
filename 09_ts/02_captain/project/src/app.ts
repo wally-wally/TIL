@@ -2,8 +2,10 @@
 // import 변수명 from '라이브러리 이름';
 // 변수, 함수 임포트 문법
 // import {} from '파일 상대 경로';
-import axios from 'axios'; // 타입 정의를 하지 않아도 되는 라이브러리
+import axios, { AxiosResponse } from 'axios'; // 타입 정의를 하지 않아도 되는 라이브러리
 import * as Chart from 'chart.js'; // 타입 정의를 별도로 해줘야하는 라이브러리(sol1. 타입 선언 라이브러리 설치, sol2. 외부 라이브러리 직접 모듈화 하기)
+// 타입 모듈
+import { CovidSummaryResponse, CountrySummeryResponse } from './covid/index';
 
 // utils
 function $(selector: string) {
@@ -53,10 +55,12 @@ let isDeathLoading = false;
 const isRecoveredLoading = false;
 
 // api
-function fetchCovidSummary() {
+function fetchCovidSummary(): Promise<AxiosResponse<CovidSummaryResponse>> {
   const url = 'https://api.covid19api.com/summary';
   return axios.get(url);
 }
+
+fetchCovidSummary().then(res => res.data);
 
 enum CovidStatus {
   Confirmed = 'confirmed',
@@ -64,7 +68,10 @@ enum CovidStatus {
   Deaths = 'deaths',
 }
 
-function fetchCountryInfo(countryCode: string, status: CovidStatus) {
+function fetchCountryInfo(
+  countryCode: string,
+  status: CovidStatus
+): Promise<AxiosResponse<CountrySummeryResponse>> {
   // status params: confirmed, recovered, deaths
   const url = `https://api.covid19api.com/country/${countryCode}/status/${status}`;
   return axios.get(url);
