@@ -5,13 +5,18 @@
 import axios, { AxiosResponse } from 'axios'; // 타입 정의를 하지 않아도 되는 라이브러리
 import * as Chart from 'chart.js'; // 타입 정의를 별도로 해줘야하는 라이브러리(sol1. 타입 선언 라이브러리 설치, sol2. 외부 라이브러리 직접 모듈화 하기)
 // 타입 모듈
-import { CovidSummaryResponse, CountrySummeryResponse } from './covid/index';
+import {
+  CovidSummaryResponse,
+  CountrySummeryResponse,
+  Country,
+  CountrySummeryInfo,
+} from './covid/index';
 
 // utils
 function $(selector: string) {
   return document.querySelector(selector);
 }
-function getUnixTimestamp(date: Date) {
+function getUnixTimestamp(date: Date | string) {
   return new Date(date).getTime();
 }
 
@@ -60,8 +65,6 @@ function fetchCovidSummary(): Promise<AxiosResponse<CovidSummaryResponse>> {
   return axios.get(url);
 }
 
-fetchCovidSummary().then(res => res.data);
-
 enum CovidStatus {
   Confirmed = 'confirmed',
   Recovered = 'recovered',
@@ -69,11 +72,11 @@ enum CovidStatus {
 }
 
 function fetchCountryInfo(
-  countryCode: string,
+  countryName: string,
   status: CovidStatus
 ): Promise<AxiosResponse<CountrySummeryResponse>> {
   // status params: confirmed, recovered, deaths
-  const url = `https://api.covid19api.com/country/${countryCode}/status/${status}`;
+  const url = `https://api.covid19api.com/country/${countryName}/status/${status}`;
   return axios.get(url);
 }
 
@@ -88,7 +91,7 @@ function initEvents() {
   rankList.addEventListener('click', handleListClick);
 }
 
-async function handleListClick(event: any) {
+async function handleListClick(event: MouseEvent) {
   let selectedId;
   if (
     event.target instanceof HTMLParagraphElement ||
@@ -127,15 +130,16 @@ async function handleListClick(event: any) {
   isDeathLoading = false;
 }
 
-function setDeathsList(data: any) {
+function setDeathsList(data: CountrySummeryResponse) {
   const sorted = data.sort(
-    (a: any, b: any) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date)
+    (a: CountrySummeryInfo, b: CountrySummeryInfo) =>
+      getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date)
   );
-  sorted.forEach((value: any) => {
+  sorted.forEach((value: CountrySummeryInfo) => {
     const li = document.createElement('li');
     li.setAttribute('class', 'list-item-b flex align-center');
     const span = document.createElement('span');
-    span.textContent = value.Cases;
+    span.textContent = value.Cases.toString();
     span.setAttribute('class', 'deaths');
     const p = document.createElement('p');
     p.textContent = new Date(value.Date).toLocaleDateString().slice(0, -1);
@@ -149,19 +153,20 @@ function clearDeathList() {
   deathsList.innerHTML = null;
 }
 
-function setTotalDeathsByCountry(data: any) {
-  deathsTotal.innerText = data[0].Cases;
+function setTotalDeathsByCountry(data: CountrySummeryResponse) {
+  deathsTotal.innerText = data[0].Cases.toString();
 }
 
-function setRecoveredList(data: any) {
+function setRecoveredList(data: CountrySummeryResponse) {
   const sorted = data.sort(
-    (a: any, b: any) => getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date)
+    (a: CountrySummeryInfo, b: CountrySummeryInfo) =>
+      getUnixTimestamp(b.Date) - getUnixTimestamp(a.Date)
   );
-  sorted.forEach((value: any) => {
+  sorted.forEach((value: CountrySummeryInfo) => {
     const li = document.createElement('li');
     li.setAttribute('class', 'list-item-b flex align-center');
     const span = document.createElement('span');
-    span.textContent = value.Cases;
+    span.textContent = value.Cases.toString();
     span.setAttribute('class', 'recovered');
     const p = document.createElement('p');
     p.textContent = new Date(value.Date).toLocaleDateString().slice(0, -1);
@@ -175,8 +180,8 @@ function clearRecoveredList() {
   recoveredList.innerHTML = null;
 }
 
-function setTotalRecoveredByCountry(data: any) {
-  recoveredTotal.innerText = data[0].Cases;
+function setTotalRecoveredByCountry(data: CountrySummeryResponse) {
+  recoveredTotal.innerText = data[0].Cases.toString();
 }
 
 function startLoadingAnimation() {
@@ -229,37 +234,37 @@ function setChartData(data: any) {
   renderChart(chartData, chartLabel);
 }
 
-function setTotalConfirmedNumber(data: any) {
+function setTotalConfirmedNumber(data: CovidSummaryResponse) {
   confirmedTotal.innerText = data.Countries.reduce(
-    (total: any, current: any) => (total += current.TotalConfirmed),
+    (total: number, current: Country) => (total += current.TotalConfirmed),
     0
-  );
+  ).toString();
 }
 
-function setTotalDeathsByWorld(data: any) {
+function setTotalDeathsByWorld(data: CovidSummaryResponse) {
   deathsTotal.innerText = data.Countries.reduce(
-    (total: any, current: any) => (total += current.TotalDeaths),
+    (total: number, current: Country) => (total += current.TotalDeaths),
     0
-  );
+  ).toString();
 }
 
-function setTotalRecoveredByWorld(data: any) {
+function setTotalRecoveredByWorld(data: CovidSummaryResponse) {
   recoveredTotal.innerText = data.Countries.reduce(
-    (total: any, current: any) => (total += current.TotalRecovered),
+    (total: number, current: Country) => (total += current.TotalRecovered),
     0
-  );
+  ).toString();
 }
 
-function setCountryRanksByConfirmedCases(data: any) {
+function setCountryRanksByConfirmedCases(data: CovidSummaryResponse) {
   const sorted = data.Countries.sort(
-    (a: any, b: any) => b.TotalConfirmed - a.TotalConfirmed
+    (a: Country, b: Country) => b.TotalConfirmed - a.TotalConfirmed
   );
-  sorted.forEach((value: any) => {
+  sorted.forEach((value: Country) => {
     const li = document.createElement('li');
     li.setAttribute('class', 'list-item flex align-center');
     li.setAttribute('id', value.Slug);
     const span = document.createElement('span');
-    span.textContent = value.TotalConfirmed;
+    span.textContent = value.TotalConfirmed.toString();
     span.setAttribute('class', 'cases');
     const p = document.createElement('p');
     p.setAttribute('class', 'country');
@@ -270,7 +275,7 @@ function setCountryRanksByConfirmedCases(data: any) {
   });
 }
 
-function setLastUpdatedTimestamp(data: any) {
+function setLastUpdatedTimestamp(data: CovidSummaryResponse) {
   lastUpdatedTime.innerText = new Date(data.Date).toLocaleString();
 }
 

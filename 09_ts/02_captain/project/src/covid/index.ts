@@ -1,4 +1,4 @@
-interface Country {
+export interface Country {
   Country: string;
   CountryCode: string;
   Slug: string;
@@ -29,7 +29,7 @@ export interface CovidSummaryResponse {
 }
 
 // 데이터가 바로 배열로 들어오고 있으므로 interface가 아닌 type으로 정의하자.
-interface CountrySummeryInfo {
+export interface CountrySummeryInfo {
   Country: string;
   CountryCode: string;
   Province: string;
