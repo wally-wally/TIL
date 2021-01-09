@@ -13,8 +13,9 @@ import {
 } from './covid/index';
 
 // utils
-function $(selector: string) {
-  return document.querySelector(selector);
+function $<T extends HTMLElement>(selector: string) {
+  const element = document.querySelector(selector);
+  return element as T;
 }
 function getUnixTimestamp(date: Date | string) {
   return new Date(date).getTime();
@@ -26,17 +27,33 @@ function getUnixTimestamp(date: Date | string) {
 // 왼쪽에 있는 타입이 더 상위 타입
 // let a: Element | HTMLElement | HTMLParagraphElement;
 
+// before) as 키워드를 이용한 타입 단언 방식
 // deathsTotal 변수 자체에 HTMLParagraphElement 타입을 선언하면 오류나는 이유는
 // Element와 HTMLParagraphElement 타입 간에 서로 호환할 수 있는 형태가 아니라는 오류 문구가 났다.
 // 그래서 이를 해결하기 위해 타입 단언을 이용해서 타입 호환할 수 있는 형태로 바꿨다.
 // const deathsTotal: HTMLParagraphElement = $('.deaths'); (X)
-const confirmedTotal = $('.confirmed-total') as HTMLSpanElement; // confirmed-total 태그는 index.html에서 span 태그라는 것을 보았기 때문에 HTMLSpanElement로 정의했다.
-const deathsTotal = $('.deaths') as HTMLParagraphElement; // as 키워드로 타입 단언을 이용해서 해당 결과 값의 type을 HTMLParagraphElement로 정의해준다.
-const recoveredTotal = $('.recovered') as HTMLParagraphElement;
-const lastUpdatedTime = $('.last-updated-time') as HTMLParagraphElement;
-const rankList = $('.rank-list');
-const deathsList = $('.deaths-list');
-const recoveredList = $('.recovered-list');
+// const confirmedTotal = $('.confirmed-total') as HTMLSpanElement; // confirmed-total 태그는 index.html에서 span 태그라는 것을 보았기 때문에 HTMLSpanElement로 정의했다.
+// const deathsTotal = $('.deaths') as HTMLParagraphElement; // as 키워드로 타입 단언을 이용해서 해당 결과 값의 type을 HTMLParagraphElement로 정의해준다.
+// const recoveredTotal = $('.recovered') as HTMLParagraphElement;
+// const lastUpdatedTime = $('.last-updated-time') as HTMLParagraphElement;
+// const rankList = $('.rank-list') as HTMLOListElement;
+// const deathsList = $('.deaths-list') as HTMLOListElement;
+// const recoveredList = $('.recovered-list') as HTMLOListElement;
+
+// after) Generic을 이용해서 DOM 유틸 함수의 활용성 높인 방식
+
+const confirmedTotal = $<HTMLSpanElement>('.confirmed-total'); // confirmed-total 태그는 index.html에서 span 태그라는 것을 보았기 때문에 HTMLSpanElement로 정의했다.
+const deathsTotal = $<HTMLParagraphElement>('.deaths'); // as 키워드로 타입 단언을 이용해서 해당 결과 값의 type을 HTMLParagraphElement로 정의해준다.
+const recoveredTotal = $<HTMLParagraphElement>('.recovered');
+const lastUpdatedTime = $<HTMLParagraphElement>('.last-updated-time');
+const rankList = $<HTMLOListElement>('.rank-list');
+const deathsList = $<HTMLOListElement>('.deaths-list');
+const recoveredList = $<HTMLOListElement>('.recovered-list');
+
+// 제네릭 타입을 넘기지 않으면 기본으로 HTMLElement로 잡힌다.
+// 만약에 기본값을 지정하고 싶으면 제네릭을 <T extends HTMLElement = HTMLDivElement>와 같이 작성하면 된다.
+const temp = $('.abc');
+
 const deathSpinner = createSpinnerElement('deaths-spinner');
 const recoveredSpinner = createSpinnerElement('recovered-spinner');
 
@@ -71,7 +88,7 @@ enum CovidStatus {
 }
 
 function fetchCountryInfo(
-  countryName: string,
+  countryName: string | undefined,
   status: CovidStatus
 ): Promise<AxiosResponse<CountrySummeryResponse>> {
   // status params: confirmed, recovered, deaths
@@ -87,16 +104,21 @@ function startApp() {
 
 // events
 function initEvents() {
+  if (!rankList) {
+    return;
+  }
   rankList.addEventListener('click', handleListClick);
 }
 
-async function handleListClick(event: MouseEvent) {
+async function handleListClick(event: Event) {
   let selectedId;
   if (
     event.target instanceof HTMLParagraphElement ||
     event.target instanceof HTMLSpanElement
   ) {
-    selectedId = event.target.parentElement.id;
+    selectedId = event.target.parentElement
+      ? event.target.parentElement.id
+      : undefined;
   }
   if (event.target instanceof HTMLLIElement) {
     selectedId = event.target.id;
@@ -144,12 +166,16 @@ function setDeathsList(data: CountrySummeryResponse) {
     p.textContent = new Date(value.Date).toLocaleDateString().slice(0, -1);
     li.appendChild(span);
     li.appendChild(p);
+    // deathsList!.appendChild(li);
     deathsList.appendChild(li);
   });
 }
 
 function clearDeathList() {
-  deathsList.innerHTML = null;
+  if (!deathsList) {
+    return;
+  }
+  deathsList.innerHTML = '';
 }
 
 function setTotalDeathsByCountry(data: CountrySummeryResponse) {
@@ -171,12 +197,21 @@ function setRecoveredList(data: CountrySummeryResponse) {
     p.textContent = new Date(value.Date).toLocaleDateString().slice(0, -1);
     li.appendChild(span);
     li.appendChild(p);
-    recoveredList.appendChild(li);
+
+    // optional chaining operator
+    recoveredList?.appendChild(li);
+
+    // 위 코드를 풀어서 쓰면 이렇게 됨
+    // if (recoveredList === null || recoveredList === undefined) {
+    //   return;
+    // } else {
+    //   recoveredList.appendChild(li);
+    // }
   });
 }
 
 function clearRecoveredList() {
-  recoveredList.innerHTML = null;
+  recoveredList.innerHTML = '';
 }
 
 function setTotalRecoveredByCountry(data: CountrySummeryResponse) {
