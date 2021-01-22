@@ -2,7 +2,7 @@
  * @param {number} num
  * @return {number}
  */
-var addDigits = function(num) {
+const addDigits = (num) => {
   while (true) {
     const STRINGIZE_NUMBER = num.toString();
     let digitSum = 0;

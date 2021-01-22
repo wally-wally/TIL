@@ -3,8 +3,8 @@
  * @param {number} n
  * @return {number}
  */
-var uniquePaths = function(m, n) {
-  m--; n--;
+const uniquePaths = (m, n) => {
+  m -= 1; n -= 1;
   if (m === 0 || n === 0) {
     return 1;
   }

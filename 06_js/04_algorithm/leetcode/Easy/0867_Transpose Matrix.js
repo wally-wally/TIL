@@ -2,7 +2,7 @@
  * @param {number[][]} A
  * @return {number[][]}
  */
-let transpose = function(A) {
+const transpose = (A) => {
   const ARRAY_LENGTH = A.length;
   const ARRAY_LINE_LENGTH = A[0].length;
   

@@ -3,7 +3,7 @@
  * @param {number} k
  * @return {number[]}
  */
-let topKFrequent = function(nums, k) {
+const topKFrequent = (nums, k) => {
   let numInfo = new Map();
   nums.forEach(num => {
     if (!numInfo.has(num)) {

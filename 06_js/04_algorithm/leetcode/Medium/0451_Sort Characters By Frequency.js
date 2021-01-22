@@ -2,7 +2,7 @@
  * @param {string} s
  * @return {string}
  */
-let frequencySort = function(s) {
+const frequencySort = (s) => {
   let alphabetInfo = new Map();
   for (const str of s) {
     if (!alphabetInfo.has(str)) {

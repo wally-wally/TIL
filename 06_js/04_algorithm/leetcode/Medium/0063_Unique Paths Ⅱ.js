@@ -2,7 +2,7 @@
  * @param {number[][]} obstacleGrid
  * @return {number}
  */
-var uniquePathsWithObstacles = function(obstacleGrid) {
+const uniquePathsWithObstacles = (obstacleGrid) => {
   const ROW_LENGTH = obstacleGrid.length;
   const COL_LENGTH = obstacleGrid[0].length;
   
