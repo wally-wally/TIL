@@ -40,6 +40,7 @@ const mergeTwoLists = (l1, l2) => {
       n3.next = new ListNode(n2.val);
       return checkRecursiveNode(null, n2.next, n3.next);
     }
+    return null;
   };
 
   const l3 = new ListNode(null);
