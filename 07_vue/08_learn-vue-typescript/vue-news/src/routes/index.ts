@@ -3,7 +3,7 @@ import VueRouter, { NavigationGuardNext, Route } from "vue-router";
 import { ItemView, UserView } from "../views";
 import createListView from "../views/CreateListView";
 import bus from "../utils/bus";
-import store from "../store/index.js";
+import store from "../store/index";
 
 Vue.use(VueRouter);
 
