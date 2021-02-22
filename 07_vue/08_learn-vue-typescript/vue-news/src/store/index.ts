@@ -1,7 +1,8 @@
 import Vue from "vue";
-import Vuex, { mapActions, StoreOptions } from "vuex";
+import Vuex, { StoreOptions } from "vuex";
 import { RootState, state } from "./state";
 import { mutations } from "./mutations";
+import { actions } from "./actions";
 // import getters from './getters.js';
 // import mutations from './mutations.js';
 // import actions from './actions.js';

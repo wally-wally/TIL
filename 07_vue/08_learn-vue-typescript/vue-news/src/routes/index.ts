@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter, { NavigationGuardNext, Route } from "vue-router";
-import { ItemView, UserView } from "../views";
+import { ItemView, UserView } from "../views/index";
 import createListView from "../views/CreateListView";
 import bus from "../utils/bus";
 import store from "../store/index";
