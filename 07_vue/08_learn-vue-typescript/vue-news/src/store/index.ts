@@ -3,6 +3,7 @@ import Vuex, { StoreOptions } from "vuex";
 import { RootState, state } from "./state";
 import { mutations } from "./mutations";
 import { actions } from "./actions";
+import { getters } from "./getters";
 // import getters from './getters.js';
 // import mutations from './mutations.js';
 // import actions from './actions.js';
@@ -10,9 +11,10 @@ import { actions } from "./actions";
 Vue.use(Vuex);
 
 const store: StoreOptions<RootState> = {
-  state: state,
-  mutations: mutations,
-  actions: actions
+  state,
+  mutations,
+  actions,
+  getters
 };
 
 export default new Vuex.Store(store);

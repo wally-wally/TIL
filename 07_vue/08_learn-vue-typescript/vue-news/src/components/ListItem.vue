@@ -51,13 +51,13 @@ export default Vue.extend({
     timeAgo(news: NewsItem): string {
       return news.time_ago.concat(", 2021");
     }
-  },
-  // typescript를 사용하면 computed를 이용해서 템플릿 표현식을 간단하게 처리할 수 있다.
-  computed: {
-    listItems(): any {
-      return this.$store.getters.fetchedList;
-    }
   }
+  // typescript를 사용하면 computed를 이용해서 템플릿 표현식을 간단하게 처리할 수 있다.
+  // computed: {
+  //   listItems(): NewsItem[] {
+  //     return this.$store.getters.fetchedNews;
+  //   }
+  // }
 });
 </script>
 
