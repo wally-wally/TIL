@@ -6,14 +6,22 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Chart from "chart.js";
+// import Chart from "chart.js";
 
 export default Vue.extend({
   mounted() {
-    const ctx = (document.getElementById(
+    // '!'를 붙여서 null이 아니라고 선언해주는 방법도 있다.(non null assertion)
+    // const ctx = document.getElementById("myChart")!.getContext("2d");
+    const canvasElement = document.getElementById(
       "myChart"
-    ) as HTMLCanvasElement).getContext("2d");
-    const chart = new Chart(ctx, {
+    ) as HTMLCanvasElement;
+    // as 키워드를 이용해서 HTMLCanvasElement 라는 구체적인 타입을 지정해줌으로써 getContext 오류를 해결
+    const ctx = canvasElement.getContext("2d");
+    // 타입 가드(ctx가 null이면 return)
+    if (!ctx) {
+      return;
+    }
+    const chart = new this.$_Chart(ctx, {
       // The type of chart we want to create
       type: "line",
 
