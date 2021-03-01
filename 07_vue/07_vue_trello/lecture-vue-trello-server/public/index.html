@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>API Document | Trello Server</title>
+  <style>
+    .item {
+      padding: 10px;
+    }
+    .item>div {
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <h1>API List</h1>
+  <div class="item">
+    <div>Helath</div>
+    <code>curl localhost:3000/health</code>
+  </div>
+  <div class="item">
+    <div>Login</div>
+    <code>curl -X POST localhost:3000/login -d 'email=test@test.com&password=123123'</code>
+  </div>
+
+  <hr />
+
+  <div class="item">
+    <div>Get board list</div>
+    <code>curl localhost:3000/boards -H 'Authorization: Bearer token'</code>
+  </div>
+  <div class="item">
+    <div>Get board</div>
+    <code>curl localhost:3000/boards/1 -H 'Authorization: Bearer token'</code>
+  </div>
+  <div class="item">
+    <div>Add board</div>
+    <code>curl -X POST localhost:3000/boards -H 'Authorization: Bearer token' -d "title=string"</code>
+  </div>
+  <div class="item">
+    <div>Edit board</div>
+    <code>curl -X PUT localhost:3000/boards/1 -H 'Authorization: Bearer token' -d "title=string&bgColor=string"</code>
+  </div>
+  <div class="item">
+    <div>Delete board</div>
+    <code>curl -X DELETE localhost:3000/boards/1 -H 'Authorization: Bearer token'"</code>
+  </div>
+
+  <hr />
+
+  <div class="item">
+    <div>Add list</div>
+    <code>curl -X POST localhost:3000/lists -H 'Authorization: Bearer token' -d "title=string&boardId=number&pos=number"</code>
+  </div>
+  <div class="item">
+    <div>Edit list</div>
+    <code>curl -X PUT localhost:3000/lists/1 -H 'Authorization: Bearer token' -d "title=string&pos=number"</code>
+  </div>
+  <div class="item">
+    <div>Delete list</div>
+    <code>curl -X DELETE localhost:3000/lists/1 -H 'Authorization: Bearer token'</code>
+  </div>
+
+  <hr />
+
+  <div class="item">
+    <div>Add card</div>
+    <code>curl -X POST localhost:3000/cards -H 'Authorization: Bearer token' -d "title=string&listId=number&pos=number"</code>
+  </div>
+  <div class="item">
+    <div>Get card</div>
+    <code>curl localhost:3000/cards/1 -H 'Authorization: Bearer token'</code>
+  </div>
+  <div class="item">
+    <div>Edit card</div>
+    <code>curl -X PUT localhost:3000/cards/1 -H 'Authorization: Bearer token' -d "title=string&description=string&listId=number&pos=number"</code>
+  </div>
+  <div class="item">
+    <div>Delete card</div>
+    <code>curl -X DELETE localhost:3000/cards/1 -H 'Authorization: Bearer token'</code>
+  </div>
+
+</body>
+</html>
