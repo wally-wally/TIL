@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    {{ num }}
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        num: 10
+      },
+      computed: { // validation이나 간단한 텍스트 연산 같은 것들이 computed로 정의되어 있다.
+        doubleNum: function() {
+          return this.num * 2;
+        }
+      },
+      watch: { // 실제로 무거운 logic(매번 실행되는게 부담스러운 logic)이 watch로 정의되어 있다.
+        num: function(newValue, oldValue) {
+          this.fetchUserByNumber(newValue);
+        }
+      },
+      methods: {
+        fetchUserByNumber: function(num) {
+          console.log(num);
+          // axios.get(num);
+        }
+      }
+    });
+  </script>
+</body>
+</html>

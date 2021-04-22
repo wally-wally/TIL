@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <app-header></app-header>
+    <app-content></app-content>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    // (1) 이벤트 버스는 화면 개발을 위한 인스턴스와 다른 별도의 인스턴스를 생성하여 활용한다.
+    var eventBus = new Vue()
+    // Vue.prototype.$EventBus = new Vue()
+    // 위와 같이 작성한 경우 각 컴포넌트에서 이벤트 버스 작성시 this.$EventBus.~~로 작성해야 함
+
+    var appHeader = {
+      template: '<div>Header {{ deliverData }}</div>',
+      data() {
+        return {
+          deliverData: 0
+        }
+      },
+      mounted() { // 이벤트 버스는 일반적으로 라이프 사이클 함수에서 수신
+        eventBus.$on('pass', (data) => // (3) 이벤트를 받을 컴포넌트에서 $on()(이 때, 화살표 함수 사용!)
+          this.deliverData = data
+        )
+      }
+    }
+
+    var appContent = {
+      template: '<div>Content<button v-on:click="passNum">event!</button></div>',
+      methods: {
+        passNum() {
+          eventBus.$emit('pass', 10) // (2) 이벤트를 발생시킬 컴포넌트에서 $emit() 호출
+        }
+      }
+    }
+
+    new Vue({
+      el: '#app',
+      components: {
+        'app-header': appHeader,
+        'app-content': appContent
+      }
+    })
+  </script>
+</body>
+</html>

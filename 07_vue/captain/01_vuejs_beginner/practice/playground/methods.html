@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- v-on:click="메서드 이름" -->
+    <button @click="logText">click me</button>
+    <input type="text" @keyup.enter="logText"> <!-- keyup하고 .뒤에 붙는 것들을 key modifier 라고 한다. -->
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      methods: {
+        logText() {
+          console.log('clicked')
+        }
+      }
+    })
+  </script>
+</body>
+</html>

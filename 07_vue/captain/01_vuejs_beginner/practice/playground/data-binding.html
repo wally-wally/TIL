@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p :id="uuid" :class="name">{{ num }}</p>
+    <!-- 위 구문은 이 구문으로 출력됨 <p id="abc1234">10</p> -->
+    <!-- 기존의 querySelector로 찾아갈 필요 없이 데이터 바인딩으로 DOM에 대한 정보들도 Reactivity하게 내용을 변경해 준다. -->
+    <p>{{ doubleNum }}</p>
+    <hr>
+    <div v-if="loading"> <!-- v-directive가 붙는 순간 data나 computed 속성을 뒤지게 된다. -->
+      Loading...
+    </div>
+    <div v-else>
+      test user has been logged in
+    </div>
+    <!-- 
+      v-if : 조건에 맞지 않으면 DOM을 아예 제거
+      v-show : CSS Style에서 display: none; 으로 육안상에서만 안 보이게 함
+     -->
+    <div v-show="loading">
+      Loading...
+    </div>
+
+    <!-- TODO: 인풋 박스를 만들고 입력된 값을 p 태그에 출력하자. -->
+    <input type="text" v-model="message">
+    <p>{{ message }}</p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        num: 10,
+        uuid: 'abc1234',
+        name: 'text-blue',
+        loading: true,
+        message: ''
+      },
+      computed: {
+        doubleNum() {
+          return this.num * 2
+        }
+      }
+    })
+  </script>
+</body>
+</html>
