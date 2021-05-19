@@ -4,9 +4,6 @@ const solution = (left, right) => {
     return Array(length).fill().map(idxExpression);
   }
 
-  // left ~ right 까지의 숫자를 담은 배열 생성
-  const indexNumbers = getInitArray(right - left + 1, (_, i) => i + left);
-
   // 약수의 개수 구하는 로직
   const getDivisorCount = (number) => {
     const squareValue = Math.sqrt(number);
@@ -32,6 +29,9 @@ const solution = (left, right) => {
   // 실제 정답을 구할 때 현재 숫자에 1 또는 -1을 곱해서 더하거나 빼는 로직 수행
   const positive = 1; // 양수
   const negative = -1; // 음수
+
+  // left ~ right 까지의 숫자를 담은 배열 생성
+  const indexNumbers = getInitArray(right - left + 1, (_, i) => i + left);
   
   // 문제 조건에 맞게 약수 개수의 홀짝 여부에 따라 더하거나 빼는 로직 수행
   return indexNumbers.reduce((result, currentNumber) => {
