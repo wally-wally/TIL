@@ -75,8 +75,8 @@
 
 - **django 프로젝트 만들기**
   - <font color="red">`django-admin startproject 만들_프로젝트명 .`</font> (맨 마지막에 한 칸 띄고 온점 반드시 입력!)
-
 - **서버 실행**(반드시 `manage.py` 파일이 있는 곳에서 실행)
+  - `manage.py` : Django의 다양한 명령어를 실행하기 위한 파일(임의로 변경하지 않도록 주의하자!)
   - <font color="red">`python manage.py runserver`</font>
   - 새로 생긴 주소 `http://127.0.0.1:8000/` 를 [Ctrl] 누르고 클릭 하면 서버 열림
   - 서버 종료 : 터미널에서 [Ctrl] + [C]
@@ -86,7 +86,8 @@
 - `__init__.py` : Python의 파일들을 모듈화 시키는 파일(앞으로 수정, 열 일이 없음)
 - `settings.py` : 웹 어플리케이션 위치, DB 세부설정 등과 같은 Django 프로젝트의 모든 환경이 저장된 곳(대부분 이 곳에서 작업할 예정)
 - `urls.py` : 사이트의 url와 view 연결, 주소(URL) 관리
-- `wsgi.py` : 나중에 AWS할 때 만질 예정(웹 서버 규칙이 정의된 곳)
+- `wsgi.py` : Web Server Gateway Interface의 약자로, 예전에 사용했던 cgi 그리고 php의 fpm과 비슷한 게이트웨이 인터페이스이다. 나중에 AWS할 때 만질 예정(웹 서버 규칙이 정의된 곳)
+- `asgi.py` : Django 3.x 버전에서 새롭게 등장한 파일로 django-channels를 사용할 때 알아야 하는 개념이다. Asynchronous Server Gateway Interface의 약자로 WSGI의 상위 호환으로 web server와 django를 연결해주는 Python의 표준 API이다.
 
 <br>
 
@@ -147,8 +148,9 @@
 
 ![I18n](https://user-images.githubusercontent.com/52685250/62989012-5fdeb400-be81-11e9-81d9-44975fa166fb.JPG)
 
-- 기본값이 `en-us`, `UTC`를 한국에 맞게 <font color="red">`LANGUAGE_CODE = 'ko-kr'`, `TIME_ZONE = 'Asia/Seoul'`</font>로 값을 바꿔줌(처음부터 `Asia/Seoul`로 기본값을 바꿀 수는 없다. 일단 처음은 `UTC`임)
+- 기본값이 `en-us`, `UTC`를 한국에 맞게 <font color="red">`LANGUAGE_CODE = 'ko-kr'`(2.x 버전 한정), `TIME_ZONE = 'Asia/Seoul'`</font>로 값을 바꿔줌(처음부터 `Asia/Seoul`로 기본값을 바꿀 수는 없다. 일단 처음은 `UTC`임)
   - <a href="https://en.wikipedia.org/wiki/List_of_tz_database_time_zones">:watch:(국가별 TIME_ZONE 값 설정)</a>
+  - **[참고!] Django가 3.x 버전으로 업데이트된 후에는 한국의  `LANGUAGE_CODE `가 `ko`로 바뀌었다.**
 - `USE_TZ = True` : 사용자의 국가에 맞게 그 국가에 맞는 시간을 자동으로 설정해 줌
 
 <br>
