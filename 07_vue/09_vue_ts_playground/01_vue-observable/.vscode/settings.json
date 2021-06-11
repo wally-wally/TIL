@@ -1,0 +1,12 @@
+{
+	"editor.formatOnSave": false,
+	"eslint.validate": [
+		"vue",
+		"javascript",
+		"typescript"
+	],
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"files.eol": "\n"
+}
