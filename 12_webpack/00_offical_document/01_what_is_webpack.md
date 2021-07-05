@@ -1,4 +1,4 @@
-# 01. webpack이란?
+# 01. What is webpack?
 
 <br>
 
