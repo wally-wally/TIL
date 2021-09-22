@@ -20,7 +20,15 @@
 </template>
 
 <script>
+// import { FETCH_CART_ITEMS } from '@/store';
+
 export default {
+  // store의 actions에서 nuxtServerInit을 사용하면
+  // 아래와 같이 구현할 필요가 없다.
+  // async asyncData({ store }) {
+  //   await store.dispatch(FETCH_CART_ITEMS);
+  // },
+
   computed: {
     carts() {
       return this.$store.state.cartItems;

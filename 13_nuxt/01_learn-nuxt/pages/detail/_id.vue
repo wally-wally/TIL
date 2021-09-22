@@ -11,14 +11,14 @@
       <div class="side-panel">
         <p class="name">{{ product.name }}</p>
         <p class="price">{{ product.price }}</p>
-        <button type="button" @click="addToCart">Add to Cart</button>
+        <button type="button" @click="addToCart">카트에 담기</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { fetchProductById } from '@/api';
+import { createCartItem, fetchProductById } from '@/api';
 
 export default {
   // asyncData 속성의 파라미터는 context 속성
@@ -31,7 +31,9 @@ export default {
   },
 
   methods: {
-    addToCart() {
+    async addToCart() {
+      const response = await createCartItem(this.product);
+      console.log(response);
       this.$store.commit('addCartItem', this.product);
       this.$router.push('/cart');
     }
