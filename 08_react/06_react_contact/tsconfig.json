@@ -1,0 +1,38 @@
+{
+	"compilerOptions": {
+		"sourceMap": true,
+		"target": "esnext",
+		"lib": [
+      "esnext",
+      "es5",
+      "es2015",
+      "dom",
+      "dom.iterable"
+    ],
+		"allowJs": true,
+		"strict": true,
+		"forceConsistentCasingInFileNames": true,
+		"esModuleInterop": true,
+		"module": "commonjs",
+		"isolatedModules": true,
+		"jsx": "react",
+		"allowSyntheticDefaultImports": true,
+		"outDir": "./dist",
+		"moduleResolution": "node",
+		"baseUrl": ".",
+		"paths": {
+			"@/*": [
+				"src/*"
+			]
+		},
+	},
+	"exclude": [
+		"node_modules",
+		"dist",
+		"public"
+	],
+	"include": [
+		"src/**/*.ts",
+		"src/**/*.tsx"
+	]
+}

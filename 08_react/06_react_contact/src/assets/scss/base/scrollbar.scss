@@ -1,0 +1,26 @@
+// Firefox Scrollbar
+:root{
+  scrollbar-face-color: transparent;
+  scrollbar-track-color:  #ced4da;
+  scrollbar-width: thin;
+}
+
+// Chrome Scrollbar
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 9px;
+  border-radius: 9px;
+  background: #ced4da;
+
+  &:hover {
+    background: #adb5bd;
+  }
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 9px;
+}
