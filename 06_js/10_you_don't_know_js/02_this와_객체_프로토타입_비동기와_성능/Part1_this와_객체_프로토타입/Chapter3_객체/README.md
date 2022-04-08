@@ -296,7 +296,7 @@ console.log(n === N.valueOf()); // true
 - 문자열 또는 문자열로 타입 변환할 수 있는 값으로 평가되는 표현식을 사용해 프로퍼티 키를 동적으로 생성할 수도 있다.
   - 단, 프로퍼티 키로 사용할 표현식을 대괄호로 묶어야 하는데 이를 **계산된 프로퍼티 이름(computed property name)**이라 한다.
 
-```jsx
+```javascript
 // ES5
 // 객체 리터럴 외부에서 대괄호 표기법을 사용해서 프로퍼티 키를 동적 생성함
 
@@ -1313,7 +1313,7 @@ for (const a of iterable) {
 - 아래 코드처럼 배열과 같이 잘 구현된 이터러블인 경우는 `Symbol.iterator`를 통해 순회가 잘 된다.
 - 그리고 `iter` 역시 `Symbol.iterator`를 가지고 있고 이를 실행한 값은 자기 자신이 된다.
 
-```jsx
+```javascript
 const arr = [1, 2, 3, 4];
 for (const a of arr) {
   console.log(a);
@@ -1329,7 +1329,7 @@ for (const a of iter) {
 - 이와 같이 이터레이터가 자기 자신을 반환하는 `Symbol.iterator`를 가지고 있는 이터러블을 <b><u>well-formed iterable</u></b>이라고 한다.
 - 이터레이터이면서 이터러블인 객체인데 쉽게 말하면 `iter[Symbol.iterable]() === iter` 인 경우에 해당한다.
 
-```jsx
+```javascript
 const iterable = {
   [Symbol.iterator]() {
     let i = 3;
