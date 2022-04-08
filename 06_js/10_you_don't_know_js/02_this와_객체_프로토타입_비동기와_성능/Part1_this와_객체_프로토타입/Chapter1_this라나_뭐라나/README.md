@@ -52,7 +52,7 @@ foo(); // 20
 ```
 
 - [참고 자료] 자바스크립트 - 렉시컬 스코프 [(바로 이동)](https://ljtaek2.tistory.com/145)
-- [참고 자료] binding                     개념과 call, apply, bind의 차이점 [(바로 이동)](https://wooooooak.github.io/javascript/2018/12/08/call,apply,bind/)
+- [참고 자료] binding 개념과 call, apply, bind의 차이점 [(바로 이동)](https://wooooooak.github.io/javascript/2018/12/08/call,apply,bind/)
 - [참고 자료] 함수 호출 call, apply, bind 차이 [(바로 이동)](https://velog.io/@josworks27/%ED%95%A8%EC%88%98%ED%98%B8%EC%B6%9C-call-apply-bind-%EC%B0%A8%EC%9D%B4)
 
 <br>
