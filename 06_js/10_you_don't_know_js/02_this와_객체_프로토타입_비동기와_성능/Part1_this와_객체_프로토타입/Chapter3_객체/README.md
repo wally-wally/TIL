@@ -607,7 +607,7 @@ console.log(newObj); // {x: 1, y: {z: 2}}
 console.log(newObj.f1); // undefined
 ```
 
-- `lodash` 라이브러리의 `cloneDeep()` 메서드 - [공식 문서 (4.17.15 버전)](https://lodash.com/docs/4.17.15#cloneDeep
+- `lodash` 라이브러리의 `cloneDeep()` 메서드 - [공식 문서 (4.17.15 버전)](https://lodash.com/docs/4.17.15#cloneDeep)
   - 참고로 커스텀 재귀 함수로 구현할 수 있지만 많은 개발자들에 의해 검증되어 있고 오랫동안 쓰여온 `lodash`의 `cloneDeep()` 메서드 사용하는 것을 권장한다.
 
 ```bash
@@ -996,7 +996,14 @@ console.log(obj); // { a: {x: 2}, b: {y: 3} }
 
 type DefaultComputed = { [key: string]: any };
 
-export interface ComponentOptions<V extends Vue, Data=DefaultData<V>, Methods=DefaultMethods<V>, Computed=DefaultComputed, PropsDef=PropsDefinition<DefaultProps>, Props=DefaultProps> {
+export interface ComponentOptions<
+  V extends Vue,
+  Data=DefaultData<V>,
+  Methods=DefaultMethods<V>,
+  Computed=DefaultComputed,
+  PropsDef=PropsDefinition<DefaultProps>,
+  Props=DefaultProps
+> {
   data?: Data;
   props?: PropsDef;
   propsData?: object;
