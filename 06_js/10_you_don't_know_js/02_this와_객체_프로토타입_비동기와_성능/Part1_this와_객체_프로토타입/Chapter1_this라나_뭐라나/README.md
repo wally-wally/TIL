@@ -41,8 +41,8 @@ var a = 10;
 function foo() {
   var a = 20;
 
-	function bar() {
-		console.log(a);
+  function bar() {
+    console.log(a);
   }
 
   bar();
@@ -69,7 +69,7 @@ function foo() {
 
 function bar() {
   // 이와 같이 렉시컬 스코프 안에 있는 뭔가를 this 레퍼런스로 참조하는건 애당초 가능하지 않다.
-	console.log(this.a);
+  console.log(this.a);
 }
 ```
 
