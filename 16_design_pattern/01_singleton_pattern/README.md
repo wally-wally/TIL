@@ -40,10 +40,6 @@ console.log(counter1.getInstance() === counter2.getInstance()); // false
   - 싱글톤 패턴은 <b>한 번만 인스턴스화</b> 할 수 있어야 한다.
   - `new` 메서드를 두 번 호출했기 때문에 `counter1`과 `counter2`는 엄격하게 동일하지 않는 인스턴스다.
 
-<video src="https://res.cloudinary.com/ddxwdqwkr/video/upload/v1609056519/patterns.dev/jspat-52_zkwyk1.mp4" />
-
-(동영상 출처: https://www.patterns.dev/posts/singleton-pattern/)
-
 <br>
 
 ```javascript
