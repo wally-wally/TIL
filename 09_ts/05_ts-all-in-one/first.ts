@@ -29,4 +29,5 @@ const arr3: Array<number> = [1, 2];
 // tuple: 길이가 고정된 배열(각 원소별 타입도 정확히 일치해야 함)
 const tuple: [number, number, string] = [1, 2, '3'];
 
+// 객체
 const obj: { lat: number, lon: number } = { lat: 37.5, lon: 127.5 };
