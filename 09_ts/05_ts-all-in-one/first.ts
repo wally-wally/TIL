@@ -58,3 +58,65 @@ const head2 = document.querySelector('#head');
 if (head2) {
   console.log(head2);
 }
+
+// 원시 래퍼 타입(가급적이면 원시 래퍼 타입은 쓰지 말자)
+const a1: string = 'hello';
+const a2: String = 'hell';
+
+// 템플릿 리터럴 타입
+type World = 'world' | 'hell';
+// type Greeting = "hello hell" | "hello world";
+type Greeting = `hello ${World}`;
+
+// rest
+function rest(a, ...args: string[]) {
+    console.log(a, args);
+}
+rest('1', '2', '3');
+
+// 튜플
+const tuple1: [string, number] = ['1', 1];
+tuple1[2] = 'hello'; // typescript에서 튜플일 때 이건 안 되는데
+tuple1.push('hello'); // 이건 된다?!
+
+// enum
+// js로 변환시 안 남겨 있다
+const enum EDirection {
+    Up,
+    Down,
+    Left,
+    Right,
+}
+
+// js로 변환시 남겨 있다
+// as const가 있고 없을 때를 꼭 비교해보자
+const ODirection = {
+    Up: 0,
+    Down: 1,
+    Left: 2,
+    Right: 3,
+} as const;
+
+const up = EDirection.Up; // 0
+const right = EDirection.Right; // 3
+
+// Using the enum as a parameter
+function walk(dir: EDirection) {}
+ 
+// It requires an extra line to pull out the keys
+type Direction = typeof ODirection[keyof typeof ODirection];
+function run(dir: Direction) {}
+ 
+walk(EDirection.Left);
+run(ODirection.Right);
+
+const obj1 = {
+    a: '123',
+    b: '456',
+} as const;
+// 값을 type으로 쓰고 싶을 때 typeof
+// 객체 중 key만 뽑고 싶을 때 keyof까지 추가
+// (keyof obj1만 썼을 때 오류나는 이유는 obj1은 타입이 아닌 값이기 때문이다.)
+// 그리고 as const를 붙여야 아래처럼 정확히 타입을 추론할 수 있다.(없는 경우 value 추출시 'string'으로만 추론될 것임)
+type Key1 = keyof typeof obj1; // 'a' | 'b'
+type Value1 = typeof obj1[keyof typeof obj1]; // '123' | '456'
